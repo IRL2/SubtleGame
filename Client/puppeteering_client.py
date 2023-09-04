@@ -11,6 +11,9 @@ class PuppeteeringClient:
 
     def __init__(self, number_of_trial_repeats: int = 2):
 
+        self.current_interaction_mode = None
+        self.current_task_index = None
+        self.knot_pull_client = None
         self.num_trial_repeats = number_of_trial_repeats
 
         # Connect to a local server (for now)
@@ -24,16 +27,43 @@ class PuppeteeringClient:
         self.alanine_index = [idx for idx, s in enumerate(simulations['simulations']) if 'alanine' in s]
         self.buckyball_indices = [idx for idx, s in enumerate(simulations['simulations']) if 'buckyball' in s]
 
+        # Prepare randomised variables
         self.order_of_tasks = get_order_of_tasks()
-        self.current_task_index = None
-
         self.order_of_interaction_modes = random.sample(['hands', 'controllers'], 2)
-        self.current_interaction_mode = self.order_of_interaction_modes[0]
 
-        self.narupa_client.set_shared_value('interaction mode', self.current_interaction_mode)
-        self.narupa_client.set_shared_value('current section', 0)
+    def task_handler(self):
+        """ Handles the switching of tasks. """
 
-        self.knot_pull_client = None
+        for task in self.order_of_tasks:
+
+            # Currently in section 1 of the game
+            if '1' in task:
+                self.narupa_client.set_shared_value('current section', 0)
+                self.current_interaction_mode = self.order_of_interaction_modes[0]
+                self.narupa_client.set_shared_value('interaction mode', self.current_interaction_mode)
+
+            # Currently in section 2 of the game
+            elif '2' in task:
+                self.narupa_client.set_shared_value('current section', 1)
+                self.current_interaction_mode = self.order_of_interaction_modes[1]
+                self.narupa_client.set_shared_value('interaction mode', self.current_interaction_mode)
+
+            else:
+                raise Exception('The order of tasks must contain 1 or 2.')
+
+            if 'P' in task:
+                self.initialise_task('nanotube')
+
+            elif 'A' in task:
+                self.initialise_task('knot-tying')
+
+            elif 'B' in task:
+                self.initialise_task('trials')
+
+            else:
+                raise Exception('The order of tasks must contain P, A, or B.')
+
+        self.finish_game()
 
     def initialise_task(self, task_type: str):
         """ Handles the initialisation of each task. """
@@ -61,10 +91,6 @@ class PuppeteeringClient:
             raise Exception('The task type must one of the following: nanotube, knot-tying, or trials.')
 
         self.narupa_client.set_shared_value('task status', 'finished')
-
-        # Check if this was the final task
-        if self.current_task_index == len(self.order_of_tasks) - 1:
-            self.finish_game()
 
     def start_knot_tying_task(self):
         """ Starts the knot-tying task where the user attempts to tie a trefoil knot in a 17-alanine polypeptide."""
