@@ -11,6 +11,8 @@ class PuppeteeringClient:
 
     def __init__(self, number_of_trial_repeats: int = 2):
 
+        self.num_trial_repeats = number_of_trial_repeats
+
         # Connect to a local server (for now)
         self.narupa_client = NarupaImdClient.autoconnect()
         self.narupa_client.subscribe_multiplayer()
@@ -25,17 +27,13 @@ class PuppeteeringClient:
         self.order_of_tasks = get_order_of_tasks()
         self.current_task_index = None
 
-        # Randomise order of interaction mode for each section
-        self.interaction_modes_randomised = random.sample(['hands', 'controllers'], 2)
-        self.current_interaction_mode = self.interaction_modes_randomised[0]
+        self.order_of_interaction_modes = random.sample(['hands', 'controllers'], 2)
+        self.current_interaction_mode = self.order_of_interaction_modes[0]
 
-        # Write data to state dict
-        # TODO: store these here and not the shared state
-        self.narupa_client.set_shared_value('Order of tasks', self.order_of_tasks)
-        self.narupa_client.set_shared_value('Order of interaction modes', self.interaction_modes_randomised)
+        self.narupa_client.set_shared_value('interaction mode', self.current_interaction_mode)
+        self.narupa_client.set_shared_value('current section', 0)
 
         self.knot_pull_client = None
-        self.num_trial_repeats = number_of_trial_repeats
 
     def initialise_task(self, task_type: str):
         """ Handles the initialisation of each task. """
