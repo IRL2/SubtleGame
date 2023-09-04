@@ -94,7 +94,11 @@ class PuppeteeringClient:
         self.knot_pull_client = None
 
     def start_nanotube_practice_task(self):
-        pass
+        """ Starts the nanotube practice tasks where the user can play with a methane and nanotube simulation for 30
+        seconds."""
+        self.narupa_client.run_command("playback/load", index=self.nanotube_index)
+        self.narupa_client.run_command("playback/play")
+        time.sleep(30)
 
     def finish_game(self):
         pass
