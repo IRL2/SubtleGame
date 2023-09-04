@@ -2,7 +2,7 @@ from narupa.app import NarupaImdClient
 import random
 import time
 from Client.narupa_knot_pull_client import NarupaKnotPullClient
-from preparing_game import get_order_of_simulations, get_order_of_tasks, randomise_order_of_trials
+from preparing_game import get_order_of_tasks, randomise_order_of_trials
 
 
 class PuppeteeringClient:
@@ -25,13 +25,6 @@ class PuppeteeringClient:
         self.order_of_tasks = get_order_of_tasks()
         self.current_task_index = None
 
-        # Generate order of simulations for game
-        self.order_of_sims = get_order_of_simulations(nanotube=self.nanotube_index,
-                                                      alanine=self.alanine_index,
-                                                      trial_indices=self.buckyball_indices,
-                                                      tasks_ordered=self.order_of_tasks,
-                                                      num_repeats=number_of_trial_repeats)
-
         # Randomise order of interaction mode for each section
         self.interaction_modes_randomised = random.sample(['hands', 'controllers'], 2)
         self.current_interaction_mode = self.interaction_modes_randomised[0]
@@ -39,7 +32,6 @@ class PuppeteeringClient:
         # Write data to state dict
         # TODO: store these here and not the shared state
         self.narupa_client.set_shared_value('Order of tasks', self.order_of_tasks)
-        self.narupa_client.set_shared_value('Order of simulations', self.order_of_sims)
         self.narupa_client.set_shared_value('Order of interaction modes', self.interaction_modes_randomised)
 
         self.knot_pull_client = None
@@ -143,7 +135,7 @@ if __name__ == '__main__':
     # TODO: create method that's called here to loop through tasks
 
     print("Checking for a knot...")
-    puppeteering_client.start_knot_tying_task(puppeteering_client.alanine_index)
+    puppeteering_client.start_knot_tying_task()
 
     print("Closing the narupa client.")
     puppeteering_client.narupa_client.close()
