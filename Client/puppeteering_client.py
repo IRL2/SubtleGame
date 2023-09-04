@@ -2,14 +2,14 @@ from narupa.app import NarupaImdClient
 import random
 import time
 from Client.narupa_knot_pull_client import NarupaKnotPullClient
-from preparing_game import get_order_of_simulations, get_order_of_tasks
+from preparing_game import get_order_of_simulations, get_order_of_tasks, randomise_order_of_trials
 
 
 class PuppeteeringClient:
     """ This is the puppeteer for the Subtle Game. It is the interface between the Rust server, Unity, and any required
      packages. """
 
-    def __init__(self, num_trial_repeats=2):
+    def __init__(self, number_of_trial_repeats: int = 2):
 
         # Connect to a local server (for now)
         self.narupa_client = NarupaImdClient.autoconnect()
@@ -30,7 +30,7 @@ class PuppeteeringClient:
                                                       alanine=self.alanine_index,
                                                       trial_indices=self.buckyball_indices,
                                                       tasks_ordered=self.order_of_tasks,
-                                                      num_repeats=num_trial_repeats)
+                                                      num_repeats=number_of_trial_repeats)
 
         # Randomise order of interaction mode for each section
         self.interaction_modes_randomised = random.sample(['hands', 'controllers'], 2)
@@ -43,6 +43,7 @@ class PuppeteeringClient:
         self.narupa_client.set_shared_value('Order of interaction modes', self.interaction_modes_randomised)
 
         self.knot_pull_client = None
+        self.num_trial_repeats = number_of_trial_repeats
 
     def initialise_task(self, task_type: str):
         """ Handles the initialisation of each task. """
@@ -63,9 +64,13 @@ class PuppeteeringClient:
             self.narupa_client.set_shared_value('simulation index', self.alanine_index)
             self.start_knot_tying_task()
 
+        elif task_type == 'trials':
+            self.start_psychophysical_trials()
+
         else:
-            # TODO: add function for psychophysics trials task
-            pass
+            raise Exception('The task type must one of the following: nanotube, knot-tying, or trials.')
+
+        self.narupa_client.set_shared_value('task status', 'finished')
 
         # Check if this was the final task
         if self.current_task_index == len(self.order_of_tasks) - 1:
@@ -99,6 +104,17 @@ class PuppeteeringClient:
         self.narupa_client.run_command("playback/load", index=self.nanotube_index)
         self.narupa_client.run_command("playback/play")
         time.sleep(30)
+
+    def start_psychophysical_trials(self):
+        """ Starts the psychophysical trials task. At the moment, each simulation runs for 10 seconds."""
+
+        trials = randomise_order_of_trials(self.buckyball_indices * self.num_trial_repeats)
+
+        for sim in trials:
+            self.narupa_client.set_shared_value('simulation index', sim)
+            self.narupa_client.run_command("playback/load", index=trials[sim])
+            self.narupa_client.run_command("playback/play")
+            time.sleep(10)
 
     def finish_game(self):
         pass
