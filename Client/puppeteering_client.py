@@ -31,7 +31,7 @@ class PuppeteeringClient:
         self.order_of_tasks = get_order_of_tasks()
         self.order_of_interaction_modes = random.sample(['hands', 'controllers'], 2)
 
-    def task_handler(self):
+    def run_game(self):
         """ Handles the switching of tasks. """
 
         for task in self.order_of_tasks:
