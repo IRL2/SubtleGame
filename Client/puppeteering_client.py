@@ -1,7 +1,7 @@
 from narupa.app import NarupaImdClient
 import random
 import time
-from scripts.narupa_knot_pull_client import NarupaKnotPullClient
+from Client.narupa_knot_pull_client import NarupaKnotPullClient
 from preparing_game import get_order_of_simulations, get_order_of_tasks
 
 
