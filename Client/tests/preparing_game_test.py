@@ -9,10 +9,6 @@ class PreparingGameTest(unittest.TestCase):
         self.alanine_example = [1]
         self.trials_example = [2, 3]
         self.tasks_example = ['P1', 'A1', 'B1', 'P2', 'A2', 'B2']
-        self.order_of_simulations_example = get_order_of_simulations(nanotube=self.nanotube_example,
-                                                                     alanine=self.alanine_example,
-                                                                     trial_indices=self.trials_example,
-                                                                     tasks_ordered=self.tasks_example)
 
     def test_get_order_of_tasks(self):
         self.assertEqual(set(get_order_of_tasks()), set(self.tasks_example))
