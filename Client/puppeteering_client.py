@@ -13,6 +13,7 @@ class PuppeteeringClient:
 
         self.current_interaction_mode = None
         self.current_task_index = None
+        self.current_task_status = None
         self.knot_pull_client = None
         self.num_trial_repeats = number_of_trial_repeats
 
@@ -76,24 +77,27 @@ class PuppeteeringClient:
 
         self.narupa_client.set_shared_value('task', task_type)
         self.narupa_client.set_shared_value('task status', 'in progress')
+        self.current_task_status = 'in progress'
 
         if task_type == 'nanotube':
             self.narupa_client.set_shared_value('simulation index', self.nanotube_index)
-            self.start_nanotube_practice_task()
+            self.run_nanotube_practice_task()
 
         elif task_type == 'knot-tying':
             self.narupa_client.set_shared_value('simulation index', self.alanine_index)
-            self.start_knot_tying_task()
+            self.run_knot_tying_task()
 
         elif task_type == 'trials':
-            self.start_psychophysical_trials()
+            self.run_psychophysical_trials()
 
         else:
             raise Exception('The task type must one of the following: nanotube, knot-tying, or trials.')
 
+    def finish_task(self):
         self.narupa_client.set_shared_value('task status', 'finished')
+        self.current_task_status = 'finished'
 
-    def start_knot_tying_task(self):
+    def run_knot_tying_task(self):
         """ Starts the knot-tying task where the user attempts to tie a trefoil knot in a 17-alanine polypeptide."""
 
         self.narupa_client.run_command("playback/load", index=self.alanine_index)
@@ -110,6 +114,7 @@ class PuppeteeringClient:
 
             if self.knot_pull_client.is_currently_knotted:
                 self.narupa_client.set_shared_value('task status', 'completed')
+                self.finish_task()
                 time.sleep(3)
                 break
 
@@ -118,14 +123,15 @@ class PuppeteeringClient:
         self.knot_pull_client.narupa_client.close()
         self.knot_pull_client = None
 
-    def start_nanotube_practice_task(self):
+    def run_nanotube_practice_task(self):
         """ Starts the nanotube practice tasks where the user can play with a methane and nanotube simulation for 30
         seconds."""
         self.narupa_client.run_command("playback/load", index=self.nanotube_index)
         self.narupa_client.run_command("playback/play")
         time.sleep(30)
+        self.finish_task()
 
-    def start_psychophysical_trials(self):
+    def run_psychophysical_trials(self):
         """ Starts the psychophysical trials task. At the moment, each simulation runs for 10 seconds."""
 
         trials = randomise_order_of_trials(self.buckyball_indices * self.num_trial_repeats)
@@ -136,6 +142,8 @@ class PuppeteeringClient:
             self.narupa_client.run_command("playback/play")
             time.sleep(10)
 
+        self.finish_task()
+
     def finish_game(self):
         pass
 
@@ -145,7 +153,7 @@ if __name__ == '__main__':
     print("Running puppeteering client script\n")
     puppeteering_client = PuppeteeringClient()
 
-    puppeteering_client.start_knot_tying_task()
+    puppeteering_client.run_knot_tying_task()
 
     # When an avatar connects, start the knot detection task
     print("Waiting for avatar to connect.")
@@ -165,7 +173,7 @@ if __name__ == '__main__':
     # TODO: create method that's called here to loop through tasks
 
     print("Checking for a knot...")
-    puppeteering_client.start_knot_tying_task()
+    puppeteering_client.run_knot_tying_task()
 
     print("Closing the narupa client.")
     puppeteering_client.narupa_client.close()
