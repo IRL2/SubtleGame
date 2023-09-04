@@ -14,7 +14,7 @@ class NarupaKnotPullClient:
     atomids = None
     chain = ['A']
 
-    positions_all_atoms = None
+    atom_positions = None
     positions_alpha_carbons = None
     number_of_residues = None
     was_knotted = None
@@ -30,28 +30,22 @@ class NarupaKnotPullClient:
     kp_topo = None
     kp_dt_code = None
 
-    def __init__(self):
-
-        # TODO: remove need to connect to a narupa client
-        # Connect to a local Narupa client.
-        self.narupa_client = NarupaImdClient.connect_to_single_server(address="localhost")
-        self.narupa_client.subscribe_to_frames()
-        self.narupa_client.wait_until_first_frame()
+    def __init__(self, atomids, resids, atom_positions):
 
         # Get information about the simulation.
-        self.atomids = list(self.narupa_client.current_frame.particle_names)
-        self.resids = list(self.narupa_client.current_frame.residue_ids)
+        self.atomids = list(atomids)
+        self.resids = list(resids)
         self.number_of_residues = len(set(self.resids))
         self.config.update({'chains': self.chain})
 
         # Check if chain is currently knotted.
-        self.check_if_chain_is_knotted(first_check=True)
+        self.check_if_chain_is_knotted(atom_positions=atom_positions, first_check=True)
 
-    def check_if_chain_is_knotted(self, first_check=False):
-        """ Uses knot_pull to check if chain is currently knotted and prints the result."""
+    def check_if_chain_is_knotted(self, atom_positions, first_check=False):
+        """ Uses knot_pull to check if chain is currently knotted. """
 
         # Update atom positions to those in the current narupa frame.
-        self.positions_all_atoms = self.narupa_client.current_frame.particle_positions
+        self.atom_positions = atom_positions
 
         # Update positions of alpha carbons.
         self.update_positions_of_alpha_carbons()
@@ -63,7 +57,7 @@ class NarupaKnotPullClient:
         self.check_for_change_in_knot_state(init=first_check)
 
     def check_for_change_in_knot_state(self, init: bool):
-        """ Checks for change in knot state and prints to user if there is a change or if it's the first pass. """
+        """ Checks for change in knot state. """
 
         # Save previous knot state.
         self.was_knotted = self.is_currently_knotted
@@ -101,11 +95,11 @@ class NarupaKnotPullClient:
         """ Write the positions, resids and atomids of the current frame to json. Not currently used. """
 
         # Update positions.
-        self.positions_all_atoms = self.narupa_client.latest_frame.particle_positions
+        self.atom_positions = self.narupa_client.latest_frame.particle_positions
 
         # If all data is available, write to file.
-        if self.positions_all_atoms and self.resids and self.atomids:
-            data = {'positions': self.positions_all_atoms, 'resids': self.resids, 'atomids': self.atomids}
+        if self.atom_positions and self.resids and self.atomids:
+            data = {'positions': self.atom_positions, 'resids': self.resids, 'atomids': self.atomids}
 
             with open(outfile, 'w') as file:
                 json.dump(data, file)
@@ -113,7 +107,7 @@ class NarupaKnotPullClient:
             return
 
         # If some data is missing, let the user know.
-        if not self.positions_all_atoms:
+        if not self.atom_positions:
             print("No positions found.")
         if not self.resids:
             print("No resids found.")
@@ -159,13 +153,12 @@ class NarupaKnotPullClient:
         self.positions_alpha_carbons = []
 
         # Loop through all atoms.
-        for i in range(len(self.positions_all_atoms)):
+        for i in range(len(self.atom_positions)):
 
             # Find alpha carbons.
             if 'CA' in self.atomids[i]:
-
                 # Add positions of each alpha carbon.
-                self.positions_alpha_carbons.append(self.positions_all_atoms[i])
+                self.positions_alpha_carbons.append(self.atom_positions[i])
 
 
 # USER TO EDIT.
@@ -174,19 +167,22 @@ frequency = 15
 
 if __name__ == '__main__':
 
-    knot_pull_client = NarupaKnotPullClient()
+    client = NarupaImdClient.autoconnect()
+    client.subscribe_to_frames()
+    client.update_available_commands()
+    knot_pull_client = NarupaKnotPullClient(atomids=client.current_frame.particle_names,
+                                            resids=client.current_frame.residue_ids,
+                                            atom_positions=client.current_frame.particle_positions)
 
     try:
         while True:
 
             # Check if chain is knotted every n frames.
             for x in range((total_time_mins * 60 * frequency) + 1):
-
                 # Is there a change in knot state?
-                knot_pull_client.check_if_chain_is_knotted()
+                knot_pull_client.check_if_chain_is_knotted(atom_positions=client.current_frame.particle_positions)
                 time.sleep(1 / frequency)
 
     # User can quit early with ctrl+c.
     except KeyboardInterrupt:
-        knot_pull_client.narupa_client.close()
-        print("Client closed.")
+        print('Stopping knot detection.')

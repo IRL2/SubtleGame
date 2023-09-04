@@ -19,6 +19,7 @@ class PuppeteeringClient:
         # Connect to a local server (for now)
         self.narupa_client = NarupaImdClient.autoconnect()
         self.narupa_client.subscribe_multiplayer()
+        self.narupa_client.subscribe_to_frames()
         self.narupa_client.update_available_commands()
 
         # Get simulation indices from server
@@ -98,11 +99,14 @@ class PuppeteeringClient:
         self.narupa_client.run_command("playback/load", index=self.alanine_index)
         self.narupa_client.run_command("playback/play")
 
-        self.knot_pull_client = NarupaKnotPullClient()
+        self.knot_pull_client = NarupaKnotPullClient(atomids=self.narupa_client.current_frame.particle_names,
+                                                     resids=self.narupa_client.current_frame.residue_ids,
+                                                     atom_positions=self.narupa_client.current_frame.particle_positions)
 
         while True:
 
-            self.knot_pull_client.check_if_chain_is_knotted()
+            self.knot_pull_client.check_if_chain_is_knotted(
+                atom_positions=self.narupa_client.current_frame.particle_positions)
 
             if self.knot_pull_client.is_currently_knotted:
                 self.narupa_client.set_shared_value('task status', 'completed')
@@ -140,6 +144,8 @@ if __name__ == '__main__':
 
     print("Running puppeteering client script\n")
     puppeteering_client = PuppeteeringClient()
+
+    puppeteering_client.start_knot_tying_task()
 
     # When an avatar connects, start the knot detection task
     print("Waiting for avatar to connect.")
