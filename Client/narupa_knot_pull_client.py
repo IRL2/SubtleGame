@@ -9,7 +9,7 @@ import time
 
 
 class NarupaKnotPullClient:
-    narupa_client = None
+
     resids = None
     atomids = None
     chain = ['A']
@@ -91,29 +91,6 @@ class NarupaKnotPullClient:
                                                         get_representative=False, greedy=0)
         self.kp_topo, self.kp_dt_code = unentangle(self.kp_chains)
 
-    def record_current_frame_to_json(self, outfile: str):
-        """ Write the positions, resids and atomids of the current frame to json. Not currently used. """
-
-        # Update positions.
-        self.atom_positions = self.narupa_client.latest_frame.particle_positions
-
-        # If all data is available, write to file.
-        if self.atom_positions and self.resids and self.atomids:
-            data = {'positions': self.atom_positions, 'resids': self.resids, 'atomids': self.atomids}
-
-            with open(outfile, 'w') as file:
-                json.dump(data, file)
-
-            return
-
-        # If some data is missing, let the user know.
-        if not self.atom_positions:
-            print("No positions found.")
-        if not self.resids:
-            print("No resids found.")
-        if not self.atomids:
-            print("No atomids found.")
-
     def update_knot_pull_beads(self):
         """ Updates the list of Beads used for knot_pull. """
 
@@ -161,6 +138,24 @@ class NarupaKnotPullClient:
                 self.positions_alpha_carbons.append(self.atom_positions[i])
 
 
+def write_frame_to_json(atom_positions: list, resids: list, atomids: list, outfile_name: str):
+    """ Write the positions, resids, and atomids of the current frame to json. """
+
+    if not atom_positions:
+        raise Exception('No atom positions given.')
+    if not resids:
+        raise Exception('No residue ids given.')
+    if not atomids:
+        raise Exception('No atom ids given.')
+    atom_positions = list(atom_positions)
+    atomids = list(atomids)
+    resids = list(resids)
+    data = {'positions': atom_positions, 'resids': resids, 'atomids': atomids}
+    outfile = outfile_name + '.json'
+    with open(outfile, 'w') as file:
+        json.dump(data, file)
+
+
 # USER TO EDIT.
 total_time_mins = 5
 frequency = 15
@@ -174,6 +169,9 @@ if __name__ == '__main__':
                                             resids=client.current_frame.residue_ids,
                                             atom_positions=client.current_frame.particle_positions)
 
+    write_frame_to_json(atom_positions=client.current_frame.particle_positions, resids=client.current_frame.residue_ids,
+                        atomids=client.current_frame.particle_names, outfile_name='17-ala-data')
+
     try:
         while True:
 
@@ -186,3 +184,4 @@ if __name__ == '__main__':
     # User can quit early with ctrl+c.
     except KeyboardInterrupt:
         print('Stopping knot detection.')
+        client.close()
