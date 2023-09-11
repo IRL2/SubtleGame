@@ -120,7 +120,6 @@ class PuppeteeringClient:
 
             time.sleep(1 / 30)
 
-        self.knot_pull_client.narupa_client.close()
         self.knot_pull_client = None
 
     def run_nanotube_practice_task(self):
