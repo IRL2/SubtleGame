@@ -13,22 +13,14 @@ def get_closest_end(point, first_pos, last_pos):
         return "last"
 
 
-def check_if_point_inside_shape(point, shape_array):
+def check_if_point_is_inside_shape(point, shape):
 
-    if not shape_array.any():
-        raise Exception("No positions given for the nanotube.")
+    if shape is None:
+        raise Exception("No positions given for the shape.")
 
-    if not point.any():
-        raise Exception("No positions give for the methane carbon.")
+    if point is None:
+        raise Exception("No positions give for the point.")
 
-    shape_array = Delaunay(shape_array)
+    shape = Delaunay(shape)
 
-    return shape_array.find_simplex(point) >= 0
-
-
-if __name__ == '__main__':
-
-    tested = np.random.rand(1, 3)
-    cloud = np.random.rand(50, 3)
-
-    print(check_if_point_inside_shape(tested, cloud))
+    return shape.find_simplex(point) >= 0
