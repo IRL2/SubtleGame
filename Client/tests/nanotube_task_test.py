@@ -1,7 +1,6 @@
 from ..nanotube_task import check_if_point_is_inside_shape
 import unittest
 import json
-import os
 
 
 class NanotubeTaskTest(unittest.TestCase):
