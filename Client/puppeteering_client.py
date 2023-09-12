@@ -3,7 +3,7 @@ import random
 import time
 from Client.narupa_knot_pull_client import NarupaKnotPullClient
 from preparing_game import get_order_of_tasks, randomise_order_of_trials
-from nanotube_task import check_if_point_inside_shape, get_closest_end
+from nanotube_task import check_if_point_is_inside_shape, get_closest_end
 import numpy as np
 
 
@@ -163,8 +163,8 @@ class PuppeteeringClient:
 
             self.was_methane_in_nanotube = self.is_methane_in_nanotube
 
-            self.is_methane_in_nanotube = check_if_point_inside_shape(point=methane_carbon_position,
-                                                                      shape_array=nanotube_carbon_positions)
+            self.is_methane_in_nanotube = check_if_point_is_inside_shape(point=methane_carbon_position,
+                                                                         shape=nanotube_carbon_positions)
 
             if not self.was_methane_in_nanotube and self.is_methane_in_nanotube:
 
@@ -212,9 +212,9 @@ if __name__ == '__main__':
 
     print("Running puppeteering client script\n")
     puppeteering_client = PuppeteeringClient()
-
-    print("Running nanotube task")
-    puppeteering_client.run_nanotube_task()
+    print(puppeteering_client.narupa_client.latest_frame.particle_positions)
+    # print("Running nanotube task")
+    # puppeteering_client.run_nanotube_task()
 
     # # When an avatar connects, start the knot detection task
     # print("Waiting for avatar to connect.")
