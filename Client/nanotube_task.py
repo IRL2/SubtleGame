@@ -2,9 +2,9 @@ from scipy.spatial import Delaunay
 import numpy as np
 
 
-def get_closest_end(point, first_pos, last_pos):
+def get_closest_end(entry_pos, first_pos, last_pos):
 
-    if np.linalg.norm(point - first_pos) < np.linalg.norm(point - last_pos):
+    if np.linalg.norm(entry_pos - first_pos) < np.linalg.norm(entry_pos - last_pos):
         # End closest to first carbon
         return "first"
 

@@ -169,14 +169,14 @@ class PuppeteeringClient:
             if not self.was_methane_in_nanotube and self.is_methane_in_nanotube:
 
                 # methane has entered nanotube
-                self.methane_end_of_entry = get_closest_end(point=methane_carbon_position,
+                self.methane_end_of_entry = get_closest_end(entry_pos=methane_carbon_position,
                                                             first_pos=nanotube_carbon_positions[0],
                                                             last_pos=nanotube_carbon_positions[-1])
 
             if self.was_methane_in_nanotube and not self.is_methane_in_nanotube:
 
                 # methane has exited nanotube
-                methane_end_of_exit = get_closest_end(point=methane_carbon_position,
+                methane_end_of_exit = get_closest_end(entry_pos=methane_carbon_position,
                                                       first_pos=nanotube_carbon_positions[0],
                                                       last_pos=nanotube_carbon_positions[-1])
 
@@ -212,7 +212,7 @@ if __name__ == '__main__':
 
     print("Running puppeteering client script\n")
     puppeteering_client = PuppeteeringClient()
-    print(puppeteering_client.narupa_client.latest_frame.particle_positions)
+
     # print("Running nanotube task")
     # puppeteering_client.run_nanotube_task()
 
