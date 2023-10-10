@@ -20,7 +20,8 @@ class PuppeteeringClient:
         self.current_task_type = None
 
         # Prepare randomised variables
-        self.order_of_tasks = get_order_of_tasks()
+        # self.order_of_tasks = get_order_of_tasks()
+        self.order_of_tasks = ['P1']
         self.order_of_interaction_modes = random.sample(['hands', 'controllers'], 2)
 
         # Nanotube task
@@ -156,6 +157,22 @@ class PuppeteeringClient:
         self.narupa_client.run_command("playback/load", index=self.nanotube_index)
         self.narupa_client.run_command("playback/play")
 
+        self.wait_for_methane_to_be_threaded()
+
+        self.finish_task()
+
+    def wait_for_methane_to_be_threaded(self):
+        """ Checks for methane to be threaded through the correct end of the nanotube."""
+
+        self.narupa_client.clear_selections()
+        nanotube_selection = self.narupa_client.create_selection("CNT", list(range(0, 60)))
+        nanotube_selection.remove()
+        with nanotube_selection.modify() as selection:
+            selection.renderer = \
+                {'render': 'ball and stick',
+                 'color': {'type': 'particle index', 'gradient': ['white', 'SlateGrey', [0.1, 0.5, 0.3]]}
+                 }
+
         while True:
 
             nanotube_carbon_positions = np.array(self.narupa_client.latest_frame.particle_positions[0:59])
@@ -167,7 +184,6 @@ class PuppeteeringClient:
                                                                          shape=nanotube_carbon_positions)
 
             if not self.was_methane_in_nanotube and self.is_methane_in_nanotube:
-
                 # methane has entered nanotube
                 self.methane_end_of_entry = get_closest_end(entry_pos=methane_carbon_position,
                                                             first_pos=nanotube_carbon_positions[0],
@@ -189,8 +205,6 @@ class PuppeteeringClient:
 
             time.sleep(1 / 30)
 
-        self.finish_task()
-
     def run_psychophysical_trials(self):
         """ Starts the psychophysical trials task. At the moment, each simulation runs for 10 seconds."""
 
@@ -209,12 +223,10 @@ class PuppeteeringClient:
 
 
 if __name__ == '__main__':
-
     print("Running puppeteering client script\n")
     puppeteering_client = PuppeteeringClient()
 
-    # print("Running nanotube task")
-    # puppeteering_client.run_nanotube_task()
+    puppeteering_client.run_game()
 
     # # When an avatar connects, start the knot detection task
     # print("Waiting for avatar to connect.")
@@ -229,12 +241,7 @@ if __name__ == '__main__':
     #         print("Avatar connected. Starting task.")
     #         break
     #
-    #     time.sleep(1 / 30)
-    #
-    # # TODO: create method that's called here to loop through tasks
-    #
-    # print("Checking for a knot...")
-    # puppeteering_client.run_knot_tying_task()
+    #     time.sleep(1)
 
     print("Closing the narupa client.")
     puppeteering_client.narupa_client.close()
