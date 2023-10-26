@@ -1,13 +1,13 @@
 from narupa.app import NarupaImdClient
 import random
 import time
-from ref_narupa_knot_pull_client import NarupaKnotPullClient
-from ref_preparing_game import get_order_of_tasks, randomise_order_of_trials
-from ref_nanotube_task import check_if_point_is_inside_shape, get_closest_end
+from ref_narupa_knot_pull_client import RefNarupaknotpullclient
+from ref_preparing_game import ref_get_order_of_tasks, ref_randomise_order_of_trials
+from ref_nanotube_task import ref_check_if_point_is_inside_shape, ref_get_closest_end
 import numpy as np
 
 
-class PuppeteeringClient:
+class RefPuppeteeringClient:
     """ This is the puppeteer for the Subtle Game. It is the interface between the Rust server, Unity, and any required
      packages. """
 
@@ -144,9 +144,9 @@ class PuppeteeringClient:
         self.narupa_client.run_command("playback/play")
 
         # Load the module for detecting knots.
-        self.knot_pull_client = NarupaKnotPullClient(atomids=self.narupa_client.current_frame.particle_names,
-                                                     resids=self.narupa_client.current_frame.residue_ids,
-                                                  atom_positions=self.narupa_client.current_frame.particle_positions)
+        self.knot_pull_client = RefNarupaknotpullclient(atomids=self.narupa_client.current_frame.particle_names,
+                                                        resids=self.narupa_client.current_frame.residue_ids,
+                                                        atom_positions=self.narupa_client.current_frame.particle_positions)
 
         # Keeping checking if chain is knotted.
         while True:
@@ -199,22 +199,22 @@ class PuppeteeringClient:
 
             # Check if methane is in the nanotube.
             self.was_methane_in_nanotube = self.is_methane_in_nanotube
-            self.is_methane_in_nanotube = check_if_point_is_inside_shape(point=methane_carbon_position,
-                                                                         shape=nanotube_carbon_positions)
+            self.is_methane_in_nanotube = ref_check_if_point_is_inside_shape(point=methane_carbon_position,
+                                                                             shape=nanotube_carbon_positions)
 
             # Logic for detecting whether the methane has been threaded.
             if not self.was_methane_in_nanotube and self.is_methane_in_nanotube:
 
                 # Methane has entered the nanotube.
-                self.methane_end_of_entry = get_closest_end(entry_pos=methane_carbon_position,
-                                                            first_pos=nanotube_carbon_positions[0],
-                                                            last_pos=nanotube_carbon_positions[-1])
+                self.methane_end_of_entry = ref_get_closest_end(entry_pos=methane_carbon_position,
+                                                                first_pos=nanotube_carbon_positions[0],
+                                                                last_pos=nanotube_carbon_positions[-1])
 
             if self.was_methane_in_nanotube and not self.is_methane_in_nanotube:
                 # Methane has exited the nanotube.
-                methane_end_of_exit = get_closest_end(entry_pos=methane_carbon_position,
-                                                      first_pos=nanotube_carbon_positions[0],
-                                                      last_pos=nanotube_carbon_positions[-1])
+                methane_end_of_exit = ref_get_closest_end(entry_pos=methane_carbon_position,
+                                                          first_pos=nanotube_carbon_positions[0],
+                                                          last_pos=nanotube_carbon_positions[-1])
 
                 if self.methane_end_of_entry != methane_end_of_exit:
                     # Methane has been threaded!
@@ -228,7 +228,7 @@ class PuppeteeringClient:
     def run_psychophysical_trials(self):
         """ Starts the psychophysical trials task. At the moment, each simulation runs for 10 seconds."""
 
-        trials = randomise_order_of_trials(self.buckyball_indices * self.num_trial_repeats)
+        trials = ref_randomise_order_of_trials(self.buckyball_indices * self.num_trial_repeats)
 
         for sim in trials:
             self.narupa_client.set_shared_value('simulation index', sim)
@@ -246,7 +246,7 @@ class PuppeteeringClient:
 
 if __name__ == '__main__':
     print("Running puppeteering client script\n")
-    puppeteering_client = PuppeteeringClient()
+    puppeteering_client = RefPuppeteeringClient()
 
     puppeteering_client.start_game()
 

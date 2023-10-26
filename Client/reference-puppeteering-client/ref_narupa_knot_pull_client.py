@@ -8,7 +8,7 @@ from knot_pull.unentangler import unentangle
 import time
 
 
-class NarupaKnotPullClient:
+class RefNarupaknotpullclient:
 
     resids = None
     atomids = None
@@ -165,9 +165,9 @@ if __name__ == '__main__':
     client = NarupaImdClient.autoconnect()
     client.subscribe_to_frames()
     client.update_available_commands()
-    knot_pull_client = NarupaKnotPullClient(atomids=client.current_frame.particle_names,
-                                            resids=client.current_frame.residue_ids,
-                                            atom_positions=client.current_frame.particle_positions)
+    knot_pull_client = RefNarupaknotpullclient(atomids=client.current_frame.particle_names,
+                                               resids=client.current_frame.residue_ids,
+                                               atom_positions=client.current_frame.particle_positions)
 
     write_frame_to_json(atom_positions=client.current_frame.particle_positions, resids=client.current_frame.residue_ids,
                         atomids=client.current_frame.particle_names, outfile_name='17-ala-data')
