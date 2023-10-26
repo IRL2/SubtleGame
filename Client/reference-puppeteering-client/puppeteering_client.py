@@ -1,7 +1,7 @@
 from narupa.app import NarupaImdClient
 import random
 import time
-from Client.narupa_knot_pull_client import NarupaKnotPullClient
+from narupa_knot_pull_client import NarupaKnotPullClient
 from preparing_game import get_order_of_tasks, randomise_order_of_trials
 from nanotube_task import check_if_point_is_inside_shape, get_closest_end
 import numpy as np
