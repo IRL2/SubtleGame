@@ -1,0 +1,28 @@
+{
+    "name": "Narupa.Grpc.Tests",
+    "references": [
+        "Narupa.Grpc",
+        "Narupa.Testing",
+        "Narupa.Frame",
+        "Narupa.Core"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [
+        "Narupa.Protocol.dll",
+        "Google.Protobuf.dll",
+        "Grpc.Core.Api.dll",
+        "Grpc.Core.dll",
+        "NSubstitute.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": []
+}

@@ -1,0 +1,21 @@
+{
+    "name": "Narupa.Frontend.Tests",
+    "references": [
+        "Narupa.Frontend",
+        "Narupa.Testing",
+        "Narupa.Core"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
