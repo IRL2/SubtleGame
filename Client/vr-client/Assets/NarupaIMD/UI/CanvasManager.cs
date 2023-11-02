@@ -7,7 +7,9 @@ namespace NarupaIMD.UI
     // Name of possible menu canvases
     public enum CanvasType
     {
+        None,
         GameIntro,
+        HowToEnableHands,
         KnotTyingIntro,
         KnotTyingVideo
     }
