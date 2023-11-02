@@ -2,21 +2,86 @@ using UnityEngine;
 
 namespace NarupaIMD.UI
 {
+    /// <summary>
+    /// Class <c>CanvasSwitcher</c> used to switch between canvases in the UI.
+    /// </summary>
     public class CanvasSwitcher : MonoBehaviour
     {
-        public CanvasType desiredCanvasType;
-        public CanvasManager canvasManager;
+        [Header("Canvas switching")]
+        public CanvasType desiredCanvasEither;
+        public CanvasType desiredCanvasControllersOnly;
+        public CanvasType desiredCanvasHandsOnly;
+        private CanvasManager _canvasManager;
         
+        [Header("Button Logic")]
+        public bool handsOnly;
+        public bool controllersOnly;
+        public GameObject handOnlyWarningMessage;
+        public GameObject buttonToAppear;
+
+        private void Start()
+        {
+            _canvasManager = FindObjectOfType<CanvasManager>();
+        }
+
+        /// <summary>
+        /// Switch canvas UI on the press of a button. Specify in the Inspector whether this must be hands or controllers or either.
+        /// </summary>
         public void OnButtonClicked()
         {
-            // Invoke button click with a small time delay to allow for animation of button
-            Invoke(nameof(InvokeButtonClick), 0.5f);
+            if (handsOnly)
+            {
+                // Invoke button click with a small time delay to allow for animation of button
+                Invoke(nameof(InvokeHandButtonClick), 0.5f); 
+            }
+            else if (controllersOnly)
+            {
+                // Invoke button click with a small time delay to allow for animation of button
+                Invoke(nameof(InvokeControllerButtonClick), 0.5f); 
+            }
+            else
+            {
+                // Invoke button click with a small time delay to allow for animation of button
+                Invoke(nameof(InvokeButtonClick), 0.5f);
+            }
+            
         }
+        
+        /// <summary>
+        /// Quit the game on the press of a button.
+        /// </summary>
 
         private void InvokeButtonClick()
         {
             // Change menu canvas
-            canvasManager.ChangeCanvas(desiredCanvasType);
+            _canvasManager.ChangeCanvas(desiredCanvasEither);
+        }
+        
+        private void InvokeHandButtonClick()
+        {
+            // Check if hands are tracking
+            if (OVRPlugin.GetHandTrackingEnabled())
+            {
+               // Change menu canvas
+                _canvasManager.ChangeCanvas(desiredCanvasHandsOnly); 
+            }
+            else
+            {
+                // Hands are not tracking, send warning to player
+                handOnlyWarningMessage.SetActive(true);
+                buttonToAppear.SetActive(true);
+            }
+        }
+        
+        private void InvokeControllerButtonClick()
+        {
+            // Check if controllers are tracking
+            if (OVRInput.IsControllerConnected(OVRInput.Controller.LTouch) &&
+                OVRInput.IsControllerConnected(OVRInput.Controller.LTouch))
+            {
+                // Change menu canvas
+                _canvasManager.ChangeCanvas(desiredCanvasControllersOnly);
+            }
         }
     }
 }
