@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace NarupaIMD.UI
@@ -51,29 +50,11 @@ namespace NarupaIMD.UI
         /// <summary>
         /// Quit the game on the press of a button.
         /// </summary>
-        public void OnQuitButtonClicked()
-        {
-            // Invoke button click with a small time delay to allow for animation of button
-            Invoke(nameof(InvokeQuitButtonClick), 0.5f);
-        }
 
         private void InvokeButtonClick()
         {
             // Change menu canvas
             _canvasManager.ChangeCanvas(desiredCanvasEither);
-        }
-        
-        
-        private void InvokeQuitButtonClick()
-        {
-            Debug.LogWarning("Quitting game");
-            #if UNITY_EDITOR
-                // Application.Quit() does not work in the editor
-                UnityEditor.EditorApplication.isPlaying = false;
-            #else
-                // Quits the game if not in the Editor
-                Application.Quit();
-            #endif
         }
         
         private void InvokeHandButtonClick()

@@ -1003,7 +1003,6 @@ MonoBehaviour:
   desiredCanvasEither: 0
   desiredCanvasControllersOnly: 0
   desiredCanvasHandsOnly: 0
-  canvasManager: {fileID: 1335832271}
   handsOnly: 0
   controllersOnly: 0
   handOnlyWarningMessage: {fileID: 0}
@@ -1136,7 +1135,6 @@ MonoBehaviour:
   desiredCanvasEither: 0
   desiredCanvasControllersOnly: 0
   desiredCanvasHandsOnly: 0
-  canvasManager: {fileID: 1335832271}
   handsOnly: 0
   controllersOnly: 0
   handOnlyWarningMessage: {fileID: 0}
@@ -1327,7 +1325,6 @@ MonoBehaviour:
   desiredCanvasEither: 0
   desiredCanvasControllersOnly: 0
   desiredCanvasHandsOnly: 3
-  canvasManager: {fileID: 1335832271}
   handsOnly: 1
   controllersOnly: 0
   handOnlyWarningMessage: {fileID: 293360223}
@@ -1689,7 +1686,6 @@ MonoBehaviour:
   desiredCanvasEither: 1
   desiredCanvasControllersOnly: 0
   desiredCanvasHandsOnly: 0
-  canvasManager: {fileID: 1335832271}
   handsOnly: 0
   controllersOnly: 0
   handOnlyWarningMessage: {fileID: 0}
@@ -1949,7 +1945,6 @@ MonoBehaviour:
   desiredCanvasEither: 2
   desiredCanvasControllersOnly: 0
   desiredCanvasHandsOnly: 0
-  canvasManager: {fileID: 1335832271}
   handsOnly: 0
   controllersOnly: 0
   handOnlyWarningMessage: {fileID: 0}
@@ -2629,14 +2624,14 @@ PrefabInstance:
     - target: {fileID: 4070025635483548884, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2120601412}
+      objectReference: {fileID: 2120601416}
     - target: {fileID: 4070025635483548884, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnQuitButtonClicked
       objectReference: {fileID: 0}
     - target: {fileID: 4070025635483548884, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: NarupaIMD.UI.CanvasSwitcher, NarupaImd
+      value: NarupaIMD.UI.CanvasQuitter, NarupaImd
       objectReference: {fileID: 0}
     - target: {fileID: 4124262467108323591, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_IsActive
@@ -2780,7 +2775,7 @@ PrefabInstance:
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 5832477822468328744, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2120601412}
+      addedObject: {fileID: 2120601416}
     - targetCorrespondingSourceObject: {fileID: 2935829246545363192, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -3566,7 +3561,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5832477822468328744, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
   m_PrefabInstance: {fileID: 1706811611}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2120601412
+--- !u!114 &2120601416
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3575,17 +3570,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2120601408}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83e1f58a6e7149999d0fea08780e9a78, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e987651657542189a4f8925cd46e55a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredCanvasEither: 0
-  desiredCanvasControllersOnly: 0
-  desiredCanvasHandsOnly: 0
-  canvasManager: {fileID: 1335832271}
-  handsOnly: 0
-  controllersOnly: 0
-  handOnlyWarningMessage: {fileID: 0}
-  buttonToAppear: {fileID: 0}
 --- !u!95 &4143063142334285
 Animator:
   serializedVersion: 5
