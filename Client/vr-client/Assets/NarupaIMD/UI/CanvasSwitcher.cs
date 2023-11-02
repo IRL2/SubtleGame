@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace NarupaIMD.UI
@@ -11,14 +12,18 @@ namespace NarupaIMD.UI
         public CanvasType desiredCanvasEither;
         public CanvasType desiredCanvasControllersOnly;
         public CanvasType desiredCanvasHandsOnly;
-        public CanvasManager canvasManager;
+        private CanvasManager _canvasManager;
         
         [Header("Button Logic")]
         public bool handsOnly;
         public bool controllersOnly;
         public GameObject handOnlyWarningMessage;
         public GameObject buttonToAppear;
-        
+
+        private void Start()
+        {
+            _canvasManager = FindObjectOfType<CanvasManager>();
+        }
 
         /// <summary>
         /// Switch canvas UI on the press of a button. Specify in the Inspector whether this must be hands or controllers or either.
@@ -55,7 +60,7 @@ namespace NarupaIMD.UI
         private void InvokeButtonClick()
         {
             // Change menu canvas
-            canvasManager.ChangeCanvas(desiredCanvasEither);
+            _canvasManager.ChangeCanvas(desiredCanvasEither);
         }
         
         
@@ -77,7 +82,7 @@ namespace NarupaIMD.UI
             if (OVRPlugin.GetHandTrackingEnabled())
             {
                // Change menu canvas
-                canvasManager.ChangeCanvas(desiredCanvasHandsOnly); 
+                _canvasManager.ChangeCanvas(desiredCanvasHandsOnly); 
             }
             else
             {
@@ -94,7 +99,7 @@ namespace NarupaIMD.UI
                 OVRInput.IsControllerConnected(OVRInput.Controller.LTouch))
             {
                 // Change menu canvas
-                canvasManager.ChangeCanvas(desiredCanvasControllersOnly);
+                _canvasManager.ChangeCanvas(desiredCanvasControllersOnly);
             }
         }
     }
