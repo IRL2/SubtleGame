@@ -125,18 +125,6 @@ class CustomisableOpenMMSystem:
         the hardcoded parameters.
         :return: None
         """
-        # first_chain = None
-        # first = True
-        # for chain in self.pdb_system.topology.chains():
-        #     if first:
-        #         first_chain = chain
-        #         first = False
-        #
-        #     if chain != first_chain:
-        #         print(chain.atoms()[0])
-        #     # for atom in chain.atoms():
-        #     #     print(atom)
-        #     #     #print(atom.residue)
 
         if self.type_of_molecule == 'buckyball':
             self.bond_k = buckyball_bond_force_constant
