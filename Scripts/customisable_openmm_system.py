@@ -328,7 +328,7 @@ if __name__ == '__main__':
 
     # ---------- USER TO EDIT ---------- #
 
-    my_yaml_file = 'my_yaml.yaml'
+    my_yaml_file = 'example.yaml'
 
     # ----------- RUN SCRIPT ----------- #
     generate_xml_simulations(yaml_file=my_yaml_file)
