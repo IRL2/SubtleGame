@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Narupa.Core.Math;
+using Narupa.Core.Science;
 using Narupa.Frontend.Manipulation;
 using Narupa.Visualisation;
 using Narupa.Visualisation.Properties;
@@ -32,6 +33,8 @@ namespace NarupaImd.Interaction
             Single,
             Residue
         }
+
+        private Element _hydrogenElement = Element.Hydrogen;
 
         [SerializeField]
         private InteractionTarget interactionTarget = InteractionTarget.Single;
@@ -158,6 +161,9 @@ namespace NarupaImd.Interaction
 
             for (var i = 0; i < frame.ParticlePositions.Length; ++i)
             {
+                // If particle is a hydrogen, ignore it
+                if (simulation.Trajectory.CurrentFrame.ParticleElements[i] == _hydrogenElement){continue;}
+                
                 var particlePosition = frame.ParticlePositions[i];
                 var sqrDistance = Vector3.SqrMagnitude(position - particlePosition);
 
