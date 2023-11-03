@@ -3,20 +3,14 @@ import openmm as mm
 from read_and_write_config_files import read_yaml
 import os
 
-# region GLOBAL PARAMETERS
+# region Original buckyball simulation parameters.
 
-# BUCKYBALLS.
 # Bonds.
 buckyball_bond_force_constant = 451725
 buckyball_r_eq = .1332
 # Angles.
 buckyball_angle_force_constant = 457.672
 buckyball_theta_eq = 2.129301687433082
-
-# ALKANES.
-# Bonds.
-alkane_bond_force_constant = 270432.69999999995
-alkane_r_eq = .15247
 
 # endregion
 
@@ -42,7 +36,6 @@ class CustomisableOpenMMSystem:
     pdb_system = None
     angle_atom_ids = None
     openmm_simulation = None
-    type_of_molecule = None
     type_of_force_constant = None
 
     # Simulation parameters.
@@ -54,10 +47,9 @@ class CustomisableOpenMMSystem:
     # Variable.
     current_multiplier = None
 
-    def __init__(self, xml_path: str, pdb_path: str, type_of_molecule: str, type_of_force_constant: str):
+    def __init__(self, xml_path: str, pdb_path: str, type_of_force_constant: str):
         self.openmm_system = read_xml_into_openmm_system(xml_path)
         self.pdb_system = app.PDBFile(pdb_path)
-        self.type_of_molecule = type_of_molecule
         self.type_of_force_constant = type_of_force_constant
 
     def remove_force(self):
@@ -108,15 +100,16 @@ class CustomisableOpenMMSystem:
                 # Only need to do this once, so we return straight away.
                 return atom_ids
 
-    def add_custom_force(self):
+    def add_custom_force(self, molecule_id: int):
         """
         Handles which force constant is going to be edited.
         :return: None
         """
-        if self.type_of_force_constant == 'angle':
-            self.add_custom_angle_force()
 
-        if self.type_of_force_constant == 'bond':
+        if self.type_of_force_constant == 'Angle':
+            self.add_custom_angle_force(molecule_id=molecule_id)
+
+        if self.type_of_force_constant == 'Bond':
             self.add_custom_bond_force()
 
     def add_custom_bond_force(self):
@@ -126,19 +119,8 @@ class CustomisableOpenMMSystem:
         :return: None
         """
 
-        if self.type_of_molecule == 'buckyball':
-            self.bond_k = buckyball_bond_force_constant
-            self.r_eq = buckyball_r_eq
-
-        if self.type_of_molecule == 'alkane':
-            self.bond_k = alkane_bond_force_constant
-            self.r_eq = alkane_r_eq
-            # TODO: Currently doesn't work for alkanes
-            return None
-
-        if self.bond_k is None or self.r_eq is None:
-            raise Exception("Bond force constant or equilibrium bond length not specified, please check that the type "
-                            "of molecule is specified in the config file. This value must be 'Alkane' or 'Buckyball'.")
+        self.bond_k = buckyball_bond_force_constant
+        self.r_eq = buckyball_r_eq
 
         # Create CustomBondForce.
         custom_force = mm.CustomBondForce(
@@ -149,8 +131,6 @@ class CustomisableOpenMMSystem:
         custom_force.addPerBondParameter('r_eq')  # Equilibrium bond length.
         custom_force.addGlobalParameter('cs', -25.5)  # Scaling constant.
         custom_force.setName('CustomBondForce')  # Name of custom force.
-
-        # TODO: make this work for alkanes
 
         # Loop through bonds.
         for bond in self.pdb_system.topology.bonds():
@@ -189,16 +169,8 @@ class CustomisableOpenMMSystem:
             raise TypeError
 
         # Set the molecule parameters from the global parameters.
-        if self.type_of_molecule == 'buckyball':
-            self.angle_k = buckyball_angle_force_constant
-            self.theta_eq = buckyball_theta_eq
-        else:
-            # TODO: doesn't currently work with other types of molecules.
-            return
-
-        if self.angle_k is None or self.theta_eq is None:
-            raise Exception("Angle force constant or theta_eq not specified, please check that the type of molecule "
-                            "is specified in the config file. This value must be 'Alkane' or 'Buckyball'.")
+        self.angle_k = buckyball_angle_force_constant
+        self.theta_eq = buckyball_theta_eq
 
         if molecule_id == 0:
             # Alter the first molecule (A)
@@ -276,7 +248,7 @@ class CustomisableOpenMMSystem:
                 self.current_multiplier = multiplier
 
                 # Get atom ids for creating CustomAngleForce.
-                if self.type_of_force_constant == 'angle':
+                if self.type_of_force_constant == 'Angle':
 
                     # Get atom ids from current CustomAngleForce.
                     self.angle_atom_ids = self.determine_angle_atom_ids()
@@ -285,7 +257,7 @@ class CustomisableOpenMMSystem:
                 self.remove_force()
 
                 # Create custom force.
-                self.add_custom_force()
+                self.add_custom_force(molecule_id=molecule)
 
                 # Create OpenMM simulation.
                 self.create_and_equilibrate_simulation()
@@ -293,9 +265,9 @@ class CustomisableOpenMMSystem:
                 # Generate output file path.
                 # TODO: make this better
                 if molecule == 0:
-                    outfile_path = f"{self.type_of_molecule}_{self.type_of_force_constant}_A_{multiplier}.xml"
+                    outfile_path = f"Buckyball_{self.type_of_force_constant}_A_{multiplier}.xml"
                 else:
-                    outfile_path = f"{self.type_of_molecule}_{self.type_of_force_constant}_B_{multiplier}.xml"
+                    outfile_path = f"Buckyball_{self.type_of_force_constant}_B_{multiplier}.xml"
 
                 # Write OpenMM Simulation to xml.
                 self.write_simulation_to_xml(file_name=outfile_path)
@@ -317,7 +289,6 @@ def generate_xml_simulations(yaml_file: str):
         # Create customisable OpenMM System.
         openmm_system = CustomisableOpenMMSystem(xml_path=item.get('xml path'),
                                                  pdb_path=item.get('pdb path'),
-                                                 type_of_molecule=item.get('type of molecule'),
                                                  type_of_force_constant=item.get('type of force constant'))
 
         # Generate the xml files.
