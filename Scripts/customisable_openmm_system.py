@@ -108,18 +108,18 @@ class CustomisableOpenMMSystem:
                 # Only need to do this once, so we return straight away.
                 return atom_ids
 
-    def create_custom_force(self):
+    def add_custom_force(self):
         """
         Handles which force constant is going to be edited.
         :return: None
         """
         if self.type_of_force_constant == 'angle':
-            self.create_custom_angle_force()
+            self.add_custom_angle_force()
 
         if self.type_of_force_constant == 'bond':
-            self.create_custom_bond_force()
+            self.add_custom_bond_force()
 
-    def create_custom_bond_force(self):
+    def add_custom_bond_force(self):
         """
         Creates a CustomBondForce and adds it to the OpenMM system. Note: currently only works for buckyballs due to
         the hardcoded parameters.
@@ -168,7 +168,7 @@ class CustomisableOpenMMSystem:
         # Add CustomBondForce.
         self.openmm_system.addForce(custom_force)
 
-    def create_custom_angle_force(self, molecule_id: int):
+    def add_custom_angle_force(self, molecule_id: int):
         """
         Creates a CustomAngleForce and adds it to the OpenMM system. NOTE: Only works for buckyballs due to the
         hardcoded parameters.
@@ -277,6 +277,7 @@ class CustomisableOpenMMSystem:
 
                 # Get atom ids for creating CustomAngleForce.
                 if self.type_of_force_constant == 'angle':
+
                     # Get atom ids from current CustomAngleForce.
                     self.angle_atom_ids = self.determine_angle_atom_ids()
 
@@ -284,7 +285,7 @@ class CustomisableOpenMMSystem:
                 self.remove_force()
 
                 # Create custom force.
-                self.create_custom_force(molecule_id=molecule)
+                self.add_custom_force()
 
                 # Create OpenMM simulation.
                 self.create_and_equilibrate_simulation()
