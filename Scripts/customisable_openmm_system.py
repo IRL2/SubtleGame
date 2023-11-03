@@ -3,7 +3,7 @@ import openmm as mm
 from read_and_write_config_files import read_yaml
 import os
 
-# GLOBAL PARAMETERS.
+# region GLOBAL PARAMETERS
 
 # BUCKYBALLS.
 # Bonds.
@@ -17,6 +17,8 @@ buckyball_theta_eq = 2.129301687433082
 # Bonds.
 alkane_bond_force_constant = 270432.69999999995
 alkane_r_eq = .15247
+
+# endregion
 
 
 def read_xml_into_openmm_system(xml_path: str):
@@ -60,10 +62,11 @@ class CustomisableOpenMMSystem:
 
     def remove_force(self):
         """
-        Removes OpenMM force.
-        :param type_of_force: Name of the openmm force, e.g. CustomAngleForce, HarmonicBondForce
+        Removes force from the OpenMM system.
+        :return: None
         """
 
+        # Get formatted string that will match the name of the force in the OpenMM system.
         force_string = f'Custom{self.type_of_force_constant.capitalize()}Force'
 
         # Loop through forces.
@@ -71,6 +74,7 @@ class CustomisableOpenMMSystem:
 
             # Find force to remove.
             if force_string in str(force):
+
                 # Remove force.
                 self.openmm_system.removeForce(x)
 
@@ -80,8 +84,9 @@ class CustomisableOpenMMSystem:
     def determine_angle_atom_ids(self):
         """
         Calculate the sets of atom ids in the CustomAngleForce.
-        :return atom_ids:  A list of OpenMM atom ids required for creating a new CustomAngleForce.
+        :return atom_ids: A list of OpenMM atom ids required for creating a new CustomAngleForce.
         """
+
         atom_ids = []
 
         # Loop through forces.
@@ -100,23 +105,25 @@ class CustomisableOpenMMSystem:
                                      force_to_change.getAngleParameters(angle_term)[1],
                                      force_to_change.getAngleParameters(angle_term)[2]])
 
+                # Only need to do this once, so we return straight away.
                 return atom_ids
 
     def create_custom_force(self, molecule_id: int):
         """
         Handles which force constant is going to be edited.
-        :return:
+        :return: None
         """
         if self.type_of_force_constant == 'angle':
-            self.create_custom_angle_force(molecule_id=molecule_id)
+            self.create_custom_angle_force()
 
         if self.type_of_force_constant == 'bond':
-            self.create_custom_bond_force(molecule_id=molecule_id)
+            self.create_custom_bond_force()
 
-    def create_custom_bond_force(self, molecule_id: int):
+    def create_custom_bond_force(self):
         """
-        Creates an OpenMM CustomBondForce and adds it to the system. Note: only works for buckyballs due to the
-        hardcoded parameters. :return:
+        Creates a CustomBondForce and adds it to the OpenMM system. Note: currently only works for buckyballs due to
+        the hardcoded parameters.
+        :return: None
         """
         # first_chain = None
         # first = True
@@ -175,8 +182,9 @@ class CustomisableOpenMMSystem:
 
     def create_custom_angle_force(self, molecule_id: int):
         """
-        Creates an OpenMM CustomAngleForce and adds it to the system. NOTE: Only works for buckyballs due to the
-        hardcoded parameters. :return:
+        Creates a CustomAngleForce and adds it to the OpenMM system. NOTE: Only works for buckyballs due to the
+        hardcoded parameters.
+        :return: None
         """
         # Create CustomAngleForce.
         custom_force = mm.CustomAngleForce('k *0.5 *dtheta*dtheta*expansion;expansion= 1.0 -0.014*dtor*dtheta+ '
@@ -229,8 +237,8 @@ class CustomisableOpenMMSystem:
 
     def create_and_equilibrate_simulation(self):
         """
-        Create simulation from the OpenMM system in its current state, runs energy minimisation, and equilibrates.
-        :return:
+        Create simulation from the OpenMM system in its current state, runs an energy minimisation and equilibration.
+        :return: None
         """
         # Energy minimisation.
         simulation = mm.app.Simulation(self.pdb_system.topology, self.openmm_system,
@@ -248,7 +256,7 @@ class CustomisableOpenMMSystem:
     def write_simulation_to_xml(self, file_name: str):
         """
         Writes the simulation to an xml.
-        :return:
+        :return: None
         """
 
         # Check simulation exists.
@@ -268,7 +276,7 @@ class CustomisableOpenMMSystem:
         """
         Creates a set of xml files with the modified molecular systems.
         :param multipliers: List of multipliers to be applied to the force constants.
-        :return:
+        :return: None
         """
         # Loop through multipliers.
         for multiplier in multipliers:
@@ -281,7 +289,6 @@ class CustomisableOpenMMSystem:
 
                 # Get atom ids for creating CustomAngleForce.
                 if self.type_of_force_constant == 'angle':
-
                     # Get atom ids from current CustomAngleForce.
                     self.angle_atom_ids = self.determine_angle_atom_ids()
 
@@ -306,6 +313,11 @@ class CustomisableOpenMMSystem:
 
 
 def generate_xml_simulations(yaml_file: str):
+    """
+    Creates a set of xml files of modified molecular systems and outputs them to the "/output-xmls" directory.
+    :param yaml_file: string of the yaml file containing the details of the simulations to be generated.
+    :return: None
+    """
 
     # Read data from config file.
     data_from_config_file = read_yaml(yaml_file)
@@ -323,7 +335,6 @@ def generate_xml_simulations(yaml_file: str):
 
 
 if __name__ == '__main__':
-
     # ---------- USER TO EDIT ---------- #
 
     my_yaml_file = 'my_yaml.yaml'
@@ -331,5 +342,3 @@ if __name__ == '__main__':
     # ----------------------------------
 
     generate_xml_simulations(yaml_file=my_yaml_file)
-
-
