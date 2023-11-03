@@ -312,6 +312,7 @@ def generate_xml_simulations(yaml_file: str):
 
     # Loop through the molecular systems specified in the yaml config file.
     for item in data_from_config_file:
+
         # Create customisable OpenMM System.
         openmm_system = CustomisableOpenMMSystem(xml_path=item.get('xml path'),
                                                  pdb_path=item.get('pdb path'),
@@ -323,10 +324,10 @@ def generate_xml_simulations(yaml_file: str):
 
 
 if __name__ == '__main__':
+
     # ---------- USER TO EDIT ---------- #
 
     my_yaml_file = 'my_yaml.yaml'
 
-    # ----------------------------------
-
+    # ----------- RUN SCRIPT ----------- #
     generate_xml_simulations(yaml_file=my_yaml_file)
