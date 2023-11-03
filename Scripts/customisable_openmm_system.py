@@ -108,7 +108,7 @@ class CustomisableOpenMMSystem:
                 # Only need to do this once, so we return straight away.
                 return atom_ids
 
-    def create_custom_force(self, molecule_id: int):
+    def create_custom_force(self):
         """
         Handles which force constant is going to be edited.
         :return: None
