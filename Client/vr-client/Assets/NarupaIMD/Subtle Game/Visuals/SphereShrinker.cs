@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using NarupaIMD.UI;
 
 public class SphereShrinker : MonoBehaviour
 {

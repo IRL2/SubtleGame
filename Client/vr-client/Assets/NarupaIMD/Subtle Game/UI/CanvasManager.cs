@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace NarupaIMD.UI
+namespace NarupaIMD.Subtle_Game.UI
 {
     // Name of possible menu canvases
     public enum CanvasType

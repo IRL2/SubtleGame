@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace NarupaIMD.UI
+namespace NarupaIMD.Subtle_Game.UI
 {
     public class ApplicationQuitter : MonoBehaviour
     {

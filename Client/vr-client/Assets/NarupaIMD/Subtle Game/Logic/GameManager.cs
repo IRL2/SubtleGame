@@ -1,4 +1,4 @@
-using NarupaIMD.UI;
+using NarupaIMD.Subtle_Game.UI;
 using UnityEngine;
 
 namespace NarupaIMD.GameLogic

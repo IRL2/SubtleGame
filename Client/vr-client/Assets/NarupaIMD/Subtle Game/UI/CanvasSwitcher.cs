@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace NarupaIMD.UI
+namespace NarupaIMD.Subtle_Game.UI
 {
     /// <summary>
     /// Class <c>CanvasSwitcher</c> used to switch between canvases in the UI.
