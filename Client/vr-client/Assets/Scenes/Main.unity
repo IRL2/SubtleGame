@@ -944,50 +944,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 628525f199464eccbdb13565ea3c7418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &635188929 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
-  m_PrefabInstance: {fileID: 1706811611}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &635188932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 635188929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7824ed6e9cee46dabf3d321547d8113a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  desiredValue: 0
---- !u!114 &635188933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 635188929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b039d65926d400385b71568fb91037c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  desiredValue: 0
---- !u!114 &635188934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 635188929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1a04776bc91466c944e10445d706dab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  desiredValue: 1
 --- !u!1001 &687061629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1113,9 +1069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83e1f58a6e7149999d0fea08780e9a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredCanvasEither: 0
-  desiredCanvasControllersOnly: 0
-  desiredCanvasHandsOnly: 0
+  desiredCanvas: 4
   handsOnly: 0
   controllersOnly: 0
   handOnlyWarningMessage: {fileID: 0}
@@ -1303,52 +1257,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83e1f58a6e7149999d0fea08780e9a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredCanvasEither: 0
-  desiredCanvasControllersOnly: 0
-  desiredCanvasHandsOnly: 3
+  desiredCanvas: 3
   handsOnly: 1
   controllersOnly: 0
   handOnlyWarningMessage: {fileID: 293360223}
   buttonToAppear: {fileID: 1927298477}
---- !u!114 &782709933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782709923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b039d65926d400385b71568fb91037c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  desiredValue: 0
---- !u!114 &782709937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782709923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1a04776bc91466c944e10445d706dab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  desiredValue: 1
---- !u!114 &782709941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782709923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7824ed6e9cee46dabf3d321547d8113a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  desiredValue: 0
 --- !u!1 &905877616
 GameObject:
   m_ObjectHideFlags: 0
@@ -1664,9 +1577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83e1f58a6e7149999d0fea08780e9a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredCanvasEither: 1
-  desiredCanvasControllersOnly: 0
-  desiredCanvasHandsOnly: 0
+  desiredCanvas: 1
   handsOnly: 0
   controllersOnly: 0
   handOnlyWarningMessage: {fileID: 0}
@@ -1955,9 +1866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83e1f58a6e7149999d0fea08780e9a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredCanvasEither: 2
-  desiredCanvasControllersOnly: 0
-  desiredCanvasHandsOnly: 0
+  desiredCanvas: 0
   handsOnly: 0
   controllersOnly: 0
   handOnlyWarningMessage: {fileID: 0}
@@ -2088,15 +1997,15 @@ PrefabInstance:
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 782709941}
+      objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 782709941}
+      objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[4].m_Target
       value: 
-      objectReference: {fileID: 782709941}
+      objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -2347,15 +2256,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 782709926}
-    - targetCorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 782709937}
-    - targetCorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 782709933}
-    - targetCorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 782709941}
     - targetCorrespondingSourceObject: {fileID: 360028196758622486, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -2414,15 +2314,15 @@ PrefabInstance:
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 635188932}
+      objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 635188932}
+      objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 635188932}
+      objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -2724,15 +2624,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9012317431611335664, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 635188934}
-    - targetCorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 635188933}
-    - targetCorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 635188932}
     - targetCorrespondingSourceObject: {fileID: 360028196758622486, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
