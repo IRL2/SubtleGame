@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8e3d862e-de99-4872-872c-e26f3efad996" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Oculus Interaction/FollowHeadsetGaze.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Oculus Interaction/FollowHeadsetGaze.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Scripts/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Oculus Interaction/PassthroughToggle.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Oculus Interaction/PassthroughToggle.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.vr-client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.vr-client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Oculus/OculusProjectConfig.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Oculus/OculusProjectConfig.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +101,7 @@
       <workItem from="1698916637476" duration="9269000" />
       <workItem from="1698926468546" duration="1743000" />
       <workItem from="1699018666724" duration="4756000" />
-      <workItem from="1699191539978" duration="718000" />
+      <workItem from="1699191539978" duration="2727000" />
     </task>
     <servers />
   </component>
