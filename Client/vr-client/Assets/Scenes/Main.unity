@@ -988,25 +988,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredValue: 1
---- !u!114 &635188935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 635188929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83e1f58a6e7149999d0fea08780e9a78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  desiredCanvasEither: 0
-  desiredCanvasControllersOnly: 0
-  desiredCanvasHandsOnly: 0
-  handsOnly: 0
-  controllersOnly: 0
-  handOnlyWarningMessage: {fileID: 0}
-  buttonToAppear: {fileID: 0}
 --- !u!1001 &687061629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2743,9 +2724,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9012317431611335664, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 635188935}
     - targetCorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 635188934}
