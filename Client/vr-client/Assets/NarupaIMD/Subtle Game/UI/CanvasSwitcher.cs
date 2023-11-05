@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 namespace NarupaIMD.Subtle_Game.UI
 {
@@ -7,19 +8,30 @@ namespace NarupaIMD.Subtle_Game.UI
     /// </summary>
     public class CanvasSwitcher : MonoBehaviour
     {
-        [Header("Canvas switching")] 
+        [Header("Canvas Logic")] 
         public CanvasType desiredCanvas;
+
+        private CanvasModifier _canvasModifier;
         private CanvasManager _canvasManager;
         
         [Header("Button Logic")]
         public bool handsOnly;
-        public bool controllersOnly;
-        public GameObject handOnlyWarningMessage;
-        public GameObject buttonToAppear;
+        public bool warningMessage;
 
         private void Start()
         {
             _canvasManager = FindObjectOfType<CanvasManager>();
+            
+            // If there is a warning message to appear when the button is clicked with the wrong interaction mode...
+            if (warningMessage)
+            {
+                // ...then make sure there is a Canvas Modifier attached to this GameObject.
+                _canvasModifier = GetComponent<CanvasModifier>();
+                if (_canvasModifier == null)
+                {
+                   Debug.LogError("This GameObject needs a Canvas Modifier attached.");
+                }
+            }
         }
 
         /// <summary>
@@ -31,20 +43,10 @@ namespace NarupaIMD.Subtle_Game.UI
             if (handsOnly && !OVRPlugin.GetHandTrackingEnabled())
             {
                 // Hands are not tracking, send warning to the player.
-                handOnlyWarningMessage.SetActive(true);
-                buttonToAppear.SetActive(true);
+                _canvasModifier.SetObjectsActiveOnCanvas();
                 return;
             }
-            // Return if button can only be clicked with controllers and the controllers are not currently tracked.
-            if (controllersOnly)
-            {
-                if (!OVRInput.IsControllerConnected(OVRInput.Controller.LTouch) &&
-                    !OVRInput.IsControllerConnected(OVRInput.Controller.RTouch))
-                {
-                    return;
-                }
-            }
-            
+
             // Invoke button click with a small time delay to allow for animation of button
             Invoke(nameof(InvokeButtonClick), 0.5f);
           

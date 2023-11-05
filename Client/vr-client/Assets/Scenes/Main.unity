@@ -1071,9 +1071,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   desiredCanvas: 4
   handsOnly: 0
-  controllersOnly: 0
-  handOnlyWarningMessage: {fileID: 0}
-  buttonToAppear: {fileID: 0}
+  warningMessage: 0
 --- !u!1 &749007615
 GameObject:
   m_ObjectHideFlags: 0
@@ -1259,9 +1257,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   desiredCanvas: 3
   handsOnly: 1
-  controllersOnly: 0
-  handOnlyWarningMessage: {fileID: 293360223}
-  buttonToAppear: {fileID: 1927298477}
+  warningMessage: 1
+--- !u!114 &782709945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782709923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1317d6b4ec6649dc89850086173018e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectsToAppear:
+  - {fileID: 293360223}
+  - {fileID: 1927298477}
 --- !u!1 &905877616
 GameObject:
   m_ObjectHideFlags: 0
@@ -1579,9 +1590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   desiredCanvas: 1
   handsOnly: 0
-  controllersOnly: 0
-  handOnlyWarningMessage: {fileID: 0}
-  buttonToAppear: {fileID: 0}
+  warningMessage: 0
 --- !u!1 &1360858132
 GameObject:
   m_ObjectHideFlags: 0
@@ -1866,11 +1875,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83e1f58a6e7149999d0fea08780e9a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredCanvas: 0
+  desiredCanvas: 2
   handsOnly: 0
-  controllersOnly: 0
-  handOnlyWarningMessage: {fileID: 0}
-  buttonToAppear: {fileID: 0}
+  warningMessage: 0
 --- !u!224 &1579936215 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2685108764583753797, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
@@ -2256,6 +2263,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 782709926}
+    - targetCorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 782709945}
     - targetCorrespondingSourceObject: {fileID: 360028196758622486, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
