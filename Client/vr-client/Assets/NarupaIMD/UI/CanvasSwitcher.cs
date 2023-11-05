@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NarupaIMD.UI
 {
@@ -7,10 +8,8 @@ namespace NarupaIMD.UI
     /// </summary>
     public class CanvasSwitcher : MonoBehaviour
     {
-        [Header("Canvas switching")]
-        public CanvasType desiredCanvasEither;
-        public CanvasType desiredCanvasControllersOnly;
-        public CanvasType desiredCanvasHandsOnly;
+        [Header("Canvas switching")] 
+        public CanvasType desiredCanvas;
         private CanvasManager _canvasManager;
         
         [Header("Button Logic")]
@@ -25,63 +24,41 @@ namespace NarupaIMD.UI
         }
 
         /// <summary>
-        /// Switch canvas UI on the press of a button. Specify in the Inspector whether this must be hands or controllers or either.
+        /// Invoke button press with hands-only and controllers-only logic.
         /// </summary>
         public void OnButtonClicked()
         {
-            if (handsOnly)
+            // Return if button can only be clicked with hands and the hands are not currently tracked.
+            if (handsOnly && !OVRPlugin.GetHandTrackingEnabled())
             {
-                // Invoke button click with a small time delay to allow for animation of button
-                Invoke(nameof(InvokeHandButtonClick), 0.5f); 
+                // Hands are not tracking, send warning to the player.
+                handOnlyWarningMessage.SetActive(true);
+                buttonToAppear.SetActive(true);
+                return;
             }
-            else if (controllersOnly)
+            // Return if button can only be clicked with controllers and the controllers are not currently tracked.
+            if (controllersOnly)
             {
-                // Invoke button click with a small time delay to allow for animation of button
-                Invoke(nameof(InvokeControllerButtonClick), 0.5f); 
-            }
-            else
-            {
-                // Invoke button click with a small time delay to allow for animation of button
-                Invoke(nameof(InvokeButtonClick), 0.5f);
+                if (!OVRInput.IsControllerConnected(OVRInput.Controller.LTouch) &&
+                    !OVRInput.IsControllerConnected(OVRInput.Controller.RTouch))
+                {
+                    return;
+                }
             }
             
+            // Invoke button click with a small time delay to allow for animation of button
+            Invoke(nameof(InvokeButtonClick), 0.5f);
+          
         }
         
         /// <summary>
-        /// Quit the game on the press of a button.
+        /// Switch canvas UI via the Canvas Manager.
         /// </summary>
-
         private void InvokeButtonClick()
         {
             // Change menu canvas
-            _canvasManager.ChangeCanvas(desiredCanvasEither);
+            _canvasManager.ChangeCanvas(desiredCanvas);
         }
-        
-        private void InvokeHandButtonClick()
-        {
-            // Check if hands are tracking
-            if (OVRPlugin.GetHandTrackingEnabled())
-            {
-               // Change menu canvas
-                _canvasManager.ChangeCanvas(desiredCanvasHandsOnly); 
-            }
-            else
-            {
-                // Hands are not tracking, send warning to player
-                handOnlyWarningMessage.SetActive(true);
-                buttonToAppear.SetActive(true);
-            }
-        }
-        
-        private void InvokeControllerButtonClick()
-        {
-            // Check if controllers are tracking
-            if (OVRInput.IsControllerConnected(OVRInput.Controller.LTouch) &&
-                OVRInput.IsControllerConnected(OVRInput.Controller.LTouch))
-            {
-                // Change menu canvas
-                _canvasManager.ChangeCanvas(desiredCanvasControllersOnly);
-            }
-        }
+
     }
 }
