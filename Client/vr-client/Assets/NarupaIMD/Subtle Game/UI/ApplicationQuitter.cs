@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace NarupaIMD.UI
 {
-    public class ButtonQuitter : MonoBehaviour
+    public class ApplicationQuitter : MonoBehaviour
     {
         /// <summary>
-        /// Invokes button press for quitting game with a small time delay to allow for animation of button.
+        /// Invokes button press for quitting the game.
         /// </summary>
         public void OnQuitButtonClicked()
         {
