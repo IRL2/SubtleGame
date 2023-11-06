@@ -1,15 +1,15 @@
 using UnityEngine;
 
-namespace NarupaIMD.Oculus_Interaction
+namespace NarupaIMD.Subtle_Game.Visuals
 {
     /// <summary>
     /// Class <c>PassthroughToggle</c> toggles on passthrough when the GameObject is enabled and toggles passthrough off when the GameObject is disabled.
     /// </summary>
     public class PassthroughToggle : MonoBehaviour
     {
-        [SerializeField] private OVRPassthroughLayer passthroughLayer;
+        //[SerializeField] private OVRPassthroughLayer passthroughLayer;
         
-        private void Start()
+        /*private void Start()
         {
             // Subscribe to the application focus events.
             Application.focusChanged += OnApplicationFocusChanged;
@@ -24,20 +24,17 @@ namespace NarupaIMD.Oculus_Interaction
         {
             // Stops error when Unity is quit whilst passthrough is enabled.
             Application.focusChanged -= OnApplicationFocusChanged;
-        }
+        }*/
         private void OnEnable()
         {
-            // Enable passthrough when the GameObject is enabled
-            passthroughLayer.enabled = true;
+            // When this GameObject is enabled, inform the PassthroughManager.
+            PassthroughManager.Instance.OnToggleActiveObject(true);
         }
 
         private void OnDisable()
         {
-            // Disable passthrough when the GameObject is disabled
-            if (!passthroughLayer == false)
-            {
-                passthroughLayer.enabled = false;
-            }
+            // When this GameObject is disabled, inform the PassthroughManager.
+            PassthroughManager.Instance.OnToggleActiveObject(false);
         }
     }
 }
