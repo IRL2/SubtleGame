@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace NarupaIMD.Oculus_Interaction
+namespace NarupaIMD.Subtle_Game.Visuals
 {
     public class FollowHeadsetGaze : MonoBehaviour
     {
@@ -15,9 +15,11 @@ namespace NarupaIMD.Oculus_Interaction
             {
                 // Calculate the new position.
                 Vector3 targetPosition = vrCentreEyeAnchor.position + vrCentreEyeAnchor.forward * offsetDistance;
+                Quaternion targetRotation = vrCentreEyeAnchor.rotation;
 
                 // Apply the Lerp.
                 transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * followSpeed);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * followSpeed);
             }
             else
             {
