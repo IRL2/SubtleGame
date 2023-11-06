@@ -8,11 +8,10 @@ namespace NarupaIMD.Subtle_Game.UI
     /// </summary>
     public class CanvasModifier : MonoBehaviour
     {
-        private CanvasManager _canvasManager;
         public List<GameObject> gameObjectsToAppear;
-
+        
         /// <summary>
-        /// Invoke button press with hands-only and controllers-only logic.
+        /// Sets the specified Game Objects active when a button is pressed with the wrong interaction mode.
         /// </summary>
         public void SetObjectsActiveOnCanvas()
         {

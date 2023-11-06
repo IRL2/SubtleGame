@@ -10,6 +10,7 @@ namespace NarupaIMD.Subtle_Game.UI
         None,
         GameIntro,
         HowToEnableHands,
+        SettingInteractionMode,
         KnotTyingIntro,
         KnotTyingVideo
     }
@@ -61,6 +62,15 @@ namespace NarupaIMD.Subtle_Game.UI
             {
                 Debug.LogWarning("Desired menu canvas wasn't found.");
             }
+        }
+
+        public void HideMenu(GameObject currentCanvas)
+        {
+            // Deactivate current menu.
+            currentCanvas.SetActive(false);
+            
+            // Deactivate the entire menu canvas.
+            gameObject.SetActive(false);
         }
     }
 
