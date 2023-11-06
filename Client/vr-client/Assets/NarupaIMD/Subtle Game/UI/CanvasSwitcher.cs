@@ -32,7 +32,7 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         private void InvokeButtonClick()
         {
-            _canvasManager.ChangeCanvas(desiredCanvas);
+            _canvasManager.SwitchCanvas(desiredCanvas);
         }
 
     }

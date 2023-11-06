@@ -5,11 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8e3d862e-de99-4872-872c-e26f3efad996" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Visuals/PassthroughManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Visuals/PassthroughManager.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vr-client.sln.DotSettings" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.vr-client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.vr-client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/GameStatusHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/GameStatusHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/PuppeteerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/PuppeteerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/SharedStateHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/SharedStateHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/TaskStatusHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/TaskStatusHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/TaskTypeHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/TaskTypeHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasCloser.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasCloser.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasSwitcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasSwitcher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasSwitcherHandsOnly.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasSwitcherHandsOnly.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Visuals/FollowHeadsetGaze.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Visuals/FollowHeadsetGaze.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Visuals/PassthroughManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Visuals/PassthroughManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Visuals/PassthroughToggle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Visuals/PassthroughToggle.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Visuals/SphereShrinker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Visuals/SphereShrinker.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -108,7 +120,7 @@
       <workItem from="1699191539978" duration="6568000" />
       <workItem from="1699198200569" duration="2022000" />
       <workItem from="1699259805770" duration="5853000" />
-      <workItem from="1699271260461" duration="993000" />
+      <workItem from="1699271260461" duration="9145000" />
     </task>
     <servers />
   </component>

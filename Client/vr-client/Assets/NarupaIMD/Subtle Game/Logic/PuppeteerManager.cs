@@ -1,7 +1,8 @@
 using NarupaImd;
+using NarupaIMD.Subtle_Game.UI;
 using UnityEngine;
 
-namespace NarupaIMD.GameLogic
+namespace NarupaIMD.Subtle_Game.Logic
 {
     // Enums of all possible keys and values that the VR client will write to the shared state
     public enum SharedStateKey
@@ -35,6 +36,16 @@ namespace NarupaIMD.GameLogic
     public class PuppeteerManager : MonoBehaviour
     {
         public NarupaImdSimulation simulation;
+        private CanvasManager _canvasManager;
+
+        private void Start()
+        {
+            // Find the Canvas Manager.
+            _canvasManager = FindObjectOfType<CanvasManager>();
+            
+            // Load the GameIntro menu.
+            _canvasManager.SwitchCanvas(CanvasType.GameIntro);
+        }
         
         public void WriteToSharedState(string key, string value)
         {

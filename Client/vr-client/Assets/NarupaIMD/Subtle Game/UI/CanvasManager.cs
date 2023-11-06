@@ -11,6 +11,7 @@ namespace NarupaIMD.Subtle_Game.UI
         GameIntro,
         HowToEnableHands,
         SettingInteractionMode,
+        SphereIntro,
         KnotTyingIntro,
         KnotTyingVideo
     }
@@ -27,12 +28,7 @@ namespace NarupaIMD.Subtle_Game.UI
         private bool _isLastActiveCanvasNotNull;
 
         // Methods
-
-        private void Start()
-        {
-            _isLastActiveCanvasNotNull = _lastActiveCanvas != null;
-        }
-
+        
         protected void Awake()
         {
             // Get list of canvases in the Hierarchy
@@ -42,10 +38,11 @@ namespace NarupaIMD.Subtle_Game.UI
             _canvasControllerList.ForEach(x => x.gameObject.SetActive(false));
         }
         
-        public void ChangeCanvas(CanvasType desiredCanvasType)
+        public void SwitchCanvas(CanvasType desiredCanvasType)
         {
-            if (_isLastActiveCanvasNotNull)
+            if (_lastActiveCanvas != null)
             {
+                // If there is an active canvas, deactivate it
                 _lastActiveCanvas.gameObject.SetActive(false);
             }
             
@@ -63,15 +60,5 @@ namespace NarupaIMD.Subtle_Game.UI
                 Debug.LogWarning("Desired menu canvas wasn't found.");
             }
         }
-
-        public void HideMenu(GameObject currentCanvas)
-        {
-            // Deactivate current menu.
-            currentCanvas.SetActive(false);
-            
-            // Deactivate the entire menu canvas.
-            gameObject.SetActive(false);
-        }
     }
-
 }

@@ -1,3 +1,5 @@
+using NarupaIMD.Subtle_Game.Logic;
+
 namespace NarupaIMD.GameLogic
 {   
     /// <summary>

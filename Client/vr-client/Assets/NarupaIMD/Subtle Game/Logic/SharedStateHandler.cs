@@ -1,4 +1,5 @@
 using System;
+using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
 
 namespace NarupaIMD.GameLogic
