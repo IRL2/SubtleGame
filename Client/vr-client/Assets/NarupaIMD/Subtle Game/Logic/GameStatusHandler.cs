@@ -1,6 +1,4 @@
-using NarupaIMD.Subtle_Game.Logic;
-
-namespace NarupaIMD.GameLogic
+namespace NarupaIMD.Subtle_Game.Logic
 {
     /// <summary>
     /// Class <c>GameStatusHandler</c> holds the desired value for the GameStatus key. This script should be attached to a GameObject and linked to an action that will trigger the writing of this key-value pair to the shared state.

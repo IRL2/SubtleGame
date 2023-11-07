@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game.Visuals
 {

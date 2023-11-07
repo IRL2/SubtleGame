@@ -1,8 +1,7 @@
 using System;
-using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
 
-namespace NarupaIMD.GameLogic
+namespace NarupaIMD.Subtle_Game.Logic
 {
     /// <summary>
     /// Class <c>SharedStateHandler</c> communicates with the PuppeteerManager to update a key-value pair in the shared state with a button click.
