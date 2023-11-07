@@ -919,7 +919,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7733848565266217254, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_text
-      value: You will be using your hands for this section of the game
+      value: "You will be using \n- your hands -\nfor this section"
       objectReference: {fileID: 0}
     - target: {fileID: 7733848565266217254, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_VerticalAlignment
@@ -1221,6 +1221,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1408422669}
   m_SourcePrefab: {fileID: 100100000, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+--- !u!1 &460342661 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4844162278440960559, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+  m_PrefabInstance: {fileID: 1198451485}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &589699539
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1765,7 +1770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce1818069023412fb0fccbb5fd3c990c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredCanvas: 3
+  desiredCanvas: 4
 --- !u!1 &905877616
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,6 +1803,19 @@ Transform:
   - {fileID: 1756047130}
   m_Father: {fileID: 8895552804684926773}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &986826776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460342661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d9cd169c0343c08cf04ac0f789defa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textToSet: {fileID: 2078576062}
 --- !u!1 &1031401700
 GameObject:
   m_ObjectHideFlags: 0
@@ -2271,7 +2289,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685108764583753797, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0387
+      value: -0.038700018
       objectReference: {fileID: 0}
     - target: {fileID: 2685108764583753797, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2291,11 +2309,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685108764583753797, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2685108764583753797, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.106601715
       objectReference: {fileID: 0}
     - target: {fileID: 2685108764583753797, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2414,6 +2432,9 @@ PrefabInstance:
       insertIndex: 2
       addedObject: {fileID: 1031401703}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4844162278440960559, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 986826776}
     - targetCorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1198451495}
@@ -2638,8 +2659,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1579936215}
-  - {fileID: 1290344701}
   - {fileID: 1629067124}
+  - {fileID: 1290344701}
   - {fileID: 1633748857}
   - {fileID: 103301304}
   - {fileID: 95709215}
@@ -2658,6 +2679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vrCentreEyeAnchor: {fileID: 4948775120161647665}
+  forwardOffset: 0.8
 --- !u!1 &1353163883 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 386492067290459680, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
@@ -2729,7 +2751,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasManager: {fileID: 1335832271}
-  desiredCanvas: 1
+  desiredCanvas: 3
+  handsOnly: 1
   cycleTime: 2
   objectsToTrack:
   - {fileID: 7493232285494445122}
@@ -2753,7 +2776,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 963922bba53938042bc7bff26c689c46, type: 2}
+  - {fileID: 2100000, guid: 36fe48df6e12ebf48bbb4622d33300cc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2796,6 +2819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vrCentreEyeAnchor: {fileID: 4948775120161647665}
+  forwardOffset: 0.4
 --- !u!114 &1360858139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3280,7 +3304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4142260680710772301, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_text
-      value: let's go!
+      value: press me!
       objectReference: {fileID: 0}
     - target: {fileID: 4844162278440960559, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_Name
@@ -3324,7 +3348,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7733848565266217254, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_text
-      value: Please use your hands to press the button!
+      value: Use your hands to press the button!
       objectReference: {fileID: 0}
     - target: {fileID: 7733848565266217254, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_VerticalAlignment
@@ -4442,6 +4466,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1621786873}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2078576062 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7733848565266217254, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+  m_PrefabInstance: {fileID: 1198451485}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2109012494
 PrefabInstance:
   m_ObjectHideFlags: 0

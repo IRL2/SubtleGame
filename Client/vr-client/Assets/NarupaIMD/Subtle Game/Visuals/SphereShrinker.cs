@@ -12,6 +12,8 @@ namespace NarupaIMD.Subtle_Game.Visuals
         private CanvasManager canvasManager;
         [SerializeField]
         private CanvasType desiredCanvas;
+        [SerializeField]
+        private bool handsOnly;
 
         #endregion
     
@@ -32,6 +34,12 @@ namespace NarupaIMD.Subtle_Game.Visuals
 
         void Update()
         {
+            // If user should be using hands and the hands are not tracking, do nothing.
+            if (handsOnly && !OVRPlugin.GetHandTrackingEnabled()){return;}
+            
+            // If user should be using controllers and the controllers are not tracking, do nothing.
+            if (!handsOnly && !OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch)){return;}
+            
             bool objectInRange = false;
 
             foreach (GameObject obj in objectsToTrack)
