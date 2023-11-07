@@ -551,7 +551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1630446782726628766, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10
+      value: -279
       objectReference: {fileID: 0}
     - target: {fileID: 1630446782726628766, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
       propertyPath: m_LocalPosition.y
@@ -599,7 +599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3712900163267343915, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4561120562517851275, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
       propertyPath: m_SortingLayer
@@ -641,7 +641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1630446782726628766, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10
+      value: 279
       objectReference: {fileID: 0}
     - target: {fileID: 1630446782726628766, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
       propertyPath: m_LocalPosition.y
@@ -689,7 +689,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3712900163267343915, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4561120562517851275, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
       propertyPath: m_SortingLayer
@@ -731,7 +731,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1630446782726628766, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1630446782726628766, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
       propertyPath: m_LocalPosition.y
@@ -783,7 +783,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3712900163267343915, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4561120562517851275, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
       propertyPath: m_SortingLayer

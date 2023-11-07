@@ -906,6 +906,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5573712771990592624, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+      propertyPath: m_Name
+      value: NextButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 5573712771990592624, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -914,8 +918,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7529899345267511237, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7529899345267511237, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -269
+      value: -238
       objectReference: {fileID: 0}
     - target: {fileID: 7733848565266217254, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_text
@@ -1065,6 +1073,10 @@ PrefabInstance:
     - target: {fileID: 2935829246545363192, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3797928067941510806, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+      propertyPath: m_Name
+      value: PlayButton
       objectReference: {fileID: 0}
     - target: {fileID: 3797928067941510806, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_IsActive
@@ -3361,16 +3373,28 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5573712771990592624, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+      propertyPath: m_Name
+      value: StartButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 5573712771990592624, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6996611014249188766, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+      propertyPath: m_Name
+      value: ShowInstructionsButton
       objectReference: {fileID: 0}
     - target: {fileID: 6996611014249188766, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7529899345267511237, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7529899345267511237, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -269
+      value: -238
       objectReference: {fileID: 0}
     - target: {fileID: 7733848565266217254, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_text
@@ -3424,7 +3448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1266266617511214371, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -305
+      value: -279
       objectReference: {fileID: 0}
     - target: {fileID: 1308549268922711024, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -3672,11 +3696,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4917553758788640299, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 305
+      value: 279
       objectReference: {fileID: 0}
     - target: {fileID: 4917553758788640299, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -269
+      value: -238
       objectReference: {fileID: 0}
     - target: {fileID: 5023240779544338745, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_IsActive
@@ -3700,7 +3724,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6996611014249188766, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_Name
-      value: ExitButton
+      value: ExitGameButton
       objectReference: {fileID: 0}
     - target: {fileID: 6996611014249188766, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_IsActive
@@ -3723,8 +3747,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8400000, guid: 6be1424492a29b44eb3c3aaa94e8c87b, type: 2}
     - target: {fileID: 7529899345267511237, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7529899345267511237, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -269
+      value: -238
       objectReference: {fileID: 0}
     - target: {fileID: 7733848565266217254, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_text
@@ -4283,6 +4311,10 @@ PrefabInstance:
     - target: {fileID: 5333143291812818683, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5573712771990592624, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+      propertyPath: m_Name
+      value: NextButton
       objectReference: {fileID: 0}
     - target: {fileID: 5573712771990592624, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_IsActive
