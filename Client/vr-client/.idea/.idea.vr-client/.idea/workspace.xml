@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8e3d862e-de99-4872-872c-e26f3efad996" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasTextModifier.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasTextModifier.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasAutoconnectToServer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasAutoconnectToServer.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.vr-client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.vr-client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasSwitcherHandsOnly.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasSwitcherHandsOnly.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Visuals/FollowHeadsetGaze.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Visuals/FollowHeadsetGaze.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Visuals/SphereShrinker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Visuals/SphereShrinker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/BasicMenuWithButton.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/BasicMenuWithButton.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/LineRenderer.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/LineRenderer.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/NarupaImdSimulation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/NarupaImdSimulation.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -112,7 +108,7 @@
       <workItem from="1699198200569" duration="2022000" />
       <workItem from="1699259805770" duration="5853000" />
       <workItem from="1699271260461" duration="10630000" />
-      <workItem from="1699348921117" duration="2135000" />
+      <workItem from="1699348921117" duration="8445000" />
     </task>
     <servers />
   </component>
