@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8e3d862e-de99-4872-872c-e26f3efad996" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.vr-client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.vr-client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/SharedStateHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/SharedStateHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasSwitcherHandsOnly.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasSwitcherHandsOnly.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +106,7 @@
       <workItem from="1699259805770" duration="5853000" />
       <workItem from="1699271260461" duration="10630000" />
       <workItem from="1699348921117" duration="9829000" />
-      <workItem from="1699362316124" duration="339000" />
+      <workItem from="1699362316124" duration="1500000" />
     </task>
     <servers />
   </component>
