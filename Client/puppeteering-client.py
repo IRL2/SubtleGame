@@ -35,22 +35,23 @@ if __name__ == '__main__':
 
     # update the shared state
     puppeteering_client.write_to_shared_state('game-status', 'waiting')
+    puppeteering_client.write_to_shared_state('modality', 'hands')
     time.sleep(1)
 
     # wait for player to connect
     print('Waiting for player to connect.')
+
     while True:
 
-        # check if player is connected
         try:
-            status = puppeteering_client.narupa_client.latest_multiplayer_values['player.Connected']
-            if status == 'True':
+            # check state dictionary to see if the player has connected
+            player_status = puppeteering_client.narupa_client.latest_multiplayer_values['Player.Connected']
+            if player_status == 'true':
                 print('Player connected. Starting game.')
                 break
 
-        except:
-            # wait half a second before trying again
-            status = "False"
+        except KeyError:
+            # key is not in shared state yet, wait half a second before trying again
             time.sleep(0.5)
 
     # start game

@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using NarupaImd;
+using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.UI
@@ -7,6 +8,7 @@ namespace NarupaIMD.Subtle_Game.UI
     public class CanvasAutoconnectToServer : MonoBehaviour
     {
         [SerializeField] private NarupaImdSimulation simulation;
+        [SerializeField] private PuppeteerManager puppeteerManager;
         private CanvasManager _canvasManager;
         private Transform _simulationSpace;
         private const float DistanceFromCamera = .75f;
@@ -28,10 +30,15 @@ namespace NarupaIMD.Subtle_Game.UI
         private async Task InvokeButtonClick()
         {
             await simulation.AutoConnect();
-            simulation.Multiplayer.SetSharedState("Player.Connected", "true");
             
-            // Hide the Simulation for now.
-            simulation.gameObject.SetActive(false);
+            // Write to shared state: player has connected
+            puppeteerManager.WriteToSharedState("Player.Connected", "true");
+
+            // For debugging, can be toggled in the Editor.
+            if (puppeteerManager.hideSimulation)
+            {
+                simulation.gameObject.SetActive(false);
+            }
             
             // Set position and rotation of simulation to be in front of the player.
             MoveSimulationInFrontOfPlayer();
@@ -39,7 +46,6 @@ namespace NarupaIMD.Subtle_Game.UI
         
         private void MoveSimulationInFrontOfPlayer()
         {
-            // Get the camera's position and forward vector
             if (Camera.main != null)
             {
                 Transform cameraTransform = Camera.main.transform;

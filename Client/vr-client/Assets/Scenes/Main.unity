@@ -219,7 +219,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &50482151
 Transform:
   m_ObjectHideFlags: 0
@@ -1084,7 +1084,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4070025635483548884, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4070025635483548884, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.size
@@ -1101,7 +1101,7 @@ PrefabInstance:
     - target: {fileID: 4070025635483548884, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1408422669}
+      objectReference: {fileID: 0}
     - target: {fileID: 4070025635483548884, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1228,10 +1228,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5832477822468328744, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1408422669}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
 --- !u!1 &460342661 stripped
 GameObject:
@@ -1796,6 +1793,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simulation: {fileID: 1265723033}
+  puppeteerManager: {fileID: 1364228086}
 --- !u!1 &905877616
 GameObject:
   m_ObjectHideFlags: 0
@@ -1841,6 +1839,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textToSet: {fileID: 2078576062}
+  puppeteerManager: {fileID: 1364228086}
 --- !u!1 &1031401700
 GameObject:
   m_ObjectHideFlags: 0
@@ -2868,7 +2867,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1364228085}
   - component: {fileID: 1364228086}
-  - component: {fileID: 1364228087}
   m_Layer: 0
   m_Name: GAME
   m_TagString: Untagged
@@ -2907,36 +2905,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simulation: {fileID: 1265723033}
---- !u!114 &1364228087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1364228083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f00e76779fea4218b5db607acc1fd7b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  hideSimulation: 0
 --- !u!1 &1408422665 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5832477822468328744, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
   m_PrefabInstance: {fileID: 394344965}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1408422669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1408422665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b039d65926d400385b71568fb91037c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  desiredValue: 1
 --- !u!1 &1464610666
 GameObject:
   m_ObjectHideFlags: 0
@@ -3008,7 +2982,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1621786873
 Transform:
   m_ObjectHideFlags: 0

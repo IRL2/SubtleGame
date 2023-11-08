@@ -1,5 +1,7 @@
+using NarupaIMD.Subtle_Game.Logic;
 using TMPro;
 using UnityEngine;
+using UnityEngineInternal;
 
 namespace NarupaIMD.Subtle_Game.UI
 {
@@ -10,28 +12,52 @@ namespace NarupaIMD.Subtle_Game.UI
     {
         public TextMeshProUGUI textToSet;
         private bool _isFirstEnable = true;
+        private bool _handsAreTracking;
+        private bool _controllersAreTracking;
+        [SerializeField] private PuppeteerManager puppeteerManager;
         
         private void Update()
         {
-            // This code will run when the GameObject is reactivated, not on game start.
-            if (!_isFirstEnable)
+            switch (_isFirstEnable)
             {
-                // Check if either controller is tracking
-                bool controllersTracking = OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch) || OVRInput.GetControllerPositionTracked(OVRInput.Controller.LTouch);
-                
-                // Set the text depending on if controllers are tracking.
-                if (controllersTracking)
+                case true:
+                    _isFirstEnable = false;
+                    return;
+                // This code will run when the GameObject is reactivated, not on game start.
+                case false:
                 {
-                    textToSet.text = "Put your controllers down\n&\nplace your hand in the sphere to begin";
+                    _handsAreTracking = OVRPlugin.GetHandTrackingEnabled();
+
+                    // Hands are required but player is currently holding controllers.
+                    if (puppeteerManager.CurrentGameModality == "hands" && !_handsAreTracking)
+                    {
+                        textToSet.text = "Put your controllers down\n&\nplace your hand in the sphere to begin";
+                    }
+                    
+                    // Hands are required and player is using hands.
+                    else if (puppeteerManager.CurrentGameModality == "hands" && _handsAreTracking)
+                    {
+                        textToSet.text = "Place your hand in the sphere to begin";
+                    }
+                    
+                    // Controllers are required but player is currently using hand tracking.
+                    else if (puppeteerManager.CurrentGameModality == "controllers" && _handsAreTracking)
+                    {
+                        textToSet.text = "Pick up your controllers \n&\nplace one controller in the sphere to begin";
+                    }
+                    // Controllers are required and player is using controllers.
+                    else if (puppeteerManager.CurrentGameModality == "controllers" && !_handsAreTracking)
+                    {
+                        textToSet.text = "Place a controller in the sphere to begin";
+                    }
+                    // CurrentGameModality has been set to something other than "controllers" or "hands".
+                    else
+                    {
+                        Debug.LogWarning("The interaction modality must be specified as either hands or controllers in the shared state dictionary.");
+                        textToSet.text = "Put your hand or controller in the sphere to begin.";
+                    }
+                    break;
                 }
-                else
-                {
-                    textToSet.text = "Place your hand in the sphere to begin";
-                }
-            }
-            else
-            {
-                _isFirstEnable = false; // Set this flag to false after the first enable.
             }
         }
         
