@@ -13,7 +13,8 @@ namespace NarupaIMD.Subtle_Game.UI
         SettingInteractionMode,
         SphereIntro,
         KnotTyingIntro,
-        KnotTyingVideo
+        KnotTyingVideo,
+        GameEnd
     }
 
     /// <summary>
@@ -37,7 +38,7 @@ namespace NarupaIMD.Subtle_Game.UI
             // Set all canvases inactive
             _canvasControllerList.ForEach(x => x.gameObject.SetActive(false));
         }
-        
+
         public void SwitchCanvas(CanvasType desiredCanvasType)
         {
             if (_lastActiveCanvas != null)

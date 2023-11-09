@@ -29,24 +29,24 @@ namespace NarupaIMD.Subtle_Game.UI
                     _handsAreTracking = OVRPlugin.GetHandTrackingEnabled();
 
                     // Hands are required but player is currently holding controllers.
-                    if (puppeteerManager.CurrentGameModality == "hands" && !_handsAreTracking)
+                    if (puppeteerManager.CurrentInteractionModality == "hands" && !_handsAreTracking)
                     {
                         textToSet.text = "Put your controllers down\n&\nplace your hand in the sphere to begin";
                     }
                     
                     // Hands are required and player is using hands.
-                    else if (puppeteerManager.CurrentGameModality == "hands" && _handsAreTracking)
+                    else if (puppeteerManager.CurrentInteractionModality == "hands" && _handsAreTracking)
                     {
                         textToSet.text = "Place your hand in the sphere to begin";
                     }
                     
                     // Controllers are required but player is currently using hand tracking.
-                    else if (puppeteerManager.CurrentGameModality == "controllers" && _handsAreTracking)
+                    else if (puppeteerManager.CurrentInteractionModality == "controllers" && _handsAreTracking)
                     {
                         textToSet.text = "Pick up your controllers \n&\nplace one controller in the sphere to begin";
                     }
                     // Controllers are required and player is using controllers.
-                    else if (puppeteerManager.CurrentGameModality == "controllers" && !_handsAreTracking)
+                    else if (puppeteerManager.CurrentInteractionModality == "controllers" && !_handsAreTracking)
                     {
                         textToSet.text = "Place a controller in the sphere to begin";
                     }

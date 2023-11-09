@@ -1,4 +1,3 @@
-using System;
 using Narupa.Grpc.Multiplayer;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.UI;
@@ -20,7 +19,9 @@ namespace NarupaIMD.Subtle_Game.Logic
 
         private object _sharedStateValue;
         
-        public string CurrentGameModality { get; private set; }
+        public string CurrentInteractionModality { get; private set; }
+        public string CurrentTask { get; private set; }
+        private string _valueString;
 
         private void Start()
         {
@@ -45,12 +46,19 @@ namespace NarupaIMD.Subtle_Game.Logic
         /// </summary>
         private void OnSharedStateKeyUpdated(string key, object val)
         {
-            // Is key to do with the current interaction modality?
-            if (key == "puppeteer.modality")
+            _valueString = val.ToString();
+            switch (key)
             {
-                // Set the current game modality
-                CurrentGameModality = val.ToString();
+                case "puppeteer.modality":
+                    // Set the current game modality
+                    CurrentInteractionModality = _valueString;
+                    break;
+                
+                case "puppeteer.task-type":
+                    CurrentTask = _valueString;
+                    break;
             }
+
         }
 
     }
