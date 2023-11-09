@@ -5,12 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8e3d862e-de99-4872-872c-e26f3efad996" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../puppeteering-client.py" beforeDir="false" afterPath="$PROJECT_DIR$/../puppeteering-client.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/ButtonController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/ButtonController.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.vr-client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.vr-client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/PuppeteerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/PuppeteerManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasSwitcherHandsOnly.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasSwitcherHandsOnly.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasTextModifier.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasTextModifier.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/ApplicationQuitter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/ApplicationQuitter.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasAutoconnectToServer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasAutoconnectToServer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasSwitcher.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasSwitcher.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasSwitcherHandsOnly.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasSwitcherHandsOnly.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasTextModifier.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/SphereTextModifier.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasTextModifier.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/SphereTextModifier.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -114,7 +121,7 @@
       <workItem from="1699348921117" duration="9829000" />
       <workItem from="1699362316124" duration="1500000" />
       <workItem from="1699438792644" duration="16490000" />
-      <workItem from="1699520399726" duration="5081000" />
+      <workItem from="1699520399726" duration="8736000" />
     </task>
     <servers />
   </component>

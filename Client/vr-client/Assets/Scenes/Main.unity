@@ -488,7 +488,7 @@ PrefabInstance:
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 243527224}
+      objectReference: {fileID: 243527231}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -523,7 +523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnQuitButtonClicked
+      value: ButtonQuitApplication
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -542,8 +542,12 @@ PrefabInstance:
       value: UpdatedSharedStateButton
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+      propertyPath: _whenSelectingInteractorViewRemoved.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: NarupaIMD.Subtle_Game.UI.ApplicationQuitter, NarupaImd
+      value: NarupaIMD.Subtle_Game.UI.ButtonController, NarupaImd
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -560,6 +564,14 @@ PrefabInstance:
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
       value: NarupaIMD.GameLogic.SharedStateHandler, NarupaImd
+      objectReference: {fileID: 0}
+    - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+      propertyPath: _whenSelectingInteractorViewRemoved.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+      propertyPath: _whenSelectingInteractorViewRemoved.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -782,7 +794,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 243527224}
+      addedObject: {fileID: 243527231}
     - targetCorrespondingSourceObject: {fileID: 360028196758622486, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -823,7 +835,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredCanvas: 0
---- !u!114 &243527224
+  _canvasManager: {fileID: 0}
+--- !u!114 &243527231
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -832,9 +845,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 243527222}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e987651657542189a4f8925cd46e55a, type: 3}
+  m_Script: {fileID: 11500000, guid: 809ffb143fed47258cb9bbd013b1928b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  desiredCanvas: 0
+  handsOnly: 0
 --- !u!1 &293360223
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,7 +1073,7 @@ PrefabInstance:
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1793041016}
+      objectReference: {fileID: 1793041020}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1093,7 +1108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnButtonClicked
+      value: ButtonSwitchCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -1113,7 +1128,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: NarupaIMD.Subtle_Game.UI.CanvasSwitcher, NarupaImd
+      value: NarupaIMD.Subtle_Game.UI.ButtonController, NarupaImd
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -1332,7 +1347,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1793041016}
+      addedObject: {fileID: 1793041020}
     - targetCorrespondingSourceObject: {fileID: 360028196758622486, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -1953,24 +1968,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1783744672}
   m_SourcePrefab: {fileID: 100100000, guid: 242e7b280762e984d98966c4a77c3f71, type: 3}
---- !u!1 &740243851 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
-  m_PrefabInstance: {fileID: 1968398458}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &740243854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 740243851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83e1f58a6e7149999d0fea08780e9a78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  desiredCanvas: 6
 --- !u!1 &749007615
 GameObject:
   m_ObjectHideFlags: 0
@@ -2292,7 +2289,7 @@ MonoBehaviour:
   gameObjectsToAppear:
   - {fileID: 293360223}
   - {fileID: 1927298477}
---- !u!114 &782709948
+--- !u!114 &782709956
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2301,24 +2298,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 782709923}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce1818069023412fb0fccbb5fd3c990c, type: 3}
+  m_Script: {fileID: 11500000, guid: 809ffb143fed47258cb9bbd013b1928b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   desiredCanvas: 3
---- !u!114 &782709952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782709923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 939ced5a4dc04355bb7c274814777b92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  simulation: {fileID: 1265723033}
-  puppeteerManager: {fileID: 1364228086}
+  handsOnly: 1
 --- !u!1 &905877616
 GameObject:
   m_ObjectHideFlags: 0
@@ -2364,7 +2348,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textToSet: {fileID: 2078576062}
-  puppeteerManager: {fileID: 1364228086}
 --- !u!1 &1031401700
 GameObject:
   m_ObjectHideFlags: 0
@@ -3035,6 +3018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredCanvas: 0
+  _canvasManager: {fileID: 0}
 --- !u!114 &1198451493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3048,6 +3032,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredCanvas: 0
+  _canvasManager: {fileID: 0}
+  _canvasModifier: {fileID: 0}
 --- !u!114 &1198451494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3076,6 +3062,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredCanvas: 0
+  _canvasManager: {fileID: 0}
 --- !u!1 &1233869392 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2057955368188925729, guid: 242e7b280762e984d98966c4a77c3f71, type: 3}
@@ -3235,7 +3222,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 386492067290459680, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
   m_PrefabInstance: {fileID: 1706811611}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1353163887
+--- !u!114 &1353163891
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3244,10 +3231,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1353163883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83e1f58a6e7149999d0fea08780e9a78, type: 3}
+  m_Script: {fileID: 11500000, guid: 809ffb143fed47258cb9bbd013b1928b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredCanvas: 0
+  desiredCanvas: 1
+  handsOnly: 0
 --- !u!1 &1360858132
 GameObject:
   m_ObjectHideFlags: 0
@@ -3301,7 +3289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasManager: {fileID: 1335832271}
-  desiredCanvas: 3
+  desiredCanvas: 7
   handsOnly: 1
   cycleTime: 2
   objectsToTrack:
@@ -3475,7 +3463,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5832477822468328744, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
   m_PrefabInstance: {fileID: 1682250068}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1543350939
+--- !u!114 &1543350943
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3484,10 +3472,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1543350935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83e1f58a6e7149999d0fea08780e9a78, type: 3}
+  m_Script: {fileID: 11500000, guid: 809ffb143fed47258cb9bbd013b1928b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredCanvas: 0
+  desiredCanvas: 2
+  handsOnly: 0
 --- !u!224 &1579936215 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2685108764583753797, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
@@ -3536,7 +3525,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1629067124}
   - component: {fileID: 1629067126}
-  - component: {fileID: 1629067125}
   m_Layer: 0
   m_Name: Sphere Intro
   m_TagString: Untagged
@@ -3561,19 +3549,6 @@ Transform:
   - {fileID: 1198451486}
   m_Father: {fileID: 1335832272}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1629067125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1629067123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83e1f58a6e7149999d0fea08780e9a78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  desiredCanvas: 0
 --- !u!114 &1629067126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3635,11 +3610,11 @@ PrefabInstance:
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 782709948}
+      objectReference: {fileID: 782709956}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 782709952}
+      objectReference: {fileID: 782709956}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -3670,11 +3645,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnButtonClicked
+      value: ButtonSwitchCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: OnAutoconnectButtonClicked
+      value: ButtonConnectToServer
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
@@ -3690,11 +3665,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: NarupaIMD.Subtle_Game.UI.CanvasSwitcherHandsOnly, NarupaImd
+      value: NarupaIMD.Subtle_Game.UI.ButtonController, NarupaImd
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: NarupaIMD.Subtle_Game.UI.CanvasAutoconnectToServer, NarupaImd
+      value: NarupaIMD.Subtle_Game.UI.ButtonController, NarupaImd
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
@@ -3827,14 +3802,14 @@ PrefabInstance:
     - target: {fileID: 4070025635483548884, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1543350939}
+      objectReference: {fileID: 1543350943}
     - target: {fileID: 4070025635483548884, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnButtonClicked
+      value: ButtonSwitchCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 4070025635483548884, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: NarupaIMD.UI.CanvasSwitcher, NarupaImd
+      value: NarupaIMD.Subtle_Game.UI.ButtonController, NarupaImd
       objectReference: {fileID: 0}
     - target: {fileID: 4124262467108323591, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_IsActive
@@ -3919,16 +3894,13 @@ PrefabInstance:
       addedObject: {fileID: 782709945}
     - targetCorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 782709948}
-    - targetCorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 782709952}
+      addedObject: {fileID: 782709956}
     - targetCorrespondingSourceObject: {fileID: 360028196758622486, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 5832477822468328744, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1543350939}
+      addedObject: {fileID: 1543350943}
   m_SourcePrefab: {fileID: 100100000, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
 --- !u!1001 &1706811611
 PrefabInstance:
@@ -4157,14 +4129,14 @@ PrefabInstance:
     - target: {fileID: 4070025635483548884, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2120601416}
+      objectReference: {fileID: 2120601420}
     - target: {fileID: 4070025635483548884, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnQuitButtonClicked
+      value: ButtonQuitApplication
       objectReference: {fileID: 0}
     - target: {fileID: 4070025635483548884, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: NarupaIMD.UI.CanvasQuitter, NarupaImd
+      value: NarupaIMD.Subtle_Game.UI.ButtonController, NarupaImd
       objectReference: {fileID: 0}
     - target: {fileID: 4124262467108323591, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_IsActive
@@ -4269,14 +4241,14 @@ PrefabInstance:
     - target: {fileID: 7914976363339177948, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1353163887}
+      objectReference: {fileID: 1353163891}
     - target: {fileID: 7914976363339177948, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnButtonClicked
+      value: ButtonSwitchCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 7914976363339177948, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: NarupaIMD.UI.CanvasSwitcher, NarupaImd
+      value: NarupaIMD.Subtle_Game.UI.ButtonController, NarupaImd
       objectReference: {fileID: 0}
     - target: {fileID: 8883759029017132675, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_IsActive
@@ -4291,7 +4263,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 386492067290459680, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1353163887}
+      addedObject: {fileID: 1353163891}
     - targetCorrespondingSourceObject: {fileID: 9012317431611335664, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -4300,7 +4272,7 @@ PrefabInstance:
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 5832477822468328744, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2120601416}
+      addedObject: {fileID: 2120601420}
     - targetCorrespondingSourceObject: {fileID: 2935829246545363192, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -4399,7 +4371,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
   m_PrefabInstance: {fileID: 340543033}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1793041016
+--- !u!114 &1793041020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4408,10 +4380,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1793041006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83e1f58a6e7149999d0fea08780e9a78, type: 3}
+  m_Script: {fileID: 11500000, guid: 809ffb143fed47258cb9bbd013b1928b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredCanvas: 0
+  desiredCanvas: 4
+  handsOnly: 0
 --- !u!1 &1851029519
 GameObject:
   m_ObjectHideFlags: 0
@@ -4668,6 +4641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredCanvas: 0
+  _canvasManager: {fileID: 0}
 --- !u!1001 &1968398458
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4685,13 +4659,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 740243854}
+      objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnButtonClicked
@@ -4831,13 +4809,18 @@ PrefabInstance:
 
         (2) Try it yourself!'
       objectReference: {fileID: 0}
+    - target: {fileID: 7914976363339177948, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+      propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914976363339177948, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+      propertyPath: _whenUnselect.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8984722163650501830, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 740243854}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
 --- !u!1 &2015573222 stripped
 GameObject:
@@ -5152,7 +5135,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5832477822468328744, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
   m_PrefabInstance: {fileID: 1706811611}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2120601416
+--- !u!114 &2120601420
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5161,9 +5144,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2120601408}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e987651657542189a4f8925cd46e55a, type: 3}
+  m_Script: {fileID: 11500000, guid: 809ffb143fed47258cb9bbd013b1928b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  desiredCanvas: 0
+  handsOnly: 0
 --- !u!95 &4143063142334285
 Animator:
   serializedVersion: 5

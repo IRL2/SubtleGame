@@ -1,20 +1,23 @@
 using NarupaIMD.Subtle_Game.Logic;
 using TMPro;
 using UnityEngine;
-using UnityEngineInternal;
 
 namespace NarupaIMD.Subtle_Game.UI
 {
     /// <summary>
     /// Class <c>CanvasTextModifier</c> used to change TMP text on a canvas. 
     /// </summary>
-    public class CanvasTextModifier : MonoBehaviour
+    public class SphereTextModifier : MonoBehaviour
     {
         public TextMeshProUGUI textToSet;
         private bool _isFirstEnable = true;
         private bool _handsAreTracking;
-        private bool _controllersAreTracking;
-        [SerializeField] private PuppeteerManager puppeteerManager;
+        private PuppeteerManager _puppeteerManager;
+        
+        private void Start()
+        {
+            _puppeteerManager = FindObjectOfType<PuppeteerManager>();
+        }
         
         private void Update()
         {
@@ -29,24 +32,24 @@ namespace NarupaIMD.Subtle_Game.UI
                     _handsAreTracking = OVRPlugin.GetHandTrackingEnabled();
 
                     // Hands are required but player is currently holding controllers.
-                    if (puppeteerManager.CurrentInteractionModality == "hands" && !_handsAreTracking)
+                    if (_puppeteerManager.CurrentInteractionModality == "hands" && !_handsAreTracking)
                     {
                         textToSet.text = "Put your controllers down\n&\nplace your hand in the sphere to begin";
                     }
                     
                     // Hands are required and player is using hands.
-                    else if (puppeteerManager.CurrentInteractionModality == "hands" && _handsAreTracking)
+                    else if (_puppeteerManager.CurrentInteractionModality == "hands" && _handsAreTracking)
                     {
                         textToSet.text = "Place your hand in the sphere to begin";
                     }
                     
                     // Controllers are required but player is currently using hand tracking.
-                    else if (puppeteerManager.CurrentInteractionModality == "controllers" && _handsAreTracking)
+                    else if (_puppeteerManager.CurrentInteractionModality == "controllers" && _handsAreTracking)
                     {
                         textToSet.text = "Pick up your controllers \n&\nplace one controller in the sphere to begin";
                     }
                     // Controllers are required and player is using controllers.
-                    else if (puppeteerManager.CurrentInteractionModality == "controllers" && !_handsAreTracking)
+                    else if (_puppeteerManager.CurrentInteractionModality == "controllers" && !_handsAreTracking)
                     {
                         textToSet.text = "Place a controller in the sphere to begin";
                     }
