@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game.UI
 {
