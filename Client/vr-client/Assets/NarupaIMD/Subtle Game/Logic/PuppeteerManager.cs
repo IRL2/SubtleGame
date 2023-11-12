@@ -35,9 +35,11 @@ namespace NarupaIMD.Subtle_Game.Logic
             {
                 if (_playerConnected == value) return;
                 _playerConnected = value;
-                WriteToSharedState("Player.Connected", value.ToString());
+                _WriteToSharedState("Connected", value.ToString());
             }
         }
+
+        private string _formattedKey;
         #endregion
 
         private void Start()
@@ -63,22 +65,28 @@ namespace NarupaIMD.Subtle_Game.Logic
             else
             {
                 // Write to shared state: player has finished the task.
-                WriteToSharedState("Player.TaskStatus", "Finished");
+                _WriteToSharedState("TaskStatus", "Finished");
                 
                 // increment task number.
                 CurrentTaskInt++;
             }
             CurrentTask = OrderOfTasks[CurrentTaskInt];
-            WriteToSharedState("Player.TaskType", CurrentTask);
-            WriteToSharedState("Player.TaskStatus", "Intro");
+            _WriteToSharedState("TaskType", CurrentTask);
+            _WriteToSharedState("TaskStatus", "Intro");
             
             return CurrentTask;
         }
-
-        public void WriteToSharedState(string key, string value)
+        
+        /// <summary>
+        /// Writes key-value pair to the shared state in the correct format.
+        /// </summary>
+        private void _WriteToSharedState(string key, string value)
         {
-            // Set key-value pair in the shared state
-            simulation.Multiplayer.SetSharedState(key, value);
+            // Format the key.
+            _formattedKey = "Player." + key;
+            
+            // Set key-value pair in the shared state.
+            simulation.Multiplayer.SetSharedState(_formattedKey, value);
         }
 
         /// <summary>
