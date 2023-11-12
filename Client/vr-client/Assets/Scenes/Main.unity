@@ -3188,6 +3188,7 @@ MonoBehaviour:
   cycleTime: 2
   objectsToTrack:
   - {fileID: 7493232285494445122}
+  - {fileID: 1045047674334038357}
 --- !u!23 &1360858136
 MeshRenderer:
   m_ObjectHideFlags: 0

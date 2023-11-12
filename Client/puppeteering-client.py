@@ -97,7 +97,7 @@ class PuppeteeringClient:
             try:
                 # check whether the value matches the desired value for the specified key
                 current_val = self.narupa_client.latest_multiplayer_values[desired_key]
-                print("current_val = " + current_val)
+
                 if current_val == desired_val:
                     break
 
