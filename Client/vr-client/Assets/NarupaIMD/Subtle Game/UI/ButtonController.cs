@@ -66,8 +66,8 @@ namespace NarupaIMD.Subtle_Game.UI
                 // Autoconnect to a locally-running server.
                 await _simulation.AutoConnect();
             
-                // Write to shared state: player has connected.
-                _puppeteerManager.WriteToSharedState("Player.Connected", "true");
+                // Let the Puppeteer Manager know that the player has connected.
+                _puppeteerManager.PlayerConnected = true;
 
                 // For debugging (toggle in the Editor).
                 if (_puppeteerManager.hideSimulation)

@@ -1,12 +1,10 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Threading;
-using Narupa.Core.Collections;
 using Narupa.Grpc.Multiplayer;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.UI;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace NarupaIMD.Subtle_Game.Logic
 {
@@ -18,16 +16,29 @@ namespace NarupaIMD.Subtle_Game.Logic
         public NarupaImdSimulation simulation;
         private CanvasManager _canvasManager;
         private MultiplayerSession _session;
+        private bool _startOfGame = true;
+        public List<string> OrderOfTasks { get; private set; }
         
         // For debugging, allow easy toggling from the Editor.
         public bool hideSimulation;
+        
+        
+        #region ForSharedState
 
         public string CurrentInteractionModality { get; private set; }
         public string CurrentTask { get; private set; }
-        public List<string> OrderOfTasks { get; private set; }
-        public int currentTaskInt;
-        private bool _startOfGame = true;
-
+        public int CurrentTaskInt { get; private set; }
+        private bool _playerConnected;
+        public bool PlayerConnected
+        {
+            set
+            {
+                if (_playerConnected == value) return;
+                _playerConnected = value;
+                WriteToSharedState("Player.Connected", value.ToString());
+            }
+        }
+        #endregion
 
         private void Start()
         {
@@ -46,7 +57,7 @@ namespace NarupaIMD.Subtle_Game.Logic
             if (_startOfGame)
             {
                 // start task number at 0.
-                currentTaskInt = 0;
+                CurrentTaskInt = 0;
                 _startOfGame = false;
             }
             else
@@ -55,9 +66,9 @@ namespace NarupaIMD.Subtle_Game.Logic
                 WriteToSharedState("Player.TaskStatus", "Finished");
                 
                 // increment task number.
-                currentTaskInt++;
+                CurrentTaskInt++;
             }
-            CurrentTask = OrderOfTasks[currentTaskInt];
+            CurrentTask = OrderOfTasks[CurrentTaskInt];
             WriteToSharedState("Player.TaskType", CurrentTask);
             WriteToSharedState("Player.TaskStatus", "Intro");
             
@@ -92,6 +103,6 @@ namespace NarupaIMD.Subtle_Game.Logic
             }
 
         }
-
+        
     }
 }

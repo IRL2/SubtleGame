@@ -46,7 +46,7 @@ class PuppeteeringClient:
         """ Waits for the VR Client to connect by checking the shared state."""""
 
         print('Waiting for VR Client to connect.')
-        self._wait_for_key_in_shared_state('Player.Connected', 'true')
+        self._wait_for_key_in_shared_state('Player.Connected', 'True')
         print('VR Client connected.')
 
         # player connected, start the game
