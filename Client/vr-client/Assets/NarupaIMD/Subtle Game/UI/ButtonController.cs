@@ -67,7 +67,7 @@ namespace NarupaIMD.Subtle_Game.UI
                 await _simulation.AutoConnect();
             
                 // Let the Puppeteer Manager know that the player has connected.
-                _puppeteerManager.PlayerConnected = true;
+                _puppeteerManager.PlayerStatus = true;
 
                 // For debugging (toggle in the Editor).
                 if (_puppeteerManager.hideSimulation)
@@ -92,6 +92,8 @@ namespace NarupaIMD.Subtle_Game.UI
         private void InvokeQuitApplication()
         {
             Debug.LogWarning("Quitting game");
+            _puppeteerManager.TaskStatus = PuppeteerManager.TaskStatusKey.Finished;
+            _puppeteerManager.PlayerStatus = false;
 #if UNITY_EDITOR
             // Quits the game if in the Unity Editor
             UnityEditor.EditorApplication.isPlaying = false;
@@ -122,11 +124,13 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         private void InvokeStartNextTask()
         {
+            _puppeteerManager.TaskStatus = PuppeteerManager.TaskStatusKey.Finished;
+            
             // Get current task from puppeteer manager and set the next menu screen.
-            desiredCanvas = _puppeteerManager.GetNextTask() switch
+            desiredCanvas = _puppeteerManager.StartNextTask() switch
             {
-                "sphere" => CanvasType.SphereIntro,
-                "end" => CanvasType.GameEnd,
+                PuppeteerManager.TaskTypeKey.Sphere => CanvasType.SphereIntro,
+                PuppeteerManager.TaskTypeKey.End => CanvasType.GameEnd,
                 _ => desiredCanvas
             };
         }

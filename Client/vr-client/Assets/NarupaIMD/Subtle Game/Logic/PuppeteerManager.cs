@@ -4,6 +4,7 @@ using Narupa.Grpc.Multiplayer;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.UI;
 using UnityEngine;
+using System.Threading.Tasks;
 
 namespace NarupaIMD.Subtle_Game.Logic
 {
@@ -17,8 +18,8 @@ namespace NarupaIMD.Subtle_Game.Logic
         private CanvasManager _canvasManager;
         private MultiplayerSession _session;
         private bool _startOfGame = true;
-        public List<string> OrderOfTasks { get; private set; }
         
+
         // For debugging, allow easy toggling from the Editor.
         public bool hideSimulation;
         
@@ -31,17 +32,56 @@ namespace NarupaIMD.Subtle_Game.Logic
             TaskType,
             Connected
         }
+
+        public enum TaskStatusKey
+        {
+            Intro,
+            Finished
+        }
+
+        public enum TaskTypeKey
+        {
+            Sphere,
+            End
+        }
+        
+        private List<string> OrderOfTasks { get; set; }
+        private List<TaskTypeKey> _orderOfTasks = new();
         public string CurrentInteractionModality { get; private set; }
-        public string CurrentTask { get; private set; }
-        public int CurrentTaskInt { get; private set; }
-        private bool _playerConnected;
-        public bool PlayerConnected
+        private int CurrentTaskInt { get; set; }
+
+        private TaskTypeKey _currentTask;
+
+        private TaskTypeKey CurrentTask
+        {
+            get => _currentTask;
+            set
+            {
+                if (_currentTask == value) return;
+                _currentTask = value;
+                WriteToSharedState(SharedStateKey.TaskType, value.ToString());
+            }
+        }
+
+        private TaskStatusKey _taskStatus;
+        public TaskStatusKey TaskStatus
         {
             set
             {
-                if (_playerConnected == value) return;
-                _playerConnected = value;
-                _WriteToSharedState(SharedStateKey.Connected, value.ToString());
+                if (_taskStatus == value) return;
+                _taskStatus = value;
+                WriteToSharedState(SharedStateKey.TaskStatus, value.ToString());
+            }
+        }
+        
+        private bool _playerStatus;
+        public bool PlayerStatus
+        {
+            set
+            {
+                if (_playerStatus == value) return;
+                _playerStatus = value;
+                WriteToSharedState(SharedStateKey.Connected, value.ToString());
             }
         }
 
@@ -60,33 +100,60 @@ namespace NarupaIMD.Subtle_Game.Logic
             simulation.Multiplayer.SharedStateDictionaryKeyUpdated += OnSharedStateKeyUpdated;
         }
 
-        public string GetNextTask()
+        public TaskTypeKey StartNextTask()
         {
             if (_startOfGame)
             {
-                // start task number at 0.
-                CurrentTaskInt = 0;
+                CurrentTaskInt = 0; // start task number at 0
+                GetOrderOfTasks(); // populate order of tasks
                 _startOfGame = false;
             }
             else
             {
-                // Write to shared state: player has finished the task.
-                _WriteToSharedState(SharedStateKey.TaskStatus, "Finished");
-                
-                // increment task number.
-                CurrentTaskInt++;
+                // TODO: This currently does not get written to the shared state, presumably because there's not enough time to register it before it's updated again below.
+                TaskStatus = TaskStatusKey.Finished; // player has finished the task
+                CurrentTaskInt++; // increment task number
             }
-            CurrentTask = OrderOfTasks[CurrentTaskInt];
-            _WriteToSharedState(SharedStateKey.TaskType, CurrentTask);
-            _WriteToSharedState(SharedStateKey.TaskStatus, "Intro");
+            
+            CurrentTask = _orderOfTasks[CurrentTaskInt]; // get current task
+            TaskStatus = TaskStatusKey.Intro; // player is in intro of the task
             
             return CurrentTask;
+        }
+
+        /// <summary>
+        /// Populates the order of tasks from the list of tasks specified in the shared state.
+        /// </summary>
+        private void GetOrderOfTasks()
+        {
+            // Loop through the tasks.
+            foreach (string task in OrderOfTasks)
+            {
+                Debug.LogFormat(task);
+                // Append each task to internal list in the correct order.
+                switch (task)
+                {
+                    case "sphere":
+                        // Get the current game modality.
+                        _orderOfTasks.Add(TaskTypeKey.Sphere);
+                        break;
+
+                    case "end":
+                        // Get the order of tasks.
+                        _orderOfTasks.Add(TaskTypeKey.End);
+                        break;
+                    
+                    default:
+                        Debug.LogWarning("One of the tasks in the order of tasks in the shared state was not recognised.");
+                        break;
+                }
+            }
         }
         
         /// <summary>
         /// Writes key-value pair to the shared state in the correct format.
         /// </summary>
-        private void _WriteToSharedState(SharedStateKey key, string value)
+        private void WriteToSharedState(SharedStateKey key, string value)
         {
             // Format the key.
             _formattedKey = "Player." + key;

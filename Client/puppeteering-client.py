@@ -31,13 +31,12 @@ class PuppeteeringClient:
         # loop through the tasks
         for task in self.order_of_tasks:
 
+            if task == 'end':
+                break
+
             # begin task
             print('Player starting task.')
             self._start_task(task)
-
-            print('Waiting for player to finish task.')
-            self._wait_for_key_in_shared_state('Player.TaskStatus', 'Finished')
-            print('Player has finished the task.')
 
         # gracefully finish the game
         self._finish_game()
@@ -71,6 +70,7 @@ class PuppeteeringClient:
         self._write_to_shared_state('task-status', 'intro')
 
         # wait until player has FINISHED
+        # TODO:This currently doesn't work since and will be changed in the future. Keeping it here for reference.
         self._wait_for_key_in_shared_state('Player.TaskStatus', 'Finished')
         self._write_to_shared_state('task-status', 'finished')
 
