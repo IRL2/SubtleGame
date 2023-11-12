@@ -2,16 +2,20 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace NarupaIMD.UI
+namespace NarupaIMD.Subtle_Game.UI
 {
     // Name of possible menu canvases
     public enum CanvasType
     {
         None,
+        StartNextTask,
         GameIntro,
         HowToEnableHands,
+        SphereIntro,
+        SettingInteractionMode,
         KnotTyingIntro,
-        KnotTyingVideo
+        KnotTyingVideo,
+        GameEnd
     }
 
     /// <summary>
@@ -22,16 +26,11 @@ namespace NarupaIMD.UI
         // Variables
         
         private List<CanvasController> _canvasControllerList;
-        private CanvasController _lastActiveCanvas;
+        public CanvasController LastActiveCanvas { get; private set; }
         private bool _isLastActiveCanvasNotNull;
 
         // Methods
-
-        private void Start()
-        {
-            _isLastActiveCanvasNotNull = _lastActiveCanvas != null;
-        }
-
+        
         protected void Awake()
         {
             // Get list of canvases in the Hierarchy
@@ -40,12 +39,13 @@ namespace NarupaIMD.UI
             // Set all canvases inactive
             _canvasControllerList.ForEach(x => x.gameObject.SetActive(false));
         }
-        
-        public void ChangeCanvas(CanvasType desiredCanvasType)
+
+        public void SwitchCanvas(CanvasType desiredCanvasType)
         {
-            if (_isLastActiveCanvasNotNull)
+            if (LastActiveCanvas != null)
             {
-                _lastActiveCanvas.gameObject.SetActive(false);
+                // If there is an active canvas, deactivate it
+                LastActiveCanvas.gameObject.SetActive(false);
             }
             
             // Get the GameObject for the desired canvas 
@@ -55,7 +55,7 @@ namespace NarupaIMD.UI
             if (!(desiredCanvas == null))
             {
                 desiredCanvas.gameObject.SetActive(true);
-                _lastActiveCanvas = desiredCanvas;
+                LastActiveCanvas = desiredCanvas;
             }
             else
             {
@@ -63,5 +63,4 @@ namespace NarupaIMD.UI
             }
         }
     }
-
 }

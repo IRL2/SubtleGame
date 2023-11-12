@@ -18,7 +18,9 @@
 
 Install Unity Version 2022.3.8f1 along with the Android Build Support with OpenJDK and Android SDK & NDK Tools. Open the Client/vr-client directory in Unity 
 
-The game can be played on a Quest 2 headset using Quest Link or AirLink. Make sure that OpenXR Runtime is active in the Oculus application by going to settings -> general and selecting "Set Oculus as active" for the OpenXR Runtime option. If this option is not selected then you will receive the warning "unable to start Oculus XR plugin" in the Unity console when you click play.
+The game can be played on a Quest 2 headset using Quest Link or AirLink. Make sure that OpenXR Runtime is active in the Oculus application by going to Settings -> General and selecting "Set Oculus as active" for the OpenXR Runtime option. If this option is not selected then you will receive the warning "unable to start Oculus XR plugin" in the Unity console when you click play.
+
+The game uses Passthrough (where you can see your physical surroundings through the cameras on the VR headset), which needs to be enabled in the Oculus PC app by opening the app and going to Settings -> Beta. Toggle the button to enable "Developer runtime features" and then toggle the option for "Pass-through over oculus link". 
 
 ## Oculus settings inside the headset
 

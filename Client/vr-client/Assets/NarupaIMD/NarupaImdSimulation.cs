@@ -110,10 +110,6 @@ namespace NarupaImd
             if (FrameSynchronizer == null)
                 FrameSynchronizer = gameObject.AddComponent<SynchronisedFrameSource>();
             FrameSynchronizer.FrameSource = Trajectory;
-            
-            // TODO: Do this properly
-            AutoConnect();
-            //Connect("127.0.0.1", 38801);
         }
 
         /// <summary>
