@@ -22,15 +22,12 @@ namespace NarupaIMD.Subtle_Game.Logic
         // For debugging, allow easy toggling from the Editor.
         public bool hideSimulation;
 
-        private object _sharedStateValue;
-        
         public string CurrentInteractionModality { get; private set; }
         public string CurrentTask { get; private set; }
         public List<string> OrderOfTasks { get; private set; }
         public int currentTaskInt;
         private bool _startOfGame = true;
 
-        private object _debugObj;
 
         private void Start()
         {
