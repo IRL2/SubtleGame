@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.Logic
 {
+    
     /// <summary>
     /// Class <c>PuppeteerManager</c> handles communication with the puppeteering client through the shared state.
     /// </summary>
@@ -23,7 +24,13 @@ namespace NarupaIMD.Subtle_Game.Logic
         
         
         #region ForSharedState
-
+        
+        private enum SharedStateKey
+        {
+            TaskStatus,
+            TaskType,
+            Connected
+        }
         public string CurrentInteractionModality { get; private set; }
         public string CurrentTask { get; private set; }
         public int CurrentTaskInt { get; private set; }
@@ -34,7 +41,7 @@ namespace NarupaIMD.Subtle_Game.Logic
             {
                 if (_playerConnected == value) return;
                 _playerConnected = value;
-                _WriteToSharedState("Connected", value.ToString());
+                _WriteToSharedState(SharedStateKey.Connected, value.ToString());
             }
         }
 
@@ -64,14 +71,14 @@ namespace NarupaIMD.Subtle_Game.Logic
             else
             {
                 // Write to shared state: player has finished the task.
-                _WriteToSharedState("TaskStatus", "Finished");
+                _WriteToSharedState(SharedStateKey.TaskStatus, "Finished");
                 
                 // increment task number.
                 CurrentTaskInt++;
             }
             CurrentTask = OrderOfTasks[CurrentTaskInt];
-            _WriteToSharedState("TaskType", CurrentTask);
-            _WriteToSharedState("TaskStatus", "Intro");
+            _WriteToSharedState(SharedStateKey.TaskType, CurrentTask);
+            _WriteToSharedState(SharedStateKey.TaskStatus, "Intro");
             
             return CurrentTask;
         }
@@ -79,7 +86,7 @@ namespace NarupaIMD.Subtle_Game.Logic
         /// <summary>
         /// Writes key-value pair to the shared state in the correct format.
         /// </summary>
-        private void _WriteToSharedState(string key, string value)
+        private void _WriteToSharedState(SharedStateKey key, string value)
         {
             // Format the key.
             _formattedKey = "Player." + key;
