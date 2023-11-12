@@ -16,7 +16,7 @@ class PuppeteeringClient:
         self.narupa_client.update_available_commands()
 
         # Declare variables.
-        self.order_of_tasks = ['sphere']
+        self.order_of_tasks = ['sphere', 'end']
         self.order_of_modality = ['hands']
         self.current_modality = self.order_of_modality[0]
 
@@ -32,7 +32,12 @@ class PuppeteeringClient:
         for task in self.order_of_tasks:
 
             # begin task
+            print('Player starting task.')
             self._start_task(task)
+
+            print('Waiting for player to finish task.')
+            self._wait_for_key_in_shared_state('Player.TaskStatus', 'Finished')
+            print('Player has finished the task.')
 
         # gracefully finish the game
         self._finish_game()
@@ -42,18 +47,18 @@ class PuppeteeringClient:
 
         print('Waiting for VR Client to connect.')
         self._wait_for_key_in_shared_state('Player.Connected', 'true')
+        print('VR Client connected.')
 
         # player connected, start the game
+        print('Starting game.')
         self._write_to_shared_state('game-status', 'in-progress')
-
-        # wait for player to finish the first task
-        self._wait_for_key_in_shared_state('Player.TaskStatus', 'Finished')
 
     def _initialise_game(self):
         """ Writes the key-value pairs to the shared state that are required to begin the game. """
         # update the shared state
         self._write_to_shared_state('game-status', 'waiting')
         self._write_to_shared_state('modality', self.current_modality)
+        self._write_to_shared_state('order-of-tasks', self.order_of_tasks)
 
     def _start_task(self, current_task: str):
 
@@ -92,6 +97,7 @@ class PuppeteeringClient:
             try:
                 # check whether the value matches the desired value for the specified key
                 current_val = self.narupa_client.latest_multiplayer_values[desired_key]
+                print("current_val = " + current_val)
                 if current_val == desired_val:
                     break
 

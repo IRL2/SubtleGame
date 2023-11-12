@@ -2,24 +2,27 @@ using System.Threading.Tasks;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game.UI
 {
     /// <summary>
-    /// Class <c>ButtonControllers</c> used to controls buttons on menu canvases.
+    /// Class <c>ButtonControllers</c> used to controls buttons on menu canvases. All button presses have a short time delay to allow for the animation of the button. 
     /// </summary>
     public class ButtonController : MonoBehaviour
     {
 
         [Header("Canvas Logic")] 
-        public CanvasType desiredCanvas;
+        
         public bool handsOnly;
         
         private CanvasManager _canvasManager;
         private CanvasModifier _canvasModifier;
         private NarupaImdSimulation _simulation;
         private PuppeteerManager _puppeteerManager;
-        
+        private bool _firstConnecting = true;
+        public CanvasType desiredCanvas = CanvasType.None;
+
         private Transform _simulationSpace;
         private const float DistanceFromCamera = .75f;
         
@@ -28,14 +31,7 @@ namespace NarupaIMD.Subtle_Game.UI
             _canvasManager = FindObjectOfType<CanvasManager>();
             _puppeteerManager = FindObjectOfType<PuppeteerManager>();
             _simulation = FindObjectOfType<NarupaImdSimulation>();
-        }
-        
-        /// <summary>
-        /// Invoke button press for connecting to a Nanover server.
-        /// </summary>
-        public void ButtonConnectToServer()
-        {
-            Invoke(nameof(InvokeConnectToServer), 0.5f);
+            _simulationSpace = _simulation.transform.Find("Simulation Space");
         }
         
         /// <summary>
@@ -45,57 +41,49 @@ namespace NarupaIMD.Subtle_Game.UI
         {
             Invoke(nameof(InvokeQuitApplication), 0.5f);
         }
-        
+
         /// <summary>
-        /// Invoke button press for switching menu canvas. If handsOnly is true and the player pressed the button with controllers, any Game Objects set by a CanvasModifier attached this this GameObject will be set active.
+        /// Invoke button press for switching menu canvas. If handsOnly is true, the button press will only be invoked if the players hands are tracking and any Game Objects set by a CanvasModifier will be set active.
         /// </summary>
-        public void ButtonSwitchCanvas()
+        public async void ButtonSwitchCanvas()
         {
-            switch (handsOnly)
+            // If button can only be pressed by the hands, check if the hands are tracking.
+            if (handsOnly & !OVRPlugin.GetHandTrackingEnabled())
             {
-                case false:
-                    // press button
-                    Invoke(nameof(InvokeSwitchCanvas), 0.5f);
-                    break;
+                // Hands are not tracking, check if the canvas needs to be modified.
+                _canvasModifier = gameObject.GetComponent<CanvasModifier>();
+                if (_canvasModifier!= null)
+                {
+                    // Enable any Game Objects specified in the CanvasModifier.
+                    _canvasModifier.SetObjectsActiveOnCanvas();
+                }
+                return;
+            }
+            
+            // Check if this is the beginning of the game.
+            if (_firstConnecting)
+            {
+                // Autoconnect to a locally-running server.
+                await _simulation.AutoConnect();
+            
+                // Write to shared state: player has connected.
+                _puppeteerManager.WriteToSharedState("Player.Connected", "true");
+
+                // For debugging (toggle in the Editor).
+                if (_puppeteerManager.hideSimulation)
+                {
+                    _simulation.gameObject.SetActive(false);
+                }
+            
+                // Set position and rotation of simulation to be in front of the player.
+                MoveSimulationInFrontOfPlayer();
                 
-                case true:
-                    if (OVRPlugin.GetHandTrackingEnabled())
-                    {
-                        // hands are tracking, press button.
-                        Invoke(nameof(InvokeSwitchCanvas), 0.5f);
-                        return;
-                    }
-
-                    // Hands are not tracking, check if the canvas needs to be modified.
-                    _canvasModifier = gameObject.GetComponent<CanvasModifier>();
-                    if (_canvasModifier!= null)
-                    {
-                        // Enable any Game Objects specified in the CanvasModifier.
-                        _canvasModifier.SetObjectsActiveOnCanvas();
-                    }
-                    break;
+                _firstConnecting = false;
             }
 
-        }
-        
-        /// <summary>
-        /// Autoconnect to a locally-running Nanover server.
-        /// </summary>
-        private async Task InvokeConnectToServer()
-        {
-            await _simulation.AutoConnect();
-            
-            // Write to shared state: player has connected
-            _puppeteerManager.WriteToSharedState("Player.Connected", "true");
+            // Invoke button press.
+            Invoke(nameof(InvokeSwitchCanvas), 0.5f);
 
-            // For debugging, can be toggled in the Editor.
-            if (_puppeteerManager.hideSimulation)
-            {
-                _simulation.gameObject.SetActive(false);
-            }
-            
-            // Set position and rotation of simulation to be in front of the player.
-            MoveSimulationInFrontOfPlayer();
         }
 
         /// <summary>
@@ -118,7 +106,29 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         private void InvokeSwitchCanvas()
         {
+            if (desiredCanvas == CanvasType.StartNextTask)
+            {
+                // Check which is the next task.
+                InvokeStartNextTask();
+            }
+
+            // Switch to the next canvas.
             _canvasManager.SwitchCanvas(desiredCanvas);
+
+        }
+        
+        /// <summary>
+        /// Set the desired canvas from the order of tasks in the Puppeteer Manager.
+        /// </summary>
+        private void InvokeStartNextTask()
+        {
+            // Get current task from puppeteer manager and set the next menu screen.
+            desiredCanvas = _puppeteerManager.GetNextTask() switch
+            {
+                "sphere" => CanvasType.SphereIntro,
+                "end" => CanvasType.GameEnd,
+                _ => desiredCanvas
+            };
         }
         
         /// <summary>

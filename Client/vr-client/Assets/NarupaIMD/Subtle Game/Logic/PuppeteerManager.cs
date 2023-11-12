@@ -1,7 +1,12 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using Narupa.Core.Collections;
 using Narupa.Grpc.Multiplayer;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace NarupaIMD.Subtle_Game.Logic
 {
@@ -21,7 +26,11 @@ namespace NarupaIMD.Subtle_Game.Logic
         
         public string CurrentInteractionModality { get; private set; }
         public string CurrentTask { get; private set; }
-        private string _valueString;
+        public List<string> OrderOfTasks { get; private set; }
+        public int currentTaskInt;
+        private bool _startOfGame = true;
+
+        private object _debugObj;
 
         private void Start()
         {
@@ -35,6 +44,29 @@ namespace NarupaIMD.Subtle_Game.Logic
             simulation.Multiplayer.SharedStateDictionaryKeyUpdated += OnSharedStateKeyUpdated;
         }
 
+        public string GetNextTask()
+        {
+            if (_startOfGame)
+            {
+                // start task number at 0.
+                currentTaskInt = 0;
+                _startOfGame = false;
+            }
+            else
+            {
+                // Write to shared state: player has finished the task.
+                WriteToSharedState("Player.TaskStatus", "Finished");
+                
+                // increment task number.
+                currentTaskInt++;
+            }
+            CurrentTask = OrderOfTasks[currentTaskInt];
+            WriteToSharedState("Player.TaskType", CurrentTask);
+            WriteToSharedState("Player.TaskStatus", "Intro");
+            
+            return CurrentTask;
+        }
+
         public void WriteToSharedState(string key, string value)
         {
             // Set key-value pair in the shared state
@@ -46,16 +78,19 @@ namespace NarupaIMD.Subtle_Game.Logic
         /// </summary>
         private void OnSharedStateKeyUpdated(string key, object val)
         {
-            _valueString = val.ToString();
             switch (key)
             {
                 case "puppeteer.modality":
-                    // Set the current game modality
-                    CurrentInteractionModality = _valueString;
+                    // Get the current game modality.
+                    CurrentInteractionModality = val.ToString();;
                     break;
-                
-                case "puppeteer.task-type":
-                    CurrentTask = _valueString;
+
+                case "puppeteer.order-of-tasks":
+                    // Get the order of tasks.
+                    OrderOfTasks = ((List<object>)val)
+                        .Select(item => item.ToString())
+                        .ToList();
+
                     break;
             }
 

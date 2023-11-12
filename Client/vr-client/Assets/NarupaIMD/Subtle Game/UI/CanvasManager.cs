@@ -8,10 +8,11 @@ namespace NarupaIMD.Subtle_Game.UI
     public enum CanvasType
     {
         None,
+        StartNextTask,
         GameIntro,
         HowToEnableHands,
-        SettingInteractionMode,
         SphereIntro,
+        SettingInteractionMode,
         KnotTyingIntro,
         KnotTyingVideo,
         GameEnd
@@ -25,7 +26,7 @@ namespace NarupaIMD.Subtle_Game.UI
         // Variables
         
         private List<CanvasController> _canvasControllerList;
-        private CanvasController _lastActiveCanvas;
+        public CanvasController LastActiveCanvas { get; private set; }
         private bool _isLastActiveCanvasNotNull;
 
         // Methods
@@ -41,10 +42,10 @@ namespace NarupaIMD.Subtle_Game.UI
 
         public void SwitchCanvas(CanvasType desiredCanvasType)
         {
-            if (_lastActiveCanvas != null)
+            if (LastActiveCanvas != null)
             {
                 // If there is an active canvas, deactivate it
-                _lastActiveCanvas.gameObject.SetActive(false);
+                LastActiveCanvas.gameObject.SetActive(false);
             }
             
             // Get the GameObject for the desired canvas 
@@ -54,7 +55,7 @@ namespace NarupaIMD.Subtle_Game.UI
             if (!(desiredCanvas == null))
             {
                 desiredCanvas.gameObject.SetActive(true);
-                _lastActiveCanvas = desiredCanvas;
+                LastActiveCanvas = desiredCanvas;
             }
             else
             {
