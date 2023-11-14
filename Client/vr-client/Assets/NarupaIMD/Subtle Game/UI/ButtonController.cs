@@ -92,7 +92,7 @@ namespace NarupaIMD.Subtle_Game.UI
         private void InvokeQuitApplication()
         {
             Debug.LogWarning("Quitting game");
-            _puppeteerManager.TaskStatus = PuppeteerManager.TaskStatusKey.Finished;
+            _puppeteerManager.TaskStatus = PuppeteerManager.TaskStatusVal.Finished;
             _puppeteerManager.PlayerStatus = false;
 #if UNITY_EDITOR
             // Quits the game if in the Unity Editor
@@ -124,13 +124,13 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         private void InvokeStartNextTask()
         {
-            _puppeteerManager.TaskStatus = PuppeteerManager.TaskStatusKey.Finished;
+            _puppeteerManager.TaskStatus = PuppeteerManager.TaskStatusVal.Finished;
             
             // Get current task from puppeteer manager and set the next menu screen.
             desiredCanvas = _puppeteerManager.StartNextTask() switch
             {
-                PuppeteerManager.TaskTypeKey.Sphere => CanvasType.SphereIntro,
-                PuppeteerManager.TaskTypeKey.End => CanvasType.GameEnd,
+                PuppeteerManager.TaskTypeVal.Sphere => CanvasType.SphereIntro,
+                PuppeteerManager.TaskTypeVal.End => CanvasType.GameEnd,
                 _ => desiredCanvas
             };
         }
