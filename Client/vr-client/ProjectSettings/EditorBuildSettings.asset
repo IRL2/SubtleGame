@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Plugins/Narupa/Visualisation/Examples/ShaderTests.unity
     guid: a3c4f1ed355b94cd18eda436331f6380
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Start.unity
     guid: 56ce677b952ca174283447eb9cb4e57d
   - enabled: 1
