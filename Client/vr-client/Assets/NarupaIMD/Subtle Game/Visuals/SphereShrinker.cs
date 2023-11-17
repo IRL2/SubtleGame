@@ -68,7 +68,7 @@ namespace NarupaIMD.Subtle_Game.Visuals
                 float fraction = timePassed / cycleTime;
 
                 // Apply a more pronounced non-linear scaling
-                float exponent = 2 + 3 * (transform.localScale.magnitude / originalScale.magnitude);
+                float exponent = 3 * (transform.localScale.magnitude / originalScale.magnitude);
                 float nonlinearFraction = Mathf.Pow(fraction, exponent);
 
                 // Perform the scaling

@@ -47,17 +47,17 @@ namespace NarupaIMD.Subtle_Game.Logic
             private List<string> OrderOfTasks { get; set; }
             private List<TaskTypeVal> _orderOfTasks = new();
             private int CurrentTaskNum { get; set; }
-            private TaskTypeVal CurrentTask
+            private TaskTypeVal CurrentTaskType
             {
-                get => _currentTask;
+                get => _currentTaskType;
                 set
                 {
-                    if (_currentTask == value) return;
-                    _currentTask = value;
+                    if (_currentTaskType == value) return;
+                    _currentTaskType = value;
                     WriteToSharedState(SharedStateKey.TaskType, value.ToString());
                 }
             }
-            private TaskTypeVal _currentTask;
+            private TaskTypeVal _currentTaskType;
             public TaskStatusVal TaskStatus
             {
                 set
@@ -114,10 +114,10 @@ namespace NarupaIMD.Subtle_Game.Logic
                 CurrentTaskNum++; // increment task number
             }
             
-            CurrentTask = _orderOfTasks[CurrentTaskNum]; // get current task
+            CurrentTaskType = _orderOfTasks[CurrentTaskNum]; // get current task
             TaskStatus = TaskStatusVal.Intro; // player is in intro of the task
             
-            return CurrentTask;
+            return CurrentTaskType;
         }
 
         /// <summary>
@@ -175,8 +175,6 @@ namespace NarupaIMD.Subtle_Game.Logic
 
                     break;
             }
-
         }
-        
     }
 }
