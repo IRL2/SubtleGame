@@ -29,7 +29,6 @@ namespace NarupaIMD.Subtle_Game.UI
             _canvasManager = FindObjectOfType<CanvasManager>();
             _puppeteerManager = FindObjectOfType<PuppeteerManager>();
             _simulation = FindObjectOfType<NarupaImdSimulation>();
-            _simulationSpace = _simulation.transform.Find("Simulation Space");
         }
         
         /// <summary>
@@ -107,6 +106,7 @@ namespace NarupaIMD.Subtle_Game.UI
 
             if (desiredCanvas == CanvasType.ShowSimulation)
             {
+                _puppeteerManager.TaskStatus = PuppeteerManager.TaskStatusVal.InProgress; // update shared state
                 _canvasManager.HideCanvas();  // hide current menu      
                 _puppeteerManager.ShowSimulation = true;  // show simulation
             }
@@ -137,6 +137,9 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         private void MoveSimulationInFrontOfPlayer()
         {
+            // Find the simulation space
+            _simulationSpace = _simulation.transform.Find("Simulation Space");
+            
             if (Camera.main == null) return;
             Transform cameraTransform = Camera.main.transform;
 

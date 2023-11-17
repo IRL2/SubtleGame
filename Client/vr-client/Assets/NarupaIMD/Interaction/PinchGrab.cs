@@ -6,7 +6,6 @@ using Narupa.Core.Math;
 using NarupaImd;
 using System.Collections;
 using Narupa.Visualisation;
-using UnityEditor.Scripting;
 
 /// <summary>
 /// Handles the pinch-and-grab interactions between virtual hands and atoms in a Narupa simulation.

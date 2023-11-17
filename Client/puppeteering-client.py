@@ -1,6 +1,7 @@
 from narupa.app import NarupaImdClient
 import time
-from enum import Enum
+from nanotube_task import get_closest_end, check_if_point_is_inside_shape
+import numpy as np
 
 
 class PuppeteeringClient:
@@ -16,9 +17,14 @@ class PuppeteeringClient:
         self.narupa_client.update_available_commands()
 
         # Declare variables.
-        self.order_of_tasks = ['sphere']
+        self.order_of_tasks = ['nanotube']
         self.order_of_modality = ['hands']
         self.current_modality = self.order_of_modality[0]
+
+        # Nanotube task
+        self.was_methane_in_nanotube = False
+        self.is_methane_in_nanotube = False
+        self.methane_end_of_entry = None
 
     def run_game(self):
 
@@ -30,7 +36,6 @@ class PuppeteeringClient:
 
         # loop through the tasks
         for task in self.order_of_tasks:
-
             # begin task
             print('Player starting task.')
             self._start_task(task)
@@ -62,14 +67,73 @@ class PuppeteeringClient:
         self.current_task = current_task
         self._write_to_shared_state('current-task', self.current_task)
 
-        # wait until player is in the INTRO
-        self._wait_for_key_in_shared_state('Player.TaskStatus', 'Intro')
-        self._write_to_shared_state('task-status', 'intro')
+        # # wait until player is in the INTRO
+        # self._wait_for_key_in_shared_state('Player.TaskStatus', 'Intro')
+        # self._write_to_shared_state('task-status', 'intro')
 
-        # wait until player has FINISHED
-        # TODO:This currently doesn't work since and will be changed in the future. Keeping it here for reference.
-        self._wait_for_key_in_shared_state('Player.TaskStatus', 'Finished')
+        if current_task == 'nanotube':
+            # wait until player is in the INTRO
+            self._wait_for_key_in_shared_state('Player.TaskStatus', 'InProgress')
+            self._write_to_shared_state('task-status', 'in-progress')
+            self._run_nanotube_task()
+
+        # Player has completed the task.
         self._write_to_shared_state('task-status', 'finished')
+
+    def _run_nanotube_task(self):
+        """ Starts the nanotube + methane task. The task ends when the methane has been threaded through the
+        nanotube."""
+        self.was_methane_in_nanotube = False
+        self.is_methane_in_nanotube = False
+        self.methane_end_of_entry = None
+
+        self.wait_for_methane_to_be_threaded()
+
+    def wait_for_methane_to_be_threaded(self):
+        """ Continually checks if the methane has been threaded through the nanotube."""
+
+        # TODO: Ensure that the user interacts with the methane as a residue for this task. To be done by the VR client.
+        self.narupa_client.clear_selections()
+        nanotube_selection = self.narupa_client.create_selection("CNT", list(range(0, 60)))
+        nanotube_selection.remove()
+        with nanotube_selection.modify() as selection:
+            selection.renderer = \
+                {'render': 'ball and stick',
+                 'color': {'type': 'particle index', 'gradient': ['white', 'SlateGrey', [0.1, 0.5, 0.3]]}
+                 }
+
+        while True:
+
+            # Get current positions of the methane and nanotube.
+            nanotube_carbon_positions = np.array(self.narupa_client.latest_frame.particle_positions[0:59])
+            methane_carbon_position = np.array(self.narupa_client.latest_frame.particle_positions[60])
+
+            # Check if methane is in the nanotube.
+            self.was_methane_in_nanotube = self.is_methane_in_nanotube
+            self.is_methane_in_nanotube = check_if_point_is_inside_shape(point=methane_carbon_position,
+                                                                         shape=nanotube_carbon_positions)
+
+            # Logic for detecting whether the methane has been threaded.
+            if not self.was_methane_in_nanotube and self.is_methane_in_nanotube:
+                # Methane has entered the nanotube.
+                self.methane_end_of_entry = get_closest_end(entry_pos=methane_carbon_position,
+                                                            first_pos=nanotube_carbon_positions[0],
+                                                            last_pos=nanotube_carbon_positions[-1])
+
+            if self.was_methane_in_nanotube and not self.is_methane_in_nanotube:
+                # Methane has exited the nanotube.
+                methane_end_of_exit = get_closest_end(entry_pos=methane_carbon_position,
+                                                      first_pos=nanotube_carbon_positions[0],
+                                                      last_pos=nanotube_carbon_positions[-1])
+
+                if self.methane_end_of_entry != methane_end_of_exit:
+                    # Methane has been threaded!
+                    time.sleep(3)
+                    break
+
+                self.methane_end_of_entry = None
+
+            time.sleep(1 / 30)
 
     def _finish_game(self):
 

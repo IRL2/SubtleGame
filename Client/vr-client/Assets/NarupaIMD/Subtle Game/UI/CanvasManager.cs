@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.UI
@@ -30,8 +31,16 @@ namespace NarupaIMD.Subtle_Game.UI
         public CanvasController LastActiveCanvas { get; private set; }
         private bool _isLastActiveCanvasNotNull;
 
+        private PuppeteerManager _puppeteerManager;
+
         // Methods
-        
+
+        private void Start()
+        {
+            _puppeteerManager = FindObjectOfType<PuppeteerManager>();
+            _puppeteerManager.OnTaskFinished += EndTheGame;
+        }
+
         protected void Awake()
         {
             // Get list of canvases in the Hierarchy
@@ -40,7 +49,16 @@ namespace NarupaIMD.Subtle_Game.UI
             // Set all canvases inactive
             _canvasControllerList.ForEach(x => x.gameObject.SetActive(false));
         }
-
+        
+        /// <summary>
+        /// Open the menu for the end of the game.
+        /// </summary>
+        private void EndTheGame()
+        {
+            SwitchCanvas(CanvasType.GameEnd); // open the menu
+            _puppeteerManager.ShowSimulation = false; // hide the simulation
+        }
+        
         public void SwitchCanvas(CanvasType desiredCanvasType)
         {
             HideCanvas();

@@ -5,15 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8e3d862e-de99-4872-872c-e26f3efad996" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/UserInteractionController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/UserInteractionController.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../nanotube_task.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../puppeteering-client.py" beforeDir="false" afterPath="$PROJECT_DIR$/../puppeteering-client.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.vr-client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.vr-client/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Interaction/PinchGrab.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Interaction/PinchGrab.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/NarupaImdSimulation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/NarupaImdSimulation.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/PuppeteerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/PuppeteerManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/ButtonController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/ButtonController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Visuals/MoveObjectInFrontOfCamera.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Visuals/MoveObjectInFrontOfCamera.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,11 +20,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/10871f9e312b442cb78b9b97db88fdcb172a00/3a/89182693/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/10871f9e312b442cb78b9b97db88fdcb172a00/e6/a4e7868e/Behaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/43801751924945bfbd5878dd4358c7bc3a00/95/3729a158/Client.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/64/dc51852c/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Oculus/VR/Scripts/OVRPlugin.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/UserInteractionController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../extraction/Assets/NarupaIMD/NarupaImdSimulation.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -126,7 +124,7 @@
       <workItem from="1699623657306" duration="4401000" />
       <workItem from="1699788313720" duration="9618000" />
       <workItem from="1699957597439" duration="345000" />
-      <workItem from="1700222414692" duration="6526000" />
+      <workItem from="1700222414692" duration="9850000" />
     </task>
     <servers />
   </component>

@@ -1,11 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Narupa.Grpc.Multiplayer;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.UI;
-using Oculus.Platform.Models;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game.Logic
 {
@@ -62,7 +61,8 @@ namespace NarupaIMD.Subtle_Game.Logic
             public enum TaskStatusVal
             {
                 Intro,
-                Finished
+                Finished,
+                InProgress
             }
             public enum TaskTypeVal
             {
@@ -87,13 +87,17 @@ namespace NarupaIMD.Subtle_Game.Logic
             private TaskTypeVal _currentTaskType;
             public TaskStatusVal TaskStatus
             {
+                get => _taskStatus;
                 set
                 {
                     if (_taskStatus == value) return;
                     _taskStatus = value;
                     WriteToSharedState(SharedStateKey.TaskStatus, value.ToString());
+                    if (_taskStatus == TaskStatusVal.Finished){OnTaskFinished?.Invoke();}
                 }
             }
+
+            public event Action OnTaskFinished;
             private TaskStatusVal _taskStatus;
             
             // Interaction modality
@@ -110,7 +114,7 @@ namespace NarupaIMD.Subtle_Game.Logic
                 }
             }
             private bool _playerStatus;
-            
+
         #endregion
         
         // Functions
@@ -128,7 +132,7 @@ namespace NarupaIMD.Subtle_Game.Logic
             // Hide the simulation.
             ShowSimulation = false;
         }
-
+        
         public TaskTypeVal StartNextTask()
         {
             if (_startOfGame)
@@ -204,7 +208,15 @@ namespace NarupaIMD.Subtle_Game.Logic
                     OrderOfTasks = ((List<object>)val)
                         .Select(item => item.ToString())
                         .ToList();
-
+                    break;
+                
+                case "puppeteer.task-status":
+                    TaskStatus = val.ToString() switch
+                    {
+                        "intro" => TaskStatusVal.Intro,
+                        "finished" => TaskStatusVal.Finished,
+                        _ => TaskStatus
+                    };
                     break;
             }
         }
