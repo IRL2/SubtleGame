@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8e3d862e-de99-4872-872c-e26f3efad996" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../puppeteering-client.py" beforeDir="false" afterPath="$PROJECT_DIR$/../puppeteering-client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/PuppeteerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/PuppeteerManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/ButtonController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/ButtonController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +115,7 @@
       <workItem from="1699623657306" duration="4401000" />
       <workItem from="1699788313720" duration="9618000" />
       <workItem from="1699957597439" duration="345000" />
-      <workItem from="1700222414692" duration="702000" />
+      <workItem from="1700222414692" duration="1043000" />
     </task>
     <servers />
   </component>

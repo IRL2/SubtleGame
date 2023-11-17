@@ -1,8 +1,6 @@
-using System.Threading.Tasks;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game.UI
 {
@@ -156,7 +154,8 @@ namespace NarupaIMD.Subtle_Game.UI
             float cameraYRotation = cameraTransform.eulerAngles.y;
 
             // Construct a new rotation for the object, preserving its original X and Z rotation
-            Quaternion targetRotation = Quaternion.Euler(_simulationSpace.eulerAngles.x, cameraYRotation, _simulationSpace.eulerAngles.z);
+            var eulerAngles = _simulationSpace.eulerAngles;
+            Quaternion targetRotation = Quaternion.Euler(eulerAngles.x, cameraYRotation, eulerAngles.z);
 
             // Apply the rotation to the object
             _simulationSpace.rotation = targetRotation;
