@@ -144,6 +144,8 @@ namespace NarupaIMD.Subtle_Game.Logic
                         break;
                 }
             }
+            // After all of the tasks have been added, add the End of Game dummy task
+            _orderOfTasks.Add(TaskTypeVal.End);
         }
         
         /// <summary>

@@ -1344,7 +1344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 353818816423938007, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: canvasType
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 612780484444934314, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_IsActive
@@ -4528,7 +4528,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 353818816423938007, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: canvasType
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1308549268922711024, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -4696,7 +4696,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 360028196758622486, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
 --- !u!1 &2015573222 stripped
 GameObject:

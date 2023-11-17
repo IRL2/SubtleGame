@@ -16,7 +16,7 @@ class PuppeteeringClient:
         self.narupa_client.update_available_commands()
 
         # Declare variables.
-        self.order_of_tasks = ['sphere', 'end']
+        self.order_of_tasks = ['sphere']
         self.order_of_modality = ['hands']
         self.current_modality = self.order_of_modality[0]
 
@@ -30,9 +30,6 @@ class PuppeteeringClient:
 
         # loop through the tasks
         for task in self.order_of_tasks:
-
-            if task == 'end':
-                break
 
             # begin task
             print('Player starting task.')

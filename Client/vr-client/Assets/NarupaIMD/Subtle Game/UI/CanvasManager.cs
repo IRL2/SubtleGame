@@ -7,15 +7,15 @@ namespace NarupaIMD.Subtle_Game.UI
     // Name of possible menu canvases
     public enum CanvasType
     {
-        None,
-        StartNextTask,
-        GameIntro,
-        HowToEnableHands,
-        SphereIntro,
-        SettingInteractionMode,
-        KnotTyingIntro,
-        KnotTyingVideo,
-        GameEnd
+        None = 0,
+        StartNextTask = 1,
+        GameIntro = 2,
+        HowToEnableHands = 3,
+        SphereIntro = 4,
+        SettingInteractionMode = 5,
+        KnotTyingIntro = 6,
+        KnotTyingVideo = 7,
+        GameEnd = 8
     }
 
     /// <summary>
