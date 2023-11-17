@@ -213,13 +213,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 50482151}
+  - component: {fileID: 50482152}
   m_Layer: 0
   m_Name: User Interaction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &50482151
 Transform:
   m_ObjectHideFlags: 0
@@ -238,6 +239,18 @@ Transform:
   - {fileID: 1039910426}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &50482152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50482150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eee0f6cb37a4cfd42a110d7697f327dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &70442766
 GameObject:
   m_ObjectHideFlags: 0
@@ -2277,7 +2290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handsOnly: 1
-  desiredCanvas: 1
+  desiredCanvas: 9
 --- !u!1 &905877616
 GameObject:
   m_ObjectHideFlags: 0
@@ -3024,6 +3037,7 @@ MonoBehaviour:
   simulationSpaceTransform: {fileID: 1152867538}
   rightHandedSimulationSpace: {fileID: 1464610667}
   interactableScene: {fileID: 23693884}
+  serverConnected: 0
 --- !u!4 &1265723034
 Transform:
   m_ObjectHideFlags: 0
@@ -3314,7 +3328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simulation: {fileID: 1265723033}
-  hideSimulation: 0
+  userInteraction: {fileID: 50482150}
 --- !u!1 &1408422665 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5832477822468328744, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
@@ -3544,7 +3558,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ButtonConnectToServer
+      value: ButtonHideMenuAndShowSimulation
       objectReference: {fileID: 0}
     - target: {fileID: 1457644939790576954, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
@@ -4696,10 +4710,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 360028196758622486, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
 --- !u!1 &2015573222 stripped
 GameObject:

@@ -68,6 +68,8 @@ namespace NarupaImd
 
         public event Action ConnectionEstablished;
 
+        public bool serverConnected;
+
         /// <summary>
         /// Connect to the host address and attempt to open clients for the
         /// trajectory and IMD services.
@@ -90,7 +92,10 @@ namespace NarupaImd
             }
 
             gameObject.SetActive(true);
-
+            
+            serverConnected = true;
+            
+            // TODO: This doesn't seem to be being executed
             ConnectionEstablished?.Invoke();
         }
 

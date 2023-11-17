@@ -3,7 +3,9 @@ using System.Linq;
 using Narupa.Grpc.Multiplayer;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.UI;
+using Oculus.Platform.Models;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game.Logic
 {
@@ -18,9 +20,34 @@ namespace NarupaIMD.Subtle_Game.Logic
         private CanvasManager _canvasManager;
         private MultiplayerSession _session;
         private bool _startOfGame = true;
-        
-        // For debugging, allow easy toggling from the Editor.
-        public bool hideSimulation;
+        public GameObject userInteraction; 
+        public bool ShowSimulation
+        {
+            set
+            {
+                if (_showSimulation == value) return;
+                _showSimulation = value;
+                if (_showSimulation)
+                {
+                    // Show the simulation.
+                    simulation.gameObject.SetActive(true);
+                    
+                    // Allow the player to interact with the simulation.
+                    userInteraction.SetActive(true);
+                    for (int i = 0; i < userInteraction.transform.childCount; i++)
+                    {
+                        userInteraction.transform.GetChild(i).gameObject.SetActive(true);
+                    }
+                }
+                else
+                {
+                    simulation.gameObject.SetActive(false); // hide the simulation
+                    userInteraction.SetActive(false); // turn off interactions with the simulation
+                }
+                
+            }
+        }
+        private bool _showSimulation;
         
         #region ForSharedState
         
@@ -97,6 +124,9 @@ namespace NarupaIMD.Subtle_Game.Logic
             
             // Subscribe to updates in the shared state dictionary.
             simulation.Multiplayer.SharedStateDictionaryKeyUpdated += OnSharedStateKeyUpdated;
+            
+            // Hide the simulation.
+            ShowSimulation = false;
         }
 
         public TaskTypeVal StartNextTask()

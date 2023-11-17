@@ -6,6 +6,8 @@ using Narupa.Core.Math;
 using NarupaImd;
 using System.Collections;
 using Narupa.Visualisation;
+using UnityEditor.Scripting;
+
 /// <summary>
 /// Handles the pinch-and-grab interactions between virtual hands and atoms in a Narupa simulation.
 /// This class manages multiple `PinchGrabber` instances, each responsible for a pair of index and thumb
@@ -152,12 +154,13 @@ public class PinchGrab : MonoBehaviour
     /// </summary>
     private IEnumerator CheckServerConnection()
     {
+        // TODO: reimplement this way of checking if server is connected (instead of the current workaround)
         // Subscribe to the ConnectionEstablished event
-        NarupaImdSimulationScript.ConnectionEstablished += OnServerConnected;
+        //NarupaImdSimulationScript.ConnectionEstablished += OnServerConnected;
+        
         while (!serverConnected)
         {
-            // Implement logic to check if the server is connected
-            // Set serverConnected = true when connected
+            serverConnected = NarupaImdSimulationScript.serverConnected;
             yield return new WaitForSeconds(1);  // Wait for 1 second before checking again
         }
         // After the server is connected, start checking for the first frame
@@ -170,6 +173,7 @@ public class PinchGrab : MonoBehaviour
     /// </summary>
     private void OnServerConnected()
     {
+        // TODO: reimplement this way of checking if server is connected
         // This method will be called when the server connection is established
         serverConnected = true;
     }
@@ -247,6 +251,7 @@ public class PinchGrab : MonoBehaviour
         {
             return;  // Exit if server is not connected
         }
+        
         // Update each PinchGrabber
         for (int grabberIndex = 0; grabberIndex < pinchGrabbers.Count; grabberIndex++)
         {

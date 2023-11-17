@@ -9,6 +9,7 @@ namespace NarupaIMD.Subtle_Game.UI
     {
         None = 0,
         StartNextTask = 1,
+        ShowSimulation = 9,
         GameIntro = 2,
         HowToEnableHands = 3,
         SphereIntro = 4,
@@ -42,11 +43,7 @@ namespace NarupaIMD.Subtle_Game.UI
 
         public void SwitchCanvas(CanvasType desiredCanvasType)
         {
-            if (LastActiveCanvas != null)
-            {
-                // If there is an active canvas, deactivate it
-                LastActiveCanvas.gameObject.SetActive(false);
-            }
+            HideCanvas();
             
             // Get the GameObject for the desired canvas 
             CanvasController desiredCanvas = _canvasControllerList.Find(x => x.canvasType == desiredCanvasType);
@@ -60,6 +57,15 @@ namespace NarupaIMD.Subtle_Game.UI
             else
             {
                 Debug.LogWarning("Desired menu canvas wasn't found.");
+            }
+        }
+
+        public void HideCanvas()
+        {
+            if (LastActiveCanvas != null)
+            {
+                // If there is an active canvas, deactivate it
+                LastActiveCanvas.gameObject.SetActive(false);
             }
         }
     }

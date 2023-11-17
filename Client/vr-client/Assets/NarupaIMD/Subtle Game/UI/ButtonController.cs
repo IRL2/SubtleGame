@@ -67,12 +67,6 @@ namespace NarupaIMD.Subtle_Game.UI
                 // Let the Puppeteer Manager know that the player has connected.
                 _puppeteerManager.PlayerStatus = true;
 
-                // For debugging (toggle in the Editor).
-                if (_puppeteerManager.hideSimulation)
-                {
-                    _simulation.gameObject.SetActive(false);
-                }
-            
                 // Set position and rotation of simulation to be in front of the player.
                 MoveSimulationInFrontOfPlayer();
                 
@@ -108,13 +102,18 @@ namespace NarupaIMD.Subtle_Game.UI
         {
             if (desiredCanvas == CanvasType.StartNextTask)
             {
-                // Check which is the next task.
-                InvokeStartNextTask();
+                InvokeStartNextTask(); // get the next task
             }
 
-            // Switch to the next canvas.
-            _canvasManager.SwitchCanvas(desiredCanvas);
-
+            if (desiredCanvas == CanvasType.ShowSimulation)
+            {
+                _canvasManager.HideCanvas();  // hide current menu      
+                _puppeteerManager.ShowSimulation = true;  // show simulation
+            }
+            else
+            {
+                _canvasManager.SwitchCanvas(desiredCanvas); // switch to next canvas
+            }
         }
         
         /// <summary>
