@@ -1,4 +1,5 @@
-
+.idea
+**/.idea
 .idea/workspace.xml
 .idea/inspectionProfiles/profiles_settings.xml
 .idea/inspectionProfiles/Project_Default.xml
