@@ -35,10 +35,15 @@ class PuppeteeringClient:
         self._wait_for_vr_client_to_connect()
 
         # loop through the tasks
-        for task in self.order_of_tasks:
-            # begin task
-            print('Player starting task.')
-            self._start_task(task)
+        try:
+            while True:
+                # begin task
+                print('Player starting task.')
+                self._start_task('nanotube')
+                time.sleep(1)
+
+        except KeyboardInterrupt:
+            print("\nCaught KeyboardInterrupt. Exiting the loop.")
 
         # gracefully finish the game
         self._finish_game()
@@ -86,6 +91,8 @@ class PuppeteeringClient:
         self.was_methane_in_nanotube = False
         self.is_methane_in_nanotube = False
         self.methane_end_of_entry = None
+
+        self.narupa_client.run_reset()  # reset the simulation
 
         self.wait_for_methane_to_be_threaded()
 
