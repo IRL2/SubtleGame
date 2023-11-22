@@ -792,7 +792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7733848565266217254, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_text
-      value: Thanks for playing!!
+      value: "Lo lograste, felicidades!!\r\n\r\nPor favor qu\xEDtate las gafas"
       objectReference: {fileID: 0}
     - target: {fileID: 7733848565266217254, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_VerticalAlignment
@@ -3726,7 +3726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4142260680710772301, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_text
-      value: press me!
+      value: empieza!
       objectReference: {fileID: 0}
     - target: {fileID: 4844162278440960559, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_Name
@@ -3782,7 +3782,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7733848565266217254, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_text
-      value: Use your hands to press the button!
+      value: "Usa tus manos para presionar el bot\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 7733848565266217254, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: m_VerticalAlignment
