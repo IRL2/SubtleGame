@@ -92,14 +92,18 @@ class PuppeteeringClient:
         self.is_methane_in_nanotube = False
         self.methane_end_of_entry = None
 
+        self._set_color_of_nanotube()  # set colour
+
+        # remove any ghost interactions from the simulation
+        keys_to_remove = [key for key, value in self.narupa_client.latest_multiplayer_values.items() if key.startswith('interaction')]
+        for key in keys_to_remove:
+            self.narupa_client.remove_shared_value(key)
+
+        self._wait_for_methane_to_be_threaded()
+
         self.narupa_client.run_reset()  # reset the simulation
 
-        self.wait_for_methane_to_be_threaded()
-
-    def wait_for_methane_to_be_threaded(self):
-        """ Continually checks if the methane has been threaded through the nanotube."""
-
-        # TODO: Ensure that the user interacts with the methane as a residue for this task. To be done by the VR client.
+    def _set_color_of_nanotube(self):
         self.narupa_client.clear_selections()
         nanotube_selection = self.narupa_client.create_selection("CNT", list(range(0, 60)))
         nanotube_selection.remove()
@@ -108,6 +112,11 @@ class PuppeteeringClient:
                 {'render': 'ball and stick',
                  'color': {'type': 'particle index', 'gradient': ['white', 'SlateGrey', [0.1, 0.5, 0.3]]}
                  }
+
+    def _wait_for_methane_to_be_threaded(self):
+        """ Continually checks if the methane has been threaded through the nanotube."""
+
+
 
         while True:
 
@@ -135,7 +144,7 @@ class PuppeteeringClient:
 
                 if self.methane_end_of_entry != methane_end_of_exit:
                     # Methane has been threaded!
-                    time.sleep(3)
+                    time.sleep(0.8)  # short time delay otherwise it happens instantly!
                     break
 
                 self.methane_end_of_entry = None

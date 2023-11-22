@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8e3d862e-de99-4872-872c-e26f3efad996" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/AutoRestartGame.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/AutoRestartGame.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../puppeteering-client.py" beforeDir="false" afterPath="$PROJECT_DIR$/../puppeteering-client.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.vr-client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.vr-client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/PuppeteerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/PuppeteerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/ButtonController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/ButtonController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Oculus/Interaction/Runtime/Materials/OculusHand.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Oculus/Interaction/Runtime/Materials/OculusHand.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/BasicMenuWithButton.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/BasicMenuWithButton.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +126,7 @@
       <workItem from="1699788313720" duration="9618000" />
       <workItem from="1699957597439" duration="345000" />
       <workItem from="1700222414692" duration="9850000" />
-      <workItem from="1700645847219" duration="991000" />
+      <workItem from="1700645847219" duration="4149000" />
     </task>
     <servers />
   </component>

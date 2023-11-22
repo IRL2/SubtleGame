@@ -67,12 +67,11 @@ namespace NarupaIMD.Subtle_Game.Logic
             public enum TaskTypeVal
             {
                 Sphere,
-                End
+                End,
+                Nanotube
             }
 
             // Task
-            private List<string> OrderOfTasks { get; set; }
-            private List<TaskTypeVal> _orderOfTasks = new();
             private int CurrentTaskNum { get; set; }
             private TaskTypeVal CurrentTaskType
             {
@@ -133,54 +132,27 @@ namespace NarupaIMD.Subtle_Game.Logic
             ShowSimulation = false;
         }
         
+        /// <summary>
+        /// Increments the task number and updates the current task type and status. 
+        /// </summary>
         public TaskTypeVal StartNextTask()
         {
             if (_startOfGame)
             {
                 CurrentTaskNum = 0; // start task number at 0
-                GetOrderOfTasks(); // populate order of tasks
                 _startOfGame = false;
             }
             else
             {
-                // TODO: This currently does not get written to the shared state, presumably because there's not enough time to register it before it's updated again below.
-                TaskStatus = TaskStatusVal.Finished; // player has finished the previous task
                 CurrentTaskNum++; // increment task number
             }
             
-            CurrentTaskType = _orderOfTasks[CurrentTaskNum]; // get current task
+            CurrentTaskType = TaskTypeVal.Nanotube; // only doing nanotube task
             TaskStatus = TaskStatusVal.Intro; // player is in intro of the task
             
             return CurrentTaskType;
         }
 
-        /// <summary>
-        /// Populates the order of tasks from the list of tasks specified in the shared state.
-        /// </summary>
-        private void GetOrderOfTasks()
-        {
-            // Loop through the tasks in order.
-            foreach (string task in OrderOfTasks)
-            {
-                // Append each task to internal list.
-                switch (task)
-                {
-                    case "sphere":
-                        _orderOfTasks.Add(TaskTypeVal.Sphere);
-                        break;
-
-                    case "end":
-                        _orderOfTasks.Add(TaskTypeVal.End);
-                        break;
-                    
-                    default:
-                        Debug.LogWarning("One of the tasks in the order of tasks in the shared state was not recognised.");
-                        break;
-                }
-            }
-            // After all of the tasks have been added, add the End of Game dummy task
-            _orderOfTasks.Add(TaskTypeVal.End);
-        }
         
         /// <summary>
         /// Writes key-value pair to the shared state with the 'Player.' identifier at the front of the key. 
@@ -203,13 +175,6 @@ namespace NarupaIMD.Subtle_Game.Logic
                     CurrentInteractionModality = val.ToString();
                     break;
 
-                case "puppeteer.order-of-tasks":
-                    // Get the order of tasks.
-                    OrderOfTasks = ((List<object>)val)
-                        .Select(item => item.ToString())
-                        .ToList();
-                    break;
-                
                 case "puppeteer.task-status":
                     TaskStatus = val.ToString() switch
                     {
@@ -219,6 +184,11 @@ namespace NarupaIMD.Subtle_Game.Logic
                     };
                     break;
             }
+        }
+
+        private void OnDestroy()
+        {
+            PlayerStatus = false;
         }
     }
 }

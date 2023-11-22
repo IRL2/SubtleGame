@@ -23,7 +23,7 @@ namespace NarupaIMD.Subtle_Game.UI
 
         private Transform _simulationSpace;
         private const float DistanceFromCamera = .75f;
-        
+
         private void Start()
         {
             _canvasManager = FindObjectOfType<CanvasManager>();
@@ -76,7 +76,7 @@ namespace NarupaIMD.Subtle_Game.UI
             Invoke(nameof(InvokeSwitchCanvas), 0.5f);
 
         }
-
+        
         /// <summary>
         /// Quit the application.
         /// </summary>
@@ -128,6 +128,7 @@ namespace NarupaIMD.Subtle_Game.UI
             {
                 PuppeteerManager.TaskTypeVal.Sphere => CanvasType.SphereIntro,
                 PuppeteerManager.TaskTypeVal.End => CanvasType.GameEnd,
+                PuppeteerManager.TaskTypeVal.Nanotube => CanvasType.GameIntro,
                 _ => desiredCanvas
             };
         }
@@ -140,27 +141,10 @@ namespace NarupaIMD.Subtle_Game.UI
             // Find the simulation space
             _simulationSpace = _simulation.transform.Find("Simulation Space");
             
-            if (Camera.main == null) return;
-            Transform cameraTransform = Camera.main.transform;
-
-            // Calculate the target position in front of the camera
-            Vector3 targetPosition = cameraTransform.position + (cameraTransform.forward * DistanceFromCamera);
-
-            // Make sure the object does not move up or down; keep the Y coordinate the same
-            targetPosition.y = _simulationSpace.position.y;
-
-            // Move the object to the target position
-            _simulationSpace.position = targetPosition;
-
-            // Get the Y rotation of the camera
-            float cameraYRotation = cameraTransform.eulerAngles.y;
-
-            // Construct a new rotation for the object, preserving its original X and Z rotation
-            var eulerAngles = _simulationSpace.eulerAngles;
-            Quaternion targetRotation = Quaternion.Euler(eulerAngles.x, cameraYRotation, eulerAngles.z);
-
-            // Apply the rotation to the object
-            _simulationSpace.rotation = targetRotation;
+            // This hardcoded vector puts the nanotube in front of the user
+            Vector3 offsetPos = new Vector3(1.82f, -0.61f, 0f);
+            _simulationSpace.position = offsetPos;
+ 
         }
     }
 }
