@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class UserInteractionController : MonoBehaviour
+namespace NarupaIMD.Subtle_Game.Logic
 {
-    void Start()
+    public class UserInteractionController : MonoBehaviour
     {
-        // Player does not need to interact with the simulation at this point, so deactivate these scripts.
-        gameObject.SetActive(false);
+        private void Start()
+        {
+            // Player does not need to interact with the simulation at this point, so deactivate these scripts.
+            gameObject.SetActive(false);
+        }
     }
 }

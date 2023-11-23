@@ -20,7 +20,6 @@ public class PinchGrab : MonoBehaviour
     #region Controllers
     public bool UseControllers = false;
     public List<Transform> PokePositions;
-    public MoveObjectInFrontOfCamera MoleculeMover;
     #endregion
 
     #region Line Renderer
@@ -110,6 +109,8 @@ public class PinchGrab : MonoBehaviour
     [Tooltip("Time interval for updating the closest atom to a grabber when not pinching. Note: This operation can be computationally expensive.")]
     [Range(.0139f, .1f)]
     public float FetchClosestAtomUpdateInterval = .1f;
+
+    //public bool renderMarkersOn = true;
     #endregion
 
     #region Audio Effects
@@ -258,9 +259,14 @@ public class PinchGrab : MonoBehaviour
             var grabber = pinchGrabbers[grabberIndex];
             // Safety Call, need to check if this is necessary
             if (grabber.Grab == null) grabber.GetNewGrab();
+            
+            if (grabber.Grab == null) {return;}
+            
+            grabber.AtomMarkerInstance.GetComponent<MeshRenderer>().enabled = true;
+            grabber.LineRenderer.enabled = true;
 
             grabber.UseControllers = UseControllers;
-            MoleculeMover.enabled = UseControllers;
+            
 
             // Update PinchTransform position and rotation
             UpdateGrabberPinchPosition(grabber);
@@ -287,6 +293,21 @@ public class PinchGrab : MonoBehaviour
 
             // Update the LineRenderer and Atom marker such that both highlight the atom this grabber is currently interacting with or would interact with if pinched.
             UpdateAtomMarkerAndLineRenderer(grabber, interaction);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (pinchGrabbers == null) return;
+        
+        // Update each PinchGrabber
+        for (int grabberIndex = 0; grabberIndex < pinchGrabbers.Count; grabberIndex++)
+        {
+            var grabber = pinchGrabbers[grabberIndex];
+            if (grabber == null) {return;}
+
+            grabber.AtomMarkerInstance.GetComponent<MeshRenderer>().enabled = false;
+            grabber.LineRenderer.enabled = false;
         }
     }
 
@@ -482,6 +503,8 @@ public class PinchGrabber
         #region Line Renderer
         // Create a new LineRenderer
         LineRenderer = thumbTip.gameObject.AddComponent<LineRenderer>();
+        // Deactivate initially
+        LineRenderer.enabled = false;
 
         // Create a Copy of the Material used by the blueprint
         Material materialInstance = new Material(lineRendererBlueprint.material);
@@ -527,6 +550,9 @@ public class PinchGrabber
         MeshFilter meshFilter = AtomMarkerInstance.gameObject.AddComponent<MeshFilter>();
         MeshRenderer meshRenderer = AtomMarkerInstance.gameObject.AddComponent<MeshRenderer>();
 
+        // Deactivate it initially
+        AtomMarkerInstance.GetComponent<MeshRenderer>().enabled = false;
+        
         // Assign the sphere mesh
         meshFilter.mesh = Resources.GetBuiltinResource<Mesh>("Sphere.fbx");
 
@@ -564,6 +590,7 @@ public class PinchGrabber
     /// </summary>
     public void GetNewGrab()
     {
+        if (PinchPositionTransform == null) return;
         Transformation grabPose = new Transformation
         {
             Position = PinchPositionTransform.position,

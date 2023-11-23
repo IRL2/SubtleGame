@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Narupa.Grpc.Multiplayer;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.UI;
@@ -19,7 +17,8 @@ namespace NarupaIMD.Subtle_Game.Logic
         private CanvasManager _canvasManager;
         private MultiplayerSession _session;
         private bool _startOfGame = true;
-        public GameObject userInteraction; 
+        public GameObject userInteraction;
+        
         public bool ShowSimulation
         {
             set
@@ -28,9 +27,8 @@ namespace NarupaIMD.Subtle_Game.Logic
                 _showSimulation = value;
                 if (_showSimulation)
                 {
-                    // Show the simulation.
-                    simulation.gameObject.SetActive(true);
-                    
+                    simulation.gameObject.SetActive(true); // show the simulation
+
                     // Allow the player to interact with the simulation.
                     userInteraction.SetActive(true);
                     for (int i = 0; i < userInteraction.transform.childCount; i++)
@@ -41,7 +39,13 @@ namespace NarupaIMD.Subtle_Game.Logic
                 else
                 {
                     simulation.gameObject.SetActive(false); // hide the simulation
-                    userInteraction.SetActive(false); // turn off interactions with the simulation
+                    
+                    // Stop interactions with the simulation.
+                    for (int i = 0; i < userInteraction.transform.childCount; i++)
+                    {
+                        userInteraction.transform.GetChild(i).gameObject.SetActive(false);
+                    }
+                    userInteraction.SetActive(false); 
                 }
                 
             }
