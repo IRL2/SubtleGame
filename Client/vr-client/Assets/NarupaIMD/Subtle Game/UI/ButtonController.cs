@@ -22,7 +22,7 @@ namespace NarupaIMD.Subtle_Game.UI
         public CanvasType desiredCanvas = CanvasType.None;
 
         private Transform _simulationSpace;
-        private const float DistanceFromCamera = .75f;
+        private const float DistanceFromCamera = .5f;
 
         private void Start()
         {
@@ -140,11 +140,32 @@ namespace NarupaIMD.Subtle_Game.UI
         {
             // Find the simulation space
             _simulationSpace = _simulation.transform.Find("Simulation Space");
+
+            if (Camera.main == null)
+            {
+                Debug.LogWarning("no camera found");
+                return;
+            } 
+                
+            Transform cameraTransform = Camera.main.transform;
+            Vector3 xzOffset = new Vector3(-0.5f, 0.0f, 0.25f);
+            float yOffset = -0.25f;
             
-            // This hardcoded vector puts the nanotube in front of the user
-            Vector3 offsetPos = new Vector3(1.82f, -0.61f, 0f);
-            _simulationSpace.position = offsetPos;
- 
+            // Calculate the target position in front of the camera
+            Vector3 targetPosition = cameraTransform.position + (cameraTransform.forward * DistanceFromCamera) + xzOffset;
+            
+            // Make sure the object does not move up or down; keep the Y coordinate the same
+            targetPosition.y = _simulationSpace.position.y + yOffset;
+            
+            // Move the object to the target position
+            _simulationSpace.position = targetPosition;
+            
+            // Define the rotation to be applied (180 degrees around the Y axis)
+            Quaternion targetRotation = Quaternion.Euler(0f, 140f, 0f);
+
+            // Set the object's rotation to the target rotation instantly
+            _simulationSpace.rotation = targetRotation;
+
         }
     }
 }

@@ -4,37 +4,31 @@ namespace NarupaIMD.Subtle_Game.UI
 {
     public class AutoRestartGame : MonoBehaviour
     {
-        private float _timeDelay = 5f;
+        private const float TimeDelay = 5f;
         private CanvasManager _canvasManager;
-        private bool _firstActivated = true;
 
         private void Start()
         {
             _canvasManager = FindObjectOfType<CanvasManager>();
         }
+        /// <summary>
+        /// Starts the coroutine for looping the game.
+        /// </summary>
         private void OnEnable()
         {
-            if (_firstActivated)
-            {
-                _firstActivated = false;
-                return;
-            }
-            
-            // Restart game
-            StartCoroutine(DeactivateAfterDelayCoroutine());
+            StartCoroutine(LoopGameAfterTimeDelay());
         }
         
         /// <summary>
         /// Waits for some time and then returns to the main game menu.
         /// </summary>
-        private System.Collections.IEnumerator DeactivateAfterDelayCoroutine()
+        private System.Collections.IEnumerator LoopGameAfterTimeDelay()
         {
             // Wait for 5 seconds
-            yield return new WaitForSeconds(_timeDelay);
+            yield return new WaitForSeconds(TimeDelay);
             
             // Go to main menu of the game.
             _canvasManager.SwitchCanvas(CanvasType.GameIntro);
-            
         }
     }
 }
