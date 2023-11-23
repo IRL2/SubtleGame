@@ -38,8 +38,9 @@ class PuppeteeringClient:
         try:
             while True:
                 # begin task
-                print('Player starting task.')
+                print('Starting detection of methane being threaded through nanotube.')
                 self._start_task('nanotube')
+                print('Player completed the task!')
                 time.sleep(1)
 
         except KeyboardInterrupt:
@@ -71,10 +72,6 @@ class PuppeteeringClient:
         # update CURRENT TASK
         self.current_task = current_task
         self._write_to_shared_state('current-task', self.current_task)
-
-        # # wait until player is in the INTRO
-        # self._wait_for_key_in_shared_state('Player.TaskStatus', 'Intro')
-        # self._write_to_shared_state('task-status', 'intro')
 
         if current_task == 'nanotube':
             # wait until player is in the INTRO
@@ -115,8 +112,6 @@ class PuppeteeringClient:
 
     def _wait_for_methane_to_be_threaded(self):
         """ Continually checks if the methane has been threaded through the nanotube."""
-
-
 
         while True:
 
@@ -184,6 +179,7 @@ class PuppeteeringClient:
 
 
 if __name__ == '__main__':
+
     # create puppeteering client
     print('Creating a puppeteering client\n')
     puppeteering_client = PuppeteeringClient()
