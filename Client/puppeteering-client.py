@@ -91,13 +91,13 @@ class PuppeteeringClient:
 
         self._set_color_of_nanotube()  # set colour
 
-        # remove any ghost interactions from the simulation
-        keys_to_remove = [key for key, value in self.narupa_client.latest_multiplayer_values.items() if key.startswith('interaction')]
-        for key in keys_to_remove:
-            self.narupa_client.remove_shared_value(key)
-
         self._wait_for_methane_to_be_threaded()
 
+        # remove any ghost interactions from the simulation
+        keys_to_remove = [key for key, value in self.narupa_client.latest_multiplayer_values.items() if
+                          key.startswith('interaction')]
+        for key in keys_to_remove:
+            self.narupa_client.remove_shared_value(key)
         self.narupa_client.run_reset()  # reset the simulation
 
     def _set_color_of_nanotube(self):
