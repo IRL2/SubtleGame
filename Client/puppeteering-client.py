@@ -66,6 +66,7 @@ class PuppeteeringClient:
         self._write_to_shared_state('game-status', 'waiting')
         self._write_to_shared_state('modality', self.current_modality)
         self._write_to_shared_state('order-of-tasks', self.order_of_tasks)
+        self._set_color_of_nanotube()
 
     def _start_task(self, current_task: str):
 
@@ -74,9 +75,11 @@ class PuppeteeringClient:
         self._write_to_shared_state('current-task', self.current_task)
 
         if current_task == 'nanotube':
+
             # wait until player is in the INTRO
             self._wait_for_key_in_shared_state('Player.TaskStatus', 'InProgress')
             self._write_to_shared_state('task-status', 'in-progress')
+            self._set_color_of_nanotube()
             self._run_nanotube_task()
 
         # Player has completed the task.
@@ -88,8 +91,6 @@ class PuppeteeringClient:
         self.was_methane_in_nanotube = False
         self.is_methane_in_nanotube = False
         self.methane_end_of_entry = None
-
-        self._set_color_of_nanotube()  # set colour
 
         self._wait_for_methane_to_be_threaded()
 
@@ -103,7 +104,7 @@ class PuppeteeringClient:
     def _set_color_of_nanotube(self):
         self.narupa_client.clear_selections()
         nanotube_selection = self.narupa_client.create_selection("CNT", list(range(0, 60)))
-        nanotube_selection.remove()
+        # nanotube_selection.remove()
         with nanotube_selection.modify() as selection:
             selection.renderer = \
                 {'render': 'ball and stick',
