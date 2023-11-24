@@ -29,7 +29,10 @@
         "Oculus.VR.Editor",
         "Oculus.VR.Scripts.Editor",
         "Unity.XR.Oculus",
-        "Unity.XR.Oculus.Editor"
+        "Unity.XR.Oculus.Editor",
+        "Unity.Burst",
+        "Unity.Collections",
+        "Unity.Mathematics"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

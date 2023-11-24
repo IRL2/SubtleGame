@@ -1,7 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Narupa.Visualisation;
 using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game.UI
 {
@@ -33,6 +36,10 @@ namespace NarupaIMD.Subtle_Game.UI
 
         private PuppeteerManager _puppeteerManager;
 
+        public TheOtherFactor theOtherFactor;
+        public SynchronisedFrameSource frameSource;
+        public Transform interactableSceneTransform;
+
         // Methods
 
         private void Start()
@@ -55,10 +62,24 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         private void EndTheGame()
         {
-            SwitchCanvas(CanvasType.GameEnd); // open the menu
+            for (int i = 0; i < frameSource.CurrentFrame.ParticlePositions.Length; i++)
+            {
+                Vector3 currentPosition = interactableSceneTransform.TransformPoint(frameSource.CurrentFrame.ParticlePositions[i]);
+                theOtherFactor.EmitPositions.Add(currentPosition);
+            }
+
+            theOtherFactor.StartTheOtherFactor(); // start particle simulation
             _puppeteerManager.ShowSimulation = false; // hide the simulation
+            StartCoroutine(GameEndPopupMenu()); // begin wait for end game menu
         }
         
+        IEnumerator GameEndPopupMenu()
+        {
+            yield return new WaitForSeconds(20f); // Wait for 20 seconds
+            theOtherFactor.StopTheOtherFactor(); // stop particle simulation
+            SwitchCanvas(CanvasType.GameEnd); // open the menu
+        }
+
         public void SwitchCanvas(CanvasType desiredCanvasType)
         {
             HideCanvas();
