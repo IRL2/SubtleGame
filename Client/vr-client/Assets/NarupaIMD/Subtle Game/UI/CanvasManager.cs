@@ -62,15 +62,16 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         private void EndTheGame()
         {
-            for (int i = 0; i < frameSource.CurrentFrame.ParticlePositions.Length; i++)
+            /*for (int i = 0; i < frameSource.CurrentFrame.ParticlePositions.Length; i++)
             {
                 Vector3 currentPosition = interactableSceneTransform.TransformPoint(frameSource.CurrentFrame.ParticlePositions[i]);
-                theOtherFactor.EmitPositions.Add(currentPosition);
+                //theOtherFactor.EmitPositions.Add(currentPosition);
             }
 
-            theOtherFactor.StartTheOtherFactor(); // start particle simulation
+            theOtherFactor.StartTheOtherFactor(); // start particle simulation*/
             _puppeteerManager.ShowSimulation = false; // hide the simulation
-            StartCoroutine(GameEndPopupMenu()); // begin wait for end game menu
+            SwitchCanvas(CanvasType.GameEnd); // open the menu
+            //StartCoroutine(GameEndPopupMenu()); // begin wait for end game menu
         }
         
         IEnumerator GameEndPopupMenu()

@@ -258,8 +258,8 @@ public class TheOtherFactor : MonoBehaviour
     public void StopTheOtherFactor()
     {
         EngineOn = false;
-        leftHandMesh.gameObject.SetActive(true);
-        rightHandMesh.gameObject.SetActive(true);
+        //leftHandMesh.gameObject.SetActive(true);
+        //rightHandMesh.gameObject.SetActive(true);
         this.gameObject.SetActive(false);
     }
     #region Log Color Values to Console To Safe in Script
