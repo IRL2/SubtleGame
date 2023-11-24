@@ -1,3 +1,4 @@
+using System.Diagnostics.Tracing;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
@@ -61,8 +62,10 @@ namespace NarupaIMD.Subtle_Game.UI
             if (_firstConnecting)
             {
                 // Autoconnect to a locally-running server.
-                await _simulation.AutoConnect();
-            
+                //await _simulation.AutoConnect();
+                
+                await _simulation.Connect("192.168.50.38", trajectoryPort:38801, imdPort:38801, multiplayerPort:38801);
+
                 // Let the Puppeteer Manager know that the player has connected.
                 _puppeteerManager.PlayerStatus = true;
 

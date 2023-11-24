@@ -117,7 +117,7 @@ namespace NarupaImd
             FrameSynchronizer.FrameSource = Trajectory;
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Connect to services as advertised by an ESSD service hub.
         /// </summary>
         public async Task Connect(ServiceHub hub)
@@ -134,9 +134,9 @@ namespace NarupaImd
             {
                 return services.ContainsKey(name) ? services[name].ToObject<int>() : (int?) null;
             }
-        }
+        }*/
 
-        /// <summary>
+        /*/// <summary>
         /// Run an ESSD search and connect to the first service found, or none
         /// if the timeout elapses without finding a service.
         /// </summary>
@@ -146,7 +146,7 @@ namespace NarupaImd
             var services = await Task.Run(() => client.SearchForServices(millisecondsTimeout));
             if (services.Count > 0)
                 await Connect(services.First());
-        }
+        }*/
 
         /// <summary>
         /// Close all sessions.
