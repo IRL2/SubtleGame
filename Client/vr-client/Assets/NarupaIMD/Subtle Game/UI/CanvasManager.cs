@@ -90,7 +90,8 @@ namespace NarupaIMD.Subtle_Game.UI
             {
                 PuppeteerManager.TaskTypeVal.Sphere => CanvasType.SphereIntro,
                 PuppeteerManager.TaskTypeVal.Nanotube => CanvasType.Nanotube,
-                _ => desiredCanvas
+                PuppeteerManager.TaskTypeVal.GameFinished => CanvasType.Outro,
+                    _ => desiredCanvas
             };
             
             return desiredCanvas;

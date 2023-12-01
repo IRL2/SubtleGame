@@ -16,7 +16,7 @@ class PuppeteeringClient:
         self.narupa_client.update_available_commands()
 
         # Declare variables.
-        self.order_of_tasks = ['sphere', 'end']
+        self.order_of_tasks = ['nanotube']
         self.order_of_modality = ['hands']
         self.current_modality = self.order_of_modality[0]
 

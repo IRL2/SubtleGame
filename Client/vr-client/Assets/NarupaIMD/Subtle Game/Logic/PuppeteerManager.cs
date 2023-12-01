@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Threading.Tasks;
 using Narupa.Grpc.Multiplayer;
@@ -42,12 +43,14 @@ namespace NarupaIMD.Subtle_Game.Logic
             public enum TaskTypeVal
             {
                 Sphere,
-                Nanotube
+                Nanotube,
+                GameFinished
             }
 
             // Task
             private List<string> OrderOfTasks { get; set; }
             private List<TaskTypeVal> _orderOfTasks = new();
+            public int NumberOfTasks { get; private set; }
             private int CurrentTaskNum { get; set; }
             private TaskTypeVal CurrentTaskType
             {
@@ -110,15 +113,19 @@ namespace NarupaIMD.Subtle_Game.Logic
             {
                 CurrentTaskNum = 0; // start task number at 0
                 GetOrderOfTasks(); // populate order of tasks
+                NumberOfTasks = _orderOfTasks.Count;
                 _startOfGame = false;
             }
             else
             {
-                // TODO: This currently does not get written to the shared state, presumably because there's not enough time to register it before it's updated again below.
-                TaskStatus = TaskStatusVal.Finished; // player has finished the previous task
                 CurrentTaskNum++; // increment task number
             }
-            
+
+            if (CurrentTaskNum == NumberOfTasks)
+            {
+                EndGame();
+                return TaskTypeVal.GameFinished;
+            }
             CurrentTaskType = _orderOfTasks[CurrentTaskNum]; // get current task
             TaskStatus = TaskStatusVal.Intro; // player is in intro of the task
             
@@ -219,6 +226,18 @@ namespace NarupaIMD.Subtle_Game.Logic
             // Set position and rotation of simulation to be in front of the player.
             MoveSimulationInFrontOfPlayer();
 
+        }
+        
+        /// <summary>
+        /// Ends the game.
+        /// </summary>
+        public void EndGame()
+        {
+            // Disconnect from the server.
+            simulation.Disconnect();
+            
+            // Let the Puppeteer Manager know that the player has finished the game.
+            PlayerStatus = false;
         }
         
         /// <summary>
