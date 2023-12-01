@@ -25,6 +25,7 @@ namespace NarupaIMD.Subtle_Game.UI
 
         private Transform _simulationSpace;
         private const float DistanceFromCamera = .75f;
+        private const float TimeDelay = 0.15f;
         
         private void Start()
         {
@@ -40,7 +41,7 @@ namespace NarupaIMD.Subtle_Game.UI
         public void ButtonQuitApplication()
         {
             // Invoke button press.
-            Invoke(nameof(InvokeQuitApplication), 0.5f);
+            Invoke(nameof(InvokeQuitApplication), TimeDelay);
         }
         
         /// <summary>
@@ -91,7 +92,7 @@ namespace NarupaIMD.Subtle_Game.UI
             }
 
             // Invoke button press.
-            Invoke(nameof(InvokeSwitchCanvas), 0.5f);
+            Invoke(nameof(InvokeSwitchCanvas), TimeDelay);
 
         }
 
