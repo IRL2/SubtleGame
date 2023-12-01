@@ -999,7 +999,7 @@ PrefabInstance:
       objectReference: {fileID: 1634127312}
     - target: {fileID: 7914976363339177948, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PlayVideoFromBeginning
+      value: InvokePlayFromBeginning
       objectReference: {fileID: 0}
     - target: {fileID: 7914976363339177948, guid: 4abd0dee41c87cc46827ea3bda5fdf86, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
