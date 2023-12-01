@@ -16,7 +16,6 @@ namespace NarupaIMD.Subtle_Game.UI
         
         private CanvasManager _canvasManager;
         private CanvasModifier _canvasModifier;
-        private NarupaImdSimulation _simulation;
         private PuppeteerManager _puppeteerManager;
         private bool _firstConnecting = true;
         public CanvasType desiredCanvas = CanvasType.None;
@@ -27,7 +26,6 @@ namespace NarupaIMD.Subtle_Game.UI
         {
             _canvasManager = FindObjectOfType<CanvasManager>();
             _puppeteerManager = FindObjectOfType<PuppeteerManager>();
-            _simulation = FindObjectOfType<NarupaImdSimulation>();
         }
         
         /// <summary>
