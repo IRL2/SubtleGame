@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Narupa.Grpc.Multiplayer;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.UI;
@@ -15,12 +16,13 @@ namespace NarupaIMD.Subtle_Game.Logic
     {
         // Variables
         public NarupaImdSimulation simulation;
+        private Transform _simulationSpace;
         private CanvasManager _canvasManager;
         private MultiplayerSession _session;
         private bool _startOfGame = true;
         
-        // For debugging, allow easy toggling from the Editor.
         public bool hideSimulation;
+        private const float DistanceFromCamera = .75f;
         
         #region ForSharedState
         
@@ -92,6 +94,9 @@ namespace NarupaIMD.Subtle_Game.Logic
             // Find the Canvas Manager.
             _canvasManager = FindObjectOfType<CanvasManager>();
             
+            // Find the simulation space.
+            _simulationSpace = simulation.transform.Find("Simulation Space");
+
             // Load the GameIntro menu.
             _canvasManager.SwitchCanvas(CanvasType.GameIntro);
             
@@ -192,6 +197,56 @@ namespace NarupaIMD.Subtle_Game.Logic
                 // Quits the game if not in the Unity Editor
                 Application.Quit();
 #endif
+        }
+
+        /// <summary>
+        /// Sets up the game by connecting to the server, updating the player status, and hiding & moving the simulation.
+        /// </summary>
+        public async Task SetupGame()
+        {
+            // Autoconnect to a locally-running server.
+            await simulation.AutoConnect();
+            
+            // Let the Puppeteer Manager know that the player has connected.
+            PlayerStatus = true;
+
+            // Hide simulation if needed.
+            if (hideSimulation)
+            {
+                gameObject.SetActive(false);
+            }
+            
+            // Set position and rotation of simulation to be in front of the player.
+            MoveSimulationInFrontOfPlayer();
+
+        }
+        
+        /// <summary>
+        /// Center the simulation space in front of the player.
+        /// </summary>
+        private void MoveSimulationInFrontOfPlayer()
+        {
+            if (Camera.main == null) return;
+            Transform cameraTransform = Camera.main.transform;
+
+            // Calculate the target position in front of the camera
+            Vector3 targetPosition = cameraTransform.position + (cameraTransform.forward * DistanceFromCamera);
+
+            // Make sure the object does not move up or down; keep the Y coordinate the same
+            targetPosition.y = _simulationSpace.position.y;
+
+            // Move the object to the target position
+            _simulationSpace.position = targetPosition;
+
+            // Get the Y rotation of the camera
+            float cameraYRotation = cameraTransform.eulerAngles.y;
+
+            // Construct a new rotation for the object, preserving its original X and Z rotation
+            var eulerAngles = _simulationSpace.eulerAngles;
+            Quaternion targetRotation = Quaternion.Euler(eulerAngles.x, cameraYRotation, eulerAngles.z);
+
+            // Apply the rotation to the object
+            _simulationSpace.rotation = targetRotation;
         }
     }
 }

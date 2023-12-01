@@ -71,21 +71,8 @@ namespace NarupaIMD.Subtle_Game.UI
             // Check if this is the beginning of the game.
             if (_firstConnecting)
             {
-                // Autoconnect to a locally-running server.
-                await _simulation.AutoConnect();
-            
-                // Let the Puppeteer Manager know that the player has connected.
-                _puppeteerManager.PlayerStatus = true;
-
-                // For debugging (toggle in the Editor).
-                if (_puppeteerManager.hideSimulation)
-                {
-                    _simulation.gameObject.SetActive(false);
-                }
-            
-                // Set position and rotation of simulation to be in front of the player.
-                MoveSimulationInFrontOfPlayer();
-                
+                // Puppeteer Manager sets up the game.
+                await _puppeteerManager.SetupGame();
                 _firstConnecting = false;
             }
 
@@ -103,31 +90,5 @@ namespace NarupaIMD.Subtle_Game.UI
             _canvasManager.SwitchCanvas(desiredCanvas);
         }
 
-        /// <summary>
-        /// Center the simulation space in front of the player.
-        /// </summary>
-        private void MoveSimulationInFrontOfPlayer()
-        {
-            if (Camera.main == null) return;
-            Transform cameraTransform = Camera.main.transform;
-
-            // Calculate the target position in front of the camera
-            Vector3 targetPosition = cameraTransform.position + (cameraTransform.forward * DistanceFromCamera);
-
-            // Make sure the object does not move up or down; keep the Y coordinate the same
-            targetPosition.y = _simulationSpace.position.y;
-
-            // Move the object to the target position
-            _simulationSpace.position = targetPosition;
-
-            // Get the Y rotation of the camera
-            float cameraYRotation = cameraTransform.eulerAngles.y;
-
-            // Construct a new rotation for the object, preserving its original X and Z rotation
-            Quaternion targetRotation = Quaternion.Euler(_simulationSpace.eulerAngles.x, cameraYRotation, _simulationSpace.eulerAngles.z);
-
-            // Apply the rotation to the object
-            _simulationSpace.rotation = targetRotation;
-        }
     }
 }
