@@ -39,7 +39,7 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         public void ButtonQuitApplication()
         {
-            Invoke(nameof(InvokeQuitApplication), 0.5f);
+            _puppeteerManager.QuitApplication();
         }
 
         /// <summary>
@@ -86,23 +86,6 @@ namespace NarupaIMD.Subtle_Game.UI
 
         }
 
-        /// <summary>
-        /// Quit the application.
-        /// </summary>
-        private void InvokeQuitApplication()
-        {
-            Debug.LogWarning("Quitting game");
-            _puppeteerManager.TaskStatus = PuppeteerManager.TaskStatusVal.Finished;
-            _puppeteerManager.PlayerStatus = false;
-#if UNITY_EDITOR
-            // Quits the game if in the Unity Editor
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-                // Quits the game if not in the Unity Editor
-                Application.Quit();
-#endif
-        }
-        
         /// <summary>
         /// Switch the menu canvas.
         /// </summary>

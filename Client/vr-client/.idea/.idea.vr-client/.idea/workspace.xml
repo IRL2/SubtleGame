@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8e3d862e-de99-4872-872c-e26f3efad996" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/NanotubeTask.renderTexture" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/NanotubeTask.renderTexture.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/nanotube_task.mp4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/nanotube_task.mp4.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/PuppeteerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Logic/PuppeteerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/ButtonController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/ButtonController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +117,7 @@
       <workItem from="1699788313720" duration="9618000" />
       <workItem from="1699957597439" duration="345000" />
       <workItem from="1701429087952" duration="354000" />
-      <workItem from="1701433266917" duration="1652000" />
+      <workItem from="1701433266917" duration="1763000" />
     </task>
     <servers />
   </component>

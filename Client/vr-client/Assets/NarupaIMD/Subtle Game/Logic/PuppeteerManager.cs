@@ -176,5 +176,22 @@ namespace NarupaIMD.Subtle_Game.Logic
                     break;
             }
         }
+        
+        /// <summary>
+        /// Quits the application.
+        /// </summary>
+        public void QuitApplication()
+        {
+            Debug.LogWarning("Quitting game");
+            TaskStatus = TaskStatusVal.Finished;
+            PlayerStatus = false;
+#if UNITY_EDITOR
+            // Quits the game if in the Unity Editor
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+                // Quits the game if not in the Unity Editor
+                Application.Quit();
+#endif
+        }
     }
 }
