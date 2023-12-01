@@ -98,7 +98,7 @@ namespace NarupaIMD.Subtle_Game.Logic
             _simulationSpace = simulation.transform.Find("Simulation Space");
 
             // Load the GameIntro menu.
-            _canvasManager.SwitchCanvas(CanvasType.GameIntro);
+            _canvasManager.SwitchCanvas(CanvasType.Intro);
             
             // Subscribe to updates in the shared state dictionary.
             simulation.Multiplayer.SharedStateDictionaryKeyUpdated += OnSharedStateKeyUpdated;

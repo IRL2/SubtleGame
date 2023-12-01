@@ -10,13 +10,11 @@ namespace NarupaIMD.Subtle_Game.UI
     {
         None,
         StartNextTask,
-        GameIntro,
-        HowToEnableHands,
+        Intro,
+        EnablingHands,
         SphereIntro,
-        SettingInteractionMode,
-        KnotTyingIntro,
-        KnotTyingVideo,
-        GameEnd
+        Nanotube,
+        Outro
     }
 
     /// <summary>
@@ -91,7 +89,7 @@ namespace NarupaIMD.Subtle_Game.UI
             desiredCanvas = _puppeteerManager.StartNextTask() switch
             {
                 PuppeteerManager.TaskTypeVal.Sphere => CanvasType.SphereIntro,
-                PuppeteerManager.TaskTypeVal.End => CanvasType.GameEnd,
+                PuppeteerManager.TaskTypeVal.End => CanvasType.Outro,
                 _ => desiredCanvas
             };
             
