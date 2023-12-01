@@ -97,37 +97,14 @@ namespace NarupaIMD.Subtle_Game.UI
         }
 
         /// <summary>
-        /// Switch the menu canvas.
+        /// Request switch of menu canvas.
         /// </summary>
         private void InvokeSwitchCanvas()
         {
-            if (desiredCanvas == CanvasType.StartNextTask)
-            {
-                // Check which is the next task.
-                InvokeStartNextTask();
-            }
-
-            // Switch to the next canvas.
+            // Request switch of canvas.
             _canvasManager.SwitchCanvas(desiredCanvas);
+        }
 
-        }
-        
-        /// <summary>
-        /// Set the desired canvas from the order of tasks in the Puppeteer Manager.
-        /// </summary>
-        private void InvokeStartNextTask()
-        {
-            _puppeteerManager.TaskStatus = PuppeteerManager.TaskStatusVal.Finished;
-            
-            // Get current task from puppeteer manager and set the next menu screen.
-            desiredCanvas = _puppeteerManager.StartNextTask() switch
-            {
-                PuppeteerManager.TaskTypeVal.Sphere => CanvasType.SphereIntro,
-                PuppeteerManager.TaskTypeVal.End => CanvasType.GameEnd,
-                _ => desiredCanvas
-            };
-        }
-        
         /// <summary>
         /// Center the simulation space in front of the player.
         /// </summary>

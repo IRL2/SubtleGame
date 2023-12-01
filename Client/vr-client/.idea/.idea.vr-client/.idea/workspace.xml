@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8e3d862e-de99-4872-872c-e26f3efad996" name="Changes" comment="" />
+    <list default="true" id="8e3d862e-de99-4872-872c-e26f3efad996" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/ButtonController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/ButtonController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasManager.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -114,7 +117,7 @@
       <workItem from="1699788313720" duration="9618000" />
       <workItem from="1699957597439" duration="345000" />
       <workItem from="1701429087952" duration="354000" />
-      <workItem from="1701433266917" duration="2065000" />
+      <workItem from="1701433266917" duration="2694000" />
     </task>
     <servers />
   </component>
