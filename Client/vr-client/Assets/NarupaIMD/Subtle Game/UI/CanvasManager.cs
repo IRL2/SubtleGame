@@ -44,7 +44,10 @@ namespace NarupaIMD.Subtle_Game.UI
             // Set all canvases inactive
             _canvasControllerList.ForEach(x => x.gameObject.SetActive(false));
         }
-
+        
+        /// <summary>
+        /// Deactivate previous canvas and activate new canvas.
+        /// </summary>
         public void SwitchCanvas(CanvasType desiredCanvasType)
         {
             if (desiredCanvasType == CanvasType.StartNextTask)
