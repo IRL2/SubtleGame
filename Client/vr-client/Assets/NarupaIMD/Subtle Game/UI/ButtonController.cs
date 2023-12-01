@@ -35,9 +35,18 @@ namespace NarupaIMD.Subtle_Game.UI
         }
         
         /// <summary>
-        /// Invoke button press for quitting the application.
+        /// Invoke button press for quitting the application, with small time delay to allow for animation of button.
         /// </summary>
         public void ButtonQuitApplication()
+        {
+            // Invoke button press.
+            Invoke(nameof(InvokeQuitApplication), 0.5f);
+        }
+        
+        /// <summary>
+        /// Call the quit application function of the puppeteer manager.
+        /// </summary>
+        private void InvokeQuitApplication()
         {
             _puppeteerManager.QuitApplication();
         }
