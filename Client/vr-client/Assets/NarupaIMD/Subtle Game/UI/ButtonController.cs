@@ -20,9 +20,7 @@ namespace NarupaIMD.Subtle_Game.UI
         private PuppeteerManager _puppeteerManager;
         private bool _firstConnecting = true;
         public CanvasType desiredCanvas = CanvasType.None;
-
-        private Transform _simulationSpace;
-        private const float DistanceFromCamera = .75f;
+        
         private const float TimeDelay = 0.15f;
         
         private void Start()
@@ -30,7 +28,6 @@ namespace NarupaIMD.Subtle_Game.UI
             _canvasManager = FindObjectOfType<CanvasManager>();
             _puppeteerManager = FindObjectOfType<PuppeteerManager>();
             _simulation = FindObjectOfType<NarupaImdSimulation>();
-            _simulationSpace = _simulation.transform.Find("Simulation Space");
         }
         
         /// <summary>
