@@ -89,7 +89,7 @@ namespace NarupaIMD.Subtle_Game.UI
             desiredCanvas = _puppeteerManager.StartNextTask() switch
             {
                 PuppeteerManager.TaskTypeVal.Sphere => CanvasType.SphereIntro,
-                PuppeteerManager.TaskTypeVal.End => CanvasType.Outro,
+                PuppeteerManager.TaskTypeVal.Nanotube => CanvasType.Nanotube,
                 _ => desiredCanvas
             };
             

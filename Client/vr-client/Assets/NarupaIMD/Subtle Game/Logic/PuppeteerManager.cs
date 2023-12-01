@@ -42,7 +42,7 @@ namespace NarupaIMD.Subtle_Game.Logic
             public enum TaskTypeVal
             {
                 Sphere,
-                End
+                Nanotube
             }
 
             // Task
@@ -139,9 +139,9 @@ namespace NarupaIMD.Subtle_Game.Logic
                     case "sphere":
                         _orderOfTasks.Add(TaskTypeVal.Sphere);
                         break;
-
-                    case "end":
-                        _orderOfTasks.Add(TaskTypeVal.End);
+                    
+                    case "nanotube":
+                        _orderOfTasks.Add(TaskTypeVal.Nanotube);
                         break;
                     
                     default:
