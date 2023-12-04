@@ -1,4 +1,3 @@
-using NarupaImd;
 using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
 
@@ -10,15 +9,10 @@ namespace NarupaIMD.Subtle_Game.UI
     public class ButtonController : MonoBehaviour
     {
 
-        [Header("Canvas Logic")] 
-        
         public bool handsOnly;
-        
+
         private CanvasManager _canvasManager;
-        private CanvasModifier _canvasModifier;
         private PuppeteerManager _puppeteerManager;
-        private bool _firstConnecting = true;
-        public CanvasType desiredCanvas = CanvasType.None;
         
         private const float TimeDelay = 0.15f;
         
@@ -29,11 +23,10 @@ namespace NarupaIMD.Subtle_Game.UI
         }
         
         /// <summary>
-        /// Invoke button press for quitting the application, with small time delay to allow for animation of button.
+        /// Invoke button press for quitting the application.
         /// </summary>
         public void ButtonQuitApplication()
         {
-            // Invoke button press.
             Invoke(nameof(InvokeQuitApplication), TimeDelay);
         }
         
@@ -50,39 +43,31 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         public async void ButtonSwitchCanvas()
         {
-            // If button can only be pressed by the hands, check if the hands are tracking.
+            // If button can only be pressed by the hands, check if the hands are tracking
             if (handsOnly & !OVRPlugin.GetHandTrackingEnabled())
             {
-                // Hands are not tracking, check if the canvas needs to be modified.
-                _canvasModifier = gameObject.GetComponent<CanvasModifier>();
-                if (_canvasModifier!= null)
-                {
-                    // Enable any Game Objects specified in the CanvasModifier.
-                    _canvasModifier.SetObjectsActiveOnCanvas();
-                }
+                // Hands are not tracking, check if the canvas needs to be modified
+                _canvasManager.ModifyCanvas(gameObject.GetComponent<CanvasModifier>());
                 return;
             }
             
-            // Check if this is the beginning of the game.
-            if (_firstConnecting)
+            // Check if this is the beginning of the game
+            if (_puppeteerManager.firstConnecting)
             {
-                // Puppeteer Manager sets up the game.
+                // Puppeteer Manager sets up the game
                 await _puppeteerManager.SetupGame();
-                _firstConnecting = false;
             }
 
             // Invoke button press.
             Invoke(nameof(InvokeSwitchCanvas), TimeDelay);
-
         }
 
         /// <summary>
-        /// Request switch of menu canvas.
+        /// Request switch of canvas from the Canvas Manager.
         /// </summary>
         private void InvokeSwitchCanvas()
         {
-            // Request switch of canvas.
-            _canvasManager.SwitchCanvas(desiredCanvas);
+            _canvasManager.RequestNextCanvas();
         }
 
     }

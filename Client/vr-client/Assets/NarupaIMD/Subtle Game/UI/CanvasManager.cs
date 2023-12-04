@@ -9,10 +9,8 @@ namespace NarupaIMD.Subtle_Game.UI
     public enum CanvasType
     {
         None,
-        StartNextTask,
         Intro,
-        EnablingHands,
-        SphereIntro,
+        Sphere,
         Nanotube,
         Outro
     }
@@ -24,10 +22,22 @@ namespace NarupaIMD.Subtle_Game.UI
     {
         // Variables
         
+        [Header("Canvases")]
         private List<CanvasController> _canvasControllerList;
-        public CanvasController LastActiveCanvas { get; private set; }
-        private bool _isLastActiveCanvasNotNull;
+        private CanvasController LastActiveCanvas { get; set; }
+        private CanvasType CurrentCanvasType
+        {
+            set
+            {
+                if (_currentCanvasType == value) return;
+                _currentCanvasType = value;
+                SwitchCanvas();
+            }
+            get => _currentCanvasType;
+        }
+        private CanvasType _currentCanvasType;
         
+        [Header("Other")]
         private PuppeteerManager _puppeteerManager;
 
         // Methods
@@ -42,32 +52,37 @@ namespace NarupaIMD.Subtle_Game.UI
             // Set all canvases inactive
             _canvasControllerList.ForEach(x => x.gameObject.SetActive(false));
         }
+
+        /// <summary>
+        /// Called at the start of the game to activate the first canvas.
+        /// </summary>
+        public void StartGame()
+        {
+            CurrentCanvasType = CanvasType.Intro;
+        }
+        
         
         /// <summary>
-        /// Deactivate previous canvas and activate new canvas.
+        /// Deactivate previous canvas and activate the next canvas. This is called when the player switches task.
         /// </summary>
-        public void SwitchCanvas(CanvasType desiredCanvasType)
+        private void SwitchCanvas()
         {
-            if (desiredCanvasType == CanvasType.StartNextTask)
-            {
-                // Check which is the next task.
-                desiredCanvasType = GetNextCanvas();
-            }
-            
+            // Disable current canvas
             if (LastActiveCanvas != null)
             {
-                // If there is an active canvas, deactivate it
                 LastActiveCanvas.gameObject.SetActive(false);
             }
             
-            // Get the GameObject for the desired canvas 
-            CanvasController desiredCanvas = _canvasControllerList.Find(x => x.canvasType == desiredCanvasType);
+            // Find next canvas
+            CanvasController nextCanvas = _canvasControllerList.Find(x => x.canvasType == _currentCanvasType);
             
-            // Check the GameObject exists and set active
-            if (!(desiredCanvas == null))
+            if (nextCanvas != null)
             {
-                desiredCanvas.gameObject.SetActive(true);
-                LastActiveCanvas = desiredCanvas;
+                // Enable next canvas
+                nextCanvas.gameObject.SetActive(true);
+                
+                // Update last active canvas
+                LastActiveCanvas = nextCanvas;
             }
             else
             {
@@ -76,25 +91,31 @@ namespace NarupaIMD.Subtle_Game.UI
         }
         
         /// <summary>
-        /// Get the next canvas based on the order of tasks in the Puppeteer Manager.
+        /// Update the canvas based on the order of tasks in the Puppeteer Manager.
         /// </summary>
-        private CanvasType GetNextCanvas()
+        public void RequestNextCanvas()
         {
-            _puppeteerManager.TaskStatus = PuppeteerManager.TaskStatusVal.Finished;
-            
-            // Get current task from puppeteer manager and set the next menu screen.
-
-            CanvasType desiredCanvas = CanvasType.None;
-            
-            desiredCanvas = _puppeteerManager.StartNextTask() switch
+            CurrentCanvasType = _puppeteerManager.CurrentTaskType switch
             {
-                PuppeteerManager.TaskTypeVal.Sphere => CanvasType.SphereIntro,
+                PuppeteerManager.TaskTypeVal.Sphere => CanvasType.Sphere,
                 PuppeteerManager.TaskTypeVal.Nanotube => CanvasType.Nanotube,
                 PuppeteerManager.TaskTypeVal.GameFinished => CanvasType.Outro,
-                    _ => desiredCanvas
+                    _ => CurrentCanvasType
             };
+        }
+
+        /// <summary>
+        /// Modifies the current canvas by enabling the game objects specified by the Canvas Modifier.
+        /// </summary>
+        public void ModifyCanvas(CanvasModifier canvasModifier)
+        {
+            if (canvasModifier == null) return;
             
-            return desiredCanvas;
+            // Loop through the game objects and set each one active
+            foreach (GameObject obj in canvasModifier.gameObjectsToAppear)
+            {
+                obj.SetActive(true);
+            }
         }
     }
 }

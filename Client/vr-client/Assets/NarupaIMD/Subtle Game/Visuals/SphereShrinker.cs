@@ -10,8 +10,7 @@ namespace NarupaIMD.Subtle_Game.Visuals
 
         [SerializeField]
         private CanvasManager canvasManager;
-        [SerializeField]
-        private CanvasType desiredCanvas;
+        
         [SerializeField]
         private bool handsOnly;
 
@@ -85,8 +84,7 @@ namespace NarupaIMD.Subtle_Game.Visuals
                     {
                         // Move to next menu canvas.
                         canvasManager.gameObject.SetActive(true);
-                        canvasManager.SwitchCanvas(desiredCanvas);
-                        
+
                         // Reset size of sphere.
                         transform.localScale = originalScale;
                     }

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Threading.Tasks;
 using Narupa.Grpc.Multiplayer;
@@ -21,6 +20,8 @@ namespace NarupaIMD.Subtle_Game.Logic
         private CanvasManager _canvasManager;
         private MultiplayerSession _session;
         private bool _startOfGame = true;
+
+        public bool firstConnecting = true;
         
         public bool hideSimulation;
         private const float DistanceFromCamera = .75f;
@@ -50,12 +51,13 @@ namespace NarupaIMD.Subtle_Game.Logic
             // Task
             private List<string> OrderOfTasks { get; set; }
             private List<TaskTypeVal> _orderOfTasks = new();
-            public int NumberOfTasks { get; private set; }
+            private int NumberOfTasks { get; set; }
             private int CurrentTaskNum { get; set; }
-            private TaskTypeVal CurrentTaskType
+
+            public TaskTypeVal CurrentTaskType
             {
                 get => _currentTaskType;
-                set
+                private set
                 {
                     if (_currentTaskType == value) return;
                     _currentTaskType = value;
@@ -94,14 +96,14 @@ namespace NarupaIMD.Subtle_Game.Logic
         // Functions
         private void Start()
         {
-            // Find the Canvas Manager.
+            // Find the Canvas Manager
             _canvasManager = FindObjectOfType<CanvasManager>();
             
-            // Find the simulation space.
+            // Find the simulation space
             _simulationSpace = simulation.transform.Find("Simulation Space");
-
-            // Load the GameIntro menu.
-            _canvasManager.SwitchCanvas(CanvasType.Intro);
+            
+            // Request Canvas Manager to setup the game
+            _canvasManager.StartGame();
             
             // Subscribe to updates in the shared state dictionary.
             simulation.Multiplayer.SharedStateDictionaryKeyUpdated += OnSharedStateKeyUpdated;
@@ -225,13 +227,15 @@ namespace NarupaIMD.Subtle_Game.Logic
             
             // Set position and rotation of simulation to be in front of the player.
             MoveSimulationInFrontOfPlayer();
-
+            
+            // Player has connected
+            firstConnecting = false;
         }
         
         /// <summary>
         /// Ends the game.
         /// </summary>
-        public void EndGame()
+        private void EndGame()
         {
             // Disconnect from the server.
             simulation.Disconnect();
