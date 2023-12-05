@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NarupaIMD.Subtle_Game.Logic;
+using UnityEditor.UI;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.UI
@@ -37,6 +39,23 @@ namespace NarupaIMD.Subtle_Game.UI
         }
         private CanvasType _currentCanvasType;
         
+        private GameObject _currentMenu;
+
+        private int CurrentMenuIndex
+        {
+            get => _currentMenuIndex;
+            set
+            {
+                if (value < 0) throw new ArgumentOutOfRangeException(nameof(value));
+                
+                _isFirstMenu = value == 0;
+                _currentMenuIndex = value;
+                UpdateCurrentMenu();
+            }
+        }
+        private int _currentMenuIndex;
+        private bool _isFirstMenu;
+
         [Header("Other")]
         private PuppeteerManager _puppeteerManager;
 
@@ -67,11 +86,8 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         private void SwitchCanvas()
         {
-            // Disable current canvas
-            if (LastActiveCanvas != null)
-            {
-                LastActiveCanvas.gameObject.SetActive(false);
-            }
+            // Hide current canvas
+            HideCanvas();
             
             // Find next canvas
             CanvasController nextCanvas = _canvasControllerList.Find(x => x.canvasType == _currentCanvasType);
@@ -87,7 +103,15 @@ namespace NarupaIMD.Subtle_Game.UI
             else
             {
                 Debug.LogWarning("Desired menu canvas wasn't found.");
+                return;
             }
+            
+            // Start with the first menu
+            foreach (GameObject obj in LastActiveCanvas.orderedListOfMenus)
+            {
+                obj.SetActive(false);
+            }
+            CurrentMenuIndex = 0;
         }
         
         /// <summary>
@@ -116,6 +140,44 @@ namespace NarupaIMD.Subtle_Game.UI
             {
                 obj.SetActive(true);
             }
+        }
+
+        public void HideCanvas()
+        {
+            // Disable current canvas
+            if (LastActiveCanvas != null)
+            {
+                LastActiveCanvas.gameObject.SetActive(false);
+            }
+        }
+
+        private void HideAllMenus()
+        {
+            foreach (GameObject obj in LastActiveCanvas.orderedListOfMenus) 
+            {                                                               
+                obj.SetActive(false);                                       
+            }                                                                   
+        }
+
+        public void RequestNextMenu()
+        {
+            // Increment current menu
+            CurrentMenuIndex++;
+        }
+
+        private void UpdateCurrentMenu()
+        {
+            // If this is the first menu, ensure all other menus are disabled
+            if (_isFirstMenu) {HideAllMenus();}
+
+            // Else just hide current menu
+            else{_currentMenu.SetActive(false);}
+
+            // Update current menu
+            _currentMenu = LastActiveCanvas.orderedListOfMenus[CurrentMenuIndex];
+            
+            // Show new menu
+            _currentMenu.SetActive(true);
         }
     }
 }

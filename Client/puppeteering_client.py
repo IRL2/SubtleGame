@@ -1,6 +1,7 @@
 from narupa.app import NarupaImdClient
 import time
-from enum import Enum
+from task_nanotube import NanotubeTask
+from additional_functions import write_to_shared_state
 
 
 class PuppeteeringClient:
@@ -25,18 +26,21 @@ class PuppeteeringClient:
         # initialise game
         self._initialise_game()
 
-        # wait for VR Client to connect
-        self._wait_for_vr_client_to_connect()
+        # TODO: we don't need to wait for the VR client to connect to prepare the first task, we only wait for the
+        #  player to be ready for the task
+
+        # # wait for VR Client to connect
+        # self._wait_for_vr_client_to_connect()
 
         # loop through the tasks
         for task in self.order_of_tasks:
 
-            if task == 'end':
-                break
-
-            # begin task
-            print('Player starting task.')
-            self._start_task(task)
+            if task == 'nanotube':
+                current_task = NanotubeTask(self.narupa_client)
+                current_task.run_task()
+                # current_task.prepare_task()
+                # self._wait_for_key_in_shared_state('Player.TaskStatus', 'InProgress')
+                # current_task.start_task()
 
         # gracefully finish the game
         self._finish_game()
@@ -50,44 +54,36 @@ class PuppeteeringClient:
 
         # player connected, start the game
         print('Starting game.')
-        self._write_to_shared_state('game-status', 'in-progress')
+        write_to_shared_state(self.narupa_client, 'game-status', 'in-progress')
 
     def _initialise_game(self):
         """ Writes the key-value pairs to the shared state that are required to begin the game. """
         # update the shared state
-        self._write_to_shared_state('game-status', 'waiting')
-        self._write_to_shared_state('modality', self.current_modality)
-        self._write_to_shared_state('order-of-tasks', self.order_of_tasks)
+        write_to_shared_state(self.narupa_client, 'game-status', 'waiting')
+        write_to_shared_state(self.narupa_client, 'modality', self.current_modality)
+        write_to_shared_state(self.narupa_client, 'order-of-tasks', self.order_of_tasks)
 
     def _start_task(self, current_task: str):
 
         # update CURRENT TASK
         self.current_task = current_task
-        self._write_to_shared_state('current-task', self.current_task)
+        write_to_shared_state(self.narupa_client, 'current-task', self.current_task)
 
         # wait until player is in the INTRO
         self._wait_for_key_in_shared_state('Player.TaskStatus', 'Intro')
-        self._write_to_shared_state('task-status', 'intro')
+        write_to_shared_state(self.narupa_client, 'task-status', 'intro')
 
         # wait until player has FINISHED
         # TODO:This currently doesn't work since and will be changed in the future. Keeping it here for reference.
         self._wait_for_key_in_shared_state('Player.TaskStatus', 'Finished')
-        self._write_to_shared_state('task-status', 'finished')
+        write_to_shared_state(self.narupa_client, 'task-status', 'finished')
 
     def _finish_game(self):
 
         # finish game
         print("Closing the narupa client and ending game.")
-        self._write_to_shared_state('game-status', 'finished')
+        write_to_shared_state(self.narupa_client, 'game-status', 'finished')
         self.narupa_client.close()
-
-    def _write_to_shared_state(self, key: str, value):
-        """ Writes a key-value pair to the shared state with the puppeteer client namespace. """
-        if not isinstance(key, str):
-            key = str(key)
-
-        formatted_key = "puppeteer." + key
-        self.narupa_client.set_shared_value(formatted_key, value)
 
     def _wait_for_key_in_shared_state(self, desired_key: str, desired_val: str):
         """ Continually checks if the corresponding value of the specified key in the shared state is equal to a

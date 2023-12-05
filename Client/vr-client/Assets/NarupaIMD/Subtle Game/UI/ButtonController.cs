@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
 
@@ -23,6 +24,50 @@ namespace NarupaIMD.Subtle_Game.UI
         }
         
         /// <summary>
+        /// Invoke button press for switching menu canvas. If handsOnly is true, the button press will only be invoked if the players hands are tracking and any Game Objects set by a CanvasModifier will be set active.
+        /// </summary>
+        public void ButtonStartGame()
+        {
+            // If button can only be pressed by the hands, check if the hands are tracking
+            if (handsOnly & !OVRPlugin.GetHandTrackingEnabled())
+            {
+                // Hands are not tracking, check if the canvas needs to be modified
+                _canvasManager.ModifyCanvas(gameObject.GetComponent<CanvasModifier>());
+                return;
+            }
+            
+            // Puppeteer manager to start game
+            Invoke(nameof(InvokeStartGame), TimeDelay);
+            
+            // Prepare the first task
+            //ButtonPrepareTask();
+            }
+
+        private async Task InvokeStartGame()
+        {
+            await _puppeteerManager.SetupGame();
+        }
+        public void ButtonStartTask()
+        {
+            Invoke(nameof(InvokeStartTask), TimeDelay);
+        }
+
+        private void InvokeStartTask()
+        {
+            _puppeteerManager.StartTask();
+        }
+        
+        public void ButtonPrepareTask()
+        {
+            Invoke(nameof(InvokePrepareTask), TimeDelay);
+        }
+
+        private void InvokePrepareTask()
+        {
+            _puppeteerManager.PrepareTask();
+        }
+        
+        /// <summary>
         /// Invoke button press for quitting the application.
         /// </summary>
         public void ButtonQuitApplication()
@@ -41,7 +86,7 @@ namespace NarupaIMD.Subtle_Game.UI
         /// <summary>
         /// Invoke button press for switching menu canvas. If handsOnly is true, the button press will only be invoked if the players hands are tracking and any Game Objects set by a CanvasModifier will be set active.
         /// </summary>
-        public async void ButtonSwitchCanvas()
+        public void ButtonSwitchCanvas()
         {
             // If button can only be pressed by the hands, check if the hands are tracking
             if (handsOnly & !OVRPlugin.GetHandTrackingEnabled())
@@ -49,13 +94,6 @@ namespace NarupaIMD.Subtle_Game.UI
                 // Hands are not tracking, check if the canvas needs to be modified
                 _canvasManager.ModifyCanvas(gameObject.GetComponent<CanvasModifier>());
                 return;
-            }
-            
-            // Check if this is the beginning of the game
-            if (_puppeteerManager.firstConnecting)
-            {
-                // Puppeteer Manager sets up the game
-                await _puppeteerManager.SetupGame();
             }
 
             // Invoke button press.
@@ -68,6 +106,23 @@ namespace NarupaIMD.Subtle_Game.UI
         private void InvokeSwitchCanvas()
         {
             _canvasManager.RequestNextCanvas();
+        }
+        
+        /// <summary>
+        /// Invoke button press for switching menu canvas. If handsOnly is true, the button press will only be invoked if the players hands are tracking and any Game Objects set by a CanvasModifier will be set active.
+        /// </summary>
+        public void ButtonNextMenu()
+        {
+            // Invoke button press.
+            Invoke(nameof(InvokeNextMenu), TimeDelay);
+        }
+
+        /// <summary>
+        /// Request switch of canvas from the Canvas Manager.
+        /// </summary>
+        private void InvokeNextMenu()
+        {
+            _canvasManager.RequestNextMenu();
         }
 
     }

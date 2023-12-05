@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,13 +17,13 @@ namespace NarupaIMD.Subtle_Game.Logic
     {
         // Variables
         public NarupaImdSimulation simulation;
+        public GameObject userInteraction;
+        
         private Transform _simulationSpace;
         private CanvasManager _canvasManager;
         private MultiplayerSession _session;
         private bool _startOfGame = true;
 
-        public bool firstConnecting = true;
-        
         public bool hideSimulation;
         private const float DistanceFromCamera = .75f;
         
@@ -39,10 +40,12 @@ namespace NarupaIMD.Subtle_Game.Logic
             public enum TaskStatusVal
             {
                 Intro,
-                Finished
+                Finished,
+                InProgress
             }
             public enum TaskTypeVal
             {
+                None,
                 Sphere,
                 Nanotube,
                 GameFinished
@@ -109,12 +112,19 @@ namespace NarupaIMD.Subtle_Game.Logic
             simulation.Multiplayer.SharedStateDictionaryKeyUpdated += OnSharedStateKeyUpdated;
         }
 
-        public TaskTypeVal StartNextTask()
+        public void StartTask()
+        {
+            TaskStatus = TaskStatusVal.InProgress;
+            //userInteraction.SetActive(true);
+            _canvasManager.HideCanvas();
+        }
+        
+        public void PrepareTask()
         {
             if (_startOfGame)
             {
                 CurrentTaskNum = 0; // start task number at 0
-                GetOrderOfTasks(); // populate order of tasks
+                //GetOrderOfTasks(); // populate order of tasks
                 NumberOfTasks = _orderOfTasks.Count;
                 _startOfGame = false;
             }
@@ -126,14 +136,12 @@ namespace NarupaIMD.Subtle_Game.Logic
             if (CurrentTaskNum == NumberOfTasks)
             {
                 EndGame();
-                return TaskTypeVal.GameFinished;
+                return;
             }
-            CurrentTaskType = _orderOfTasks[CurrentTaskNum]; // get current task
-            TaskStatus = TaskStatusVal.Intro; // player is in intro of the task
-            
-            return CurrentTaskType;
-        }
 
+            CurrentTaskType = _orderOfTasks[CurrentTaskNum]; // get current task
+        }
+        
         /// <summary>
         /// Populates the order of tasks from the list of tasks specified in the shared state.
         /// </summary>
@@ -159,7 +167,7 @@ namespace NarupaIMD.Subtle_Game.Logic
                 }
             }
         }
-        
+
         /// <summary>
         /// Writes key-value pair to the shared state with the 'Player.' identifier at the front of the key. 
         /// </summary>
@@ -186,7 +194,8 @@ namespace NarupaIMD.Subtle_Game.Logic
                     OrderOfTasks = ((List<object>)val)
                         .Select(item => item.ToString())
                         .ToList();
-
+                    GetOrderOfTasks();
+                    PrepareTask();
                     break;
             }
         }
@@ -215,21 +224,18 @@ namespace NarupaIMD.Subtle_Game.Logic
         {
             // Autoconnect to a locally-running server.
             await simulation.AutoConnect();
-            
+
             // Let the Puppeteer Manager know that the player has connected.
             PlayerStatus = true;
 
-            // Hide simulation if needed.
+            // Hide simulation.
             if (hideSimulation)
             {
-                gameObject.SetActive(false);
+                simulation.gameObject.SetActive(false);
             }
             
             // Set position and rotation of simulation to be in front of the player.
             MoveSimulationInFrontOfPlayer();
-            
-            // Player has connected
-            firstConnecting = false;
         }
         
         /// <summary>
