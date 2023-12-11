@@ -18,12 +18,11 @@ namespace NarupaIMD.Subtle_Game.UI
         // Update is called once per frame
         private void Update()
         {
-            // Check if the order of tasks is populated
-            if (_puppeteerManager.OrderOfTasksReceived)
-            {
-                // Show necessary UI elements on the canvas
-                _canvasManager.ModifyCanvas(canvasModifier);
-            }
+            // Check if the order of tasks is populated and the grabbers are ready
+            if (!_puppeteerManager.OrderOfTasksReceived || !_puppeteerManager.grabbersReady) return;
+            
+            // Show necessary UI elements on the canvas
+            _canvasManager.ModifyCanvas(canvasModifier);
         }
     }
 }

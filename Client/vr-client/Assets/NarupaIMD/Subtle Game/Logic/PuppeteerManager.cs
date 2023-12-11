@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Narupa.Grpc.Multiplayer;
 using NarupaImd;
+using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.UI;
 using UnityEngine;
 
@@ -14,43 +15,54 @@ namespace NarupaIMD.Subtle_Game.Logic
     /// </summary>
     public class PuppeteerManager : MonoBehaviour
     {
-        // Variables
+        // SET YOUR LOCAL IP!
+        private string _ipAddress = "192.168.50.38";
+        
+        #region Scene References
+        
         public NarupaImdSimulation simulation;
         public GameObject userInteraction;
         
         private Transform _simulationSpace;
         private CanvasManager _canvasManager;
         private MultiplayerSession _session;
+
+        #endregion
+
+        #region Preparing Game
+
         private bool _startOfGame = true;
+        public bool OrderOfTasksReceived { get; private set; }
+        private PinchGrab _pinchGrab;
+        public bool grabbersReady;
+        #endregion
+        
+        #region Simulation and User Interaction
 
         private bool ShowSimulation
         {
             set
             {
-                //if (value == _showSimulation) return;
                 _showSimulation = value;
-                if (_showSimulation)
-                {
-                    // Show simulation
-                    simulation.gameObject.SetActive(true);
-                    userInteraction.SetActive(true);
-                }
-                else
-                {
-                    // Hide simulation
-                    simulation.gameObject.SetActive(false);
-                    userInteraction.SetActive(false);
-                }
+                simulation.gameObject.SetActive(_showSimulation);
             }
-            get => _showSimulation;
+        }
+        private bool _showSimulation;
+        private bool EnableInteractions
+        {
+            set
+            {
+                _enableInteractions = value;
+                userInteraction.SetActive(_enableInteractions);
+            }
         }
 
-        private bool _showSimulation;
-
-        public bool OrderOfTasksReceived { get; private set; }
-
+        private bool _enableInteractions;
+        
         private const float DistanceFromCamera = .75f;
         
+        #endregion
+
         #region ForSharedState
         
             // Keys and values
@@ -126,12 +138,12 @@ namespace NarupaIMD.Subtle_Game.Logic
             // Find the Canvas Manager
             _canvasManager = FindObjectOfType<CanvasManager>();
             
+            // Find the pinch grab script
+            _pinchGrab = FindObjectOfType<PinchGrab>();
+
             // Find the simulation space
             _simulationSpace = simulation.transform.Find("Simulation Space");
-            
-            // Hide the simulation
-            ShowSimulation = false;
-            
+
             // Request Canvas Manager to setup the game
             _canvasManager.StartGame();
             
@@ -144,6 +156,7 @@ namespace NarupaIMD.Subtle_Game.Logic
             TaskStatus = TaskStatusVal.InProgress;
             _canvasManager.HideCanvas();
             ShowSimulation = true;
+            EnableInteractions = true;
         }
         
         public void PrepareTask()
@@ -168,7 +181,7 @@ namespace NarupaIMD.Subtle_Game.Logic
 
             CurrentTaskType = _orderOfTasks[CurrentTaskNum]; // get current task
         }
-        
+
         /// <summary>
         /// Populates the order of tasks from the list of tasks specified in the shared state.
         /// </summary>
@@ -250,16 +263,29 @@ namespace NarupaIMD.Subtle_Game.Logic
         /// </summary>
         public async Task PrepareGame()
         {
+            // Enable interactions to begin with (needed to setup the grabbers)
+            EnableInteractions = true;
+            
             // Autoconnect to a locally-running server.
-            await simulation.AutoConnect();
+            //await simulation.AutoConnect();
+            await simulation.Connect(_ipAddress, trajectoryPort:38801, imdPort:38801, multiplayerPort:38801);
+            
+            // Initialise pinch grabs for interactions
+            _pinchGrab.InitialiseInteractions();
 
             // Let the Puppeteer Manager know that the player has connected.
             PlayerStatus = true;
+            
+            // Hide the simulation
             ShowSimulation = false;
+            
+            // Disable interactions
+            EnableInteractions = false;
 
             // Set position and rotation of simulation to be in front of the player.
             MoveSimulationInFrontOfPlayer();
         }
+
         
         /// <summary>
         /// Ends the game.

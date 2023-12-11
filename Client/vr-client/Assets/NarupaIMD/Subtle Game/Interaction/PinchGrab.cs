@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Narupa.Visualisation;
 using NarupaImd;
 using NarupaImd.Interaction;
+using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.Interaction
@@ -126,6 +127,7 @@ namespace NarupaIMD.Subtle_Game.Interaction
         /// </summary>
         private bool serverConnected = false; // Flag indicating if the server is connected.
         private bool firstFrameReceived = false; // Flag indicating if the first frame of data has been received.
+        private PuppeteerManager _puppeteerManager;
         #endregion
 
         #endregion
@@ -138,11 +140,18 @@ namespace NarupaIMD.Subtle_Game.Interaction
         /// </summary>
         private void Start()
         {
-            StartCoroutine(CheckServerConnection());
             FetchPrivateReferences();
+        }
+        
+        /// <summary>
+        /// This is called by the Puppeteer Manager once the game has connected to a server. The functions initialises the grabbers and then informs the Puppeteer Manager.
+        /// </summary>
+        public void InitialiseInteractions()
+        {
+            StartCoroutine(CheckServerConnection());
             InitializePrivateLists();
             CreateGrabbers();
-            //NarupaImdSimulationScript.ManipulableSimulationSpace.StartGrabManipulation
+            _puppeteerManager.grabbersReady = true;
         }
         #region Ensure Connection to Server is Established
         /// <summary>
@@ -152,14 +161,15 @@ namespace NarupaIMD.Subtle_Game.Interaction
         /// </summary>
         private IEnumerator CheckServerConnection()
         {
-            // Subscribe to the ConnectionEstablished event
-            NarupaImdSimulationScript.ConnectionEstablished += OnServerConnected;
-            while (!serverConnected)
+            // Doesn't work for Connect, only for AutoConnect.
+            /*// Subscribe to the ConnectionEstablished event
+            NarupaImdSimulationScript.ConnectionEstablished += OnServerConnected;*/
+            
+            while (!NarupaImdSimulationScript.ServerConnected)
             {
-                // Implement logic to check if the server is connected
-                // Set serverConnected = true when connected
                 yield return new WaitForSeconds(1);  // Wait for 1 second before checking again
             }
+            
             // After the server is connected, start checking for the first frame
             StartCoroutine(CheckFirstFrameReceived());
         }
@@ -199,6 +209,7 @@ namespace NarupaIMD.Subtle_Game.Interaction
         /// </summary>
         private void FetchPrivateReferences()
         {
+            _puppeteerManager = FindObjectOfType<PuppeteerManager>();
             InteractableSceneTransform = InteractableSceneScript.transform;
             FrameSourceScript = InteractableSceneScript.GetFrameSource();
         }
@@ -243,10 +254,11 @@ namespace NarupaIMD.Subtle_Game.Interaction
         /// </summary>
         private void Update()
         {
-            if (!serverConnected || !firstFrameReceived)
+            if (!NarupaImdSimulationScript.ServerConnected || !firstFrameReceived)
             {
                 return;  // Exit if server is not connected
             }
+            
             // Update each PinchGrabber
             for (int grabberIndex = 0; grabberIndex < pinchGrabbers.Count; grabberIndex++)
             {
@@ -254,9 +266,11 @@ namespace NarupaIMD.Subtle_Game.Interaction
                 var grabber = pinchGrabbers[grabberIndex];
                 // Safety Call, need to check if this is necessary
                 if (grabber.Grab == null) grabber.GetNewGrab();
-            
-                if (grabber.Grab == null) {return;}
-            
+                if (grabber.Grab == null)
+                {
+                    return;
+                }
+
                 // Enable interaction atom marker
                 grabber.AtomMarkerInstance.GetComponent<MeshRenderer>().enabled = true;
             
