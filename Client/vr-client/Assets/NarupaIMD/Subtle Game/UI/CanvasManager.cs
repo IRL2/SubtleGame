@@ -119,6 +119,11 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         public void RequestNextCanvas()
         {
+            // For debugging
+            if (!_puppeteerManager.OrderOfTasksReceived)
+            {
+                Debug.LogWarning("The order of tasks is not populated in the puppeteer manager");
+            }
             CurrentCanvasType = _puppeteerManager.CurrentTaskType switch
             {
                 PuppeteerManager.TaskTypeVal.Sphere => CanvasType.Sphere,

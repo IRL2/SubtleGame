@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +23,32 @@ namespace NarupaIMD.Subtle_Game.Logic
         private MultiplayerSession _session;
         private bool _startOfGame = true;
 
-        public bool hideSimulation;
+        private bool ShowSimulation
+        {
+            set
+            {
+                //if (value == _showSimulation) return;
+                _showSimulation = value;
+                if (_showSimulation)
+                {
+                    // Show simulation
+                    simulation.gameObject.SetActive(true);
+                    userInteraction.SetActive(true);
+                }
+                else
+                {
+                    // Hide simulation
+                    simulation.gameObject.SetActive(false);
+                    userInteraction.SetActive(false);
+                }
+            }
+            get => _showSimulation;
+        }
+
+        private bool _showSimulation;
+
+        public bool OrderOfTasksReceived { get; private set; }
+
         private const float DistanceFromCamera = .75f;
         
         #region ForSharedState
@@ -105,6 +129,9 @@ namespace NarupaIMD.Subtle_Game.Logic
             // Find the simulation space
             _simulationSpace = simulation.transform.Find("Simulation Space");
             
+            // Hide the simulation
+            ShowSimulation = false;
+            
             // Request Canvas Manager to setup the game
             _canvasManager.StartGame();
             
@@ -115,8 +142,8 @@ namespace NarupaIMD.Subtle_Game.Logic
         public void StartTask()
         {
             TaskStatus = TaskStatusVal.InProgress;
-            //userInteraction.SetActive(true);
             _canvasManager.HideCanvas();
+            ShowSimulation = true;
         }
         
         public void PrepareTask()
@@ -196,6 +223,7 @@ namespace NarupaIMD.Subtle_Game.Logic
                         .ToList();
                     GetOrderOfTasks();
                     PrepareTask();
+                    OrderOfTasksReceived = true;
                     break;
             }
         }
@@ -220,20 +248,15 @@ namespace NarupaIMD.Subtle_Game.Logic
         /// <summary>
         /// Sets up the game by connecting to the server, updating the player status, and hiding & moving the simulation.
         /// </summary>
-        public async Task SetupGame()
+        public async Task PrepareGame()
         {
             // Autoconnect to a locally-running server.
             await simulation.AutoConnect();
 
             // Let the Puppeteer Manager know that the player has connected.
             PlayerStatus = true;
+            ShowSimulation = false;
 
-            // Hide simulation.
-            if (hideSimulation)
-            {
-                simulation.gameObject.SetActive(false);
-            }
-            
             // Set position and rotation of simulation to be in front of the player.
             MoveSimulationInFrontOfPlayer();
         }
