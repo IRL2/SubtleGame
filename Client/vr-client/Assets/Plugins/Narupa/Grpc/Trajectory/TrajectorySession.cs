@@ -59,7 +59,7 @@ namespace Narupa.Grpc.Trajectory
             trajectorySnapshot.Clear();
 
             trajectoryClient = new TrajectoryClient(connection);
-            frameStream = trajectoryClient.SubscribeLatestFrames(1f / 30f);
+            frameStream = trajectoryClient.SubscribeLatestFrames(1f / 30f, externalToken: connection.GetCancellationToken());
             BackgroundIncomingStreamReceiver<GetFrameResponse>.Start(frameStream, ReceiveFrame, Merge);
 
             void ReceiveFrame(GetFrameResponse response)

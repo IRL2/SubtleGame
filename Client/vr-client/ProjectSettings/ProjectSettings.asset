@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: extraction
+  companyName: IRL
+  productName: subltegame
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -138,9 +138,8 @@ PlayerSettings:
   bundleVersion: 0.1
   preloadedAssets:
   - {fileID: 0}
-  - {fileID: -2863407073010402980, guid: 01815009588db9a44a49abf1a19c74da, type: 2}
-  - {fileID: 11400000, guid: c42d567363603e240851b28d8c56f8c8, type: 2}
-  - {fileID: -7794509888686468539, guid: 7b2cb57e794203d4ea6316f969daed21, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 6ba518a477ba60c41832dc049a282514, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -160,6 +159,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
+    Android: com.IRL.subltegame
     Standalone: com.DefaultCompany.extraction
   buildNumber:
     Standalone: 0
