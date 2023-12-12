@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Narupa.Grpc.Multiplayer;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.UI;
@@ -15,12 +16,40 @@ namespace NarupaIMD.Subtle_Game.Logic
     {
         // Variables
         public NarupaImdSimulation simulation;
+        public GameObject userInteraction;
+        
+        private Transform _simulationSpace;
         private CanvasManager _canvasManager;
         private MultiplayerSession _session;
         private bool _startOfGame = true;
-        
-        // For debugging, allow easy toggling from the Editor.
-        public bool hideSimulation;
+
+        private bool ShowSimulation
+        {
+            set
+            {
+                //if (value == _showSimulation) return;
+                _showSimulation = value;
+                if (_showSimulation)
+                {
+                    // Show simulation
+                    simulation.gameObject.SetActive(true);
+                    userInteraction.SetActive(true);
+                }
+                else
+                {
+                    // Hide simulation
+                    simulation.gameObject.SetActive(false);
+                    userInteraction.SetActive(false);
+                }
+            }
+            get => _showSimulation;
+        }
+
+        private bool _showSimulation;
+
+        public bool OrderOfTasksReceived { get; private set; }
+
+        private const float DistanceFromCamera = .75f;
         
         #region ForSharedState
         
@@ -35,22 +64,27 @@ namespace NarupaIMD.Subtle_Game.Logic
             public enum TaskStatusVal
             {
                 Intro,
-                Finished
+                Finished,
+                InProgress
             }
             public enum TaskTypeVal
             {
+                None,
                 Sphere,
-                End
+                Nanotube,
+                GameFinished
             }
 
             // Task
             private List<string> OrderOfTasks { get; set; }
             private List<TaskTypeVal> _orderOfTasks = new();
+            private int NumberOfTasks { get; set; }
             private int CurrentTaskNum { get; set; }
-            private TaskTypeVal CurrentTaskType
+
+            public TaskTypeVal CurrentTaskType
             {
                 get => _currentTaskType;
-                set
+                private set
                 {
                     if (_currentTaskType == value) return;
                     _currentTaskType = value;
@@ -89,37 +123,52 @@ namespace NarupaIMD.Subtle_Game.Logic
         // Functions
         private void Start()
         {
-            // Find the Canvas Manager.
+            // Find the Canvas Manager
             _canvasManager = FindObjectOfType<CanvasManager>();
             
-            // Load the GameIntro menu.
-            _canvasManager.SwitchCanvas(CanvasType.GameIntro);
+            // Find the simulation space
+            _simulationSpace = simulation.transform.Find("Simulation Space");
+            
+            // Hide the simulation
+            ShowSimulation = false;
+            
+            // Request Canvas Manager to setup the game
+            _canvasManager.StartGame();
             
             // Subscribe to updates in the shared state dictionary.
             simulation.Multiplayer.SharedStateDictionaryKeyUpdated += OnSharedStateKeyUpdated;
         }
 
-        public TaskTypeVal StartNextTask()
+        public void StartTask()
+        {
+            TaskStatus = TaskStatusVal.InProgress;
+            _canvasManager.HideCanvas();
+            ShowSimulation = true;
+        }
+        
+        public void PrepareTask()
         {
             if (_startOfGame)
             {
                 CurrentTaskNum = 0; // start task number at 0
-                GetOrderOfTasks(); // populate order of tasks
+                //GetOrderOfTasks(); // populate order of tasks
+                NumberOfTasks = _orderOfTasks.Count;
                 _startOfGame = false;
             }
             else
             {
-                // TODO: This currently does not get written to the shared state, presumably because there's not enough time to register it before it's updated again below.
-                TaskStatus = TaskStatusVal.Finished; // player has finished the previous task
                 CurrentTaskNum++; // increment task number
             }
-            
-            CurrentTaskType = _orderOfTasks[CurrentTaskNum]; // get current task
-            TaskStatus = TaskStatusVal.Intro; // player is in intro of the task
-            
-            return CurrentTaskType;
-        }
 
+            if (CurrentTaskNum == NumberOfTasks)
+            {
+                EndGame();
+                return;
+            }
+
+            CurrentTaskType = _orderOfTasks[CurrentTaskNum]; // get current task
+        }
+        
         /// <summary>
         /// Populates the order of tasks from the list of tasks specified in the shared state.
         /// </summary>
@@ -134,9 +183,9 @@ namespace NarupaIMD.Subtle_Game.Logic
                     case "sphere":
                         _orderOfTasks.Add(TaskTypeVal.Sphere);
                         break;
-
-                    case "end":
-                        _orderOfTasks.Add(TaskTypeVal.End);
+                    
+                    case "nanotube":
+                        _orderOfTasks.Add(TaskTypeVal.Nanotube);
                         break;
                     
                     default:
@@ -145,7 +194,7 @@ namespace NarupaIMD.Subtle_Game.Logic
                 }
             }
         }
-        
+
         /// <summary>
         /// Writes key-value pair to the shared state with the 'Player.' identifier at the front of the key. 
         /// </summary>
@@ -172,9 +221,84 @@ namespace NarupaIMD.Subtle_Game.Logic
                     OrderOfTasks = ((List<object>)val)
                         .Select(item => item.ToString())
                         .ToList();
-
+                    GetOrderOfTasks();
+                    PrepareTask();
+                    OrderOfTasksReceived = true;
                     break;
             }
+        }
+        
+        /// <summary>
+        /// Quits the application.
+        /// </summary>
+        public void QuitApplication()
+        {
+            Debug.LogWarning("Quitting game");
+            TaskStatus = TaskStatusVal.Finished;
+            PlayerStatus = false;
+#if UNITY_EDITOR
+            // Quits the game if in the Unity Editor
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+                // Quits the game if not in the Unity Editor
+                Application.Quit();
+#endif
+        }
+
+        /// <summary>
+        /// Sets up the game by connecting to the server, updating the player status, and hiding & moving the simulation.
+        /// </summary>
+        public async Task PrepareGame()
+        {
+            // Autoconnect to a locally-running server.
+            await simulation.AutoConnect();
+
+            // Let the Puppeteer Manager know that the player has connected.
+            PlayerStatus = true;
+            ShowSimulation = false;
+
+            // Set position and rotation of simulation to be in front of the player.
+            MoveSimulationInFrontOfPlayer();
+        }
+        
+        /// <summary>
+        /// Ends the game.
+        /// </summary>
+        private void EndGame()
+        {
+            // Disconnect from the server.
+            simulation.Disconnect();
+            
+            // Let the Puppeteer Manager know that the player has finished the game.
+            PlayerStatus = false;
+        }
+        
+        /// <summary>
+        /// Center the simulation space in front of the player.
+        /// </summary>
+        private void MoveSimulationInFrontOfPlayer()
+        {
+            if (Camera.main == null) return;
+            Transform cameraTransform = Camera.main.transform;
+
+            // Calculate the target position in front of the camera
+            Vector3 targetPosition = cameraTransform.position + (cameraTransform.forward * DistanceFromCamera);
+
+            // Make sure the object does not move up or down; keep the Y coordinate the same
+            targetPosition.y = _simulationSpace.position.y;
+
+            // Move the object to the target position
+            _simulationSpace.position = targetPosition;
+
+            // Get the Y rotation of the camera
+            float cameraYRotation = cameraTransform.eulerAngles.y;
+
+            // Construct a new rotation for the object, preserving its original X and Z rotation
+            var eulerAngles = _simulationSpace.eulerAngles;
+            Quaternion targetRotation = Quaternion.Euler(eulerAngles.x, cameraYRotation, eulerAngles.z);
+
+            // Apply the rotation to the object
+            _simulationSpace.rotation = targetRotation;
         }
     }
 }

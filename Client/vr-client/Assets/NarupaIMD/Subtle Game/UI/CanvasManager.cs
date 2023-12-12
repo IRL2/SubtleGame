@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.UI
@@ -8,14 +10,10 @@ namespace NarupaIMD.Subtle_Game.UI
     public enum CanvasType
     {
         None,
-        StartNextTask,
-        GameIntro,
-        HowToEnableHands,
-        SphereIntro,
-        SettingInteractionMode,
-        KnotTyingIntro,
-        KnotTyingVideo,
-        GameEnd
+        Intro,
+        Sphere,
+        Nanotube,
+        Outro
     }
 
     /// <summary>
@@ -25,14 +23,47 @@ namespace NarupaIMD.Subtle_Game.UI
     {
         // Variables
         
+        [Header("Canvases")]
         private List<CanvasController> _canvasControllerList;
-        public CanvasController LastActiveCanvas { get; private set; }
-        private bool _isLastActiveCanvasNotNull;
+        private CanvasController LastActiveCanvas { get; set; }
+        private CanvasType CurrentCanvasType
+        {
+            set
+            {
+                if (_currentCanvasType == value) return;
+                _currentCanvasType = value;
+                SwitchCanvas();
+            }
+            get => _currentCanvasType;
+        }
+        private CanvasType _currentCanvasType;
+        
+        private GameObject _currentMenu;
+
+        private int CurrentMenuIndex
+        {
+            get => _currentMenuIndex;
+            set
+            {
+                if (value < 0) throw new ArgumentOutOfRangeException(nameof(value));
+                
+                _isFirstMenu = value == 0;
+                _currentMenuIndex = value;
+                UpdateCurrentMenu();
+            }
+        }
+        private int _currentMenuIndex;
+        private bool _isFirstMenu;
+
+        [Header("Other")]
+        private PuppeteerManager _puppeteerManager;
 
         // Methods
         
         protected void Awake()
         {
+            _puppeteerManager = FindObjectOfType<PuppeteerManager>();
+            
             // Get list of canvases in the Hierarchy
             _canvasControllerList = GetComponentsInChildren<CanvasController>().ToList();
             
@@ -40,27 +71,117 @@ namespace NarupaIMD.Subtle_Game.UI
             _canvasControllerList.ForEach(x => x.gameObject.SetActive(false));
         }
 
-        public void SwitchCanvas(CanvasType desiredCanvasType)
+        /// <summary>
+        /// Called at the start of the game to activate the first canvas.
+        /// </summary>
+        public void StartGame()
         {
-            if (LastActiveCanvas != null)
-            {
-                // If there is an active canvas, deactivate it
-                LastActiveCanvas.gameObject.SetActive(false);
-            }
+            CurrentCanvasType = CanvasType.Intro;
+        }
+        
+        
+        /// <summary>
+        /// Deactivate previous canvas and activate the next canvas. This is called when the player switches task.
+        /// </summary>
+        private void SwitchCanvas()
+        {
+            // Hide current canvas
+            HideCanvas();
             
-            // Get the GameObject for the desired canvas 
-            CanvasController desiredCanvas = _canvasControllerList.Find(x => x.canvasType == desiredCanvasType);
+            // Find next canvas
+            CanvasController nextCanvas = _canvasControllerList.Find(x => x.canvasType == _currentCanvasType);
             
-            // Check the GameObject exists and set active
-            if (!(desiredCanvas == null))
+            if (nextCanvas != null)
             {
-                desiredCanvas.gameObject.SetActive(true);
-                LastActiveCanvas = desiredCanvas;
+                // Enable next canvas
+                nextCanvas.gameObject.SetActive(true);
+                
+                // Update last active canvas
+                LastActiveCanvas = nextCanvas;
             }
             else
             {
                 Debug.LogWarning("Desired menu canvas wasn't found.");
+                return;
             }
+            
+            // Start with the first menu
+            foreach (GameObject obj in LastActiveCanvas.orderedListOfMenus)
+            {
+                obj.SetActive(false);
+            }
+            CurrentMenuIndex = 0;
+        }
+        
+        /// <summary>
+        /// Update the canvas based on the order of tasks in the Puppeteer Manager.
+        /// </summary>
+        public void RequestNextCanvas()
+        {
+            // For debugging
+            if (!_puppeteerManager.OrderOfTasksReceived)
+            {
+                Debug.LogWarning("The order of tasks is not populated in the puppeteer manager");
+            }
+            CurrentCanvasType = _puppeteerManager.CurrentTaskType switch
+            {
+                PuppeteerManager.TaskTypeVal.Sphere => CanvasType.Sphere,
+                PuppeteerManager.TaskTypeVal.Nanotube => CanvasType.Nanotube,
+                PuppeteerManager.TaskTypeVal.GameFinished => CanvasType.Outro,
+                    _ => CurrentCanvasType
+            };
+        }
+
+        /// <summary>
+        /// Modifies the current canvas by enabling the game objects specified by the Canvas Modifier.
+        /// </summary>
+        public void ModifyCanvas(CanvasModifier canvasModifier)
+        {
+            if (canvasModifier == null) return;
+            
+            // Loop through the game objects and set each one active
+            foreach (GameObject obj in canvasModifier.gameObjectsToAppear)
+            {
+                obj.SetActive(true);
+            }
+        }
+
+        public void HideCanvas()
+        {
+            // Disable current canvas
+            if (LastActiveCanvas != null)
+            {
+                LastActiveCanvas.gameObject.SetActive(false);
+            }
+        }
+
+        private void HideAllMenus()
+        {
+            foreach (GameObject obj in LastActiveCanvas.orderedListOfMenus) 
+            {                                                               
+                obj.SetActive(false);                                       
+            }                                                                   
+        }
+
+        public void RequestNextMenu()
+        {
+            // Increment current menu
+            CurrentMenuIndex++;
+        }
+
+        private void UpdateCurrentMenu()
+        {
+            // If this is the first menu, ensure all other menus are disabled
+            if (_isFirstMenu) {HideAllMenus();}
+
+            // Else just hide current menu
+            else{_currentMenu.SetActive(false);}
+
+            // Update current menu
+            _currentMenu = LastActiveCanvas.orderedListOfMenus[CurrentMenuIndex];
+            
+            // Show new menu
+            _currentMenu.SetActive(true);
         }
     }
 }

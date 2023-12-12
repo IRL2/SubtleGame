@@ -19,7 +19,7 @@ public class VideoPlayerController : MonoBehaviour
         // Check if the GameObject is active and stop the video when enabled
         if (gameObject.activeInHierarchy)
         {
-            _videoPlayer.Stop();
+            _videoPlayer.Pause();
         }
     }
     
@@ -29,13 +29,13 @@ public class VideoPlayerController : MonoBehaviour
         _videoPlayer.Stop();
     }
     
-    public void OnButtonClicked()
+    public void PlayVideoFromBeginning()
     {
-        // Wait some time before replaying the video (this allows time for the button animation)
-        Invoke(nameof(PlayVideoFromBeginning), 0.5f);
+        // Play video with small time delay to allow for animation of the button
+        Invoke(nameof(InvokePlayFromBeginning), 0.25f);
     }
 
-    public void PlayVideoFromBeginning()
+    public void InvokePlayFromBeginning()
     {
         _videoPlayer.frame = 0;
         _videoPlayer.Play();
