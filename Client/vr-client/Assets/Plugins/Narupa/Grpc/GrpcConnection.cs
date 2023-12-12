@@ -4,9 +4,13 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Grpc.Core;
+using Grpc.Net.Client;
 using JetBrains.Annotations;
 using Narupa.Core.Async;
+using UnityEngine;
+using Cysharp.Net.Http;
+using Microsoft.Extensions.Logging;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Narupa.Grpc
 {
@@ -23,13 +27,16 @@ namespace Narupa.Grpc
         /// GRPC channel which represents a connection to a GRPC server.
         /// </summary>
         [CanBeNull]
-        public Channel Channel { get; private set; }
+        public GrpcChannel Channel { get; private set; }
+        [CanBeNull]
+        private CancellationTokenSource CancellationTokenSource { get; set;  }
 
         /// <summary>
         /// Is this connection cancelled?
         /// </summary>
         public bool IsCancelled => Channel == null
-                                || Channel.ShutdownToken.IsCancellationRequested;
+                                || CancellationTokenSource == null
+                                || CancellationTokenSource.IsCancellationRequested;
 
         /// <summary>
         /// Create a new connection to a GRPC server and begin connecting.
@@ -42,7 +49,14 @@ namespace Narupa.Grpc
                 throw new ArgumentException(nameof(address));
             if (port < 0)
                 throw new ArgumentOutOfRangeException(nameof(port));
-            Channel = new Channel($"{address}:{port}", ChannelCredentials.Insecure);
+            Channel = GrpcChannel.ForAddress(
+                $"http://{address}:{port}",
+                new GrpcChannelOptions()
+                {
+                    HttpHandler = new YetAnotherHttpHandler() { Http2Only = true },
+                    DisposeHttpClient = true,
+                });
+            CancellationTokenSource = new CancellationTokenSource();
         }
 
         /// <inheritdoc cref="ICancellationTokenSource.GetCancellationToken" />
@@ -51,7 +65,7 @@ namespace Narupa.Grpc
             if (IsCancelled)
                 throw new InvalidOperationException(
                     "Trying to get a cancellation token for an already shutdown connection.");
-            return Channel.ShutdownToken;
+            return CancellationTokenSource.Token;
         }
 
         /// <summary>
@@ -63,8 +77,12 @@ namespace Narupa.Grpc
             if (IsCancelled)
                 return;
 
-            await Channel.ShutdownAsync();
+            //await Channel.ShutdownAsync();
+            CancellationTokenSource?.Cancel();
+            CancellationTokenSource?.Dispose();
+            Channel?.Dispose();
             Channel = null;
+            CancellationTokenSource = null;
         }
     }
 }

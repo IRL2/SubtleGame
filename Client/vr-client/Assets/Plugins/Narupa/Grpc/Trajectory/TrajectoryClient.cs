@@ -5,6 +5,7 @@ using System.Threading;
 using JetBrains.Annotations;
 using Narupa.Grpc.Stream;
 using Narupa.Protocol.Trajectory;
+using UnityEngine;
 
 namespace Narupa.Grpc.Trajectory
 {

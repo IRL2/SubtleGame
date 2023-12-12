@@ -10,6 +10,7 @@ using JetBrains.Annotations;
 using Narupa.Core.Async;
 using Narupa.Grpc.Stream;
 using Narupa.Protocol.Command;
+using UnityEngine;
 
 namespace Narupa.Grpc
 {

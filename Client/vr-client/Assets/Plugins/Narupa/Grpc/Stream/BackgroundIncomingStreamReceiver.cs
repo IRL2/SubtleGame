@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Google.Protobuf;
 using Narupa.Core.Async;
 using Narupa.Grpc.Stream;
+using UnityEngine;
 
 namespace Narupa.Grpc.Trajectory
 {

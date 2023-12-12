@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Grpc.Core;
 using Narupa.Core.Async;
+using UnityEngine;
 
 namespace Narupa.Grpc.Stream
 {
