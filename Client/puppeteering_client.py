@@ -24,7 +24,9 @@ class PuppeteeringClient:
     def run_game(self):
 
         # initialise game
+        print('Initialising game\n')
         self._initialise_game()
+        print('Initialised game\n')
 
         # TODO: we don't need to wait for the VR client to connect to prepare the first task, we only wait for the
         #  player to be ready for the task
@@ -37,13 +39,16 @@ class PuppeteeringClient:
 
             if task == 'nanotube':
                 current_task = NanotubeTask(self.narupa_client)
+                print('Starting nanotube task\n')
                 current_task.run_task()
+                print('Finished nanotube task\n')
                 # current_task.prepare_task()
                 # self._wait_for_key_in_shared_state('Player.TaskStatus', 'InProgress')
                 # current_task.start_task()
 
         # gracefully finish the game
         self._finish_game()
+        print('Finished game\n')
 
     def _wait_for_vr_client_to_connect(self):
         """ Waits for the VR Client to connect by checking the shared state."""""
@@ -108,4 +113,5 @@ if __name__ == '__main__':
     puppeteering_client = PuppeteeringClient()
 
     # start game
+    print('Starting game\n')
     puppeteering_client.run_game()
