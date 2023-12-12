@@ -4295,8 +4295,8 @@ MonoBehaviour:
   - {fileID: 4887313454428485390}
   - {fileID: 4591869718317071806}
   PinchTriggerDistance: 0.02
-  InteractionType: gaussian
-  InteractionForceScale: 100
+  InteractionType: spring
+  InteractionForceScale: 200
   FetchClosestAtomUpdateInterval: 0.1
   GrabNewAtomSound: {fileID: 8300000, guid: a05d082cd207b4b12a47c089be8b7a62, type: 3}
 --- !u!1 &1051888780 stripped
@@ -5203,6 +5203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simulation: {fileID: 1265723033}
   userInteraction: {fileID: 50482150}
+  grabbersReady: 0
 --- !u!114 &1373612429 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7607808710621774589, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
