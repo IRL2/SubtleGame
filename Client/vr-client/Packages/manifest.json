@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.cysharp.yetanotherhttphandler": "0.1.0",
     "com.unity.collab-proxy": "2.0.7",
     "com.unity.feature.development": "1.0.1",
     "com.unity.textmeshpro": "3.0.6",
@@ -8,6 +9,7 @@
     "com.unity.visualscripting": "1.9.0",
     "com.unity.xr.interaction.toolkit": "2.4.3",
     "com.unity.xr.oculus": "4.0.0",
+    "org.nuget.system.io.pipelines": "7.0.0",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
@@ -39,5 +41,21 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
-  }
+  },
+  "scopedRegistries": [
+    {
+      "name": "Unity NuGet",
+      "url": "https://unitynuget-registry.azurewebsites.net",
+      "scopes": [
+        "org.nuget"
+      ]
+    },
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.cysharp.yetanotherhttphandler"
+      ]
+    }
+  ]
 }
