@@ -240,10 +240,18 @@ namespace NarupaIMD.Subtle_Game.Logic
                     break;
                 
                 case "puppeteer.task-status":
-                    if (key == "finished")
+                    if (val.ToString() == "finished")
                     {
+                        // Update task status
                         TaskStatus = TaskStatusVal.Finished;
+                        
+                        // Hide simulation
+                        ShowSimulation = false;
+                        
+                        // Prepare next task
                         PrepareTask();
+                        
+                        // Load outro menu
                         _canvasManager.LoadOutroToTask();
                     }
                     break;

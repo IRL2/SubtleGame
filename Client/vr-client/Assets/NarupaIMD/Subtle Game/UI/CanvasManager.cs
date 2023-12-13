@@ -87,6 +87,7 @@ namespace NarupaIMD.Subtle_Game.UI
             StartCoroutine(Wait());
 
             // Load Outro menu
+            ShowCanvas();
             RequestNextMenu();
         }
         
@@ -163,6 +164,15 @@ namespace NarupaIMD.Subtle_Game.UI
             if (LastActiveCanvas != null)
             {
                 LastActiveCanvas.gameObject.SetActive(false);
+            }
+        }
+        
+        private void ShowCanvas()
+        {
+            // Disable current canvas
+            if (LastActiveCanvas != null)
+            {
+                LastActiveCanvas.gameObject.SetActive(true);
             }
         }
 
