@@ -14,11 +14,8 @@ class NanotubeTask(Task):
         self.was_methane_in_nanotube = False
         self.is_methane_in_nanotube = False
         self.methane_end_of_entry = None
-        self.client = client
 
-        self.prepare_task()
-
-    def _monitor_task_progress(self):
+    def _run_logic_for_specific_task(self):
 
         while True:
 
