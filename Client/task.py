@@ -57,6 +57,10 @@ class Task:
 
         print('Task prepared')
 
+    def _update_visualisations(self):
+        """Container for changing the task-specific visualisation the simulation."""
+        pass
+
     def _run_logic_for_specific_task(self):
         """Container for the logic specific to each task."""
         pass
