@@ -27,12 +27,6 @@ class PuppeteeringClient:
         self._initialise_game()
         print('Initialised game')
 
-        # TODO: we don't need to wait for the VR client to connect to prepare the first task, we only wait for the
-        #  player to be ready for the task
-
-        # # wait for VR Client to connect
-        # self._wait_for_vr_client_to_connect()
-
         # loop through the tasks
         for task in self.order_of_tasks:
 
@@ -46,38 +40,12 @@ class PuppeteeringClient:
         self._finish_game()
         print('Finished game')
 
-    def _wait_for_vr_client_to_connect(self):
-        """ Waits for the VR Client to connect by checking the shared state."""""
-
-        print('Waiting for VR Client to connect.')
-        self._wait_for_key_in_shared_state('Player.Connected', 'True')
-        print('VR Client connected.')
-
-        # player connected, start the game
-        print('Starting game.')
-        write_to_shared_state(self.narupa_client, 'game-status', 'in-progress')
-
     def _initialise_game(self):
         """ Writes the key-value pairs to the shared state that are required to begin the game. """
         # update the shared state
         write_to_shared_state(self.narupa_client, 'game-status', 'waiting')
         write_to_shared_state(self.narupa_client, 'modality', self.current_modality)
         write_to_shared_state(self.narupa_client, 'order-of-tasks', self.order_of_tasks)
-
-    def _start_task(self, current_task: str):
-
-        # update CURRENT TASK
-        self.current_task = current_task
-        write_to_shared_state(self.narupa_client, 'current-task', self.current_task)
-
-        # wait until player is in the INTRO
-        self._wait_for_key_in_shared_state('Player.TaskStatus', 'Intro')
-        write_to_shared_state(self.narupa_client, 'task-status', 'intro')
-
-        # wait until player has FINISHED
-        # TODO:This currently doesn't work since and will be changed in the future. Keeping it here for reference.
-        self._wait_for_key_in_shared_state('Player.TaskStatus', 'Finished')
-        write_to_shared_state(self.narupa_client, 'task-status', 'finished')
 
     def _finish_game(self):
 
