@@ -7,7 +7,6 @@ class Task:
 
     def __init__(self, client: NarupaImdClient):
         self.client = client
-        self._prepare_task()
 
     def run_task(self):
 
@@ -54,8 +53,6 @@ class Task:
 
         # Update task status
         self.client.set_shared_value('task-status', 'ready')
-
-        print('Task prepared')
 
     def _update_visualisations(self):
         """Container for changing the task-specific visualisation the simulation."""
