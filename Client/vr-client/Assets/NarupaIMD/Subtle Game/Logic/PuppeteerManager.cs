@@ -238,6 +238,15 @@ namespace NarupaIMD.Subtle_Game.Logic
                     PrepareTask();
                     OrderOfTasksReceived = true;
                     break;
+                
+                case "puppeteer.task-status":
+                    if (key == "finished")
+                    {
+                        TaskStatus = TaskStatusVal.Finished;
+                        PrepareTask();
+                        _canvasManager.LoadOutroToTask();
+                    }
+                    break;
             }
         }
         
