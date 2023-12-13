@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using NarupaIMD.Subtle_Game.Logic;
@@ -57,6 +58,7 @@ namespace NarupaIMD.Subtle_Game.UI
 
         [Header("Other")]
         private PuppeteerManager _puppeteerManager;
+        private const float WaitTimeForOutroMenu = 1f;
 
         // Methods
         
@@ -77,6 +79,16 @@ namespace NarupaIMD.Subtle_Game.UI
         public void StartGame()
         {
             CurrentCanvasType = CanvasType.Intro;
+        }
+
+        public void LoadOutroToTask()
+        {
+            // Wait
+            StartCoroutine(Wait());
+
+            // Load Outro menu
+            ShowCanvas();
+            RequestNextMenu();
         }
         
         
@@ -154,6 +166,15 @@ namespace NarupaIMD.Subtle_Game.UI
                 LastActiveCanvas.gameObject.SetActive(false);
             }
         }
+        
+        private void ShowCanvas()
+        {
+            // Disable current canvas
+            if (LastActiveCanvas != null)
+            {
+                LastActiveCanvas.gameObject.SetActive(true);
+            }
+        }
 
         private void HideAllMenus()
         {
@@ -182,6 +203,12 @@ namespace NarupaIMD.Subtle_Game.UI
             
             // Show new menu
             _currentMenu.SetActive(true);
+        }
+        
+        private IEnumerator Wait()
+        {
+            // Wait for the specified amount of time
+            yield return new WaitForSeconds(WaitTimeForOutroMenu);
         }
     }
 }

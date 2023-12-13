@@ -40,13 +40,13 @@ class Task:
         write_to_shared_state(self.client, 'current-task', 'nanotube')
 
         # Update task status
-        self.client.set_shared_value('task status', 'ready')
+        self.client.set_shared_value('task-status', 'ready')
 
     def start_task(self):
         """Handles the running of the task."""
 
         # Update task status
-        write_to_shared_state(self.client, 'task status', 'in-progress')
+        write_to_shared_state(self.client, 'task-status', 'in-progress')
 
         # Play simulation
         self.client.run_command("playback/play")
@@ -63,4 +63,4 @@ class Task:
 
     def _finish_task(self):
         """Handles the finishing of the task."""
-        write_to_shared_state(self.client, 'task status', 'finished')
+        write_to_shared_state(self.client, 'task-status', 'finished')
