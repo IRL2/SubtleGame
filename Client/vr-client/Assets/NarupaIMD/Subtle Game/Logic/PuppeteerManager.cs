@@ -175,7 +175,7 @@ namespace NarupaIMD.Subtle_Game.Logic
 
             if (CurrentTaskNum == NumberOfTasks)
             {
-                EndGame();
+                CurrentTaskType = TaskTypeVal.GameFinished;
                 return;
             }
 
