@@ -11,7 +11,7 @@ class PuppeteeringClient:
     def __init__(self):
 
         # Connect to a local Nanover server.
-        self.narupa_client = NarupaImdClient.autoconnect()
+        self.narupa_client = NarupaImdClient.autoconnect(name="SubtleGame")
         self.narupa_client.subscribe_multiplayer()
         self.narupa_client.subscribe_to_frames()
         self.narupa_client.update_available_commands()

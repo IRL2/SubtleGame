@@ -52,6 +52,8 @@ namespace NarupaImd
         private Dictionary<string, GrpcConnection> channels
             = new Dictionary<string, GrpcConnection>();
 
+        public bool ServerConnected { get; private set; }
+
         /// <summary>
         /// The route through which simulation space can be manipulated with
         /// gestures to perform translation, rotation, and scaling.
@@ -90,8 +92,11 @@ namespace NarupaImd
             }
 
             gameObject.SetActive(true);
-
+            // This doesn't seem to work
             ConnectionEstablished?.Invoke();
+            
+            // Use a bool instead to register that the server has connected
+            ServerConnected = true;
         }
 
         private void Awake()
