@@ -1,5 +1,4 @@
 from narupa.app import NarupaImdClient
-import time
 from task_nanotube import NanotubeTask
 from additional_functions import write_to_shared_state
 
@@ -48,27 +47,11 @@ class PuppeteeringClient:
         write_to_shared_state(self.narupa_client, 'order-of-tasks', self.order_of_tasks)
 
     def _finish_game(self):
-
+        """ Update the shared state and close the client at the end of the game. """
         # finish game
         print("Closing the narupa client and ending game.")
         write_to_shared_state(self.narupa_client, 'game-status', 'finished')
         self.narupa_client.close()
-
-    def _wait_for_key_in_shared_state(self, desired_key: str, desired_val: str):
-        """ Continually checks if the corresponding value of the specified key in the shared state is equal to a
-        desired value, at which point it the code will continue."""
-        while True:
-
-            try:
-                # check whether the value matches the desired value for the specified key
-                current_val = self.narupa_client.latest_multiplayer_values[desired_key]
-
-                if current_val == desired_val:
-                    break
-
-            except KeyError:
-                # If the desired key-value pair is not in shared state yet, wait a bit before trying again
-                time.sleep(0.25)
 
 
 if __name__ == '__main__':
