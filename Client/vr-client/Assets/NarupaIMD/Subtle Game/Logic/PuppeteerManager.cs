@@ -264,13 +264,18 @@ namespace NarupaIMD.Subtle_Game.Logic
         public void QuitApplication()
         {
             Debug.LogWarning("Quitting game");
+            
+            // Disconnect from the server
+            simulation.Disconnect();
+            
+            // Update share state
             TaskStatus = TaskStatusVal.Finished;
             PlayerStatus = false;
 #if UNITY_EDITOR
-            // Quits the game if in the Unity Editor
+            // Quit the game if in the Unity Editor
             UnityEditor.EditorApplication.isPlaying = false;
 #else
-                // Quits the game if not in the Unity Editor
+                // Quit the game if not in the Unity Editor
                 Application.Quit();
 #endif
         }
@@ -303,19 +308,6 @@ namespace NarupaIMD.Subtle_Game.Logic
             MoveSimulationInFrontOfPlayer();
         }
 
-        
-        /// <summary>
-        /// Ends the game.
-        /// </summary>
-        private void EndGame()
-        {
-            // Disconnect from the server.
-            simulation.Disconnect();
-            
-            // Let the Puppeteer Manager know that the player has finished the game.
-            PlayerStatus = false;
-        }
-        
         /// <summary>
         /// Center the simulation space in front of the player.
         /// </summary>
