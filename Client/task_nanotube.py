@@ -17,10 +17,6 @@ class NanotubeTask(Task):
 
     def _run_logic_for_specific_task(self):
 
-        # TODO: move this to the task preparation function, but the visualisation manager needs to be updated first
-        # Update visualisations
-        self._update_visualisations()
-
         while True:
 
             # Get current positions of the methane and nanotube

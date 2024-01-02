@@ -45,6 +45,9 @@ class Task:
         # # Load simulation
         # self.client.run_command("playback/load", index=self.simulation_id)
 
+        # Update visualisation
+        self._update_visualisations()
+
         # Pause simulation
         self.client.run_command("playback/pause")
 
