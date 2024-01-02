@@ -7,7 +7,6 @@ class Task:
 
     def __init__(self, client: NarupaImdClient):
         self.client = client
-        self._prepare_task()
 
     def run_task(self):
 
@@ -46,6 +45,9 @@ class Task:
         # # Load simulation
         # self.client.run_command("playback/load", index=self.simulation_id)
 
+        # Update visualisation
+        self._update_visualisations()
+
         # Pause simulation
         self.client.run_command("playback/pause")
 
@@ -55,7 +57,9 @@ class Task:
         # Update task status
         self.client.set_shared_value('task-status', 'ready')
 
-        print('Task prepared')
+    def _update_visualisations(self):
+        """Container for changing the task-specific visualisation the simulation."""
+        pass
 
     def _run_logic_for_specific_task(self):
         """Container for the logic specific to each task."""
