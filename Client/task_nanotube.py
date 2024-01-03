@@ -53,6 +53,33 @@ class NanotubeTask(Task):
 
             time.sleep(1 / 30)
 
+    def _update_visualisations(self):
+
+        # Clear current selections
+        self.client.clear_selections()
+
+        # Create selection for nanotube
+        nanotube_selection = self.client.create_selection("CNT", list(range(0, 60)))
+        nanotube_selection.remove()
+        # Set gradient of nanotube
+        with nanotube_selection.modify() as selection:
+            selection.renderer = \
+                {'render': 'ball and stick',
+                 'color': {'type': 'particle index', 'gradient': ['white', 'SlateGrey', [0.1, 0.5, 0.3]]}
+                 }
+
+        # Create selection for methane
+        methane_selection = self.client.create_selection("MET", list(range(60, 65)))
+        methane_selection.remove()
+
+        # Set colour of methane
+        with methane_selection.modify() as selection:
+            selection.renderer = {
+                'color': 'CornflowerBlue',
+                'scale': 0.1,
+                'render': 'ball and stick'
+            }
+
 
 def get_closest_end(entry_pos, first_pos, last_pos):
     if np.linalg.norm(entry_pos - first_pos) < np.linalg.norm(entry_pos - last_pos):

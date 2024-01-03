@@ -106,6 +106,9 @@ namespace NarupaImd.Selection
             rootSelection = ParticleSelection.CreateRootSelection();
             var baseRenderableSelection = baseLayer.AddSelection(rootSelection);
             baseRenderableSelection.UpdateVisualiser();
+            
+            // Re-check for selections in the shared state
+            CheckForSelectionsAndUpdate();
         }
 
         private void OnDisable()
@@ -147,6 +150,17 @@ namespace NarupaImd.Selection
             {
                 // TODO: Work out which layer the selection is on.
                 BaseLayer.UpdateOrCreateSelection(key, value);
+            }
+        }
+
+        /// <summary>
+        /// Checks whether there are any selections in the shared state. Called when the visualisation manager is re-enabled.
+        /// </summary>
+        private void CheckForSelectionsAndUpdate()
+        {
+            foreach (KeyValuePair<string,object> pair in simulation.Multiplayer.SharedStateDictionary)
+            {
+                MultiplayerOnSharedStateDictionaryKeyChanged(pair.Key, pair.Value);
             }
         }
 

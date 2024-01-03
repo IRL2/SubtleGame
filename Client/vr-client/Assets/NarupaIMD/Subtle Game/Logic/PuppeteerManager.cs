@@ -16,7 +16,7 @@ namespace NarupaIMD.Subtle_Game.Logic
     public class PuppeteerManager : MonoBehaviour
     {
         // SET YOUR LOCAL IP!
-        private string _ipAddress = "192.168.50.38";
+        private string _ipAddress = "192.168.68.57";
         
         #region Scene References
         
