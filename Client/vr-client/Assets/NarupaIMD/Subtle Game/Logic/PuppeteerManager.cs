@@ -84,7 +84,8 @@ namespace NarupaIMD.Subtle_Game.Logic
                 None,
                 Sphere,
                 Nanotube,
-                GameFinished
+                GameFinished,
+                KnotTying
             }
 
             // Task
@@ -199,6 +200,10 @@ namespace NarupaIMD.Subtle_Game.Logic
                     
                     case "nanotube":
                         _orderOfTasks.Add(TaskTypeVal.Nanotube);
+                        break;
+                    
+                    case "knot-tying":
+                        _orderOfTasks.Add(TaskTypeVal.KnotTying);
                         break;
                     
                     default:

@@ -6,9 +6,10 @@ import time
 
 class KnotTyingTask(Task):
 
+    task_type = "knot-tying"
+
     def __init__(self, client: NarupaImdClient):
         super().__init__(client)
-
         self.knot_pull_client = None
 
     def _run_logic_for_specific_task(self):

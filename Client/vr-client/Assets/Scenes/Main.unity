@@ -10303,7 +10303,7 @@ PrefabInstance:
     - target: {fileID: 126997455834770876, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1923912302}
+      objectReference: {fileID: 1923912301}
     - target: {fileID: 126997455834770876, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -10318,7 +10318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 126997455834770876, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ButtonSwitchCanvas
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 126997455834770876, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -10334,7 +10334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 126997455834770876, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 374303654028433922, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: m_LocalPosition.x

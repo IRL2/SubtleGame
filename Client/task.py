@@ -5,6 +5,8 @@ import time
 
 class Task:
 
+    task_type = None
+
     def __init__(self, client: NarupaImdClient):
         self.client = client
 
@@ -52,7 +54,7 @@ class Task:
         self.client.run_command("playback/pause")
 
         # Update task type
-        write_to_shared_state(self.client, 'current-task', 'nanotube')
+        write_to_shared_state(self.client, 'current-task', self.task_type)
 
         # Update task status
         self.client.set_shared_value('task-status', 'ready')
