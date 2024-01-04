@@ -5,6 +5,8 @@ import time
 
 class Task:
 
+    sim_index = None
+
     def __init__(self, client: NarupaImdClient):
         self.client = client
 
@@ -32,7 +34,7 @@ class Task:
         write_to_shared_state(self.client, 'task-status', 'in-progress')
 
         # Play simulation
-        self.client.run_command("playback/play")
+        self.client.run_play()
 
         # Monitor whether task is completed
         self._run_logic_for_specific_task()
@@ -42,14 +44,16 @@ class Task:
 
     def _prepare_task(self):
 
-        # # Load simulation
-        # self.client.run_command("playback/load", index=self.simulation_id)
+        # Load simulation
+        self.client.run_command("playback/load", index=self.sim_index)
 
         # Update visualisation
         self._update_visualisations()
 
-        # Reset and pause simulation
+        # Reset simulation
         self.client.run_reset()
+
+        # Pause simulation
         self.client.run_command("playback/pause")
 
         # Update task type
@@ -64,7 +68,15 @@ class Task:
 
     def _run_logic_for_specific_task(self):
         """Container for the logic specific to each task."""
-        pass
+
+        # Check that frames are being received
+        while True:
+            try:
+                test = self.client.latest_frame.particle_positions
+                break
+            except KeyError:
+                print("No particle positions found, waiting for 1/30 seconds before trying again.")
+                time.sleep(1 / 30)
 
     def _finish_task(self):
         """Handles the finishing of the task."""
