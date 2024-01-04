@@ -5,7 +5,9 @@ using Narupa.Grpc.Multiplayer;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.UI;
+using NarupaIMD.Subtle_Game.Visuals;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game.Logic
 {
@@ -16,12 +18,13 @@ namespace NarupaIMD.Subtle_Game.Logic
     public class PuppeteerManager : MonoBehaviour
     {
         // SET YOUR LOCAL IP!
-        private string _ipAddress = "192.168.68.57";
+        private string _ipAddress = "192.168.68.55";
         
         #region Scene References
         
         public NarupaImdSimulation simulation;
         public GameObject userInteraction;
+        public SimulationBoxCentre simulationBoxCentre;
         
         private Transform _simulationSpace;
         private CanvasManager _canvasManager;
@@ -304,36 +307,8 @@ namespace NarupaIMD.Subtle_Game.Logic
             // Disable interactions
             EnableInteractions = false;
 
-            // Set position and rotation of simulation to be in front of the player.
-            MoveSimulationInFrontOfPlayer();
-        }
-
-        /// <summary>
-        /// Center the simulation space in front of the player.
-        /// </summary>
-        private void MoveSimulationInFrontOfPlayer()
-        {
-            if (Camera.main == null) return;
-            Transform cameraTransform = Camera.main.transform;
-
-            // Calculate the target position in front of the camera
-            Vector3 targetPosition = cameraTransform.position + (cameraTransform.forward * DistanceFromCamera);
-
-            // Make sure the object does not move up or down; keep the Y coordinate the same
-            targetPosition.y = _simulationSpace.position.y;
-
-            // Move the object to the target position
-            _simulationSpace.position = targetPosition;
-
-            // Get the Y rotation of the camera
-            float cameraYRotation = cameraTransform.eulerAngles.y;
-
-            // Construct a new rotation for the object, preserving its original X and Z rotation
-            var eulerAngles = _simulationSpace.eulerAngles;
-            Quaternion targetRotation = Quaternion.Euler(eulerAngles.x, cameraYRotation, eulerAngles.z);
-
-            // Apply the rotation to the object
-            _simulationSpace.rotation = targetRotation;
+            // Center simulation box in front of player
+            simulationBoxCentre.CenterInFrontOfPlayer();
         }
     }
 }
