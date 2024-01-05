@@ -15,7 +15,8 @@ namespace NarupaIMD.Subtle_Game.UI
         Sphere,
         Nanotube,
         Outro,
-        KnotTying
+        KnotTying,
+        Trials
     }
 
     /// <summary>

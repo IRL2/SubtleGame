@@ -86,7 +86,8 @@ namespace NarupaIMD.Subtle_Game.Logic
                 Sphere,
                 Nanotube,
                 GameFinished,
-                KnotTying
+                KnotTying,
+                Trials
             }
 
             // Task
@@ -201,6 +202,10 @@ namespace NarupaIMD.Subtle_Game.Logic
                     
                     case "knot-tying":
                         _orderOfTasks.Add(TaskTypeVal.KnotTying);
+						break;
+
+                    case "trials":
+                        _orderOfTasks.Add(TaskTypeVal.Trials);
                         break;
                     
                     default:
