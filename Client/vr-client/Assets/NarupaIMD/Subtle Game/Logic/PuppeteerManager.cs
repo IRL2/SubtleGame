@@ -7,7 +7,6 @@ using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.UI;
 using NarupaIMD.Subtle_Game.Visuals;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game.Logic
 {
@@ -94,7 +93,7 @@ namespace NarupaIMD.Subtle_Game.Logic
 
             // Task
             private List<string> OrderOfTasks { get; set; }
-            private List<TaskTypeVal> _orderOfTasks = new();
+            private readonly List<TaskTypeVal> _orderOfTasks = new();
             private int NumberOfTasks { get; set; }
             private int CurrentTaskNum { get; set; }
 
