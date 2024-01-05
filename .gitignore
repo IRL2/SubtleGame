@@ -7,3 +7,4 @@
 .idea/SubtleGame.iml
 .idea/modules.xml
 .idea/misc.xml
+*.pyc
