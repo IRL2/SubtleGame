@@ -36,6 +36,6 @@ The game is handled by a Python client that is referred to as the 'puppeteering 
 
 ## Running a game
 
-1. Run a server by navigating to `./Client/rust-server-2023-10-19` and clicking `narupa-gui.exe`. Run the default simulation by clicking `Run demonstration input!` or select a simulation file from your computer and click `Run the selected file!`.
+1. Run a server by navigating to `./Client/rust-server-2023-10-19` and clicking `narupa-gui.exe`. Open the Network tab and change the Server name to `SubtleGame'. Run the default simulation by clicking `Run demonstration input!` or select a simulation file from your computer and click `Run the selected file!`.
 2. Run the Python script `./Client/puppeteering-client.py` from inside your 'subtle-game' conda environment (either using the terminal or your Python IDE).
 3. Open Unity, open Oculus Link or Air Link, and click play to start the game.
