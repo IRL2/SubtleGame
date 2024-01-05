@@ -1,6 +1,7 @@
 from narupa.app import NarupaImdClient
 from task_nanotube import NanotubeTask
 from task_knot_tying import KnotTyingTask
+from task_trials import Trial
 from additional_functions import write_to_shared_state
 
 
@@ -17,7 +18,7 @@ class PuppeteeringClient:
         self.narupa_client.update_available_commands()
 
         # Declare variables.
-        self.order_of_tasks = ['knot-tying']
+        self.order_of_tasks = ['trials']
         self.order_of_modality = ['hands']
         self.current_modality = self.order_of_modality[0]
 
@@ -51,6 +52,12 @@ class PuppeteeringClient:
                 current_task.run_task()
                 print('Finished knot tying task')
 
+            elif task == 'trials':
+                current_task = Trial(self.narupa_client, simulation_index=self.trials_index[0])
+                print('Starting trial')
+                current_task.run_task()
+                print('Finished trial')
+
         # gracefully finish the game
         self._finish_game()
         print('Finished game')
@@ -67,6 +74,8 @@ class PuppeteeringClient:
         # Get simulation indices from server.
         simulations = self.narupa_client.run_command('playback/list')
         self.nanotube_index = [idx for idx, s in enumerate(simulations['simulations']) if 'nanotube' in s]
+        self.knot_tying_index = [idx for idx, s in enumerate(simulations['simulations']) if '17-ala' in s]
+        self.trials_index = [idx for idx, s in enumerate(simulations['simulations']) if 'trials' in s]
 
     def _finish_game(self):
         """ Update the shared state and close the client at the end of the game. """

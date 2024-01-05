@@ -142,6 +142,7 @@ namespace NarupaIMD.Subtle_Game.UI
                 PuppeteerManager.TaskTypeVal.Nanotube => CanvasType.Nanotube,
                 PuppeteerManager.TaskTypeVal.GameFinished => CanvasType.Outro,
                 PuppeteerManager.TaskTypeVal.KnotTying => CanvasType.KnotTying,
+                PuppeteerManager.TaskTypeVal.Trials => CanvasType.Trials,
                     _ => CurrentCanvasType
             };
         }

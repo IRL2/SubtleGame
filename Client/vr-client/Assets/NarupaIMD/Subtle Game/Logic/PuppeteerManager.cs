@@ -7,6 +7,7 @@ using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.UI;
 using NarupaIMD.Subtle_Game.Visuals;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game.Logic
 {
@@ -64,7 +65,7 @@ namespace NarupaIMD.Subtle_Game.Logic
 
         #endregion
 
-        #region Shared State
+        #region General Shared State
         
             // Keys and values
             private string _formattedKey;
@@ -72,7 +73,8 @@ namespace NarupaIMD.Subtle_Game.Logic
             {
                 TaskStatus,
                 TaskType,
-                Connected
+                Connected,
+                TrialAnswer
             }
             public enum TaskStatusVal
             {
@@ -133,6 +135,17 @@ namespace NarupaIMD.Subtle_Game.Logic
             }
             private bool _playerStatus;
             
+        #endregion
+
+        #region Trials
+        
+        [SerializeField]
+        private TrialAnswerSubmission trialAnswerSubmission;
+        public string TrialAnswer
+        {
+            set => WriteToSharedState(SharedStateKey.TrialAnswer, value);
+        }
+
         #endregion
         
         private void Start()
@@ -275,6 +288,18 @@ namespace NarupaIMD.Subtle_Game.Logic
                     GetOrderOfTasks();
                     PrepareTask();
                     OrderOfTasksReceived = true;
+                    break;
+                
+                case "puppeteer.trials-timer":
+                    if (val.ToString() == "finished")
+                    {
+                        // Disable interactions
+                        EnableInteractions = false;
+                        
+                        // Request answer from the player
+                        trialAnswerSubmission.RequestAnswerFromPlayer();
+                    }
+
                     break;
                 
                 case "puppeteer.task-status":
