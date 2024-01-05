@@ -17,8 +17,8 @@ namespace NarupaIMD.Subtle_Game.Logic
     public class PuppeteerManager : MonoBehaviour
     {
         // SET YOUR LOCAL IP!
-        private string _ipAddress = "192.168.68.55";
-        
+        private const string IPAddress = "192.168.68.55";
+
         #region Scene References
         
         public NarupaImdSimulation simulation;
@@ -36,6 +36,7 @@ namespace NarupaIMD.Subtle_Game.Logic
         public bool OrderOfTasksReceived { get; private set; }
         private PinchGrab _pinchGrab;
         public bool grabbersReady;
+        
         #endregion
         
         #region Simulation and User Interaction
@@ -63,7 +64,7 @@ namespace NarupaIMD.Subtle_Game.Logic
 
         #endregion
 
-        #region ForSharedState
+        #region Shared State
         
             // Keys and values
             private string _formattedKey;
@@ -133,7 +134,6 @@ namespace NarupaIMD.Subtle_Game.Logic
             
         #endregion
         
-        // Functions
         private void Start()
         {
             // Find the Canvas Manager
@@ -145,41 +145,41 @@ namespace NarupaIMD.Subtle_Game.Logic
             // Request Canvas Manager to setup the game
             _canvasManager.StartGame();
             
-            // Subscribe to updates in the shared state dictionary.
+            // Subscribe to updates in the shared state dictionary
             simulation.Multiplayer.SharedStateDictionaryKeyUpdated += OnSharedStateKeyUpdated;
         }
-
-        public void StartTask()
+        
+        /// <summary>
+        /// Sets up the game by connecting to the server, updating the player status, centering the simulation in front
+        /// of the player, hiding the simulation, and disabling interactions.
+        /// </summary>
+        public async Task PrepareGame()
         {
-            TaskStatus = TaskStatusVal.InProgress;
-            _canvasManager.HideCanvas();
-            ShowSimulation = true;
+            // Enable interactions to begin with (needed to setup the grabbers)
             EnableInteractions = true;
+            
+            // Autoconnect to a locally-running server
+            // await simulation.AutoConnect();
+            
+            // Connect to a specific ip
+            await simulation.Connect(IPAddress, trajectoryPort:38801, imdPort:38801, multiplayerPort:38801);
+            
+            // Initialise pinch grabs for interactions
+            _pinchGrab.InitialiseInteractions();
+
+            // Let the Puppeteer Manager know that the player has connected
+            PlayerStatus = true;
+            
+            // Hide the simulation
+            ShowSimulation = false;
+            
+            // Disable interactions
+            EnableInteractions = false;
+
+            // Center simulation box in front of player
+            simulationBoxCentre.CenterInFrontOfPlayer();
         }
         
-        public void PrepareTask()
-        {
-            if (_startOfGame)
-            {
-                CurrentTaskNum = 0; // start task number at 0
-                //GetOrderOfTasks(); // populate order of tasks
-                NumberOfTasks = _orderOfTasks.Count;
-                _startOfGame = false;
-            }
-            else
-            {
-                CurrentTaskNum++; // increment task number
-            }
-
-            if (CurrentTaskNum == NumberOfTasks)
-            {
-                CurrentTaskType = TaskTypeVal.GameFinished;
-                return;
-            }
-
-            CurrentTaskType = _orderOfTasks[CurrentTaskNum]; // get current task
-        }
-
         /// <summary>
         /// Populates the order of tasks from the list of tasks specified in the shared state.
         /// </summary>
@@ -209,16 +209,47 @@ namespace NarupaIMD.Subtle_Game.Logic
                 }
             }
         }
-
+        
         /// <summary>
-        /// Writes key-value pair to the shared state with the 'Player.' identifier at the front of the key. 
+        /// Prepares the next task. For the first time this is called, count the total number of tasks and start the
+        /// task number at 0. If not the first time, increment the task number. Check if all the tasks have been
+        /// completed: if yes, end the game, if no, update current task. This function is called once when the order of
+        /// tasks is first populated and each time thereafter once a task is finished.
         /// </summary>
-        private void WriteToSharedState(SharedStateKey key, string value)
+        private void PrepareTask()
         {
-            _formattedKey = "Player." + key; // format the key
-            simulation.Multiplayer.SetSharedState(_formattedKey, value); // set key-value pair in the shared state
+            // Check if this is the first time this function has been called
+            if (_startOfGame)
+            {
+                CurrentTaskNum = 0; // start task number at 0
+                NumberOfTasks = _orderOfTasks.Count; // count the total number of tasks
+                _startOfGame = false; // no longer at the start of the game, setup complete
+            }
+            else
+            {
+                CurrentTaskNum++; // increment task number
+            }
+            
+            // Check if all tasks have been completed
+            if (CurrentTaskNum == NumberOfTasks)
+            {
+                CurrentTaskType = TaskTypeVal.GameFinished; // game finished
+                return;
+            }
+            
+            CurrentTaskType = _orderOfTasks[CurrentTaskNum]; // update current task
         }
-
+        /// <summary>
+        /// Starts the current task by hiding the menu, showing the simulation and enabling interactions. This is called once the player has finished the intro menu for the task.
+        /// </summary>
+        /// 
+        public void StartTask()
+        {
+            TaskStatus = TaskStatusVal.InProgress;
+            _canvasManager.HideCanvas();
+            ShowSimulation = true;
+            EnableInteractions = true;
+        }
         /// <summary>
         /// Called when a key is updated in the shared state dictionary and saves the values we need.
         /// </summary>
@@ -259,6 +290,15 @@ namespace NarupaIMD.Subtle_Game.Logic
                     break;
             }
         }
+
+        /// <summary>
+        /// Writes key-value pair to the shared state with the 'Player.' identifier at the front of the key. 
+        /// </summary>
+        private void WriteToSharedState(SharedStateKey key, string value)
+        {
+            _formattedKey = "Player." + key; // format the key
+            simulation.Multiplayer.SetSharedState(_formattedKey, value); // set key-value pair in the shared state
+        }
         
         /// <summary>
         /// Quits the application.
@@ -280,34 +320,6 @@ namespace NarupaIMD.Subtle_Game.Logic
                 // Quit the game if not in the Unity Editor
                 Application.Quit();
 #endif
-        }
-
-        /// <summary>
-        /// Sets up the game by connecting to the server, updating the player status, and hiding & moving the simulation.
-        /// </summary>
-        public async Task PrepareGame()
-        {
-            // Enable interactions to begin with (needed to setup the grabbers)
-            EnableInteractions = true;
-            
-            // Autoconnect to a locally-running server.
-            //await simulation.AutoConnect();
-            await simulation.Connect(_ipAddress, trajectoryPort:38801, imdPort:38801, multiplayerPort:38801);
-            
-            // Initialise pinch grabs for interactions
-            _pinchGrab.InitialiseInteractions();
-
-            // Let the Puppeteer Manager know that the player has connected.
-            PlayerStatus = true;
-            
-            // Hide the simulation
-            ShowSimulation = false;
-            
-            // Disable interactions
-            EnableInteractions = false;
-
-            // Center simulation box in front of player
-            simulationBoxCentre.CenterInFrontOfPlayer();
         }
     }
 }
