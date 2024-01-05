@@ -7,7 +7,6 @@ using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.UI;
 using NarupaIMD.Subtle_Game.Visuals;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game.Logic
 {
@@ -26,7 +25,6 @@ namespace NarupaIMD.Subtle_Game.Logic
         public GameObject userInteraction;
         public SimulationBoxCentre simulationBoxCentre;
         
-        private Transform _simulationSpace;
         private CanvasManager _canvasManager;
         private MultiplayerSession _session;
 
@@ -48,6 +46,7 @@ namespace NarupaIMD.Subtle_Game.Logic
             {
                 _showSimulation = value;
                 simulation.gameObject.SetActive(_showSimulation);
+                EnableInteractions = _showSimulation;
             }
         }
         private bool _showSimulation;
@@ -61,9 +60,7 @@ namespace NarupaIMD.Subtle_Game.Logic
         }
 
         private bool _enableInteractions;
-        
-        private const float DistanceFromCamera = .75f;
-        
+
         #endregion
 
         #region ForSharedState
@@ -144,9 +141,6 @@ namespace NarupaIMD.Subtle_Game.Logic
             
             // Find the pinch grab script
             _pinchGrab = FindObjectOfType<PinchGrab>();
-
-            // Find the simulation space
-            _simulationSpace = simulation.transform.Find("Simulation Space");
 
             // Request Canvas Manager to setup the game
             _canvasManager.StartGame();

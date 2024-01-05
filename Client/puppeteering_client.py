@@ -31,8 +31,17 @@ class PuppeteeringClient:
         for task in self.order_of_tasks:
 
             if task == 'nanotube':
-                current_task = NanotubeTask(self.narupa_client)
-                print('Starting nanotube task')
+
+                # Check that the nanotube simulation was loaded into the server
+                if self.nanotube_index is None:
+                    raise ValueError("No nanotube simulation found. Have you forgotten to load the nanotube "
+                                     "simulation on the server? Is the loaded .xml file called 'nanotube.xml'?")
+
+                # Create task
+                current_task = NanotubeTask(self.narupa_client, simulation_index=self.nanotube_index[0])
+
+                # Run task
+                print('Running nanotube task')
                 current_task.run_task()
                 print('Finished nanotube task')
 
@@ -47,11 +56,17 @@ class PuppeteeringClient:
         print('Finished game')
 
     def _initialise_game(self):
-        """ Writes the key-value pairs to the shared state that are required to begin the game. """
+        """ Writes the key-value pairs to the shared state that are required to begin the game. Gets simulation
+        indexes from server."""
+
         # update the shared state
         write_to_shared_state(self.narupa_client, 'game-status', 'waiting')
         write_to_shared_state(self.narupa_client, 'modality', self.current_modality)
         write_to_shared_state(self.narupa_client, 'order-of-tasks', self.order_of_tasks)
+
+        # Get simulation indices from server.
+        simulations = self.narupa_client.run_command('playback/list')
+        self.nanotube_index = [idx for idx, s in enumerate(simulations['simulations']) if 'nanotube' in s]
 
     def _finish_game(self):
         """ Update the shared state and close the client at the end of the game. """

@@ -32,7 +32,6 @@ namespace NarupaIMD.Subtle_Game.UI
         {
             set
             {
-                if (_currentCanvasType == value) return;
                 _currentCanvasType = value;
                 SwitchCanvas();
             }
