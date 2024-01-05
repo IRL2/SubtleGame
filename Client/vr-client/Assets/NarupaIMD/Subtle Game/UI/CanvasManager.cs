@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.UI
 {
-    // Name of possible menu canvases
+    // Name of possible task canvases
     public enum CanvasType
     {
         None,
@@ -24,24 +24,28 @@ namespace NarupaIMD.Subtle_Game.UI
     /// </summary>
     public class CanvasManager : MonoBehaviour
     {
-        // Variables
-        
-        [Header("Canvases")]
+
+        #region Scene References
+        private PuppeteerManager _puppeteerManager;
         private List<CanvasController> _canvasControllerList;
+        #endregion
+        
+        #region Canvases (task)
         private CanvasController LastActiveCanvas { get; set; }
         private CanvasType CurrentCanvasType
         {
             set
             {
                 _currentCanvasType = value;
-                SwitchCanvas();
+                SwitchToNextCanvas();
             }
             get => _currentCanvasType;
         }
         private CanvasType _currentCanvasType;
+        #endregion
         
+        #region Menus (within task)
         private GameObject _currentMenu;
-
         private int CurrentMenuIndex
         {
             get => _currentMenuIndex;
@@ -56,13 +60,15 @@ namespace NarupaIMD.Subtle_Game.UI
         }
         private int _currentMenuIndex;
         private bool _isFirstMenu;
-
-        [Header("Other")]
-        private PuppeteerManager _puppeteerManager;
-        private const float WaitTimeForOutroMenu = 1f;
-
-        // Methods
+        #endregion
         
+        #region Other
+        private const float WaitTimeForOutroMenu = 1f;
+        #endregion
+
+        /// <summary>
+        /// Populates scene references.
+        /// </summary>
         protected void Awake()
         {
             _puppeteerManager = FindObjectOfType<PuppeteerManager>();
@@ -75,28 +81,76 @@ namespace NarupaIMD.Subtle_Game.UI
         }
 
         /// <summary>
-        /// Called at the start of the game to activate the first canvas.
+        /// Activates first canvas. Called once at the start of the game.
         /// </summary>
         public void StartGame()
         {
             CurrentCanvasType = CanvasType.Intro;
         }
 
-        public void LoadOutroToTask()
-        {
-            // Wait
-            StartCoroutine(Wait());
+        #region Canvases (task)
 
-            // Load Outro menu
-            ShowCanvas();
-            RequestNextMenu();
+        /// <summary>
+        /// Shows the previously active canvas.
+        /// </summary>
+        private void ShowCanvas()
+        {
+            if (LastActiveCanvas != null)
+            {
+                LastActiveCanvas.gameObject.SetActive(true);
+            }
         }
         
+        /// <summary>
+        /// Hides the active canvas.
+        /// </summary>
+        public void HideCanvas()
+        {
+            if (LastActiveCanvas != null)
+            {
+                LastActiveCanvas.gameObject.SetActive(false);
+            }
+        }
         
         /// <summary>
-        /// Deactivate previous canvas and activate the next canvas. This is called when the player switches task.
+        /// Modifies the current canvas by enabling the game objects specified by the Canvas Modifier.
         /// </summary>
-        private void SwitchCanvas()
+        public void ModifyCanvas(CanvasModifier canvasModifier)
+        {
+            if (canvasModifier == null) return;
+            
+            // Loop through the game objects and set each one active
+            foreach (GameObject obj in canvasModifier.gameObjectsToAppear)
+            {
+                obj.SetActive(true);
+            }
+        }
+        
+        /// <summary>
+        /// Get next canvas from the current task type. Called when the player clicks a button to start the next task.
+        /// </summary>
+        public void RequestNextCanvas()
+        {
+            // For debugging
+            if (!_puppeteerManager.OrderOfTasksReceived)
+            {
+                Debug.LogWarning("The order of tasks is not populated in the puppeteer manager");
+            }
+            CurrentCanvasType = _puppeteerManager.CurrentTaskType switch
+            {
+                PuppeteerManager.TaskTypeVal.Sphere => CanvasType.Sphere,
+                PuppeteerManager.TaskTypeVal.Nanotube => CanvasType.Nanotube,
+                PuppeteerManager.TaskTypeVal.GameFinished => CanvasType.Outro,
+                PuppeteerManager.TaskTypeVal.KnotTying => CanvasType.KnotTying,
+                PuppeteerManager.TaskTypeVal.Trials => CanvasType.Trials,
+                _ => CurrentCanvasType
+            };
+        }
+        
+        /// <summary>
+        /// Deactivate previous canvas and activate the next one. This is called when the player switches task.
+        /// </summary>
+        private void SwitchToNextCanvas()
         {
             // Hide current canvas
             HideCanvas();
@@ -125,78 +179,27 @@ namespace NarupaIMD.Subtle_Game.UI
             }
             CurrentMenuIndex = 0;
         }
+
+        #endregion
         
+        #region Menus (within a task)
         /// <summary>
-        /// Update the canvas based on the order of tasks in the Puppeteer Manager.
+        /// Increments to the next menu on the currently active canvas.
         /// </summary>
-        public void RequestNextCanvas()
-        {
-            // For debugging
-            if (!_puppeteerManager.OrderOfTasksReceived)
-            {
-                Debug.LogWarning("The order of tasks is not populated in the puppeteer manager");
-            }
-            CurrentCanvasType = _puppeteerManager.CurrentTaskType switch
-            {
-                PuppeteerManager.TaskTypeVal.Sphere => CanvasType.Sphere,
-                PuppeteerManager.TaskTypeVal.Nanotube => CanvasType.Nanotube,
-                PuppeteerManager.TaskTypeVal.GameFinished => CanvasType.Outro,
-                PuppeteerManager.TaskTypeVal.KnotTying => CanvasType.KnotTying,
-                PuppeteerManager.TaskTypeVal.Trials => CanvasType.Trials,
-                    _ => CurrentCanvasType
-            };
-        }
-
-        /// <summary>
-        /// Modifies the current canvas by enabling the game objects specified by the Canvas Modifier.
-        /// </summary>
-        public void ModifyCanvas(CanvasModifier canvasModifier)
-        {
-            if (canvasModifier == null) return;
-            
-            // Loop through the game objects and set each one active
-            foreach (GameObject obj in canvasModifier.gameObjectsToAppear)
-            {
-                obj.SetActive(true);
-            }
-        }
-
-        public void HideCanvas()
-        {
-            // Disable current canvas
-            if (LastActiveCanvas != null)
-            {
-                LastActiveCanvas.gameObject.SetActive(false);
-            }
-        }
-        
-        private void ShowCanvas()
-        {
-            // Disable current canvas
-            if (LastActiveCanvas != null)
-            {
-                LastActiveCanvas.gameObject.SetActive(true);
-            }
-        }
-
-        private void HideAllMenus()
-        {
-            foreach (GameObject obj in LastActiveCanvas.orderedListOfMenus) 
-            {                                                               
-                obj.SetActive(false);                                       
-            }                                                                   
-        }
-
         public void RequestNextMenu()
         {
-            // Increment current menu
             CurrentMenuIndex++;
         }
-
+        
+        /// <summary>
+        /// Enables the desired menu. If called for the first menu of a new task, disables all other menus on the canvas
+        /// so that only one is enabled. Called when the menu changes, which occurs when switching tasks or switching
+        /// menus within a task.
+        /// </summary>
         private void UpdateCurrentMenu()
         {
             // If this is the first menu, ensure all other menus are disabled
-            if (_isFirstMenu) {HideAllMenus();}
+            if (_isFirstMenu) {DisableAllMenus();}
 
             // Else just hide current menu
             else{_currentMenu.SetActive(false);}
@@ -208,10 +211,38 @@ namespace NarupaIMD.Subtle_Game.UI
             _currentMenu.SetActive(true);
         }
         
-        private IEnumerator Wait()
+        /// <summary>
+        /// Disables all menus on the currently active canvas.
+        /// </summary>
+        private void DisableAllMenus()
         {
-            // Wait for the specified amount of time
-            yield return new WaitForSeconds(WaitTimeForOutroMenu);
+            foreach (GameObject obj in LastActiveCanvas.orderedListOfMenus) 
+            {                                                               
+                obj.SetActive(false);                                       
+            }                                                                   
+        }
+        
+        /// <summary>
+        /// Loads the outro menu for the current task. This is called once the player completes a task.
+        /// </summary>
+        public void LoadOutroToTask()
+        {
+            // Wait before showing menu
+            StartCoroutine(Wait(WaitTimeForOutroMenu));
+
+            // Load next menu
+            ShowCanvas();
+            RequestNextMenu();
+        }
+        
+        #endregion
+        
+        /// <summary>
+        /// Wait for specified amount of time. Used for adding delays when showing and hiding menus.
+        /// </summary>
+        private static IEnumerator Wait(float time)
+        {
+            yield return new WaitForSeconds(time);
         }
     }
 }
