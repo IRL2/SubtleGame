@@ -11,8 +11,8 @@ class NanotubeTask(Task):
 
     def __init__(self, client: NarupaImdClient, simulation_index: int):
 
-        super().__init__(client)
-        self.sim_index = simulation_index
+        super().__init__(client, simulation_index)
+
         self.was_methane_in_nanotube = False
         self.is_methane_in_nanotube = False
         self.methane_end_of_entry = None

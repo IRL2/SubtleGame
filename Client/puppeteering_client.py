@@ -40,16 +40,16 @@ class PuppeteeringClient:
                 # Create task
                 current_task = NanotubeTask(self.narupa_client, simulation_index=self.nanotube_index[0])
 
-                # Run task
-                print('Running nanotube task')
-                current_task.run_task()
-                print('Finished nanotube task')
-
             elif task == 'knot-tying':
-                current_task = KnotTyingTask(self.narupa_client)
-                print('Starting knot tying task')
-                current_task.run_task()
-                print('Finished knot tying task')
+                current_task = KnotTyingTask(self.narupa_client, simulation_index=self.alanine_index[0])
+
+            else:
+                print("Current task not recognised, closing the puppeteering client.")
+                break
+
+            print('Running ' + task + ' task')
+            current_task.run_task()
+            print('Finished ' + task + ' task')
 
         # gracefully finish the game
         self._finish_game()
@@ -67,6 +67,7 @@ class PuppeteeringClient:
         # Get simulation indices from server.
         simulations = self.narupa_client.run_command('playback/list')
         self.nanotube_index = [idx for idx, s in enumerate(simulations['simulations']) if 'nanotube' in s]
+        self.alanine_index = [idx for idx, s in enumerate(simulations['simulations']) if '17-ala' in s]
 
     def _finish_game(self):
         """ Update the shared state and close the client at the end of the game. """
