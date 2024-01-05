@@ -6,10 +6,10 @@ import time
 class Task:
 
     task_type = None
-    sim_index = None
 
-    def __init__(self, client: NarupaImdClient):
+    def __init__(self, client: NarupaImdClient, simulation_index: int):
         self.client = client
+        self.sim_index = simulation_index
 
     def run_task(self):
 

@@ -8,8 +8,10 @@ class KnotTyingTask(Task):
 
     task_type = "knot-tying"
 
-    def __init__(self, client: NarupaImdClient):
-        super().__init__(client)
+    def __init__(self, client: NarupaImdClient, simulation_index: int):
+
+        super().__init__(client, simulation_index)
+
         self.knot_pull_client = None
         self.particle_names = client.first_frame.particle_names
         self.residue_ids = client.first_frame.residue_ids

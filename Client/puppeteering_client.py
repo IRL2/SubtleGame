@@ -25,7 +25,7 @@ class PuppeteeringClient:
 
         # initialise game
         self._initialise_game()
-        print('Initialised game')
+        print('Game initialised')
 
         # loop through the tasks
         for task in self.order_of_tasks:
@@ -34,26 +34,32 @@ class PuppeteeringClient:
 
                 # Check that the nanotube simulation was loaded into the server
                 if self.nanotube_index is None:
-                    raise ValueError("No nanotube simulation found. Have you forgotten to load the nanotube "
-                                     "simulation on the server? Is the loaded .xml file called 'nanotube.xml'?")
+                    raise ValueError("No nanotube simulation found. Have you forgotten to load the simulation on the "
+                                     "server? Does the loaded .xml contain the term 'nanotube?")
 
-                # Create task
                 current_task = NanotubeTask(self.narupa_client, simulation_index=self.nanotube_index[0])
 
-                # Run task
-                print('Running nanotube task')
-                current_task.run_task()
-                print('Finished nanotube task')
-
             elif task == 'knot-tying':
-                current_task = KnotTyingTask(self.narupa_client)
-                print('Starting knot tying task')
-                current_task.run_task()
-                print('Finished knot tying task')
+
+                # Check that the nanotube simulation was loaded into the server
+                if self.alanine_index is None:
+                    raise ValueError("No 17-alanine simulation found. Have you forgotten to load the simulation on the "
+                                     "server? Does the loaded .xml contain the term '17-ala'?")
+
+                current_task = KnotTyingTask(self.narupa_client, simulation_index=self.alanine_index[0])
+
+            else:
+                print("Current task not recognised, closing the puppeteering client.")
+                break
+
+            # Run the task
+            print('\nRunning ' + task + ' task')
+            current_task.run_task()
+            print('Finished ' + task + ' task\n')
 
         # gracefully finish the game
         self._finish_game()
-        print('Finished game')
+        print('Game finished')
 
     def _initialise_game(self):
         """ Writes the key-value pairs to the shared state that are required to begin the game. Gets simulation
@@ -67,6 +73,7 @@ class PuppeteeringClient:
         # Get simulation indices from server.
         simulations = self.narupa_client.run_command('playback/list')
         self.nanotube_index = [idx for idx, s in enumerate(simulations['simulations']) if 'nanotube' in s]
+        self.alanine_index = [idx for idx, s in enumerate(simulations['simulations']) if '17-ala' in s]
 
     def _finish_game(self):
         """ Update the shared state and close the client at the end of the game. """
