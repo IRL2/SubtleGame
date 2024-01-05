@@ -1,5 +1,6 @@
 from narupa.app import NarupaImdClient
 from task_nanotube import NanotubeTask
+from task_knot_tying import KnotTyingTask
 from additional_functions import write_to_shared_state
 
 
@@ -16,7 +17,7 @@ class PuppeteeringClient:
         self.narupa_client.update_available_commands()
 
         # Declare variables.
-        self.order_of_tasks = ['nanotube']
+        self.order_of_tasks = ['knot-tying']
         self.order_of_modality = ['hands']
         self.current_modality = self.order_of_modality[0]
 
@@ -43,6 +44,12 @@ class PuppeteeringClient:
                 print('Running nanotube task')
                 current_task.run_task()
                 print('Finished nanotube task')
+
+            elif task == 'knot-tying':
+                current_task = KnotTyingTask(self.narupa_client)
+                print('Starting knot tying task')
+                current_task.run_task()
+                print('Finished knot tying task')
 
         # gracefully finish the game
         self._finish_game()

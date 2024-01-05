@@ -7,6 +7,8 @@ import time
 
 class NanotubeTask(Task):
 
+    task_type = "nanotube"
+
     def __init__(self, client: NarupaImdClient, simulation_index: int):
 
         super().__init__(client)
