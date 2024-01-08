@@ -17,7 +17,7 @@ namespace NarupaIMD.Subtle_Game.Logic
     public class PuppeteerManager : MonoBehaviour
     {
         // SET YOUR LOCAL IP!
-        private const string IPAddress = "192.168.68.55";
+        private const string IPAddress = "192.168.68.57";
 
         #region Scene References
         
@@ -72,7 +72,8 @@ namespace NarupaIMD.Subtle_Game.Logic
             {
                 TaskStatus,
                 TaskType,
-                Connected
+                Connected,
+                HeadsetType
             }
             public enum TaskStatusVal
             {
@@ -132,8 +133,21 @@ namespace NarupaIMD.Subtle_Game.Logic
             }
             private bool _playerStatus;
             
-        #endregion
-        
+       
+            // Other
+            private string _hmdType;
+            public string HmdType
+            {
+                get => _hmdType;
+                private set
+                {
+                    _hmdType = value;
+                    WriteToSharedState(SharedStateKey.HeadsetType, _hmdType);
+                }
+            }
+
+            #endregion
+            
         private void Start()
         {
             // Find the Canvas Manager
@@ -175,6 +189,9 @@ namespace NarupaIMD.Subtle_Game.Logic
             
             // Disable interactions
             EnableInteractions = false;
+            
+            // Log type of VR headset
+            HmdType = OVRPlugin.GetSystemHeadsetType().ToString();
 
             // Center simulation box in front of player
             simulationBoxCentre.CenterInFrontOfPlayer();
