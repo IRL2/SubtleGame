@@ -12,6 +12,7 @@ buckyball_r_eq = .1332
 buckyball_angle_force_constant = 457.672
 buckyball_theta_eq = 2.129301687433082
 
+
 # endregion
 
 
@@ -33,11 +34,13 @@ class CustomisableOpenMMSystem:
     angle_k = None
     theta_eq = None
     current_multiplier = None
+    run_simulation = None
 
-    def __init__(self, xml_path: str, pdb_path: str, type_of_force_constant: str):
+    def __init__(self, xml_path: str, pdb_path: str, type_of_force_constant: str, run_simulation=True):
         self.openmm_system = read_xml_into_openmm_system(xml_path)
         self.pdb_system = app.PDBFile(pdb_path)
         self.type_of_force_constant_to_alter = type_of_force_constant
+        self.run_simulation = run_simulation
 
     def remove_force(self):
         """
@@ -128,7 +131,7 @@ class CustomisableOpenMMSystem:
 
         # Check that angle ids exist.
         if self.angle_atom_ids is None:
-            raise TypeError("No angle atom ids found")
+            raise TypeError("No angle atom ids found.")
 
         # Set the molecule parameters from the global parameters.
         self.angle_k = buckyball_angle_force_constant
@@ -137,15 +140,15 @@ class CustomisableOpenMMSystem:
         # Loop through atoms that require the angle force.
         for ids in self.angle_atom_ids:
 
+            # Is the first atom in the set is in the molecule to be altered?
             if id_min <= ids[0] < id_max:
-                # Alter these force constants.
+                # Alter force constants
                 custom_force.addAngle(ids[0], ids[1], ids[2], [self.angle_k * self.current_multiplier, self.theta_eq])
 
             else:
-                # Keep original force constants.
+                # Keep original force constants
                 custom_force.addAngle(ids[0], ids[1], ids[2], [self.angle_k, self.theta_eq])
 
-        # Return the OpenMM system with new CustomAngleForce.
         return custom_force
 
     def get_custom_bond_force(self, id_min: int, id_max: int):
@@ -169,7 +172,7 @@ class CustomisableOpenMMSystem:
         # Loop through atoms that require the angle force.
         for bond in self.pdb_system.topology.bonds():
 
-            # Check if the first atom is in the molecule to be changed
+            # Is the first atom in the set is in the molecule to be altered?
             if id_min <= bond.atom1.index < id_max:
                 # Alter the force constant
                 custom_force.addBond(bond.atom1.index, bond.atom2.index,
@@ -184,7 +187,7 @@ class CustomisableOpenMMSystem:
 
     def create_and_equilibrate_simulation(self):
         """
-        Create simulation from the OpenMM system in its current state, runs an energy minimisation and equilibration.
+        Creates simulation from the OpenMM system and runs an energy minimisation then equilibration simulation.
         :return: None
         """
         # Energy minimisation
@@ -195,8 +198,9 @@ class CustomisableOpenMMSystem:
         simulation.minimizeEnergy()
 
         # Set temperature and run simulation for a bit
-        simulation.context.setVelocitiesToTemperature(300 * mm.unit.kelvin)
-        simulation.step(1000)
+        if self.run_simulation:
+            simulation.context.setVelocitiesToTemperature(300 * mm.unit.kelvin)
+            simulation.step(1000)
 
         self.openmm_simulation = simulation
 
@@ -262,37 +266,41 @@ def write_simulation_to_xml(openmm_simulation, file_name: str):
     if openmm_simulation is None:
         raise TypeError("No simulation found.")
 
-    # Write simulation to .xml file
+    # Generate an .xml file
     file_path = os.path.join('output-xmls', file_name)
     with open(file_path, 'w') as outfile:
         outfile.write(serializer.serialize_simulation(openmm_simulation))
     print(f'Created xml: {file_name}')
 
 
-def generate_xml_simulations(yaml_file: str):
+def generate_xml_simulations(yaml_file: str, run_simulation: bool):
     """
     Creates a set of xml files of modified molecular systems and outputs them to the "/output-xmls" directory.
-    :param yaml_file: string of the yaml file containing the details of the simulations to be generated.
+    :param yaml_file: String of the yaml file containing the details of the simulations to be generated.
+    :param run_simulation: Specify whether to run a simulation after energy minimisation. Set to False if you want to
+    keep the exact coordinates specified in the input xml.
     :return: None
     """
 
-    # Read data from config file.
+    # Read data from .yaml config file
     data_from_config_file = read_yaml(yaml_file)
 
-    # Loop through the molecular systems specified in the yaml config file.
+    # Loop through the molecular systems
     for item in data_from_config_file:
-        # Create customisable OpenMM System.
+
+        # Create customisable OpenMM System
         openmm_system = CustomisableOpenMMSystem(xml_path=item.get('xml path'),
                                                  pdb_path=item.get('pdb path'),
-                                                 type_of_force_constant=item.get('type of force constant'))
+                                                 type_of_force_constant=item.get('type of force constant'),
+                                                 run_simulation=run_simulation)
 
-        # Generate the xml files.
+        # Generate the xml files
         openmm_system.change_force_constants(multipliers=item.get('multipliers'))
 
 
 if __name__ == '__main__':
     # ---------- USER TO EDIT ---------- #
-    my_yaml_file = 'my_yaml.yaml'
+    my_yaml_file = 'example.yaml'
 
     # ----------- RUN SCRIPT ----------- #
-    generate_xml_simulations(yaml_file=my_yaml_file)
+    generate_xml_simulations(yaml_file=my_yaml_file, run_simulation=False)
