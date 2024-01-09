@@ -30,21 +30,23 @@ def read_xml_into_openmm_system(xml_path: str):
 
 class CustomisableOpenMMSystem:
     """
-    A customisable OpenMM system.
+    A customisable OpenMM system for modifying force constants of buckyball simulations..
     """
     openmm_system = None
     pdb_system = None
     angle_atom_ids = None
     openmm_simulation = None
     type_of_force_constant = None
+    angle_force_string = 'angle'
+    bond_force_string = 'bond'
 
-    # Simulation parameters.
+    # Simulation parameters
     bond_k = None
     r_eq = None
     angle_k = None
     theta_eq = None
 
-    # Variable.
+    # TODO: DELETE THIS
     current_multiplier = None
 
     def __init__(self, xml_path: str, pdb_path: str, type_of_force_constant: str):
@@ -54,23 +56,22 @@ class CustomisableOpenMMSystem:
 
     def remove_force(self):
         """
-        Removes force from the OpenMM system.
+        Removes the CustomAngleForce or CustomBondForce from the OpenMM system.
         :return: None
         """
 
-        # Get formatted string that will match the name of the force in the OpenMM system.
-        force_string = f'Custom{self.type_of_force_constant.capitalize()}Force'
+        # Get type of force to remove
+        force_type = f'Custom{self.type_of_force_constant.capitalize()}Force'
 
-        # Loop through forces.
+        # Loop through forces in the system
         for x, force in enumerate(self.openmm_system.getForces()):
 
-            # Find force to remove.
-            if force_string in str(force):
+            # Find force to remove
+            if force_type in str(force):
 
-                # Remove force.
                 self.openmm_system.removeForce(x)
 
-                # There is only one force that needs to be removed, so return straight away.
+                # Only one force needs to be removed, so return straight away
                 return
 
     def determine_angle_atom_ids(self):
@@ -81,23 +82,23 @@ class CustomisableOpenMMSystem:
 
         atom_ids = []
 
-        # Loop through forces.
+        # Loop through forces in the system
         for x, force in enumerate(self.openmm_system.getForces()):
 
-            # Retrieve CustomAngleForce from current simulation.
-            if 'Angle' in str(force):
+            # Retrieve CustomAngleForce
+            if self.angle_force_string in str(force).lower():
 
                 force_to_change = self.openmm_system.getForce(x)
 
-                # Loop through each term.
+                # Loop through each term
                 for angle_term in range(0, force_to_change.getNumAngles()):
 
-                    # Append atom ids.
+                    # Append atom ids
                     atom_ids.append([force_to_change.getAngleParameters(angle_term)[0],
                                      force_to_change.getAngleParameters(angle_term)[1],
                                      force_to_change.getAngleParameters(angle_term)[2]])
 
-                # Only need to do this once, so we return straight away.
+                # Only need to do this once, so return straight away
                 return atom_ids
 
     def add_custom_force(self, molecule_id: int):
@@ -106,13 +107,13 @@ class CustomisableOpenMMSystem:
         :return: None
         """
 
-        if self.type_of_force_constant == 'Angle':
+        if self.type_of_force_constant == self.angle_force_string:
             self.add_custom_angle_force(molecule_id=molecule_id)
 
-        if self.type_of_force_constant == 'Bond':
-            self.add_custom_bond_force()
+        if self.type_of_force_constant == self.bond_force_string:
+            self.add_custom_bond_force(molecule_id=molecule_id)
 
-    def add_custom_bond_force(self):
+    def add_custom_bond_force(self, molecule_id: int):
         """
         Creates a CustomBondForce and adds it to the OpenMM system. Note: currently only works for buckyballs due to
         the hardcoded parameters.
@@ -122,30 +123,42 @@ class CustomisableOpenMMSystem:
         self.bond_k = buckyball_bond_force_constant
         self.r_eq = buckyball_r_eq
 
-        # Create CustomBondForce.
+        # Create force
         custom_force = mm.CustomBondForce(
             'k*0.5*(r-r_eq)*(r-r_eq)*(1.0+cs*(r-r_eq) + (7.0/12.0)*cs*cs*(r-r_eq)*(r-r_eq))')
 
-        # Add global and perBond parameters.
-        custom_force.addPerBondParameter('k')  # Bond force constant.
-        custom_force.addPerBondParameter('r_eq')  # Equilibrium bond length.
-        custom_force.addGlobalParameter('cs', -25.5)  # Scaling constant.
-        custom_force.setName('CustomBondForce')  # Name of custom force.
+        # Add global and perBond parameters
+        custom_force.addPerBondParameter('k')  # Bond force constant
+        custom_force.addPerBondParameter('r_eq')  # Equilibrium bond length
+        custom_force.addGlobalParameter('cs', -25.5)  # Scaling constant
+        custom_force.setName('CustomBondForce')  # Name of custom force
 
-        # Loop through bonds.
+        # TODO: move this to previous function
+        if molecule_id == 0:
+            # Alter the first molecule (A)
+            id_min = 0
+            id_max = 60
+        else:
+            # Alter the second molecule (B)
+            id_min = 60
+            id_max = 120
+
+        # Loop through atoms that require the angle force.
         for bond in self.pdb_system.topology.bonds():
 
-            if 0 <= bond.atom1.index < 60:
-                # buckyball 1: original.
-                custom_force.addBond(bond.atom1.index, bond.atom2.index,
-                                     [buckyball_bond_force_constant, buckyball_r_eq])
-
-            else:
-                # buckyball 2: altered.
+            # Check if the first atom is in the molecule to be changed
+            if id_min <= bond.atom1.index < id_max:
+                # Alter the force constant
                 custom_force.addBond(bond.atom1.index, bond.atom2.index,
                                      [buckyball_bond_force_constant * self.current_multiplier, buckyball_r_eq])
 
-        # Add CustomBondForce.
+            else:
+                # Keep original force constants
+                custom_force.addBond(bond.atom1.index, bond.atom2.index,
+                                     [buckyball_bond_force_constant, buckyball_r_eq])
+
+        # TODO: return this force instead
+        # Add CustomBondForce
         self.openmm_system.addForce(custom_force)
 
     def add_custom_angle_force(self, molecule_id: int):
@@ -166,7 +179,7 @@ class CustomisableOpenMMSystem:
 
         # Check that angle ids exist.
         if self.angle_atom_ids is None:
-            raise TypeError
+            raise TypeError("No angle atom ids found")
 
         # Set the molecule parameters from the global parameters.
         self.angle_k = buckyball_angle_force_constant
@@ -248,7 +261,7 @@ class CustomisableOpenMMSystem:
                 self.current_multiplier = multiplier
 
                 # Get atom ids for creating CustomAngleForce.
-                if self.type_of_force_constant == 'Angle':
+                if self.type_of_force_constant == self.angle_force_string:
 
                     # Get atom ids from current CustomAngleForce.
                     self.angle_atom_ids = self.determine_angle_atom_ids()
@@ -299,7 +312,7 @@ if __name__ == '__main__':
 
     # ---------- USER TO EDIT ---------- #
 
-    my_yaml_file = 'example.yaml'
+    my_yaml_file = 'my_yaml.yaml'
 
     # ----------- RUN SCRIPT ----------- #
     generate_xml_simulations(yaml_file=my_yaml_file)
