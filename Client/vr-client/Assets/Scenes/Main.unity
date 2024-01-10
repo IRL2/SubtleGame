@@ -135,33 +135,14 @@ GameObject:
   - component: {fileID: 21014620}
   - component: {fileID: 21014619}
   - component: {fileID: 21014618}
-  - component: {fileID: 21014616}
+  - component: {fileID: 21014621}
   m_Layer: 0
-  m_Name: Box Centre
+  m_Name: Centering Simulation Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &21014616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 21014615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a79a2e67ebce3f46ab02ff7bf8d25e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  simulationBox:
-    xAxis: {x: 1, y: 0, z: 0}
-    yAxis: {x: 0, y: 1, z: 0}
-    zAxis: {x: 0, y: 0, z: 1}
-    origin: {x: 0, y: 0, z: 0}
-  simulation: {fileID: 1265723034}
-  centreEyeAnchor: {fileID: 4948775120161647665}
 --- !u!4 &21014617
 Transform:
   m_ObjectHideFlags: 0
@@ -248,6 +229,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 21014615}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &21014621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21014615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a79a2e67ebce3f46ab02ff7bf8d25e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simulationBox: {fileID: 543794535019733083}
+  simulation: {fileID: 1265723034}
+  centreEyeAnchor: {fileID: 4948775120161647665}
 --- !u!1 &23693883
 GameObject:
   m_ObjectHideFlags: 0
@@ -6959,7 +6955,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simulation: {fileID: 1265723033}
   userInteraction: {fileID: 50482150}
-  simulationBoxCentre: {fileID: 21014616}
   grabbersReady: 0
   trialAnswerSubmission: {fileID: 1364228087}
 --- !u!114 &1364228087
@@ -12820,6 +12815,8 @@ MonoBehaviour:
     yAxis: {x: 0, y: 1, z: 0}
     zAxis: {x: 0, y: 0, z: 1}
     origin: {x: 0, y: 0, z: 0}
+  xMagnitude: 1
+  yMagnitude: 1
   width: 0.02
   mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   material: {fileID: 2100000, guid: cceac67cd55e64d43b334053e949f786, type: 2}

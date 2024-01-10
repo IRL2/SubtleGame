@@ -7,6 +7,7 @@ using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.UI;
 using NarupaIMD.Subtle_Game.Visuals;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game.Logic
 {
@@ -17,13 +18,12 @@ namespace NarupaIMD.Subtle_Game.Logic
     public class PuppeteerManager : MonoBehaviour
     {
         // SET YOUR LOCAL IP!
-        private const string IPAddress = "192.168.68.55";
+        private const string IPAddress = "192.168.68.57";
 
         #region Scene References
         
         public NarupaImdSimulation simulation;
         public GameObject userInteraction;
-        public SimulationBoxCentre simulationBoxCentre;
         
         private CanvasManager _canvasManager;
         private MultiplayerSession _session;
@@ -73,7 +73,8 @@ namespace NarupaIMD.Subtle_Game.Logic
                 TaskStatus,
                 TaskType,
                 Connected,
-                TrialAnswer
+                TrialAnswer,
+                HeadsetType
             }
             public enum TaskStatusVal
             {
@@ -133,7 +134,7 @@ namespace NarupaIMD.Subtle_Game.Logic
                 }
             }
             private bool _playerStatus;
-            
+
         #endregion
 
         #region Trials
@@ -145,8 +146,20 @@ namespace NarupaIMD.Subtle_Game.Logic
             set => WriteToSharedState(SharedStateKey.TrialAnswer, value);
         }
 
-        #endregion
-        
+		// Other
+		private string _hmdType;
+		public string HmdType
+		{
+			get => _hmdType;
+			private set
+			{
+				_hmdType = value;
+				WriteToSharedState(SharedStateKey.HeadsetType, _hmdType);
+			}
+		}
+
+		#endregion
+            
         private void Start()
         {
             // Find the Canvas Manager
@@ -188,9 +201,9 @@ namespace NarupaIMD.Subtle_Game.Logic
             
             // Disable interactions
             EnableInteractions = false;
-
-            // Center simulation box in front of player
-            simulationBoxCentre.CenterInFrontOfPlayer();
+            
+            // Log type of VR headset
+            HmdType = OVRPlugin.GetSystemHeadsetType().ToString();
         }
         
         /// <summary>
