@@ -7,6 +7,7 @@ using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.UI;
 using NarupaIMD.Subtle_Game.Visuals;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game.Logic
 {
@@ -23,7 +24,6 @@ namespace NarupaIMD.Subtle_Game.Logic
         
         public NarupaImdSimulation simulation;
         public GameObject userInteraction;
-        public SimulationBoxCentre simulationBoxCentre;
         
         private CanvasManager _canvasManager;
         private MultiplayerSession _session;
@@ -192,9 +192,6 @@ namespace NarupaIMD.Subtle_Game.Logic
             
             // Log type of VR headset
             HmdType = OVRPlugin.GetSystemHeadsetType().ToString();
-
-            // Center simulation box in front of player
-            simulationBoxCentre.CenterInFrontOfPlayer();
         }
         
         /// <summary>

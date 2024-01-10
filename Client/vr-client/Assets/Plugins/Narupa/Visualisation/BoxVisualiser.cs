@@ -14,6 +14,16 @@ namespace Narupa.Visualisation
         /// </summary>
         [SerializeField]
         private AffineTransformation box;
+        
+        /// <summary>
+        /// The length of the box along the x-axis.
+        /// </summary>
+        public float xMagnitude;
+        
+        /// <summary>
+        /// The length of the box along the y-axis.
+        /// </summary>
+        public float yMagnitude;
 
         /// <summary>
         /// The width of the edges of the box.
@@ -71,6 +81,9 @@ namespace Narupa.Visualisation
                 var matrix = transformation.matrix;
                 Graphics.DrawMesh(mesh, transform.localToWorldMatrix * matrix, material, 0);
             }
+
+            xMagnitude = box.axesMagnitudes.x;
+            yMagnitude = box.axesMagnitudes.y;
         }
 
         /// <summary>
