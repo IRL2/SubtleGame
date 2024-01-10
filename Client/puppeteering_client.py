@@ -33,7 +33,7 @@ class PuppeteeringClient:
             if task == 'nanotube':
 
                 # Check that the nanotube simulation was loaded into the server
-                if self.nanotube_index is None:
+                if len(self.nanotube_index) == 0:
                     raise ValueError("No nanotube simulation found. Have you forgotten to load the simulation on the "
                                      "server? Does the loaded .xml contain the term 'nanotube?")
 
@@ -42,7 +42,7 @@ class PuppeteeringClient:
             elif task == 'knot-tying':
 
                 # Check that the nanotube simulation was loaded into the server
-                if self.alanine_index is None:
+                if len(self.alanine_index) == 0:
                     raise ValueError("No 17-alanine simulation found. Have you forgotten to load the simulation on the "
                                      "server? Does the loaded .xml contain the term '17-ala'?")
 
