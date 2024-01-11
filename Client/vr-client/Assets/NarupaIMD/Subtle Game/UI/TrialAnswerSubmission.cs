@@ -14,7 +14,7 @@ namespace NarupaIMD.Subtle_Game.UI
         private readonly Color _endColor = new(0f, 1f, 0f, 1.0f);
         private const float Duration = 2.0f;
         private float _elapsed;
-        
+
         private void Start()
         {
             _puppeteerManager = FindObjectOfType<PuppeteerManager>();
@@ -25,14 +25,22 @@ namespace NarupaIMD.Subtle_Game.UI
             Debug.Log("Player is answering.");
             _puppeteerManager.TrialAnswer = "test";
         }
-
+        
+        /// <summary>
+        /// Gets the molecule game object.
+        /// </summary>
+        private void GetMoleculeObject(string moleculeName)
+        {
+            _molecule = GameObject.Find(moleculeName);
+        }
+        
         /// <summary>
         /// Initialise changing of color of molecule. The molecule name is the same as the NarupaIMDClient selection
         /// specified by the puppeteering client.
         /// </summary>
         public void ChangeColorOfMolecule(string moleculeName = "BUC_A")
         {
-            _molecule = GameObject.Find(moleculeName);
+            GetMoleculeObject(moleculeName);
             
             if (_molecule == null)
             {
