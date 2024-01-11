@@ -20,7 +20,7 @@ class Trial(Task):
         super()._run_logic_for_specific_task()
 
         # give the player 10 second to iteract with the molecule
-        time.sleep(10)
+        time.sleep(100)
 
         # update shared state
         write_to_shared_state(self.client, "trials-timer", "finished")
@@ -43,3 +43,26 @@ class Trial(Task):
 
         # Remove answer once it has been received, ready for the next trial or the end of the trials
         self.client.remove_shared_value(self.trial_answer_key)
+
+    def _update_visualisations(self):
+
+        # Clear current selections
+        self.client.clear_selections()
+
+        # Set colour of buckyball A
+        buckyball_A = self.client.create_selection("BUC_A", list(range(0, 60)))
+        buckyball_A.remove()
+        with buckyball_A.modify() as selection:
+            selection.renderer = \
+                {'render': 'ball and stick',
+                 'color': 'green'
+                 }
+
+        # Set colour of buckyball B
+        buckyball_B = self.client.create_selection("BUC_B", list(range(60, 120)))
+        buckyball_B.remove()
+        with buckyball_B.modify() as selection:
+            selection.renderer = \
+                {'render': 'ball and stick',
+                 'color': 'cornflowerblue'
+                 }

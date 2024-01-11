@@ -147,7 +147,8 @@ namespace NarupaIMD.Subtle_Game.Logic
         }
 
 		// Other
-		private string _hmdType;
+        // TODO: move this to other region
+        private string _hmdType;
 		public string HmdType
 		{
 			get => _hmdType;
@@ -279,6 +280,10 @@ namespace NarupaIMD.Subtle_Game.Logic
             _canvasManager.HideCanvas();
             ShowSimulation = true;
             EnableInteractions = true;
+            if (CurrentTaskType == TaskTypeVal.Trials)
+            {
+                trialAnswerSubmission.ChangeColorOfMolecule();
+            }
         }
         /// <summary>
         /// Called when a key is updated in the shared state dictionary and saves the values we need.
@@ -319,7 +324,7 @@ namespace NarupaIMD.Subtle_Game.Logic
                     {
                         // Update task status
                         TaskStatus = TaskStatusVal.Finished;
-                        
+
                         // Hide simulation
                         ShowSimulation = false;
                         
