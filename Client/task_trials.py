@@ -3,6 +3,7 @@ from narupa.app import NarupaImdClient
 import time
 from additional_functions import write_to_shared_state
 
+
 class Trial(Task):
     trial_answer_key = 'Player.TrialAnswer'
     trial_answer_1 = 'A'
@@ -10,7 +11,7 @@ class Trial(Task):
 
     def __init__(self, client: NarupaImdClient, simulation_index: int):
 
-        super().__init__(client)
+        super().__init__(client=client, simulation_index=simulation_index)
 
         self.sim_index = simulation_index
 
