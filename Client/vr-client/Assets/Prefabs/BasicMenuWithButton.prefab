@@ -269,6 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasType: 0
+  orderedListOfMenus: []
 --- !u!1 &5023240779544338745
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,6 +730,10 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 402618060331586776, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1630446782726628766, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -789,14 +794,30 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4962976514727565826, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6079880855687406234, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
       propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8749821334042037541, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
+      propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8800036446974557005, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
       propertyPath: m_Name
       value: ButtonText
       objectReference: {fileID: 0}
+    - target: {fileID: 8800036446974557005, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8839969597242749238, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300404, guid: 7f186a9ac091755489927d745be0185a, type: 3}
     - target: {fileID: 8839969597242749238, guid: 55ca3296d5a6ad040894b4975b85bd18, type: 3}
       propertyPath: m_SortingLayer
       value: 0

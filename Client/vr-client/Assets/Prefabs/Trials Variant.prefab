@@ -2232,6 +2232,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 286683828916896351, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 525414859488905335, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 813205134337107546, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 893507083928658662, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 934331034378544440, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1711015139104778556, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1993769644905264480, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: m_Name
       value: Trials Variant
@@ -2239,6 +2263,18 @@ PrefabInstance:
     - target: {fileID: 1993769644905264480, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2018580288504464499, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2058785799066305453, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2390446077571400554, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3155682078891187314, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: m_IsActive
@@ -2307,6 +2343,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Trials
       objectReference: {fileID: 0}
+    - target: {fileID: 4900041469916250369, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5036876820936894913, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -2335,9 +2375,17 @@ PrefabInstance:
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6121633184630251594, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6778980502975004498, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: m_Name
       value: Next
+      objectReference: {fileID: 0}
+    - target: {fileID: 6778980502975004498, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7192632185967090383, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: m_text
@@ -2370,6 +2418,30 @@ PrefabInstance:
     - target: {fileID: 7405220175002004350, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7410218710212067380, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587083500869181581, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7955034836861445169, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255763319910296407, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512502121840468351, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732360759855416856, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8831589731342960626, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: m_Pivot.x
@@ -2449,6 +2521,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8831589731342960626, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9120333755252229498, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
