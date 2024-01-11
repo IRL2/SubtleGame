@@ -280,10 +280,6 @@ namespace NarupaIMD.Subtle_Game.Logic
             _canvasManager.HideCanvas();
             ShowSimulation = true;
             EnableInteractions = true;
-            if (CurrentTaskType == TaskTypeVal.Trials)
-            {
-                trialAnswerSubmission.ChangeColorOfMolecule();
-            }
         }
         /// <summary>
         /// Called when a key is updated in the shared state dictionary and saves the values we need.

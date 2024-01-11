@@ -20,7 +20,7 @@ class Trial(Task):
         super()._run_logic_for_specific_task()
 
         # give the player 10 second to iteract with the molecule
-        time.sleep(100)
+        time.sleep(1)
 
         # update shared state
         write_to_shared_state(self.client, "trials-timer", "finished")
