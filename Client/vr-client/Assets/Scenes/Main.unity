@@ -8970,6 +8970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cogA: {fileID: 1171888575}
+  rightThumbTip: {fileID: 4682591776209724542}
 --- !u!1 &1371801897
 GameObject:
   m_ObjectHideFlags: 0
