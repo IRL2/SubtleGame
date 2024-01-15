@@ -2,12 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using Narupa.Visualisation.Components.Input;
+using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.UI
 {
+    internal enum Answer
+    {
+        None,
+        A,
+        B
+    }
     public class TrialAnswerSubmission : MonoBehaviour
     {
+        private PuppeteerManager _puppeteerManager;
+        
         [SerializeField] private CentreOfGeometry centreOfGeometryA;
         [SerializeField] private CentreOfGeometry centreOfGeometryB;
         [SerializeField] private Transform rightIndexTip;
@@ -27,10 +36,15 @@ namespace NarupaIMD.Subtle_Game.UI
         private bool _handInsideB;
         private bool _selectionLockA;
         private bool _selectionLockB;
-        private bool _selectionSubmitted;
+        private Answer _answer = Answer.None;
         private bool _wasInsideLastFrameA;
         private bool _wasInsideLastFrameB;
-        
+
+        private void Start()
+        {
+            _puppeteerManager = FindObjectOfType<PuppeteerManager>();
+        }
+
         /// <summary>
         /// Runs logic for waiting for an answer from the player to the psychophysics trials task.
         /// </summary>
@@ -104,7 +118,7 @@ namespace NarupaIMD.Subtle_Game.UI
                         // Lock selection
                         _selectionLockA = true;
                         // Start selection process
-                        StartCoroutine(UndergoingSelection(_colorMoleculeA, centreOfGeometryA));
+                        StartCoroutine(UndergoingSelection(_colorMoleculeA, centreOfGeometryA, Answer.A));
                     }
 
                     // Update the boolean for the next frame
@@ -132,16 +146,17 @@ namespace NarupaIMD.Subtle_Game.UI
                         // Lock selection
                         _selectionLockB = true;
                         // Start selection process
-                        StartCoroutine(UndergoingSelection(_colorMoleculeB, centreOfGeometryB));
+                        StartCoroutine(UndergoingSelection(_colorMoleculeB, centreOfGeometryB, Answer.B));
                     }
 
                     // Update the boolean for the next frame
                     _wasInsideLastFrameB = _handInsideB;
                 }
                 
-                if (_selectionSubmitted)
+                if (_answer != Answer.None)
                 {
                     Debug.Log("Player has answered");
+                    _puppeteerManager.TrialAnswer = _answer.ToString();
                     break;
                 }
                 
@@ -154,7 +169,7 @@ namespace NarupaIMD.Subtle_Game.UI
         /// Lerps the color of the specified molecule either until the specified duration is up or the players hand is
         /// taken out of the molecule.
         /// </summary>
-        private IEnumerator UndergoingSelection(ColorInput moleculeColor, CentreOfGeometry centreOfGeometry)
+        private IEnumerator UndergoingSelection(ColorInput moleculeColor, CentreOfGeometry centreOfGeometry, Answer answer)
         {
             // Reset the timer
             float timer = 0f;
@@ -182,7 +197,7 @@ namespace NarupaIMD.Subtle_Game.UI
                 if (!(Math.Abs(timer - ColorChangeDuration) < 0.01f)) continue;
 
                 // Else, player has submitted their answer
-                _selectionSubmitted = true;
+                _answer = answer;
 
                 // Ensure end colour is the desired colour
                 moleculeColor.Node.Input.Value = _endColor;
