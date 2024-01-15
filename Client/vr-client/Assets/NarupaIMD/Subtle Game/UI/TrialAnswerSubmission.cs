@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Narupa.Visualisation.Components.Input;
 using UnityEngine;
 
@@ -7,56 +8,74 @@ namespace NarupaIMD.Subtle_Game.UI
 {
     public class TrialAnswerSubmission : MonoBehaviour
     {
-        [SerializeField] private CentreOfGeometry cogA;
+        [SerializeField] private CentreOfGeometry centreOfGeometryA;
+        [SerializeField] private CentreOfGeometry centreOfGeometryB;
         [SerializeField] private Transform rightIndexTip;
         [SerializeField] private Transform leftIndexTip;
         
-        private GameObject _molecule;
-        private ColorInput _moleculeColor;
-        
+        private ColorInput _colorMoleculeA;
+        private ColorInput _colorMoleculeB;
+        private List<ColorInput> _colors;
+
         private readonly Color _originalColor = new(0f, 0f, 1.0f, 1.0f);
         private readonly Color _endColor = new(0f, 1f, 0f, 1.0f);
         private Color _targetColor;
         
         private const float ColorChangeDuration = 2.0f;
-        
-        private bool _isSelected;
-        private bool _wasInsideLastFrame;
+
+        private bool _handInsideA;
+        private bool _handInsideB;
+        private bool _selectionLockA;
+        private bool _selectionLockB;
+        private bool _selectionSubmitted;
+        private bool _wasInsideLastFrameA;
+        private bool _wasInsideLastFrameB;
         
         /// <summary>
         /// Runs logic for waiting for an answer from the player to the psychophysics trials task.
         /// </summary>
-        public void RequestAnswerFromPlayer(string moleculeName = "BUC_A")
+        public void RequestAnswerFromPlayer()
         {
-            GetMoleculeObject(moleculeName);
-            cogA.CalculateCentreOfGeometry();
+            _colorMoleculeA = GetColorComponent("BUC_A");
+            _colorMoleculeB = GetColorComponent("BUC_B");
             
-            for (int i = 0; i < _molecule.transform.childCount; i++)
-            {
-                Transform childTransform = _molecule.transform.GetChild(i);
-                _moleculeColor = childTransform.GetComponent<ColorInput>();
-            }
-            
+            centreOfGeometryA.CalculateCentreOfGeometry();
+            centreOfGeometryB.CalculateCentreOfGeometry();
+
             StartCoroutine(WaitForAnswer());
         }
         
         /// <summary>
         /// Gets the molecule game object.
         /// </summary>
-        private void GetMoleculeObject(string moleculeName)
+        private ColorInput GetColorComponent(string moleculeName)
         {
-            _molecule = GameObject.Find(moleculeName);
-            if (_molecule == null)
+            GameObject molecule = GameObject.Find(moleculeName);
+            ColorInput color = null;
+            if (molecule == null)
             {
                 Debug.LogWarning("Molecule game object was not found, cannot change it's colour."); 
             }
+            
+            for (int i = 0; i < molecule.transform.childCount; i++)
+            {
+                Transform childTransform = molecule.transform.GetChild(i);
+                color = childTransform.GetComponent<ColorInput>();
+            }
+            
+            if (color == null)
+            {
+                Debug.LogWarning("Color of molecule was not found."); 
+            }
+
+            return color;
         }
         
         /// <summary>
         /// Waits for the player to select their answer by placing their hand inside the molecule of choice. This
         /// function checks if the players hand is inside the molecule. If yes, the molecule will start changing colour.
         /// If the hand is inside the molecule for the desired lenght of time, that molecule is the submitted as the
-        /// player's answer.
+        /// player's answer. Only one molecule can be selected at a time.
         /// </summary>
         private IEnumerator WaitForAnswer()
         {
@@ -64,52 +83,63 @@ namespace NarupaIMD.Subtle_Game.UI
             
             while (true)
             {
-                // Check if the hand is inside the molecule
-                bool handInside = IsEitherHandInsideMolecule();
-
-                // Check if both hands have changed position
-                if (handInside != _wasInsideLastFrame)
+                // Check for change of state for A and assert there is no selection lock on B
+                _handInsideA = IsHandInsideMolecule(centreOfGeometryA);
+                if (_handInsideA != _wasInsideLastFrameA && !_selectionLockB)
                 {
-                    // Reset the timer
-                    float timer = 0f;
-
                     // Update the target color based on the current state
-                    _targetColor = handInside ? _endColor : _originalColor;
-                    _moleculeColor.Node.Input.Value = _targetColor;
-
-                    // Interpolate the color over time
-                    while (timer <= ColorChangeDuration)
+                    _targetColor = _handInsideA ? _endColor : _originalColor;
+                    
+                    // Not selecting
+                    if (!_handInsideA)
                     {
-                        // Lerp the color of the molecule
-                        _moleculeColor.Node.Input.Value = Color.Lerp(_originalColor, _targetColor, timer / ColorChangeDuration);
-
-                        // Increment the timer
-                        timer += Time.deltaTime;
-                        
-                        // Wait for the next frame
-                        yield return null; 
-                        
-                        // Break the colour-lerping loop if both hands have changed state
-                        if (IsEitherHandInsideMolecule() != handInside)
-                        {
-                            break; 
-                        }
-                        
-                        // Participant has selected their answer if the time duration is up and at least one hand is inside the molecule
-                        if (Math.Abs(timer - ColorChangeDuration) < 0.01f && handInside)
-                        {
-                            // Player has submitted their answer
-                            _isSelected = true;
-                            // Ensure end colour is the desired colour
-                            _moleculeColor.Node.Input.Value = _endColor;
-                        }
+                        // Unlock selection
+                        _selectionLockA = false;
+                        // Reset the color of the molecule
+                        _colorMoleculeA.Node.Input.Value = _targetColor;
+                    }
+                    // Selecting
+                    else
+                    {
+                        // Lock selection
+                        _selectionLockA = true;
+                        // Start selection process
+                        StartCoroutine(UndergoingSelection(_colorMoleculeA, centreOfGeometryA));
                     }
 
                     // Update the boolean for the next frame
-                    _wasInsideLastFrame = handInside;
+                    _wasInsideLastFrameA = _handInsideA;
                 }
 
-                if (_isSelected)
+                // Check for change of state for B and assert there is no selection lock on A
+                _handInsideB = IsHandInsideMolecule(centreOfGeometryB);
+                if (_handInsideB != _wasInsideLastFrameB  && !_selectionLockA)
+                {
+                    // Update the target color based on the current state
+                    _targetColor = _handInsideB ? _endColor : _originalColor;
+                    
+                    // Not selecting
+                    if (!_handInsideB)
+                    {
+                        // Unlock selection
+                        _selectionLockB = false;
+                        // Reset the color of the molecule
+                        _colorMoleculeB.Node.Input.Value = _targetColor;
+                    }
+                    // Selecting
+                    else
+                    {
+                        // Lock selection
+                        _selectionLockB = true;
+                        // Start selection process
+                        StartCoroutine(UndergoingSelection(_colorMoleculeB, centreOfGeometryB));
+                    }
+
+                    // Update the boolean for the next frame
+                    _wasInsideLastFrameB = _handInsideB;
+                }
+                
+                if (_selectionSubmitted)
                 {
                     Debug.Log("Player has answered");
                     break;
@@ -119,14 +149,53 @@ namespace NarupaIMD.Subtle_Game.UI
                 yield return null;
             }
         }
-        
+
+        /// <summary>
+        /// Lerps the color of the specified molecule either until the specified duration is up or the players hand is
+        /// taken out of the molecule.
+        /// </summary>
+        private IEnumerator UndergoingSelection(ColorInput moleculeColor, CentreOfGeometry centreOfGeometry)
+        {
+            // Reset the timer
+            float timer = 0f;
+
+            // Interpolate the color over time
+            while (timer <= ColorChangeDuration)
+            {
+                // Lerp the color of the molecule
+                moleculeColor.Node.Input.Value =
+                    Color.Lerp(_originalColor, _targetColor, timer / ColorChangeDuration);
+
+                // Increment the timer
+                timer += Time.deltaTime;
+
+                // Wait for the next frame
+                yield return null;
+
+                // Break the colour-lerping loop if neither hand is inside the molecule anymore
+                if (!IsHandInsideMolecule(centreOfGeometry))
+                {
+                    break;
+                }
+                
+                // Continue if the time duration has not been reached
+                if (!(Math.Abs(timer - ColorChangeDuration) < 0.01f)) continue;
+
+                // Else, player has submitted their answer
+                _selectionSubmitted = true;
+
+                // Ensure end colour is the desired colour
+                moleculeColor.Node.Input.Value = _endColor;
+            }
+        }
+
         /// <summary>
         /// Checks if either hand is inside the molecule.
         /// </summary>
-        private bool IsEitherHandInsideMolecule()
+        private bool IsHandInsideMolecule(CentreOfGeometry cog)
         {
-            bool rightHandInside = cogA.IsPointInsideShape(rightIndexTip.position);
-            bool leftHandInside = cogA.IsPointInsideShape(leftIndexTip.position);
+            bool rightHandInside = cog.IsPointInsideShape(rightIndexTip.position);
+            bool leftHandInside = cog.IsPointInsideShape(leftIndexTip.position);
             return rightHandInside || leftHandInside;
         }
     }

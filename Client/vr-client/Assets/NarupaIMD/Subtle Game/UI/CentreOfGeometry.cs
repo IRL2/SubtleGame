@@ -3,14 +3,32 @@ using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.UI
 {
+    internal enum Residue
+    {
+        A,
+        B
+    }
     public class CentreOfGeometry : MonoBehaviour
     {
         private PuppeteerManager _puppeteerManager;
-
-
+        [SerializeField] private Residue residue;
+        private int _firstAtom;
+        private int _lastAtom;
+        
         private void Start()
         {
             _puppeteerManager = FindObjectOfType<PuppeteerManager>();
+            
+            if (residue == Residue.A)
+            {
+                _firstAtom = 0;
+                _lastAtom = 60;
+            }
+            else
+            {
+                _firstAtom = 60;
+                _lastAtom = 120;
+            }
         }
 
         /// <summary>
@@ -18,13 +36,12 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         public void CalculateCentreOfGeometry()
         {
-            Debug.LogWarning("finding cog");
             // Calculate cog
             float sumXPos = 0.0f;
             float sumYPos = 0.0f;
             float sumZPos = 0.0f;
             
-            for (int i = 0; i < 60; i++)
+            for (int i = _firstAtom; i < _lastAtom; i++)
             {
                 sumXPos += _puppeteerManager.simulation.FrameSynchronizer.CurrentFrame.Particles[i].Position.x;
                 sumYPos += _puppeteerManager.simulation.FrameSynchronizer.CurrentFrame.Particles[i].Position.y;
@@ -40,11 +57,14 @@ namespace NarupaIMD.Subtle_Game.UI
             
             // Set scale to approx. diameter of buckyball
             var scale = 2 * Vector3.Distance(
-                _puppeteerManager.simulation.FrameSynchronizer.CurrentFrame.Particles[0].Position,
+                _puppeteerManager.simulation.FrameSynchronizer.CurrentFrame.Particles[_firstAtom].Position,
                 cog.localPosition);
             cog.localScale = new Vector3(scale, scale, scale);
         }
-
+        
+        /// <summary>
+        /// Checks if the point is inside the bounds of the attached collider.
+        /// </summary>
         public bool IsPointInsideShape(Vector3 point)
         {
             // Get the bounds of the Sphere Collider
