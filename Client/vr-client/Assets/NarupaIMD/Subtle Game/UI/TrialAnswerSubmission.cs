@@ -8,7 +8,8 @@ namespace NarupaIMD.Subtle_Game.UI
     public class TrialAnswerSubmission : MonoBehaviour
     {
         [SerializeField] private CentreOfGeometry cogA;
-        [SerializeField] private Transform rightThumbTip;
+        [SerializeField] private Transform rightIndexTip;
+        [SerializeField] private Transform leftIndexTip;
         
         private GameObject _molecule;
         private ColorInput _moleculeColor;
@@ -64,16 +65,16 @@ namespace NarupaIMD.Subtle_Game.UI
             while (true)
             {
                 // Check if the hand is inside the molecule
-                bool isInside = cogA.IsPointInsideShape(rightThumbTip.position);
+                bool handInside = IsEitherHandInsideMolecule();
 
-                // Check if hand has changed position
-                if (isInside != _wasInsideLastFrame)
+                // Check if both hands have changed position
+                if (handInside != _wasInsideLastFrame)
                 {
-                    // Reset the color change timer
+                    // Reset the timer
                     float timer = 0f;
 
                     // Update the target color based on the current state
-                    _targetColor = isInside ? _endColor : _originalColor;
+                    _targetColor = handInside ? _endColor : _originalColor;
                     _moleculeColor.Node.Input.Value = _targetColor;
 
                     // Interpolate the color over time
@@ -88,21 +89,24 @@ namespace NarupaIMD.Subtle_Game.UI
                         // Wait for the next frame
                         yield return null; 
                         
-                        // Break the colour-lerping loop if the hand has changed position
-                        if (cogA.IsPointInsideShape(rightThumbTip.position) != isInside)
+                        // Break the colour-lerping loop if both hands have changed state
+                        if (IsEitherHandInsideMolecule() != handInside)
                         {
                             break; 
                         }
                         
-                        // Participant has selected their answer if the time duration has been completed
-                        if (Math.Abs(timer - ColorChangeDuration) < 0.01f && isInside)
+                        // Participant has selected their answer if the time duration is up and at least one hand is inside the molecule
+                        if (Math.Abs(timer - ColorChangeDuration) < 0.01f && handInside)
                         {
+                            // Player has submitted their answer
                             _isSelected = true;
+                            // Ensure end colour is the desired colour
+                            _moleculeColor.Node.Input.Value = _endColor;
                         }
                     }
 
                     // Update the boolean for the next frame
-                    _wasInsideLastFrame = isInside;
+                    _wasInsideLastFrame = handInside;
                 }
 
                 if (_isSelected)
@@ -114,6 +118,16 @@ namespace NarupaIMD.Subtle_Game.UI
                 // Wait for the next frame
                 yield return null;
             }
+        }
+        
+        /// <summary>
+        /// Checks if either hand is inside the molecule.
+        /// </summary>
+        private bool IsEitherHandInsideMolecule()
+        {
+            bool rightHandInside = cogA.IsPointInsideShape(rightIndexTip.position);
+            bool leftHandInside = cogA.IsPointInsideShape(leftIndexTip.position);
+            return rightHandInside || leftHandInside;
         }
     }
 }
