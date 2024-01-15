@@ -19,7 +19,7 @@ class Trial(Task):
 
         super()._run_logic_for_specific_task()
 
-        # give the player 10 second to iteract with the molecule
+        # give the player 10 second to interact with the molecule
         time.sleep(1)
 
         # update shared state
