@@ -98,6 +98,18 @@ namespace NarupaIMD.Subtle_Game.Logic
                 Hands,
                 Controllers
             }
+            
+            // Data to collect
+            private string _hmdType;
+            public string HmdType
+            {
+                get => _hmdType;
+                private set
+                {
+                    _hmdType = value;
+                    WriteToSharedState(SharedStateKey.HeadsetType, _hmdType);
+                }
+            }
 
             // Task
             private List<string> OrderOfTasks { get; set; }
@@ -152,20 +164,7 @@ namespace NarupaIMD.Subtle_Game.Logic
         {
             set => WriteToSharedState(SharedStateKey.TrialAnswer, value);
         }
-
-		// Other
-        // TODO: move this to other region
-        private string _hmdType;
-		public string HmdType
-		{
-			get => _hmdType;
-			private set
-			{
-				_hmdType = value;
-				WriteToSharedState(SharedStateKey.HeadsetType, _hmdType);
-			}
-		}
-
+        
 		#endregion
 
         private PuppeteerManager()
