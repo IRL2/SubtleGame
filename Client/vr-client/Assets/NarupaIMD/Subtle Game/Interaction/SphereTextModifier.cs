@@ -32,24 +32,24 @@ namespace NarupaIMD.Subtle_Game.UI
                     _handsAreTracking = OVRPlugin.GetHandTrackingEnabled();
 
                     // Hands are required but player is currently holding controllers.
-                    if (_puppeteerManager.CurrentInteractionModality == "hands" && !_handsAreTracking)
+                    if (_puppeteerManager.CurrentInteractionModality == PuppeteerManager.Modality.Hands && !_handsAreTracking)
                     {
                         textToSet.text = "Put your controllers down\n&\nplace your hand in the sphere to begin";
                     }
                     
                     // Hands are required and player is using hands.
-                    else if (_puppeteerManager.CurrentInteractionModality == "hands" && _handsAreTracking)
+                    else if (_puppeteerManager.CurrentInteractionModality == PuppeteerManager.Modality.Hands && _handsAreTracking)
                     {
                         textToSet.text = "Place your hand in the sphere to begin";
                     }
                     
                     // Controllers are required but player is currently using hand tracking.
-                    else if (_puppeteerManager.CurrentInteractionModality == "controllers" && _handsAreTracking)
+                    else if (_puppeteerManager.CurrentInteractionModality == PuppeteerManager.Modality.Controllers && _handsAreTracking)
                     {
                         textToSet.text = "Pick up your controllers \n&\nplace one controller in the sphere to begin";
                     }
                     // Controllers are required and player is using controllers.
-                    else if (_puppeteerManager.CurrentInteractionModality == "controllers" && !_handsAreTracking)
+                    else if (_puppeteerManager.CurrentInteractionModality == PuppeteerManager.Modality.Controllers && !_handsAreTracking)
                     {
                         textToSet.text = "Place a controller in the sphere to begin";
                     }

@@ -5,9 +5,7 @@ using Narupa.Grpc.Multiplayer;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.UI;
-using NarupaIMD.Subtle_Game.Visuals;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game.Logic
 {
@@ -57,6 +55,7 @@ namespace NarupaIMD.Subtle_Game.Logic
             {
                 _enableInteractions = value;
                 userInteraction.SetActive(_enableInteractions);
+                _pinchGrab.UseControllers = CurrentInteractionModality == Modality.Controllers;
             }
         }
 
@@ -92,6 +91,25 @@ namespace NarupaIMD.Subtle_Game.Logic
                 Trials
             }
 
+            public enum Modality
+            {
+                None,
+                Hands,
+                Controllers
+            }
+            
+            // Data to collect
+            private string _hmdType;
+            public string HmdType
+            {
+                get => _hmdType;
+                private set
+                {
+                    _hmdType = value;
+                    WriteToSharedState(SharedStateKey.HeadsetType, _hmdType);
+                }
+            }
+
             // Task
             private List<string> OrderOfTasks { get; set; }
             private readonly List<TaskTypeVal> _orderOfTasks = new();
@@ -121,7 +139,7 @@ namespace NarupaIMD.Subtle_Game.Logic
             private TaskStatusVal _taskStatus;
             
             // Interaction modality
-            public string CurrentInteractionModality { get; private set; }
+            public Modality CurrentInteractionModality { get; private set; }
             
             // Player status
             public bool PlayerStatus
@@ -145,21 +163,13 @@ namespace NarupaIMD.Subtle_Game.Logic
         {
             set => WriteToSharedState(SharedStateKey.TrialAnswer, value);
         }
-
-		// Other
-        // TODO: move this to other region
-        private string _hmdType;
-		public string HmdType
-		{
-			get => _hmdType;
-			private set
-			{
-				_hmdType = value;
-				WriteToSharedState(SharedStateKey.HeadsetType, _hmdType);
-			}
-		}
-
+        
 		#endregion
+
+        private PuppeteerManager()
+        {
+            CurrentInteractionModality = Modality.None;
+        }
             
         private void Start()
         {
@@ -281,6 +291,7 @@ namespace NarupaIMD.Subtle_Game.Logic
             ShowSimulation = true;
             EnableInteractions = true;
         }
+        
         /// <summary>
         /// Called when a key is updated in the shared state dictionary and saves the values we need.
         /// </summary>
@@ -289,8 +300,21 @@ namespace NarupaIMD.Subtle_Game.Logic
             switch (key)
             {
                 case "puppeteer.modality":
-                    // Get the current game modality.
-                    CurrentInteractionModality = val.ToString();
+                    
+                    switch (val.ToString())
+                    {
+                        case "hands":
+                            CurrentInteractionModality = Modality.Hands;
+                            break;
+                        
+                        case "controllers":
+                            CurrentInteractionModality = Modality.Controllers;
+                            break;
+                        
+                        default:
+                            Debug.LogError("Interaction modality not recognised.");
+                            break;
+                    }
                     break;
 
                 case "puppeteer.order-of-tasks":

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Narupa.Visualisation;
@@ -19,7 +20,7 @@ namespace NarupaIMD.Subtle_Game.Interaction
         #region Variables
 
         #region Controllers
-        public bool UseControllers = false;
+        [NonSerialized] public bool UseControllers = false;
         public List<Transform> PokePositions;
         #endregion
 
