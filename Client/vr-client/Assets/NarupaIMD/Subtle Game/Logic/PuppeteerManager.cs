@@ -92,6 +92,12 @@ namespace NarupaIMD.Subtle_Game.Logic
                 Trials
             }
 
+            public enum Modality
+            {
+                Hands,
+                Controllers
+            }
+
             // Task
             private List<string> OrderOfTasks { get; set; }
             private readonly List<TaskTypeVal> _orderOfTasks = new();
@@ -121,7 +127,7 @@ namespace NarupaIMD.Subtle_Game.Logic
             private TaskStatusVal _taskStatus;
             
             // Interaction modality
-            public string CurrentInteractionModality { get; private set; }
+            public Modality CurrentInteractionModality { get; private set; }
             
             // Player status
             public bool PlayerStatus
@@ -289,8 +295,21 @@ namespace NarupaIMD.Subtle_Game.Logic
             switch (key)
             {
                 case "puppeteer.modality":
-                    // Get the current game modality.
-                    CurrentInteractionModality = val.ToString();
+                    
+                    switch (val.ToString())
+                    {
+                        case "hands":
+                            CurrentInteractionModality = Modality.Hands;
+                            break;
+                        
+                        case "controllers":
+                            CurrentInteractionModality = Modality.Controllers;
+                            break;
+                        
+                        default:
+                            Debug.LogError("Interaction modality not recognised.");
+                            break;
+                    }
                     break;
 
                 case "puppeteer.order-of-tasks":
