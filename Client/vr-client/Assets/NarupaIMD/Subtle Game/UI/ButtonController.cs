@@ -13,9 +13,7 @@ namespace NarupaIMD.Subtle_Game.UI
     /// </summary>
     public class ButtonController : MonoBehaviour
     {
-
-        public bool handsOnly;
-
+        
         private CanvasManager _canvasManager;
         private PuppeteerManager _puppeteerManager;
         
@@ -28,15 +26,12 @@ namespace NarupaIMD.Subtle_Game.UI
         }
         
         /// <summary>
-        /// Attach to the button for starting the game. Hand tracking logic applied.
+        /// Attach to the button for starting the game.
         /// </summary>
         public void ButtonStartGame()
         {
-            // If button can only be pressed by the hands, check if the hands are tracking
-            if (handsOnly & !OVRPlugin.GetHandTrackingEnabled())
+            if (!CanButtonBePressed())
             {
-                // Hands are not tracking, check if the canvas needs to be modified
-                _canvasManager.ModifyCanvas(gameObject.GetComponent<CanvasModifier>());
                 return;
             }
             
@@ -56,18 +51,16 @@ namespace NarupaIMD.Subtle_Game.UI
         }
         
         /// <summary>
-        /// Attach to a button for starting a task. Hand tracking logic applied.
+        /// Attach to a button for starting a task.
         /// </summary>
         public void ButtonStartTask()
         {
-            // If button can only be pressed by the hands, check if the hands are tracking
-            if (handsOnly & !OVRPlugin.GetHandTrackingEnabled())
+            if (!CanButtonBePressed())
             {
-                // Hands are not tracking, check if the canvas needs to be modified
-                _canvasManager.ModifyCanvas(gameObject.GetComponent<CanvasModifier>());
                 return;
             }
-            
+
+            // Invoke the button press
             Invoke(nameof(InvokeStartTask), TimeDelay);
         }
         
@@ -80,7 +73,7 @@ namespace NarupaIMD.Subtle_Game.UI
         }
 
         /// <summary>
-        /// Attach to a button for quitting the application. Hand tracking logic NOT applied.
+        /// Attach to a button for quitting the application.
         /// </summary>
         public void ButtonQuitApplication()
         {
@@ -96,19 +89,17 @@ namespace NarupaIMD.Subtle_Game.UI
         }
 
         /// <summary>
-        /// Attach to a button for switching menu canvas (task). Hand tracking logic applied.
+        /// Attach to a button for switching menu canvas (task).
         /// </summary>
         public void ButtonSwitchCanvas()
         {
-            // If button can only be pressed by the hands, check if the hands are tracking
-            if (handsOnly & !OVRPlugin.GetHandTrackingEnabled())
+            
+            if (!CanButtonBePressed())
             {
-                // Hands are not tracking, check if the canvas needs to be modified
-                _canvasManager.ModifyCanvas(gameObject.GetComponent<CanvasModifier>());
                 return;
             }
-
-            // Invoke button press.
+            
+            // Invoke button press
             Invoke(nameof(InvokeSwitchCanvas), TimeDelay);
         }
 
@@ -121,15 +112,12 @@ namespace NarupaIMD.Subtle_Game.UI
         }
         
         /// <summary>
-        /// Attach to a button for switching canvas (task). Hand tracking logic applied.
+        /// Attach to a button for switching canvas (task).
         /// </summary>
         public void ButtonNextMenu()
         {
-            // If button can only be pressed by the hands, check if the hands are tracking
-            if (handsOnly & !OVRPlugin.GetHandTrackingEnabled())
+            if (!CanButtonBePressed())
             {
-                // Hands are not tracking, check if the canvas needs to be modified
-                _canvasManager.ModifyCanvas(gameObject.GetComponent<CanvasModifier>());
                 return;
             }
             
@@ -143,6 +131,29 @@ namespace NarupaIMD.Subtle_Game.UI
         private void InvokeNextMenu()
         {
             _canvasManager.RequestNextMenu();
+        }
+        
+        /// <summary>
+        /// Checks whether the button can be pressed. If the interaction mode is set in the Puppeteer Manager, then
+        /// this will check that the correct modality is being tracked. If it is, then the button can be pressed.
+        /// </summary>
+        private bool CanButtonBePressed()
+        {
+            // Interaction modality has not been set yet, button can be pressed using either modality
+            if (_puppeteerManager.CurrentInteractionModality == PuppeteerManager.Modality.None)
+            {
+                return true;
+            }
+
+            // Interaction modality = HANDS
+            if (_puppeteerManager.CurrentInteractionModality == PuppeteerManager.Modality.Hands &
+                OVRPlugin.GetHandTrackingEnabled())
+            {
+                return true;
+            }
+
+            // Interaction modality = CONTROLLERS
+            return OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch) && OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch);
         }
     }
 }

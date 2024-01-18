@@ -94,6 +94,7 @@ namespace NarupaIMD.Subtle_Game.Logic
 
             public enum Modality
             {
+                None,
                 Hands,
                 Controllers
             }
@@ -166,6 +167,11 @@ namespace NarupaIMD.Subtle_Game.Logic
 		}
 
 		#endregion
+
+        private PuppeteerManager()
+        {
+            CurrentInteractionModality = Modality.None;
+        }
             
         private void Start()
         {
