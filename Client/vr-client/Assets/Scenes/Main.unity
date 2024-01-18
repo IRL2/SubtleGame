@@ -9026,7 +9026,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3292666779981350528, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: handsOnly
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3292666779981350528, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: desiredCanvas
