@@ -5,18 +5,19 @@ from additional_functions import write_to_shared_state
 
 
 class Trial(Task):
+
+    task_type = "trials"
     trial_answer_key = 'Player.TrialAnswer'
     correct_answer = None
     answer_correct = False
 
-    def __init__(self, client: NarupaImdClient, simulation_index: int, simulation_name: str):
+    def __init__(self, client: NarupaImdClient, simulation_indices: list, simulation_name: str):
 
-        super().__init__(client=client, simulation_index=simulation_index)
+        super().__init__(client=client, simulation_indices=simulation_indices)
 
-        self.sim_index = simulation_index
-        self.log_correct_answer(simulation_name)
+        self.calculate_correct_answer(simulation_name)
 
-    def log_correct_answer(self, sim_name: str):
+    def calculate_correct_answer(self, sim_name: str):
         """
         Logs the correct answer for the current trial. If the molecules are identical the correct answer will be None,
         else the correct answer is the most rigid molecule.

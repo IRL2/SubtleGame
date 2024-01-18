@@ -7,9 +7,9 @@ class Task:
 
     task_type = None
 
-    def __init__(self, client: NarupaImdClient, simulation_index: int):
+    def __init__(self, client: NarupaImdClient, simulation_indices: list):
         self.client = client
-        self.sim_index = simulation_index
+        self.sim_indices = simulation_indices
 
     def run_task(self):
 
@@ -21,10 +21,10 @@ class Task:
 
         self._finish_task()
 
-    def _prepare_task(self):
+    def _prepare_task(self, index: int = 0):
 
-        # Load simulation
-        self.client.run_command("playback/load", index=self.sim_index)
+        # Load first simulation
+        self.client.run_command("playback/load", index=self.sim_indices[index])
 
         # Update visualisation
         self._update_visualisations()

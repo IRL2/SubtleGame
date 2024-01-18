@@ -18,7 +18,7 @@ class PuppeteeringClient:
         self.narupa_client.update_available_commands()
 
         # Declare variables.
-        self.order_of_tasks = ['trials']
+        self.order_of_tasks = ['knot-tying']
         self.order_of_modality = ['hands']
         self.current_modality = self.order_of_modality[0]
 
@@ -34,23 +34,23 @@ class PuppeteeringClient:
             if task == 'nanotube':
 
                 # Check that the nanotube simulation was loaded into the server
-                if len(self.nanotube_index) == 0:
+                if len(self.nanotube_sim) == 0:
                     raise ValueError("No nanotube simulation found. Have you forgotten to load the simulation on the "
                                      "server? Does the loaded .xml contain the term 'nanotube?")
 
-                current_task = NanotubeTask(self.narupa_client, simulation_index=self.nanotube_index[0])
+                current_task = NanotubeTask(self.narupa_client, simulation_indices=self.nanotube_sim)
 
             elif task == 'knot-tying':
 
                 # Check that the nanotube simulation was loaded into the server
-                if len(self.alanine_index) == 0:
+                if len(self.alanine_sim) == 0:
                     raise ValueError("No 17-alanine simulation found. Have you forgotten to load the simulation on the "
                                      "server? Does the loaded .xml contain the term '17-ala'?")
 
-                current_task = KnotTyingTask(self.narupa_client, simulation_index=self.alanine_index[0])
+                current_task = KnotTyingTask(self.narupa_client, simulation_indices=self.alanine_sim)
 
             elif task == 'trials':
-                current_task = Trial(self.narupa_client, simulation_index=self.trials_index[0],
+                current_task = Trial(self.narupa_client, simulation_indices=self.trials_sims,
                                      simulation_name=self.trials_name[0])
 
             else:
@@ -78,11 +78,11 @@ class PuppeteeringClient:
         # Get simulation indices from server.
         simulations = self.narupa_client.run_command('playback/list')
 
-        self.nanotube_index = [idx for idx, s in enumerate(simulations['simulations']) if 'nanotube' in s]
+        self.nanotube_sim = [idx for idx, s in enumerate(simulations['simulations']) if 'nanotube' in s]
 
-        self.alanine_index = [idx for idx, s in enumerate(simulations['simulations']) if '17-ala' in s]
+        self.alanine_sim = [idx for idx, s in enumerate(simulations['simulations']) if '17-ala' in s]
 
-        self.trials_index = [idx for idx, s in enumerate(simulations['simulations']) if 'buckyball' in s]
+        self.trials_sims = [idx for idx, s in enumerate(simulations['simulations']) if 'buckyball' in s]
         self.trials_name = [s for idx, s in enumerate(simulations['simulations']) if 'buckyball' in s]
 
     def _finish_game(self):
