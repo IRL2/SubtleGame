@@ -32,6 +32,7 @@ namespace NarupaIMD.Subtle_Game.UI
         {
             if (!CanButtonBePressed())
             {
+                Debug.LogWarning("You are trying to press the button with the wrong interaction mode.");   
                 return;
             }
             
@@ -57,6 +58,7 @@ namespace NarupaIMD.Subtle_Game.UI
         {
             if (!CanButtonBePressed())
             {
+                Debug.LogWarning("You are trying to press the button with the wrong interaction mode.");   
                 return;
             }
 
@@ -96,6 +98,7 @@ namespace NarupaIMD.Subtle_Game.UI
             
             if (!CanButtonBePressed())
             {
+                Debug.LogWarning("You are trying to press the button with the wrong interaction mode.");   
                 return;
             }
             
@@ -118,6 +121,7 @@ namespace NarupaIMD.Subtle_Game.UI
         {
             if (!CanButtonBePressed())
             {
+             Debug.LogWarning("You are trying to press the button with the wrong interaction mode.");   
                 return;
             }
             
@@ -139,21 +143,18 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         private bool CanButtonBePressed()
         {
-            // Interaction modality has not been set yet, button can be pressed using either modality
-            if (_puppeteerManager.CurrentInteractionModality == PuppeteerManager.Modality.None)
+            return _puppeteerManager.CurrentInteractionModality switch
             {
-                return true;
-            }
-
-            // Interaction modality = HANDS
-            if (_puppeteerManager.CurrentInteractionModality == PuppeteerManager.Modality.Hands &
-                OVRPlugin.GetHandTrackingEnabled())
-            {
-                return true;
-            }
-
-            // Interaction modality = CONTROLLERS
-            return OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch) && OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch);
+                // Button can be pressed using either modality
+                PuppeteerManager.Modality.None => true,
+                // Hands only
+                PuppeteerManager.Modality.Hands when OVRPlugin.GetHandTrackingEnabled() => true,
+                // Controllers only (both controllers must be tracking)
+                PuppeteerManager.Modality.Controllers when
+                    OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch) &&
+                    OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch) => true,
+                _ => false
+            };
         }
     }
 }
