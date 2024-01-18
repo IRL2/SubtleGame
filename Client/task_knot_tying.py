@@ -8,9 +8,9 @@ class KnotTyingTask(Task):
 
     task_type = "knot-tying"
 
-    def __init__(self, client: NarupaImdClient, simulation_index: int):
+    def __init__(self, client: NarupaImdClient, simulation_indices: list):
 
-        super().__init__(client, simulation_index)
+        super().__init__(client, simulation_indices)
 
         self.knot_pull_client = None
         self.particle_names = client.first_frame.particle_names
@@ -19,12 +19,15 @@ class KnotTyingTask(Task):
     def _run_logic_for_specific_task(self):
         """ Checks for a knot approx. 30 times per second. Uses the Knot Pull program, which is available on GitHub (
         https://github.com/dzarmola/knot_pull)."""
+
+        super()._run_logic_for_specific_task()
+
         # Create knot_pull client
         self.knot_pull_client = KnotPullClient(atomids=self.particle_names,
                                                resids=self.residue_ids,
                                                atom_positions=self.client.latest_frame.particle_positions)
 
-        # Keeping checking if chain is knotted.
+        # Keeping checking if chain is knotted
         while True:
 
             self.knot_pull_client.check_if_chain_is_knotted(

@@ -24,7 +24,11 @@ namespace Narupa.Visualisation.Node.Input
         [SerializeField]
         private TProperty input = new TProperty();
 
-        public TProperty Input => input;
+        public TProperty Input
+        {
+            get => input;
+            set => input = value;
+        }
 
         public string Name
         {

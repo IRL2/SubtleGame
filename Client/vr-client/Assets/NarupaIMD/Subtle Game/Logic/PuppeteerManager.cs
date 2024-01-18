@@ -18,7 +18,7 @@ namespace NarupaIMD.Subtle_Game.Logic
     public class PuppeteerManager : MonoBehaviour
     {
         // SET YOUR LOCAL IP!
-        private const string IPAddress = "192.168.68.57";
+        private const string IPAddress = "172.18.28.233";
 
         #region Scene References
         
@@ -41,7 +41,7 @@ namespace NarupaIMD.Subtle_Game.Logic
         
         #region Simulation and User Interaction
 
-        private bool ShowSimulation
+        public bool ShowSimulation
         {
             set
             {
@@ -64,7 +64,7 @@ namespace NarupaIMD.Subtle_Game.Logic
 
         #endregion
 
-        #region Shared State
+        #region General Shared State
         
             // Keys and values
             private string _formattedKey;
@@ -73,6 +73,7 @@ namespace NarupaIMD.Subtle_Game.Logic
                 TaskStatus,
                 TaskType,
                 Connected,
+                TrialAnswer,
                 HeadsetType
             }
             public enum TaskStatusVal
@@ -87,12 +88,13 @@ namespace NarupaIMD.Subtle_Game.Logic
                 Sphere,
                 Nanotube,
                 GameFinished,
-                KnotTying
+                KnotTying,
+                Trials
             }
 
             // Task
             private List<string> OrderOfTasks { get; set; }
-            private List<TaskTypeVal> _orderOfTasks = new();
+            private readonly List<TaskTypeVal> _orderOfTasks = new();
             private int NumberOfTasks { get; set; }
             private int CurrentTaskNum { get; set; }
 
@@ -132,21 +134,32 @@ namespace NarupaIMD.Subtle_Game.Logic
                 }
             }
             private bool _playerStatus;
-            
-       
-            // Other
-            private string _hmdType;
-            public string HmdType
-            {
-                get => _hmdType;
-                private set
-                {
-                    _hmdType = value;
-                    WriteToSharedState(SharedStateKey.HeadsetType, _hmdType);
-                }
-            }
 
-            #endregion
+        #endregion
+
+        #region Trials
+        
+        [SerializeField]
+        private TrialAnswerSubmission trialAnswerSubmission;
+        public string TrialAnswer
+        {
+            set => WriteToSharedState(SharedStateKey.TrialAnswer, value);
+        }
+
+		// Other
+        // TODO: move this to other region
+        private string _hmdType;
+		public string HmdType
+		{
+			get => _hmdType;
+			private set
+			{
+				_hmdType = value;
+				WriteToSharedState(SharedStateKey.HeadsetType, _hmdType);
+			}
+		}
+
+		#endregion
             
         private void Start()
         {
@@ -215,6 +228,10 @@ namespace NarupaIMD.Subtle_Game.Logic
                     
                     case "knot-tying":
                         _orderOfTasks.Add(TaskTypeVal.KnotTying);
+						break;
+
+                    case "trials":
+                        _orderOfTasks.Add(TaskTypeVal.Trials);
                         break;
                     
                     default:
@@ -286,12 +303,29 @@ namespace NarupaIMD.Subtle_Game.Logic
                     OrderOfTasksReceived = true;
                     break;
                 
+                case "puppeteer.trials-timer":
+                    switch (val.ToString())
+                    {
+                        case "finished":
+                            // Disable interactions
+                            EnableInteractions = false;
+                            // Request answer from the player
+                            trialAnswerSubmission.RequestAnswerFromPlayer();
+                            break;
+                        
+                        case "started":
+                            ShowSimulation = true;
+                            break;
+                    }
+
+                    break;
+
                 case "puppeteer.task-status":
                     if (val.ToString() == "finished")
                     {
                         // Update task status
                         TaskStatus = TaskStatusVal.Finished;
-                        
+
                         // Hide simulation
                         ShowSimulation = false;
                         

@@ -7,46 +7,24 @@ class Task:
 
     task_type = None
 
-    def __init__(self, client: NarupaImdClient, simulation_index: int):
+    def __init__(self, client: NarupaImdClient, simulation_indices: list):
         self.client = client
-        self.sim_index = simulation_index
+        self.sim_indices = simulation_indices
 
     def run_task(self):
 
         self._prepare_task()
 
-        # Wait for player to start the task
-        print('Task prepared, waiting for player to start task')
-        while True:
+        self._wait_for_vr_client()
 
-            try:
-                # check whether the value matches the desired value for the specified key
-                current_val = self.client.latest_multiplayer_values['Player.TaskStatus']
-
-                if current_val == 'InProgress':
-                    break
-
-            except KeyError:
-                # If the desired key-value pair is not in shared state yet, wait a bit before trying again
-                time.sleep(1/30)
-
-        # Update task status
-        print('Starting task')
-        write_to_shared_state(self.client, 'task-status', 'in-progress')
-
-        # Play simulation
-        self.client.run_play()
-
-        # Monitor whether task is completed
         self._run_logic_for_specific_task()
 
-        # Finish the task
         self._finish_task()
 
-    def _prepare_task(self):
+    def _prepare_task(self, index: int = 0):
 
-        # Load simulation
-        self.client.run_command("playback/load", index=self.sim_index)
+        # Load first simulation
+        self.client.run_command("playback/load", index=self.sim_indices[index])
 
         # Update visualisation
         self._update_visualisations()
@@ -63,12 +41,38 @@ class Task:
         # Update task status
         self.client.set_shared_value('task-status', 'ready')
 
+        print("Task prepared")
+
+    def _wait_for_vr_client(self):
+
+        print('Waiting for player to start task')
+        while True:
+
+            try:
+                # check whether the value matches the desired value for the specified key
+                current_val = self.client.latest_multiplayer_values['Player.TaskStatus']
+
+                if current_val == 'InProgress':
+                    break
+
+            except KeyError:
+                # If the desired key-value pair is not in shared state yet, wait a bit before trying again
+                time.sleep(1 / 30)
+
     def _update_visualisations(self):
         """Container for changing the task-specific visualisation the simulation."""
         pass
 
     def _run_logic_for_specific_task(self):
         """Container for the logic specific to each task."""
+
+        print('Starting task')
+
+        # Update shared state
+        write_to_shared_state(self.client, 'task-status', 'in-progress')
+
+        # Play simulation
+        self.client.run_play()
 
         # Check that frames are being received
         while True:
