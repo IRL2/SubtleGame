@@ -46,6 +46,16 @@ class Trial(Task):
 
         super()._run_logic_for_specific_task()
 
+        self._run_single_trial()
+
+    def _run_single_trial(self):
+
+        self._run_simulation()
+
+        self._wait_for_player_to_answer()
+
+    def _run_simulation(self):
+
         # give the player 10 second to interact with the molecule
         time.sleep(1)
 
@@ -54,6 +64,8 @@ class Trial(Task):
 
         # pause simulation
         self.client.run_pause()
+
+    def _wait_for_player_to_answer(self):
 
         while True:
 
