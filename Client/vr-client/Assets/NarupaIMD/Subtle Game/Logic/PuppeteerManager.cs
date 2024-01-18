@@ -5,9 +5,7 @@ using Narupa.Grpc.Multiplayer;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.UI;
-using NarupaIMD.Subtle_Game.Visuals;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game.Logic
 {
@@ -57,6 +55,7 @@ namespace NarupaIMD.Subtle_Game.Logic
             {
                 _enableInteractions = value;
                 userInteraction.SetActive(_enableInteractions);
+                _pinchGrab.UseControllers = CurrentInteractionModality == Modality.Controllers;
             }
         }
 
@@ -292,6 +291,7 @@ namespace NarupaIMD.Subtle_Game.Logic
             ShowSimulation = true;
             EnableInteractions = true;
         }
+        
         /// <summary>
         /// Called when a key is updated in the shared state dictionary and saves the values we need.
         /// </summary>
