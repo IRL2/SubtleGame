@@ -16,27 +16,37 @@ class Trial(Task):
         super().__init__(client=client, simulation_indices=simulation_indices)
 
         self.sim_names = simulation_names
+        self.current_index = None
 
     def _run_logic_for_specific_task(self):
 
         super()._run_logic_for_specific_task()
 
-        self._run_single_trial()
+        for trial_num in range(0, len(self.sim_indices)):
 
-    def _calculate_correct_answer(self, index: int = 0):
+            self.current_index = trial_num
+
+            # For all but the first trial, need to prepare the simulation
+            if trial_num != 0:
+                super()._prepare_task(index=self.current_index)
+                write_to_shared_state(self.client, "trials-timer", "started")
+
+            self._run_single_trial()
+
+    def _calculate_correct_answer(self):
         """
         Logs the correct answer for the current trial. If the molecules are identical the correct answer will be None,
         else the correct answer is the most rigid molecule.
         """
         # Get multiplier
-        multiplier = float(self.sim_names[index].removesuffix(".xml").split("_")[3].strip())
+        multiplier = float(self.sim_names[self.current_index].removesuffix(".xml").split("_")[3].strip())
 
         # Molecules are identical, there is no correct answer
         if multiplier == 1:
             return
 
         # Get residue for modified molecule
-        modified_molecule = self.sim_names[index].split("_")[2].strip()
+        modified_molecule = self.sim_names[self.current_index].split("_")[2].strip()
 
         # The modified molecule is harder
         if multiplier > 1:
@@ -53,14 +63,22 @@ class Trial(Task):
 
         self._calculate_correct_answer()
 
+        if self.correct_answer is None:
+            print("no correct answer")
+        else:
+            print("correct answer = " + self.correct_answer)
+
         self._run_simulation()
 
         self._wait_for_player_to_answer()
 
     def _run_simulation(self):
 
+        # Play simulation
+        self.client.run_play()
+
         # give the player 10 second to interact with the molecule
-        time.sleep(1)
+        time.sleep(3)
 
         # update shared state
         write_to_shared_state(self.client, "trials-timer", "finished")
@@ -111,7 +129,7 @@ class Trial(Task):
         with buckyball_A.modify() as selection:
             selection.renderer = \
                 {'render': 'ball and stick',
-                 'color': 'green'
+                 'color': 'grey'
                  }
 
         # Set colour of buckyball B
@@ -120,5 +138,5 @@ class Trial(Task):
         with buckyball_B.modify() as selection:
             selection.renderer = \
                 {'render': 'ball and stick',
-                 'color': 'cornflowerblue'
+                 'color': 'grey'
                  }

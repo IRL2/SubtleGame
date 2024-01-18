@@ -93,8 +93,15 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         private IEnumerator WaitForAnswer()
         {
+            // Reset default values
             _targetColor = _originalColor;
-            
+            _answer = Answer.None;
+            _wasInsideLastFrameA = false;
+            _wasInsideLastFrameB = false;
+            _selectionLockA = false;
+            _selectionLockB = false;
+
+            // Run logic
             while (true)
             {
                 // Check for change of state for A and assert there is no selection lock on B
@@ -163,6 +170,9 @@ namespace NarupaIMD.Subtle_Game.UI
                 // Wait for the next frame
                 yield return null;
             }
+            
+            // Hide simulation 
+            _puppeteerManager.ShowSimulation = false;
         }
 
         /// <summary>

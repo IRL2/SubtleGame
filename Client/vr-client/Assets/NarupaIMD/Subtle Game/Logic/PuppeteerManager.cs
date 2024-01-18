@@ -18,7 +18,7 @@ namespace NarupaIMD.Subtle_Game.Logic
     public class PuppeteerManager : MonoBehaviour
     {
         // SET YOUR LOCAL IP!
-        private const string IPAddress = "192.168.68.57";
+        private const string IPAddress = "172.18.28.233";
 
         #region Scene References
         
@@ -41,7 +41,7 @@ namespace NarupaIMD.Subtle_Game.Logic
         
         #region Simulation and User Interaction
 
-        private bool ShowSimulation
+        public bool ShowSimulation
         {
             set
             {
@@ -304,17 +304,22 @@ namespace NarupaIMD.Subtle_Game.Logic
                     break;
                 
                 case "puppeteer.trials-timer":
-                    if (val.ToString() == "finished")
+                    switch (val.ToString())
                     {
-                        // Disable interactions
-                        EnableInteractions = false;
+                        case "finished":
+                            // Disable interactions
+                            EnableInteractions = false;
+                            // Request answer from the player
+                            trialAnswerSubmission.RequestAnswerFromPlayer();
+                            break;
                         
-                        // Request answer from the player
-                        trialAnswerSubmission.RequestAnswerFromPlayer();
+                        case "started":
+                            ShowSimulation = true;
+                            break;
                     }
 
                     break;
-                
+
                 case "puppeteer.task-status":
                     if (val.ToString() == "finished")
                     {
