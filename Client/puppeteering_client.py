@@ -1,7 +1,7 @@
 from narupa.app import NarupaImdClient
 from task_nanotube import NanotubeTask
 from task_knot_tying import KnotTyingTask
-from task_trials import Trial
+from task_trials import TrialsTask
 from additional_functions import write_to_shared_state
 
 
@@ -47,8 +47,8 @@ class PuppeteeringClient:
                 if len(self.trials_sims) == 0:
                     raise ValueError("No trial simulations found. Have you forgotten to load the simulations on the "
                                      "server? Does the loaded .xml contain the term 'trials'?")
-                current_task = Trial(self.narupa_client, simulation_indices=self.trials_sims,
-                                     simulation_names=self.trials_sim_names)
+                current_task = TrialsTask(self.narupa_client, simulation_indices=self.trials_sims,
+                                          simulation_names=self.trials_sim_names)
 
             else:
                 print("Current task not recognised, closing the puppeteering client.")

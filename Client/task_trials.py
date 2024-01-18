@@ -4,7 +4,7 @@ import time
 from additional_functions import write_to_shared_state
 
 
-class Trial(Task):
+class TrialsTask(Task):
 
     task_type = "trials"
     trial_answer_key = 'Player.TrialAnswer'
