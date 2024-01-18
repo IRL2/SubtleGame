@@ -11,26 +11,32 @@ class Trial(Task):
     correct_answer = None
     answer_correct = False
 
-    def __init__(self, client: NarupaImdClient, simulation_indices: list, simulation_name: str):
+    def __init__(self, client: NarupaImdClient, simulation_indices: list, simulation_names: list):
 
         super().__init__(client=client, simulation_indices=simulation_indices)
 
-        self.calculate_correct_answer(simulation_name)
+        self.sim_names = simulation_names
 
-    def calculate_correct_answer(self, sim_name: str):
+    def _run_logic_for_specific_task(self):
+
+        super()._run_logic_for_specific_task()
+
+        self._run_single_trial()
+
+    def _calculate_correct_answer(self, index: int = 0):
         """
         Logs the correct answer for the current trial. If the molecules are identical the correct answer will be None,
         else the correct answer is the most rigid molecule.
         """
         # Get multiplier
-        multiplier = float(sim_name.removesuffix(".xml").split("_")[3].strip())
+        multiplier = float(self.sim_names[index].removesuffix(".xml").split("_")[3].strip())
 
         # Molecules are identical, there is no correct answer
         if multiplier == 1:
             return
 
         # Get residue for modified molecule
-        modified_molecule = sim_name.split("_")[2].strip()
+        modified_molecule = self.sim_names[index].split("_")[2].strip()
 
         # The modified molecule is harder
         if multiplier > 1:
@@ -43,13 +49,9 @@ class Trial(Task):
             else:
                 self.correct_answer = 'A'
 
-    def _run_logic_for_specific_task(self):
-
-        super()._run_logic_for_specific_task()
-
-        self._run_single_trial()
-
     def _run_single_trial(self):
+
+        self._calculate_correct_answer()
 
         self._run_simulation()
 

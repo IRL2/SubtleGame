@@ -18,7 +18,7 @@ class PuppeteeringClient:
         self.narupa_client.update_available_commands()
 
         # Declare variables.
-        self.order_of_tasks = ['knot-tying']
+        self.order_of_tasks = ['trials']
         self.order_of_modality = ['hands']
         self.current_modality = self.order_of_modality[0]
 
@@ -51,7 +51,7 @@ class PuppeteeringClient:
 
             elif task == 'trials':
                 current_task = Trial(self.narupa_client, simulation_indices=self.trials_sims,
-                                     simulation_name=self.trials_name[0])
+                                     simulation_names=self.trials_sim_names)
 
             else:
                 print("Current task not recognised, closing the puppeteering client.")
@@ -83,7 +83,7 @@ class PuppeteeringClient:
         self.alanine_sim = [idx for idx, s in enumerate(simulations['simulations']) if '17-ala' in s]
 
         self.trials_sims = [idx for idx, s in enumerate(simulations['simulations']) if 'buckyball' in s]
-        self.trials_name = [s for idx, s in enumerate(simulations['simulations']) if 'buckyball' in s]
+        self.trials_sim_names = [s for idx, s in enumerate(simulations['simulations']) if 'buckyball' in s]
 
     def _finish_game(self):
         """ Update the shared state and close the client at the end of the game. """
