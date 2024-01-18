@@ -63,11 +63,6 @@ class Trial(Task):
 
         self._calculate_correct_answer()
 
-        if self.correct_answer is None:
-            print("no correct answer")
-        else:
-            print("correct answer = " + self.correct_answer)
-
         self._run_simulation()
 
         self._wait_for_player_to_answer()
