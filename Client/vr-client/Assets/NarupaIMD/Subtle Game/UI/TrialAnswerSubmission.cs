@@ -21,6 +21,8 @@ namespace NarupaIMD.Subtle_Game.UI
         [SerializeField] private CentreOfGeometry centreOfGeometryB;
         [SerializeField] private Transform rightIndexTip;
         [SerializeField] private Transform leftIndexTip;
+        [SerializeField] private Transform rightController;
+        [SerializeField] private Transform leftController;
         
         private ColorInput _colorMoleculeA;
         private ColorInput _colorMoleculeB;
@@ -215,12 +217,27 @@ namespace NarupaIMD.Subtle_Game.UI
         }
 
         /// <summary>
-        /// Checks if either hand is inside the molecule.
+        /// Checks if either hand is inside the molecule. Checks either the hands or the controllers depending on the
+        /// modality set in the Puppeteer Manager.
         /// </summary>
         private bool IsHandInsideMolecule(CentreOfGeometry cog)
         {
-            bool rightHandInside = cog.IsPointInsideShape(rightIndexTip.position);
-            bool leftHandInside = cog.IsPointInsideShape(leftIndexTip.position);
+            bool rightHandInside;
+            bool leftHandInside;
+            
+            // Hands
+            if (_puppeteerManager.CurrentInteractionModality == PuppeteerManager.Modality.Hands)
+            {
+                rightHandInside = cog.IsPointInsideShape(rightIndexTip.position);
+                leftHandInside = cog.IsPointInsideShape(leftIndexTip.position);
+            }
+            // Controllers
+            else
+            {
+                rightHandInside = cog.IsPointInsideShape(rightController.position);
+                leftHandInside = cog.IsPointInsideShape(leftController.position);
+            }
+            
             return rightHandInside || leftHandInside;
         }
     }
