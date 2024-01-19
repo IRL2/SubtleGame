@@ -44,7 +44,6 @@ class KnotTyingTask(Task):
 
             if self.knot_pull_client.is_currently_knotted:
                 self.client.set_shared_value('task status', 'completed')
-                time.sleep(3)
                 break
 
             time.sleep(1 / 30)
