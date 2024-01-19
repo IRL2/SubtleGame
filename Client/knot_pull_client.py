@@ -98,7 +98,7 @@ class KnotPullClient:
         self.kp_beads = []
 
         # Loop through number of alpha carbons.
-        for atom_num in range(self.number_of_residues):
+        for atom_num in range(len(self.positions_alpha_carbons)):
             # Get xyz positions of alpha carbon.
             x = self.positions_alpha_carbons[atom_num][0]
             y = self.positions_alpha_carbons[atom_num][1]
