@@ -6465,7 +6465,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e1c2e6973f58904fae20f1850923351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseControllers: 0
   PokePositions:
   - {fileID: 7416501715839334339}
   - {fileID: 9116940136169035185}
@@ -8491,6 +8490,8 @@ MonoBehaviour:
   centreOfGeometryB: {fileID: 230018909}
   rightIndexTip: {fileID: 4682591776209724542}
   leftIndexTip: {fileID: 4591869718317071806}
+  rightController: {fileID: 9116940136169035185}
+  leftController: {fileID: 7416501715839334339}
 --- !u!1 &1371801897
 GameObject:
   m_ObjectHideFlags: 0
