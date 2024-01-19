@@ -218,10 +218,15 @@ namespace NarupaIMD.Subtle_Game.Logic
         }
         
         /// <summary>
-        /// Populates the order of tasks from the list of tasks specified in the shared state.
+        /// Populates the order of tasks from the list of tasks specified in the shared state and prepares the first
+        /// task.
         /// </summary>
-        private void GetOrderOfTasks()
+        private void GetOrderOfTasks(List<object> tasks)
         {
+            OrderOfTasks = tasks
+                .Select(item => item.ToString())
+                .ToList();
+
             // Loop through the tasks in order.
             foreach (string task in OrderOfTasks)
             {
@@ -249,6 +254,8 @@ namespace NarupaIMD.Subtle_Game.Logic
                         break;
                 }
             }
+            OrderOfTasksReceived = true;
+            PrepareNextTask();
         }
         
         /// <summary>
@@ -257,7 +264,7 @@ namespace NarupaIMD.Subtle_Game.Logic
         /// completed: if yes, end the game, if no, update current task. This function is called once when the order of
         /// tasks is first populated and each time thereafter once a task is finished.
         /// </summary>
-        private void PrepareTask()
+        private void PrepareNextTask()
         {
             // Check if this is the first time this function has been called
             if (_startOfGame)
@@ -280,16 +287,45 @@ namespace NarupaIMD.Subtle_Game.Logic
             
             CurrentTaskType = _orderOfTasks[CurrentTaskNum]; // update current task
         }
+        
         /// <summary>
-        /// Starts the current task by hiding the menu, showing the simulation and enabling interactions. This is called once the player has finished the intro menu for the task.
+        /// Starts the current task by hiding the menu, showing the simulation and enabling interactions. This is called
+        /// once the player has finished the intro menu for the task.
         /// </summary>
-        /// 
         public void StartTask()
         {
             TaskStatus = TaskStatusVal.InProgress;
             _canvasManager.HideCanvas();
             ShowSimulation = true;
             EnableInteractions = true;
+        }
+
+        /// <summary>
+        /// Finished the current task by setting the shared state value, hiding the simulation, preparing the next task,
+        /// and loading the outro menu. This is called when the puppeteering client sets the task status to finished.
+        /// </summary>
+        private void FinishTask()
+        {
+            // Update task status
+            TaskStatus = TaskStatusVal.Finished;
+
+            // Hide simulation
+            ShowSimulation = false;
+                        
+            // Prepare next task
+            PrepareNextTask();
+                        
+            // Load outro menu
+            _canvasManager.LoadOutroToTask();
+        }
+        
+        /// <summary>
+        /// Disables interactions with the simulation and requests answer from player.
+        /// </summary>
+        private void FinishCurrentTrial()
+        {
+            EnableInteractions = false;
+            trialAnswerSubmission.RequestAnswerFromPlayer();
         }
         
         /// <summary>
@@ -318,23 +354,14 @@ namespace NarupaIMD.Subtle_Game.Logic
                     break;
 
                 case "puppeteer.order-of-tasks":
-                    // Get the order of tasks.
-                    OrderOfTasks = ((List<object>)val)
-                        .Select(item => item.ToString())
-                        .ToList();
-                    GetOrderOfTasks();
-                    PrepareTask();
-                    OrderOfTasksReceived = true;
+                    GetOrderOfTasks((List<object>)val);
                     break;
                 
                 case "puppeteer.trials-timer":
                     switch (val.ToString())
                     {
                         case "finished":
-                            // Disable interactions
-                            EnableInteractions = false;
-                            // Request answer from the player
-                            trialAnswerSubmission.RequestAnswerFromPlayer();
+                            FinishCurrentTrial();
                             break;
                         
                         case "started":
@@ -347,17 +374,7 @@ namespace NarupaIMD.Subtle_Game.Logic
                 case "puppeteer.task-status":
                     if (val.ToString() == "finished")
                     {
-                        // Update task status
-                        TaskStatus = TaskStatusVal.Finished;
-
-                        // Hide simulation
-                        ShowSimulation = false;
-                        
-                        // Prepare next task
-                        PrepareTask();
-                        
-                        // Load outro menu
-                        _canvasManager.LoadOutroToTask();
+                        FinishTask();
                     }
                     break;
             }
