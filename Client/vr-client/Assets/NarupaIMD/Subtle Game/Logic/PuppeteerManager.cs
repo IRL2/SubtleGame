@@ -290,13 +290,21 @@ namespace NarupaIMD.Subtle_Game.Logic
         /// <summary>
         /// Starts the current task by hiding the menu, showing the simulation and enabling interactions. This is called once the player has finished the intro menu for the task.
         /// </summary>
-        /// 
         public void StartTask()
         {
             TaskStatus = TaskStatusVal.InProgress;
             _canvasManager.HideCanvas();
             ShowSimulation = true;
             EnableInteractions = true;
+        }
+        
+        /// <summary>
+        /// Disables interactions with the simulation and requests answer from player.
+        /// </summary>
+        private void FinishCurrentTrial()
+        {
+            EnableInteractions = false;
+            trialAnswerSubmission.RequestAnswerFromPlayer();
         }
         
         /// <summary>
@@ -332,10 +340,7 @@ namespace NarupaIMD.Subtle_Game.Logic
                     switch (val.ToString())
                     {
                         case "finished":
-                            // Disable interactions
-                            EnableInteractions = false;
-                            // Request answer from the player
-                            trialAnswerSubmission.RequestAnswerFromPlayer();
+                            FinishCurrentTrial();
                             break;
                         
                         case "started":
