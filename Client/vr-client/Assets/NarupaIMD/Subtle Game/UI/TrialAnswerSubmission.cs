@@ -52,13 +52,29 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         public void RequestAnswerFromPlayer()
         {
+            var colorA = StartCoroutine(CheckMoleculeIsNotNull("BUC_A"));
+            if (colorA == null) return;
+    
+            var colorB = StartCoroutine(CheckMoleculeIsNotNull("BUC_B"));
+            if (colorB == null) return;
+    
             _colorMoleculeA = GetColorComponent("BUC_A");
             _colorMoleculeB = GetColorComponent("BUC_B");
             
             centreOfGeometryA.CalculateCentreOfGeometry();
             centreOfGeometryB.CalculateCentreOfGeometry();
-
+            
             StartCoroutine(WaitForAnswer());
+        }
+        
+        private IEnumerator CheckMoleculeIsNotNull(string moleculeName)
+        {
+            var color = GetColorComponent(moleculeName);
+            if (color == null)
+            {
+                yield return null;
+            }
+            yield return color;
         }
         
         /// <summary>
