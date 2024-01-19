@@ -39,3 +39,7 @@ class KnotTyingTask(Task):
                 break
 
             time.sleep(1 / 30)
+
+    def _update_visualisations(self):
+        """ Clear selections to use the default rendering. """
+        self.client.clear_selections()
