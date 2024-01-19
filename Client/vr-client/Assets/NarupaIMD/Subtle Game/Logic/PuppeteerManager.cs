@@ -218,7 +218,8 @@ namespace NarupaIMD.Subtle_Game.Logic
         }
         
         /// <summary>
-        /// Populates the order of tasks from the list of tasks specified in the shared state.
+        /// Populates the order of tasks from the list of tasks specified in the shared state and prepares the first
+        /// task.
         /// </summary>
         private void GetOrderOfTasks(List<object> tasks)
         {
@@ -288,7 +289,8 @@ namespace NarupaIMD.Subtle_Game.Logic
         }
         
         /// <summary>
-        /// Starts the current task by hiding the menu, showing the simulation and enabling interactions. This is called once the player has finished the intro menu for the task.
+        /// Starts the current task by hiding the menu, showing the simulation and enabling interactions. This is called
+        /// once the player has finished the intro menu for the task.
         /// </summary>
         public void StartTask()
         {
@@ -296,6 +298,25 @@ namespace NarupaIMD.Subtle_Game.Logic
             _canvasManager.HideCanvas();
             ShowSimulation = true;
             EnableInteractions = true;
+        }
+
+        /// <summary>
+        /// Finished the current task by setting the shared state value, hiding the simulation, preparing the next task,
+        /// and loading the outro menu. This is called when the puppeteering client sets the task status to finished.
+        /// </summary>
+        private void FinishTask()
+        {
+            // Update task status
+            TaskStatus = TaskStatusVal.Finished;
+
+            // Hide simulation
+            ShowSimulation = false;
+                        
+            // Prepare next task
+            PrepareNextTask();
+                        
+            // Load outro menu
+            _canvasManager.LoadOutroToTask();
         }
         
         /// <summary>
@@ -353,17 +374,7 @@ namespace NarupaIMD.Subtle_Game.Logic
                 case "puppeteer.task-status":
                     if (val.ToString() == "finished")
                     {
-                        // Update task status
-                        TaskStatus = TaskStatusVal.Finished;
-
-                        // Hide simulation
-                        ShowSimulation = false;
-                        
-                        // Prepare next task
-                        PrepareNextTask();
-                        
-                        // Load outro menu
-                        _canvasManager.LoadOutroToTask();
+                        FinishTask();
                     }
                     break;
             }
