@@ -26,7 +26,7 @@ namespace NarupaIMD.Subtle_Game.UI
     {
 
         #region Scene References
-        private PuppeteerManager _puppeteerManager;
+        private SubtleGameManager _subtleGameManager;
         private List<CanvasController> _canvasControllerList;
         #endregion
         
@@ -71,7 +71,7 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         protected void Awake()
         {
-            _puppeteerManager = FindObjectOfType<PuppeteerManager>();
+            _subtleGameManager = FindObjectOfType<SubtleGameManager>();
             
             // Enable all canvases
             foreach (Transform child in transform)
@@ -138,17 +138,17 @@ namespace NarupaIMD.Subtle_Game.UI
         public void RequestCanvasForNextTask()
         {
             // For debugging
-            if (!_puppeteerManager.OrderOfTasksReceived)
+            if (!_subtleGameManager.OrderOfTasksReceived)
             {
                 Debug.LogWarning("The order of tasks is not populated in the puppeteer manager");
             }
-            CurrentCanvasType = _puppeteerManager.CurrentTaskType switch
+            CurrentCanvasType = _subtleGameManager.CurrentTaskType switch
             {
-                PuppeteerManager.TaskTypeVal.Sphere => CanvasType.Sphere,
-                PuppeteerManager.TaskTypeVal.Nanotube => CanvasType.Nanotube,
-                PuppeteerManager.TaskTypeVal.GameFinished => CanvasType.Outro,
-                PuppeteerManager.TaskTypeVal.KnotTying => CanvasType.KnotTying,
-                PuppeteerManager.TaskTypeVal.Trials => CanvasType.Trials,
+                SubtleGameManager.TaskTypeVal.Sphere => CanvasType.Sphere,
+                SubtleGameManager.TaskTypeVal.Nanotube => CanvasType.Nanotube,
+                SubtleGameManager.TaskTypeVal.GameFinished => CanvasType.Outro,
+                SubtleGameManager.TaskTypeVal.KnotTying => CanvasType.KnotTying,
+                SubtleGameManager.TaskTypeVal.Trials => CanvasType.Trials,
                 _ => CurrentCanvasType
             };
         }

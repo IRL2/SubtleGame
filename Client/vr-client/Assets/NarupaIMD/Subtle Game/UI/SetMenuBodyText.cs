@@ -8,15 +8,15 @@ namespace NarupaIMD.Subtle_Game.UI
     public class SetMenuBodyText : MonoBehaviour
     {
         public TMP_Text bodyText;
-        private PuppeteerManager _puppeteerManager;
+        private SubtleGameManager _subtleGameManager;
         private string _modality;
         
         
         private void OnEnable()
         {
-            _puppeteerManager = FindObjectOfType<PuppeteerManager>();
+            _subtleGameManager = FindObjectOfType<SubtleGameManager>();
             SetBodyText();
-            _puppeteerManager.isIntroToSection = false;
+            _subtleGameManager.isIntroToSection = false;
         }
         
         /// <summary>
@@ -25,15 +25,15 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         private void SetBodyText()
         {
-            switch (_puppeteerManager.CurrentInteractionModality)
+            switch (_subtleGameManager.CurrentInteractionModality)
             {
-                case PuppeteerManager.Modality.Controllers:
+                case SubtleGameManager.Modality.Controllers:
                     _modality = "controllers";
                     break;
-                case PuppeteerManager.Modality.Hands:
+                case SubtleGameManager.Modality.Hands:
                     _modality = "hands";
                     break;
-                case PuppeteerManager.Modality.None:
+                case SubtleGameManager.Modality.None:
                     Debug.LogWarning("No interaction mode set in the Puppeteer Manager. This is required!");
                     _modality = "hands or controllers";
                     break;

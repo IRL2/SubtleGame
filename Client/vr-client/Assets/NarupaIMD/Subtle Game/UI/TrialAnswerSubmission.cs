@@ -15,7 +15,7 @@ namespace NarupaIMD.Subtle_Game.UI
     }
     public class TrialAnswerSubmission : MonoBehaviour
     {
-        private PuppeteerManager _puppeteerManager;
+        private SubtleGameManager _subtleGameManager;
         
         [SerializeField] private CentreOfGeometry centreOfGeometryA;
         [SerializeField] private CentreOfGeometry centreOfGeometryB;
@@ -44,7 +44,7 @@ namespace NarupaIMD.Subtle_Game.UI
 
         private void Start()
         {
-            _puppeteerManager = FindObjectOfType<PuppeteerManager>();
+            _subtleGameManager = FindObjectOfType<SubtleGameManager>();
         }
 
         /// <summary>
@@ -185,7 +185,7 @@ namespace NarupaIMD.Subtle_Game.UI
                 if (_answer != Answer.None)
                 {
                     Debug.Log("Player has answered");
-                    _puppeteerManager.TrialAnswer = _answer.ToString();
+                    _subtleGameManager.TrialAnswer = _answer.ToString();
                     break;
                 }
                 
@@ -194,7 +194,7 @@ namespace NarupaIMD.Subtle_Game.UI
             }
             
             // Hide simulation 
-            _puppeteerManager.ShowSimulation = false;
+            _subtleGameManager.ShowSimulation = false;
         }
 
         /// <summary>
@@ -246,7 +246,7 @@ namespace NarupaIMD.Subtle_Game.UI
             bool leftHandInside;
             
             // Hands
-            if (_puppeteerManager.CurrentInteractionModality == PuppeteerManager.Modality.Hands)
+            if (_subtleGameManager.CurrentInteractionModality == SubtleGameManager.Modality.Hands)
             {
                 rightHandInside = cog.IsPointInsideShape(rightIndexTip.position);
                 leftHandInside = cog.IsPointInsideShape(leftIndexTip.position);

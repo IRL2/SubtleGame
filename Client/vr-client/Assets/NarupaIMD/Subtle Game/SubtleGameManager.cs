@@ -13,7 +13,7 @@ namespace NarupaIMD.Subtle_Game.Logic
     /// <summary>
     /// Class <c>PuppeteerManager</c> handles communication with the puppeteering client through the shared state.
     /// </summary>
-    public class PuppeteerManager : MonoBehaviour
+    public class SubtleGameManager : MonoBehaviour
     {
         // SET YOUR LOCAL IP!
         private const string IPAddress = "172.18.28.233";
@@ -167,7 +167,7 @@ namespace NarupaIMD.Subtle_Game.Logic
         
 		#endregion
 
-        private PuppeteerManager()
+        private SubtleGameManager()
         {
             CurrentInteractionModality = Modality.None;
         }

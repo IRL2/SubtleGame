@@ -128,7 +128,7 @@ namespace NarupaIMD.Subtle_Game.Interaction
         /// </summary>
         private bool serverConnected = false; // Flag indicating if the server is connected.
         private bool firstFrameReceived = false; // Flag indicating if the first frame of data has been received.
-        private PuppeteerManager _puppeteerManager;
+        private SubtleGameManager _subtleGameManager;
         #endregion
 
         #endregion
@@ -152,7 +152,7 @@ namespace NarupaIMD.Subtle_Game.Interaction
             StartCoroutine(CheckServerConnection());
             InitializePrivateLists();
             CreateGrabbers();
-            _puppeteerManager.grabbersReady = true;
+            _subtleGameManager.grabbersReady = true;
         }
         #region Ensure Connection to Server is Established
         /// <summary>
@@ -210,7 +210,7 @@ namespace NarupaIMD.Subtle_Game.Interaction
         /// </summary>
         private void FetchPrivateReferences()
         {
-            _puppeteerManager = FindObjectOfType<PuppeteerManager>();
+            _subtleGameManager = FindObjectOfType<SubtleGameManager>();
             InteractableSceneTransform = InteractableSceneScript.transform;
             FrameSourceScript = InteractableSceneScript.GetFrameSource();
         }

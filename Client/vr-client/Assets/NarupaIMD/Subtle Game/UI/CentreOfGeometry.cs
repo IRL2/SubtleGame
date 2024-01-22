@@ -10,14 +10,14 @@ namespace NarupaIMD.Subtle_Game.UI
     }
     public class CentreOfGeometry : MonoBehaviour
     {
-        private PuppeteerManager _puppeteerManager;
+        private SubtleGameManager _subtleGameManager;
         [SerializeField] private Residue residue;
         private int _firstAtom;
         private int _lastAtom;
         
         private void Start()
         {
-            _puppeteerManager = FindObjectOfType<PuppeteerManager>();
+            _subtleGameManager = FindObjectOfType<SubtleGameManager>();
             
             if (residue == Residue.A)
             {
@@ -43,12 +43,12 @@ namespace NarupaIMD.Subtle_Game.UI
             
             for (int i = _firstAtom; i < _lastAtom; i++)
             {
-                sumXPos += _puppeteerManager.simulation.FrameSynchronizer.CurrentFrame.Particles[i].Position.x;
-                sumYPos += _puppeteerManager.simulation.FrameSynchronizer.CurrentFrame.Particles[i].Position.y;
-                sumZPos += _puppeteerManager.simulation.FrameSynchronizer.CurrentFrame.Particles[i].Position.z;
+                sumXPos += _subtleGameManager.simulation.FrameSynchronizer.CurrentFrame.Particles[i].Position.x;
+                sumYPos += _subtleGameManager.simulation.FrameSynchronizer.CurrentFrame.Particles[i].Position.y;
+                sumZPos += _subtleGameManager.simulation.FrameSynchronizer.CurrentFrame.Particles[i].Position.z;
             }
             
-            int numParticles = _puppeteerManager.simulation.FrameSynchronizer.CurrentFrame.ParticleCount/2;
+            int numParticles = _subtleGameManager.simulation.FrameSynchronizer.CurrentFrame.ParticleCount/2;
             var cog = transform;
             
             // Set position to cog
@@ -57,7 +57,7 @@ namespace NarupaIMD.Subtle_Game.UI
             
             // Set scale to approx. diameter of buckyball
             var scale = 2 * Vector3.Distance(
-                _puppeteerManager.simulation.FrameSynchronizer.CurrentFrame.Particles[_firstAtom].Position,
+                _subtleGameManager.simulation.FrameSynchronizer.CurrentFrame.Particles[_firstAtom].Position,
                 cog.localPosition);
             cog.localScale = new Vector3(scale, scale, scale);
         }
