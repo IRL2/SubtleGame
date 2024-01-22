@@ -1,4 +1,3 @@
-using NarupaIMD.Subtle_Game.Logic;
 using TMPro;
 using UnityEngine;
 

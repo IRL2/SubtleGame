@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Narupa.Visualisation;
 using NarupaImd;
 using NarupaImd.Interaction;
-using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.Interaction

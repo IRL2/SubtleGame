@@ -7,7 +7,7 @@ using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.UI;
 using UnityEngine;
 
-namespace NarupaIMD.Subtle_Game.Logic
+namespace NarupaIMD.Subtle_Game
 {
     
     /// <summary>

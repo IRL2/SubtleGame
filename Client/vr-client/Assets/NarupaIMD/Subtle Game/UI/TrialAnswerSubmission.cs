@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Narupa.Visualisation.Components.Input;
-using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.UI

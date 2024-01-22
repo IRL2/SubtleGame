@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.UI
