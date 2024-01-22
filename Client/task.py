@@ -68,9 +68,6 @@ class Task:
 
         print('Starting task')
 
-        # Update shared state
-        write_to_shared_state(self.client, 'task-status', 'in-progress')
-
         # Play simulation
         self.client.run_play()
 
@@ -82,6 +79,9 @@ class Task:
             except KeyError:
                 print("No particle positions found, waiting for 1/30 seconds before trying again.")
                 time.sleep(1 / 30)
+
+        # Update shared state
+        write_to_shared_state(self.client, 'task-status', 'in-progress')
 
     def _finish_task(self):
         """Handles the finishing of the task."""
