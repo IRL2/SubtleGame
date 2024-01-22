@@ -50,4 +50,5 @@ class KnotTyingTask(Task):
 
     def _update_visualisations(self):
         """ Clear selections to use the default rendering. """
+        # Clear current selections
         self.client.clear_selections()

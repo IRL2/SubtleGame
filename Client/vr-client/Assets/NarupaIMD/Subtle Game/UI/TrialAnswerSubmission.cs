@@ -48,7 +48,10 @@ namespace NarupaIMD.Subtle_Game.UI
         }
 
         /// <summary>
-        /// Runs logic for waiting for an answer from the player to the psychophysics trials task.
+        /// Runs logic for waiting for an answer from the player to the psychophysics trials task. (1) Finds the
+        /// visualisation selections for both of the molecules. (2) When these have both been found, gets the color
+        /// component of each one. (3) Calculates the center of geometry of the molecules to create the selection
+        /// collider. (4) Waits for the player to make their selection.
         /// </summary>
         public void RequestAnswerFromPlayer()
         {
@@ -57,13 +60,13 @@ namespace NarupaIMD.Subtle_Game.UI
     
             var colorB = StartCoroutine(CheckMoleculeIsNotNull("BUC_B"));
             if (colorB == null) return;
-    
+            
             _colorMoleculeA = GetColorComponent("BUC_A");
             _colorMoleculeB = GetColorComponent("BUC_B");
-            
+
             centreOfGeometryA.CalculateCentreOfGeometry();
             centreOfGeometryB.CalculateCentreOfGeometry();
-            
+
             StartCoroutine(WaitForAnswer());
         }
         
@@ -74,9 +77,10 @@ namespace NarupaIMD.Subtle_Game.UI
             {
                 yield return null;
             }
+
             yield return color;
         }
-        
+
         /// <summary>
         /// Gets the molecule game object.
         /// </summary>
