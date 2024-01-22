@@ -5,7 +5,6 @@ using Narupa.Grpc.Multiplayer;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.UI;
-using Oculus.Interaction.PoseDetection;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.Logic
