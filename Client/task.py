@@ -88,3 +88,19 @@ class Task:
 
         # Update task status
         write_to_shared_state(self.client, 'task-status', 'finished')
+
+        # Wait for player to register that the task has finished
+        print('Waiting for player to confirm end of task')
+        while True:
+
+            try:
+                # check whether the value matches the desired value for the specified key
+                current_val = self.client.latest_multiplayer_values['Player.TaskStatus']
+
+                if current_val == 'Finished':
+                    break
+
+            except KeyError:
+                # If the desired key-value pair is not in shared state yet, wait a bit before trying again
+                time.sleep(1 / 30)
+
