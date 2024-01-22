@@ -5,6 +5,7 @@ using Narupa.Grpc.Multiplayer;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.UI;
+using Oculus.Interaction.PoseDetection;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.Logic
@@ -139,6 +140,7 @@ namespace NarupaIMD.Subtle_Game.Logic
         #endregion
 
         #region Interaction modality
+            public bool isIntroToSection;
             public Modality CurrentInteractionModality { get; private set; }
         #endregion
         
@@ -296,8 +298,6 @@ namespace NarupaIMD.Subtle_Game.Logic
         {
             TaskStatus = TaskStatusVal.InProgress;
             _canvasManager.HideCanvas();
-            ShowSimulation = true;
-            EnableInteractions = true;
         }
 
         /// <summary>
@@ -351,6 +351,8 @@ namespace NarupaIMD.Subtle_Game.Logic
                             Debug.LogError("Interaction modality not recognised.");
                             break;
                     }
+
+                    isIntroToSection = true;
                     break;
 
                 case "puppeteer.order-of-tasks":
@@ -375,6 +377,11 @@ namespace NarupaIMD.Subtle_Game.Logic
                     if (val.ToString() == "finished")
                     {
                         FinishTask();
+                    }
+
+                    if (val.ToString() == "in-progress")
+                    {
+                        ShowSimulation = true;
                     }
                     break;
             }

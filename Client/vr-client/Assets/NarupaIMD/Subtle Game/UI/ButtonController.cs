@@ -143,6 +143,12 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         private bool CanButtonBePressed()
         {
+            if (_puppeteerManager.isIntroToSection)
+            {
+                // Player can press the button if they have not been told what interaction modality they are using yet
+                return true;
+            }
+            
             return _puppeteerManager.CurrentInteractionModality switch
             {
                 // Button can be pressed using either modality
