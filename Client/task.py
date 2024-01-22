@@ -39,7 +39,7 @@ class Task:
         write_to_shared_state(self.client, 'current-task', self.task_type)
 
         # Update task status
-        self.client.set_shared_value('task-status', 'ready')
+        write_to_shared_state(self.client, 'task-status', 'ready')
 
         print("Task prepared")
 
