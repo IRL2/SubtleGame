@@ -73,7 +73,13 @@ namespace NarupaIMD.Subtle_Game.UI
         {
             _puppeteerManager = FindObjectOfType<PuppeteerManager>();
             
-            // Get list of canvases in the Hierarchy
+            // Enable all canvases
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+
+            // Get list of canvases
             _canvasControllerList = GetComponentsInChildren<CanvasController>().ToList();
             
             // Set all canvases inactive
