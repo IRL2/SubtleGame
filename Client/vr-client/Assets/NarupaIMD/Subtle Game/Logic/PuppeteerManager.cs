@@ -20,53 +20,50 @@ namespace NarupaIMD.Subtle_Game.Logic
 
         #region Scene References
         
-        public NarupaImdSimulation simulation;
-        public GameObject userInteraction;
-        
-        private CanvasManager _canvasManager;
-        private MultiplayerSession _session;
+            public NarupaImdSimulation simulation;
+            public GameObject userInteraction;
+            
+            private CanvasManager _canvasManager;
+            private MultiplayerSession _session;
 
         #endregion
 
         #region Preparing Game
 
-        private bool _startOfGame = true;
-        public bool OrderOfTasksReceived { get; private set; }
-        private PinchGrab _pinchGrab;
-        public bool grabbersReady;
+            private bool _startOfGame = true;
+            public bool OrderOfTasksReceived { get; private set; }
+            private PinchGrab _pinchGrab;
+            public bool grabbersReady;
         
         #endregion
         
         #region Simulation and User Interaction
 
-        public bool ShowSimulation
-        {
-            set
+            public bool ShowSimulation
             {
-                _showSimulation = value;
-                simulation.gameObject.SetActive(_showSimulation);
-                EnableInteractions = _showSimulation;
+                set
+                {
+                    _showSimulation = value;
+                    simulation.gameObject.SetActive(_showSimulation);
+                    EnableInteractions = _showSimulation;
+                }
             }
-        }
-        private bool _showSimulation;
-        private bool EnableInteractions
-        {
-            set
+            private bool _showSimulation;
+            private bool EnableInteractions
             {
-                _enableInteractions = value;
-                userInteraction.SetActive(_enableInteractions);
-                _pinchGrab.UseControllers = CurrentInteractionModality == Modality.Controllers;
+                set
+                {
+                    _enableInteractions = value;
+                    userInteraction.SetActive(_enableInteractions);
+                    _pinchGrab.UseControllers = CurrentInteractionModality == Modality.Controllers;
+                }
             }
-        }
 
-        private bool _enableInteractions;
+            private bool _enableInteractions;
 
         #endregion
 
-        #region General Shared State
-        
-            // Keys and values
-            private string _formattedKey;
+        #region Shared State Keys and Values
             private enum SharedStateKey
             {
                 TaskStatus,
@@ -97,8 +94,9 @@ namespace NarupaIMD.Subtle_Game.Logic
                 Hands,
                 Controllers
             }
-            
-            // Data to collect
+        #endregion
+
+        #region Data to Collect
             private string _hmdType;
             public string HmdType
             {
@@ -109,8 +107,9 @@ namespace NarupaIMD.Subtle_Game.Logic
                     WriteToSharedState(SharedStateKey.HeadsetType, _hmdType);
                 }
             }
-
-            // Task
+            #endregion
+        
+        #region Task-related
             private List<string> OrderOfTasks { get; set; }
             private readonly List<TaskTypeVal> _orderOfTasks = new();
             private int NumberOfTasks { get; set; }
@@ -137,11 +136,13 @@ namespace NarupaIMD.Subtle_Game.Logic
                 }
             }
             private TaskStatusVal _taskStatus;
-            
-            // Interaction modality
+        #endregion
+
+        #region Interaction modality
             public Modality CurrentInteractionModality { get; private set; }
-            
-            // Player status
+        #endregion
+        
+        #region Player Status
             public bool PlayerStatus
             {
                 set
@@ -152,9 +153,8 @@ namespace NarupaIMD.Subtle_Game.Logic
                 }
             }
             private bool _playerStatus;
-
         #endregion
-
+        
         #region Trials
         
         [SerializeField]
@@ -227,10 +227,10 @@ namespace NarupaIMD.Subtle_Game.Logic
                 .Select(item => item.ToString())
                 .ToList();
 
-            // Loop through the tasks in order.
+            // Loop through the tasks in order
             foreach (string task in OrderOfTasks)
             {
-                // Append each task to internal list.
+                // Append each task to internal list
                 switch (task)
                 {
                     case "sphere":
@@ -385,8 +385,8 @@ namespace NarupaIMD.Subtle_Game.Logic
         /// </summary>
         private void WriteToSharedState(SharedStateKey key, string value)
         {
-            _formattedKey = "Player." + key; // format the key
-            simulation.Multiplayer.SetSharedState(_formattedKey, value); // set key-value pair in the shared state
+            var formattedKey = new string("Player." + key); // format the key
+            simulation.Multiplayer.SetSharedState(formattedKey, value); // set key-value pair in the shared state
         }
         
         /// <summary>
