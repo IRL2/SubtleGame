@@ -111,7 +111,7 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         private void InvokeSwitchCanvas()
         {
-            _canvasManager.RequestNextCanvas();
+            _canvasManager.RequestCanvasForNextTask();
         }
         
         /// <summary>

@@ -37,7 +37,7 @@ namespace NarupaIMD.Subtle_Game.UI
             set
             {
                 _currentCanvasType = value;
-                SwitchToNextCanvas();
+                SwitchToCanvasForNextTask();
             }
             get => _currentCanvasType;
         }
@@ -135,7 +135,7 @@ namespace NarupaIMD.Subtle_Game.UI
         /// <summary>
         /// Get next canvas from the current task type. Called when the player clicks a button to start the next task.
         /// </summary>
-        public void RequestNextCanvas()
+        public void RequestCanvasForNextTask()
         {
             // For debugging
             if (!_puppeteerManager.OrderOfTasksReceived)
@@ -156,7 +156,7 @@ namespace NarupaIMD.Subtle_Game.UI
         /// <summary>
         /// Deactivate previous canvas and activate the next one. This is called when the player switches task.
         /// </summary>
-        private void SwitchToNextCanvas()
+        private void SwitchToCanvasForNextTask()
         {
             // Hide current canvas
             HideCanvas();
