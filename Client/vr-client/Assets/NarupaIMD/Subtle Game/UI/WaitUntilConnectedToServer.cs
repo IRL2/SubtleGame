@@ -8,14 +8,13 @@ namespace NarupaIMD.Subtle_Game.UI
         public CanvasModifier canvasModifier;
         private SubtleGameManager _subtleGameManager;
         private CanvasManager _canvasManager;
-        // Start is called before the first frame update
+        
         private void Start()
         {
             _canvasManager = FindObjectOfType<CanvasManager>();
             _subtleGameManager = FindObjectOfType<SubtleGameManager>();
         }
-
-        // Update is called once per frame
+        
         private void Update()
         {
             // Check if the order of tasks is populated and the grabbers are ready
