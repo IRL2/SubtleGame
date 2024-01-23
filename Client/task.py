@@ -83,6 +83,14 @@ class Task:
         # Update shared state
         write_to_shared_state(self.client, 'task-status', 'in-progress')
 
+    def _check_if_sim_has_blown_up(self):
+        """ Resets the simulation if the kinetic energy goes above a threshold value. """
+        try:
+            if self.client.latest_frame.kinetic_energy > 10e10:
+                self.client.run_reset()
+        except KeyError:
+            pass
+
     def _finish_task(self):
         """Handles the finishing of the task."""
 

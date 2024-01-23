@@ -55,6 +55,7 @@ class NanotubeTask(Task):
 
                 self.methane_end_of_entry = None
 
+            self._check_if_sim_has_blown_up()
             time.sleep(1 / 30)
 
     def _update_visualisations(self):
