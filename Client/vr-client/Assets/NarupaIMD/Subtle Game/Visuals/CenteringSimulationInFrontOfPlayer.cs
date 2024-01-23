@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.Visuals
 {
-    public class CenteringSimulationBox : MonoBehaviour
+    public class CenteringSimulationInFrontOfPlayer : MonoBehaviour
     {
         /// <summary>
         /// The simulation box.
@@ -87,6 +87,7 @@ namespace NarupaIMD.Subtle_Game.Visuals
             switch (subtleGameManager.CurrentTaskType)
             {
                 case SubtleGameManager.TaskTypeVal.KnotTying:
+                    yComponent = -simulationBox.xMagnitude * 0.6f;
                     zComponent = -simulationBox.xMagnitude * 0.25f;
                     break;
                 case SubtleGameManager.TaskTypeVal.Trials:
