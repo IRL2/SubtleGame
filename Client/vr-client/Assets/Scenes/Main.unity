@@ -244,6 +244,7 @@ MonoBehaviour:
   simulationBox: {fileID: 543794535019733083}
   simulation: {fileID: 1265723034}
   centreEyeAnchor: {fileID: 4948775120161647665}
+  subtleGameManager: {fileID: 1364228086}
 --- !u!1 &23693883
 GameObject:
   m_ObjectHideFlags: 0
@@ -7344,10 +7345,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2398504263066912489, guid: b4150353d52807043b217abe87a111e4, type: 3}
       insertIndex: 2
       addedObject: {fileID: 41145488}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2075125420025657282, guid: b4150353d52807043b217abe87a111e4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4150353d52807043b217abe87a111e4, type: 3}
 --- !u!224 &1419393574 stripped
 RectTransform:
@@ -10033,9 +10031,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7998695904646280100, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1923912303}
-    - targetCorrespondingSourceObject: {fileID: 6406907961171276735, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
 --- !u!4 &1923912300 stripped
 Transform:
