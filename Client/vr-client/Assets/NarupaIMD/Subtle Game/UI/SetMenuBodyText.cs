@@ -30,7 +30,7 @@ namespace NarupaIMD.Subtle_Game.UI
                     _modality = "controllers";
                     break;
                 case SubtleGameManager.Modality.Hands:
-                    _modality = "hands";
+                    _modality = "your hands";
                     break;
                 case SubtleGameManager.Modality.None:
                     _modality = "hands or controllers";
@@ -39,8 +39,7 @@ namespace NarupaIMD.Subtle_Game.UI
                     throw new ArgumentOutOfRangeException();
             }
             
-            bodyText.SetText($"For this section of the game you will be using {_modality} to interact with" +
-                             $" the molecules");
+            bodyText.SetText($"For this section you will be using \n{_modality}");
         }
     }
 }
