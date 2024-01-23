@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.UI
@@ -15,14 +14,14 @@ namespace NarupaIMD.Subtle_Game.UI
     {
         
         private CanvasManager _canvasManager;
-        private PuppeteerManager _puppeteerManager;
+        private SubtleGameManager _subtleGameManager;
         
         private const float TimeDelay = 0.15f;
         
         private void Start()
         {
             _canvasManager = FindObjectOfType<CanvasManager>();
-            _puppeteerManager = FindObjectOfType<PuppeteerManager>();
+            _subtleGameManager = FindObjectOfType<SubtleGameManager>();
         }
         
         /// <summary>
@@ -48,7 +47,7 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         private async Task InvokePrepareGame()
         {
-            await _puppeteerManager.PrepareGame();
+            await _subtleGameManager.PrepareGame();
         }
         
         /// <summary>
@@ -71,7 +70,7 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         private void InvokeStartTask()
         {
-            _puppeteerManager.StartTask();
+            _subtleGameManager.StartTask();
         }
 
         /// <summary>
@@ -87,7 +86,7 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         private void InvokeQuitApplication()
         {
-            _puppeteerManager.QuitApplication();
+            _subtleGameManager.QuitApplication();
         }
 
         /// <summary>
@@ -111,7 +110,7 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         private void InvokeSwitchCanvas()
         {
-            _canvasManager.RequestNextCanvas();
+            _canvasManager.RequestCanvasForNextTask();
         }
         
         /// <summary>
@@ -143,14 +142,20 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         private bool CanButtonBePressed()
         {
-            return _puppeteerManager.CurrentInteractionModality switch
+            if (_subtleGameManager.isIntroToSection)
+            {
+                // Player can press the button if they have not been told what interaction modality they are using yet
+                return true;
+            }
+            
+            return _subtleGameManager.CurrentInteractionModality switch
             {
                 // Button can be pressed using either modality
-                PuppeteerManager.Modality.None => true,
+                SubtleGameManager.Modality.None => true,
                 // Hands only
-                PuppeteerManager.Modality.Hands when OVRPlugin.GetHandTrackingEnabled() => true,
+                SubtleGameManager.Modality.Hands when OVRPlugin.GetHandTrackingEnabled() => true,
                 // Controllers only (both controllers must be tracking)
-                PuppeteerManager.Modality.Controllers when
+                SubtleGameManager.Modality.Controllers when
                     OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch) &&
                     OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch) => true,
                 _ => false

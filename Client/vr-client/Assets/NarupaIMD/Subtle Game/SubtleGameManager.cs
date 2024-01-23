@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,66 +8,63 @@ using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.UI;
 using UnityEngine;
 
-namespace NarupaIMD.Subtle_Game.Logic
+namespace NarupaIMD.Subtle_Game
 {
     
     /// <summary>
     /// Class <c>PuppeteerManager</c> handles communication with the puppeteering client through the shared state.
     /// </summary>
-    public class PuppeteerManager : MonoBehaviour
+    public class SubtleGameManager : MonoBehaviour
     {
         // SET YOUR LOCAL IP!
         private const string IPAddress = "172.18.28.233";
 
         #region Scene References
         
-        public NarupaImdSimulation simulation;
-        public GameObject userInteraction;
-        
-        private CanvasManager _canvasManager;
-        private MultiplayerSession _session;
+            public NarupaImdSimulation simulation;
+            public GameObject userInteraction;
+            
+            private CanvasManager _canvasManager;
+            private MultiplayerSession _session;
 
         #endregion
 
         #region Preparing Game
 
-        private bool _startOfGame = true;
-        public bool OrderOfTasksReceived { get; private set; }
-        private PinchGrab _pinchGrab;
-        public bool grabbersReady;
+            private bool _startOfGame = true;
+            public bool OrderOfTasksReceived { get; private set; }
+            private PinchGrab _pinchGrab;
+            [NonSerialized] public bool grabbersReady;
         
         #endregion
         
         #region Simulation and User Interaction
 
-        public bool ShowSimulation
-        {
-            set
+            public bool ShowSimulation
             {
-                _showSimulation = value;
-                simulation.gameObject.SetActive(_showSimulation);
-                EnableInteractions = _showSimulation;
+                set
+                {
+                    _showSimulation = value;
+                    simulation.gameObject.SetActive(_showSimulation);
+                    EnableInteractions = _showSimulation;
+                }
             }
-        }
-        private bool _showSimulation;
-        private bool EnableInteractions
-        {
-            set
+            private bool _showSimulation;
+            private bool EnableInteractions
             {
-                _enableInteractions = value;
-                userInteraction.SetActive(_enableInteractions);
-                _pinchGrab.UseControllers = CurrentInteractionModality == Modality.Controllers;
+                set
+                {
+                    _enableInteractions = value;
+                    userInteraction.SetActive(_enableInteractions);
+                    _pinchGrab.UseControllers = CurrentInteractionModality == Modality.Controllers;
+                }
             }
-        }
 
-        private bool _enableInteractions;
+            private bool _enableInteractions;
 
         #endregion
 
-        #region General Shared State
-        
-            // Keys and values
-            private string _formattedKey;
+        #region Shared State Keys and Values
             private enum SharedStateKey
             {
                 TaskStatus,
@@ -97,8 +95,9 @@ namespace NarupaIMD.Subtle_Game.Logic
                 Hands,
                 Controllers
             }
-            
-            // Data to collect
+        #endregion
+
+        #region Data to Collect
             private string _hmdType;
             public string HmdType
             {
@@ -109,8 +108,9 @@ namespace NarupaIMD.Subtle_Game.Logic
                     WriteToSharedState(SharedStateKey.HeadsetType, _hmdType);
                 }
             }
-
-            // Task
+            #endregion
+        
+        #region Task-related
             private List<string> OrderOfTasks { get; set; }
             private readonly List<TaskTypeVal> _orderOfTasks = new();
             private int NumberOfTasks { get; set; }
@@ -137,11 +137,14 @@ namespace NarupaIMD.Subtle_Game.Logic
                 }
             }
             private TaskStatusVal _taskStatus;
-            
-            // Interaction modality
+        #endregion
+
+        #region Interaction modality
+            public bool isIntroToSection;
             public Modality CurrentInteractionModality { get; private set; }
-            
-            // Player status
+        #endregion
+        
+        #region Player Status
             public bool PlayerStatus
             {
                 set
@@ -152,9 +155,8 @@ namespace NarupaIMD.Subtle_Game.Logic
                 }
             }
             private bool _playerStatus;
-
         #endregion
-
+        
         #region Trials
         
         [SerializeField]
@@ -166,7 +168,7 @@ namespace NarupaIMD.Subtle_Game.Logic
         
 		#endregion
 
-        private PuppeteerManager()
+        private SubtleGameManager()
         {
             CurrentInteractionModality = Modality.None;
         }
@@ -227,10 +229,10 @@ namespace NarupaIMD.Subtle_Game.Logic
                 .Select(item => item.ToString())
                 .ToList();
 
-            // Loop through the tasks in order.
+            // Loop through the tasks in order
             foreach (string task in OrderOfTasks)
             {
-                // Append each task to internal list.
+                // Append each task to internal list
                 switch (task)
                 {
                     case "sphere":
@@ -296,8 +298,6 @@ namespace NarupaIMD.Subtle_Game.Logic
         {
             TaskStatus = TaskStatusVal.InProgress;
             _canvasManager.HideCanvas();
-            ShowSimulation = true;
-            EnableInteractions = true;
         }
 
         /// <summary>
@@ -351,6 +351,8 @@ namespace NarupaIMD.Subtle_Game.Logic
                             Debug.LogError("Interaction modality not recognised.");
                             break;
                     }
+
+                    isIntroToSection = true;
                     break;
 
                 case "puppeteer.order-of-tasks":
@@ -376,6 +378,11 @@ namespace NarupaIMD.Subtle_Game.Logic
                     {
                         FinishTask();
                     }
+
+                    if (val.ToString() == "in-progress")
+                    {
+                        ShowSimulation = true;
+                    }
                     break;
             }
         }
@@ -385,8 +392,8 @@ namespace NarupaIMD.Subtle_Game.Logic
         /// </summary>
         private void WriteToSharedState(SharedStateKey key, string value)
         {
-            _formattedKey = "Player." + key; // format the key
-            simulation.Multiplayer.SetSharedState(_formattedKey, value); // set key-value pair in the shared state
+            var formattedKey = new string("Player." + key); // format the key
+            simulation.Multiplayer.SetSharedState(formattedKey, value); // set key-value pair in the shared state
         }
         
         /// <summary>

@@ -355,13 +355,13 @@ HETATM    120 C   C60  . C60  B ?     1 .    31.8341    22.5904    27.1542  0.0 
 		<PeriodicBoxVectors>
 			
 		
-			<A x="6" y="0" z="0"/>
+			<A x="5" y="0" z="0"/>
 			
 		
-			<B x="0" y="6" z="0"/>
+			<B x="0" y="5" z="0"/>
 			
 		
-			<C x="0" y="0" z="6"/>
+			<C x="0" y="0" z="5"/>
 			
 	
 		</PeriodicBoxVectors>

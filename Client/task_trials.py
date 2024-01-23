@@ -10,6 +10,8 @@ class TrialsTask(Task):
     trial_answer_key = 'Player.TrialAnswer'
     correct_answer = None
     answer_correct = False
+    trial_duration = 3
+    frequency = 30
 
     def __init__(self, client: NarupaImdClient, simulation_indices: list, simulation_names: list):
 
@@ -72,8 +74,10 @@ class TrialsTask(Task):
         # Play simulation
         self.client.run_play()
 
-        # give the player 10 second to interact with the molecule
-        time.sleep(3)
+        # keep checking that the simulation has not blown up
+        for _ in range(self.trial_duration * self.frequency):
+            self._check_if_sim_has_blown_up()
+            time.sleep(1 / self.frequency)
 
         # update shared state
         write_to_shared_state(self.client, "trials-timer", "finished")

@@ -29,9 +29,6 @@ class Task:
         # Update visualisation
         self._update_visualisations()
 
-        # Reset simulation
-        self.client.run_reset()
-
         # Pause simulation
         self.client.run_command("playback/pause")
 
@@ -68,9 +65,6 @@ class Task:
 
         print('Starting task')
 
-        # Update shared state
-        write_to_shared_state(self.client, 'task-status', 'in-progress')
-
         # Play simulation
         self.client.run_play()
 
@@ -82,6 +76,17 @@ class Task:
             except KeyError:
                 print("No particle positions found, waiting for 1/30 seconds before trying again.")
                 time.sleep(1 / 30)
+
+        # Update shared state
+        write_to_shared_state(self.client, 'task-status', 'in-progress')
+
+    def _check_if_sim_has_blown_up(self):
+        """ Resets the simulation if the kinetic energy goes above a threshold value. """
+        try:
+            if self.client.latest_frame.kinetic_energy > 10e10:
+                self.client.run_reset()
+        except KeyError:
+            pass
 
     def _finish_task(self):
         """Handles the finishing of the task."""

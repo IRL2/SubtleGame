@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using NarupaIMD.Subtle_Game.Logic;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.UI
@@ -26,7 +25,7 @@ namespace NarupaIMD.Subtle_Game.UI
     {
 
         #region Scene References
-        private PuppeteerManager _puppeteerManager;
+        private SubtleGameManager _subtleGameManager;
         private List<CanvasController> _canvasControllerList;
         #endregion
         
@@ -37,7 +36,7 @@ namespace NarupaIMD.Subtle_Game.UI
             set
             {
                 _currentCanvasType = value;
-                SwitchToNextCanvas();
+                SwitchToCanvasForNextTask();
             }
             get => _currentCanvasType;
         }
@@ -71,9 +70,15 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         protected void Awake()
         {
-            _puppeteerManager = FindObjectOfType<PuppeteerManager>();
+            _subtleGameManager = FindObjectOfType<SubtleGameManager>();
             
-            // Get list of canvases in the Hierarchy
+            // Enable all canvases
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+
+            // Get list of canvases
             _canvasControllerList = GetComponentsInChildren<CanvasController>().ToList();
             
             // Set all canvases inactive
@@ -129,20 +134,20 @@ namespace NarupaIMD.Subtle_Game.UI
         /// <summary>
         /// Get next canvas from the current task type. Called when the player clicks a button to start the next task.
         /// </summary>
-        public void RequestNextCanvas()
+        public void RequestCanvasForNextTask()
         {
             // For debugging
-            if (!_puppeteerManager.OrderOfTasksReceived)
+            if (!_subtleGameManager.OrderOfTasksReceived)
             {
                 Debug.LogWarning("The order of tasks is not populated in the puppeteer manager");
             }
-            CurrentCanvasType = _puppeteerManager.CurrentTaskType switch
+            CurrentCanvasType = _subtleGameManager.CurrentTaskType switch
             {
-                PuppeteerManager.TaskTypeVal.Sphere => CanvasType.Sphere,
-                PuppeteerManager.TaskTypeVal.Nanotube => CanvasType.Nanotube,
-                PuppeteerManager.TaskTypeVal.GameFinished => CanvasType.Outro,
-                PuppeteerManager.TaskTypeVal.KnotTying => CanvasType.KnotTying,
-                PuppeteerManager.TaskTypeVal.Trials => CanvasType.Trials,
+                SubtleGameManager.TaskTypeVal.Sphere => CanvasType.Sphere,
+                SubtleGameManager.TaskTypeVal.Nanotube => CanvasType.Nanotube,
+                SubtleGameManager.TaskTypeVal.GameFinished => CanvasType.Outro,
+                SubtleGameManager.TaskTypeVal.KnotTying => CanvasType.KnotTying,
+                SubtleGameManager.TaskTypeVal.Trials => CanvasType.Trials,
                 _ => CurrentCanvasType
             };
         }
@@ -150,7 +155,7 @@ namespace NarupaIMD.Subtle_Game.UI
         /// <summary>
         /// Deactivate previous canvas and activate the next one. This is called when the player switches task.
         /// </summary>
-        private void SwitchToNextCanvas()
+        private void SwitchToCanvasForNextTask()
         {
             // Hide current canvas
             HideCanvas();

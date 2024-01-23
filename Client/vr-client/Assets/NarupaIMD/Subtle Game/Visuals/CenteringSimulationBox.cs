@@ -1,4 +1,3 @@
-using System;
 using Narupa.Visualisation;
 using UnityEngine;
 
@@ -23,38 +22,82 @@ namespace NarupaIMD.Subtle_Game.Visuals
         /// </summary>
         [SerializeField]
         private Transform centreEyeAnchor;
-        
-        /// <summary>
-        /// Previous value of the length of the simulation box along the x-axis in local coordinates.
-        /// </summary>
-        private float _previousXMagnitude;
 
         /// <summary>
-        /// Centers the simulation box in front of the player if the box changes size. Note: we only check the
-        /// x-magnitude because all of the simulations are square, so if one length changes then all of them will
-        /// change.
+        /// The desired scale of the lengths of the simulation box.
         /// </summary>
-        private void Update()
+        private float _simulationScale;
+
+        /// <summary>
+        /// Manager of the Subtle Game.
+        /// </summary>
+        public SubtleGameManager subtleGameManager;
+        
+        private void OnEnable()
         {
-            if (!(Math.Abs(simulationBox.xMagnitude - _previousXMagnitude) > 0.1f)) return;
-            
-            _previousXMagnitude = simulationBox.xMagnitude;
-            CenterSimulationInFrontOfPlayer();
+            simulationBox.SimulationBoxUpdated += UpdateSimulationBox;
+        }
+
+        private void OnDisable()
+        {
+            simulationBox.SimulationBoxUpdated -= UpdateSimulationBox;
+        }
+
+        /// <summary>
+        /// Updates the scale and position of the simulation box relative to the player. NOTE: this code assumes that
+        /// all sides of the box are equal in length.
+        /// </summary>
+        private void UpdateSimulationBox()
+        {
+            SetSimulationScale();
+            PutSimulationInFrontOfPlayer();
         }
         
         /// <summary>
-        /// Centers the simulation in front of the player by placing the center of the VR headset at the center of the
-        /// xy plane of the simulation box, facing along the positive z direction.
+        /// Sets the scale of the simulation. Default value is 1 (nanotube and trials tasks), with a smaller scale of
+        /// 0.75 for the knot-tying task.
         /// </summary>
-        private void CenterSimulationInFrontOfPlayer()
+        private void SetSimulationScale()
         {
-            // Set translation vector
+            // Get simulation scale value for each task
+            _simulationScale = subtleGameManager.CurrentTaskType switch
+            {
+                SubtleGameManager.TaskTypeVal.Nanotube => 1f,
+                SubtleGameManager.TaskTypeVal.KnotTying => 0.75f,
+                SubtleGameManager.TaskTypeVal.Trials => 1f,
+                _ => _simulationScale
+            };
+            
+            // Set the scale of the simulation game object
+            simulation.transform.localScale = new Vector3(_simulationScale, _simulationScale,_simulationScale);
+        }
+        
+        /// <summary>
+        /// Puts the simulation in front of the player. The default is centering the headset on the xy plane of the
+        /// simulation box, but these values are altered for the knot-tying task and the trials.
+        /// </summary>
+        private void PutSimulationInFrontOfPlayer()
+        {
+            // Set default values: centering the player on the xy plane of the simulation box facing the +z direction
+            float xComponent = -simulationBox.xMagnitude * 0.5f;
+            float yComponent = -simulationBox.xMagnitude * 0.5f;
+            float zComponent = 0f;
+            
+            // Alter values for knot-tying and trials tasks
+            switch (subtleGameManager.CurrentTaskType)
+            {
+                case SubtleGameManager.TaskTypeVal.KnotTying:
+                    zComponent = -simulationBox.xMagnitude * 0.25f;
+                    break;
+                case SubtleGameManager.TaskTypeVal.Trials:
+                    yComponent = -simulationBox.xMagnitude * 0.7f;
+                    zComponent = -simulationBox.xMagnitude * 0.15f;
+                    break;
+            }
+
+            // Calculate translation vector
             var desiredTranslation = transform;
-            desiredTranslation.localPosition = new Vector3(
-                -simulationBox.xMagnitude*0.5f,
-                -simulationBox.yMagnitude*0.5f,
-                0
-            ) ;
+            desiredTranslation.localPosition = new Vector3(xComponent, yComponent, zComponent);
             
             // Place the origin of the sim box at position of the center eye anchor
             simulation.position = centreEyeAnchor.position;
@@ -62,6 +105,5 @@ namespace NarupaIMD.Subtle_Game.Visuals
             // Translate the simulation so that the center eye anchor is in the center of the xy plane of the sim box
             simulation.Translate(desiredTranslation.position - simulation.position);
         }
-        
     }
 }

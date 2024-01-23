@@ -46,8 +46,10 @@ class KnotTyingTask(Task):
                 self.client.set_shared_value('task status', 'completed')
                 break
 
+            self._check_if_sim_has_blown_up()
             time.sleep(1 / 30)
 
     def _update_visualisations(self):
         """ Clear selections to use the default rendering. """
+        # Clear current selections
         self.client.clear_selections()
