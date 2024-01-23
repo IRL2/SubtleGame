@@ -1,7 +1,5 @@
-using System;
 using Narupa.Visualisation;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game.Visuals
 {
@@ -24,64 +22,35 @@ namespace NarupaIMD.Subtle_Game.Visuals
         /// </summary>
         [SerializeField]
         private Transform centreEyeAnchor;
-        
-        /// <summary>
-        /// Previous value of the length of the simulation box along the x-axis in local coordinates.
-        /// </summary>
-        private float _previousXMagnitude;
-        
-        private float _simulationScale;
-        
-        public SubtleGameManager subtleGameManager;
 
         /// <summary>
-        /// Puts the simulation box in front of the player if the box changes size. Note: we only check the
-        /// x-magnitude because all of the simulations are square, so if one length changes then all of them will
-        /// change.
+        /// The desired scale of the lengths of the simulation box.
         /// </summary>
-        private void Update()
+        private float _simulationScale;
+
+        /// <summary>
+        /// Manager of the Subtle Game.
+        /// </summary>
+        public SubtleGameManager subtleGameManager;
+        
+        private void OnEnable()
         {
-            // TODO: put this into an event rather than in Update
-            if (!(Math.Abs(simulationBox.xMagnitude - _previousXMagnitude) > 0.1f)) return;
-            
-            _previousXMagnitude = simulationBox.xMagnitude;
-            
+            simulationBox.SimulationBoxUpdated += UpdateSimulationBox;
+        }
+
+        private void OnDisable()
+        {
+            simulationBox.SimulationBoxUpdated -= UpdateSimulationBox;
+        }
+
+        /// <summary>
+        /// Updates the scale and position of the simulation box relative to the player. NOTE: this code assumes that
+        /// all sides of the box are equal in length.
+        /// </summary>
+        private void UpdateSimulationBox()
+        {
             SetSimulationScale();
             PutSimulationInFrontOfPlayer();
-        }
-        
-        /// <summary>
-        /// Puts the simulation in front of the player. The default is centering the headset on the xy plane of the
-        /// simulation box, but these values are altered for the knot-tying task and the trials.
-        /// </summary>
-        private void PutSimulationInFrontOfPlayer()
-        {
-            // Set default values: centering the player on the xy plane of the simulation box facing the +z direction
-            float xComponent = -simulationBox.xMagnitude * 0.5f;
-            float yComponent = -simulationBox.yMagnitude * 0.5f;
-            float zComponent = 0f;
-            
-            // Alter values for knot-tying and trials tasks
-            switch (subtleGameManager.CurrentTaskType)
-            {
-                case SubtleGameManager.TaskTypeVal.KnotTying:
-                    zComponent = -simulationBox.yMagnitude * 0.25f;
-                    break;
-                case SubtleGameManager.TaskTypeVal.Trials:
-                    yComponent = -simulationBox.yMagnitude * 0.7f;
-                    zComponent = -simulationBox.yMagnitude * 0.15f;
-                    break;
-            }
-
-            // Set translation vector
-            var desiredTranslation = transform;
-            desiredTranslation.localPosition = new Vector3(xComponent, yComponent, zComponent);
-            
-            // Place the origin of the sim box at position of the center eye anchor
-            simulation.position = centreEyeAnchor.position;
-            
-            // Translate the simulation so that the center eye anchor is in the center of the xy plane of the sim box
-            simulation.Translate(desiredTranslation.position - simulation.position);
         }
         
         /// <summary>
@@ -103,5 +72,38 @@ namespace NarupaIMD.Subtle_Game.Visuals
             simulation.transform.localScale = new Vector3(_simulationScale, _simulationScale,_simulationScale);
         }
         
+        /// <summary>
+        /// Puts the simulation in front of the player. The default is centering the headset on the xy plane of the
+        /// simulation box, but these values are altered for the knot-tying task and the trials.
+        /// </summary>
+        private void PutSimulationInFrontOfPlayer()
+        {
+            // Set default values: centering the player on the xy plane of the simulation box facing the +z direction
+            float xComponent = -simulationBox.xMagnitude * 0.5f;
+            float yComponent = -simulationBox.xMagnitude * 0.5f;
+            float zComponent = 0f;
+            
+            // Alter values for knot-tying and trials tasks
+            switch (subtleGameManager.CurrentTaskType)
+            {
+                case SubtleGameManager.TaskTypeVal.KnotTying:
+                    zComponent = -simulationBox.xMagnitude * 0.25f;
+                    break;
+                case SubtleGameManager.TaskTypeVal.Trials:
+                    yComponent = -simulationBox.xMagnitude * 0.7f;
+                    zComponent = -simulationBox.xMagnitude * 0.15f;
+                    break;
+            }
+
+            // Calculate translation vector
+            var desiredTranslation = transform;
+            desiredTranslation.localPosition = new Vector3(xComponent, yComponent, zComponent);
+            
+            // Place the origin of the sim box at position of the center eye anchor
+            simulation.position = centreEyeAnchor.position;
+            
+            // Translate the simulation so that the center eye anchor is in the center of the xy plane of the sim box
+            simulation.Translate(desiredTranslation.position - simulation.position);
+        }
     }
 }

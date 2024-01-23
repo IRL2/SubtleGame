@@ -6571,7 +6571,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simulation: {fileID: 1265723033}
   userInteraction: {fileID: 50482150}
-  grabbersReady: 0
+  centeringSimBox: {fileID: 21014621}
   isIntroToSection: 1
   trialAnswerSubmission: {fileID: 1364228087}
 --- !u!114 &1364228087

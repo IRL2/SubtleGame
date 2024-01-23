@@ -1,4 +1,5 @@
-﻿using Narupa.Core.Math;
+﻿using System;
+using Narupa.Core.Math;
 using UnityEngine;
 
 namespace Narupa.Visualisation
@@ -16,14 +17,19 @@ namespace Narupa.Visualisation
         private AffineTransformation box;
         
         /// <summary>
-        /// The length of the box along the x-axis.
+        /// The current length of the box along the x-axis.
         /// </summary>
         public float xMagnitude;
         
         /// <summary>
-        /// The length of the box along the y-axis.
+        /// The previous length of the box along the x-axis.
         /// </summary>
-        public float yMagnitude;
+        public float previousXMag;
+
+        /// <summary>
+        /// The previous length of the box along the x-axis.
+        /// </summary>
+        public event Action SimulationBoxUpdated;
 
         /// <summary>
         /// The width of the edges of the box.
@@ -83,7 +89,12 @@ namespace Narupa.Visualisation
             }
 
             xMagnitude = box.axesMagnitudes.x;
-            yMagnitude = box.axesMagnitudes.y;
+
+            if (!(Math.Abs(xMagnitude - previousXMag) > 0.1f)) return;
+            
+            SimulationBoxUpdated?.Invoke();
+            previousXMag = xMagnitude;
+
         }
 
         /// <summary>
