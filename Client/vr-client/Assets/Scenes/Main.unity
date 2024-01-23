@@ -6571,7 +6571,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simulation: {fileID: 1265723033}
   userInteraction: {fileID: 50482150}
-  centeringSimBox: {fileID: 21014621}
   isIntroToSection: 1
   trialAnswerSubmission: {fileID: 1364228087}
 --- !u!114 &1364228087
@@ -10742,10 +10741,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Great, we''re ready to start!
-
-
-    Press the button to begin'
+  m_text: Great, we're ready to start!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -12123,7 +12119,7 @@ MonoBehaviour:
     zAxis: {x: 0, y: 0, z: 1}
     origin: {x: 0, y: 0, z: 0}
   xMagnitude: 1
-  yMagnitude: 1
+  previousXMag: 1
   width: 0.02
   mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   material: {fileID: 2100000, guid: cceac67cd55e64d43b334053e949f786, type: 2}
