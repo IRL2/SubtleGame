@@ -33,7 +33,6 @@ namespace NarupaIMD.Subtle_Game.UI
                     _modality = "hands";
                     break;
                 case SubtleGameManager.Modality.None:
-                    Debug.LogWarning("No interaction mode set in the Puppeteer Manager. This is required!");
                     _modality = "hands or controllers";
                     break;
                 default:
