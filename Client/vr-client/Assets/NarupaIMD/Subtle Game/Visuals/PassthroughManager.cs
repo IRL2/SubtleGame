@@ -23,8 +23,13 @@ namespace NarupaIMD.Subtle_Game.Visuals
                 _activeObjectCount--;
             }
 
-            // Check if any active objects exist and toggle passthrough accordingly.
+            // Return if passthrough layer does not exist
+            if (passthroughLayer == null) return;
+            
+            // Check if any active objects exist and toggle passthrough accordingly
             passthroughLayer.enabled = _activeObjectCount > 0;
+            passthroughLayer.edgeColor = new Color(1,0.39f,0.016f, 1f);
+
         }
     }
 }
