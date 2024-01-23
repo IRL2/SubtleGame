@@ -29,9 +29,6 @@ class Task:
         # Update visualisation
         self._update_visualisations()
 
-        # Reset simulation
-        self.client.run_reset()
-
         # Pause simulation
         self.client.run_command("playback/pause")
 
