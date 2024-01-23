@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,7 +34,7 @@ namespace NarupaIMD.Subtle_Game
             private bool _startOfGame = true;
             public bool OrderOfTasksReceived { get; private set; }
             private PinchGrab _pinchGrab;
-            public bool grabbersReady;
+            [NonSerialized] public bool grabbersReady;
         
         #endregion
         
