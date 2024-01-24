@@ -1,3 +1,4 @@
+from datetime import datetime
 from Client.task import Task
 from narupa.app import NarupaImdClient
 from Client.knot_pull_client import KnotPullClient
@@ -22,6 +23,8 @@ class KnotTyingTask(Task):
 
         super()._run_logic_for_specific_task()
 
+        self.timestamp_start = datetime.now()
+
         # Create knot_pull client
         self.knot_pull_client = KnotPullClient(atomids=self.particle_names,
                                                resids=self.residue_ids,
@@ -43,7 +46,7 @@ class KnotTyingTask(Task):
                 atom_positions=self.client.latest_frame.particle_positions)
 
             if self.knot_pull_client.is_currently_knotted:
-                self.client.set_shared_value('task status', 'completed')
+                self.timestamp_end = datetime.now()
                 break
 
             self._check_if_sim_has_blown_up()

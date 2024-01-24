@@ -6,6 +6,9 @@ import time
 class Task:
 
     task_type = None
+    timestamp_start = None
+    timestamp_end = None
+    task_completion_time = None
 
     def __init__(self, client: NarupaImdClient, simulation_indices: list):
         self.client = client
@@ -91,8 +94,14 @@ class Task:
     def _finish_task(self):
         """Handles the finishing of the task."""
 
-        # Update task status
-        write_to_shared_state(self.client, 'task-status', 'finished')
+        # Update task status and completion time in the shared state
+        write_to_shared_state(client=self.client, key='task-status', value='finished')
+
+        if self.timestamp_start and self.timestamp_end:
+            self.task_completion_time = self.timestamp_end - self.timestamp_start
+            write_to_shared_state(client=self.client,
+                                  key="task-completion-time",
+                                  value=str(self.task_completion_time))
 
         # Wait for player to register that the task has finished
         print('Waiting for player to confirm end of task')
