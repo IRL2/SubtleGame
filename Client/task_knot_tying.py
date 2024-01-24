@@ -50,6 +50,22 @@ class KnotTyingTask(Task):
             time.sleep(1 / 30)
 
     def _update_visualisations(self):
-        """ Clear selections to use the default rendering. """
+        """ Applies rainbow gradient visualisation. """
+
         # Clear current selections
         self.client.clear_selections()
+
+        alanine = self.client.create_selection("ALA", list(range(0, 174)))
+        with alanine.modify() as selection:
+            selection.renderer = {
+                'render': 'ball and stick',
+                'color' : {'type': 'particle index', 'gradient' : [
+                    'tomato',
+                    'darkorange',
+                    'gold',
+                    'forestgreen',
+                    'dodgerblue',
+                    'darkviolet',
+                    'darkslateblue'
+                ]}
+            }
