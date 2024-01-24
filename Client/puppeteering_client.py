@@ -5,13 +5,34 @@ from task_trials import TrialsTask
 from additional_functions import write_to_shared_state
 import random
 
+# Server
+server_name = 'SubtleGame'
+
+# Task
 task_practice = 'nanotube'
 task_knot_tying = 'knot-tying'
 task_trials = 'trials'
+task_order = 'order-of-tasks'
 
+# Simulation
 sim_name_nanotube = 'nanotube'
 sim_name_knot_tying = '17-ala'
 sim_name_trials = 'buckyball'
+
+# Interaction modality
+modality_hands = 'hands'
+modality_controllers = 'controllers'
+
+# Shared state
+shared_state_keys_and_vals = {
+    'modality': [modality_hands, modality_controllers],
+    'game-status': ['waiting', 'finished'], #TODO: add in progress
+    'current-task': [task_practice, task_knot_tying, task_trials],
+    'task-status': ['ready', 'in-progress', 'finished'],
+    'task-completion-time': [None],
+    'trials-timer': ['started', 'finished'],
+    'trials-answer': [None, True, False]
+}
 
 
 def randomise_order(lst: list):
@@ -69,14 +90,14 @@ class PuppeteeringClient:
     def __init__(self, short_game: bool = False):
 
         # Connect to a local Nanover server
-        self.narupa_client = NarupaImdClient.autoconnect(name="SubtleGame")
+        self.narupa_client = NarupaImdClient.autoconnect(name=server_name)
         self.narupa_client.subscribe_multiplayer()
         self.narupa_client.subscribe_to_frames()
         self.narupa_client.update_available_commands()
 
         # Get orders of randomised variables
         self.order_of_tasks = get_order_of_tasks(run_short_game=short_game)
-        self.order_of_interaction_modality = randomise_order(['hands', 'controllers'])
+        self.order_of_interaction_modality = randomise_order([modality_hands, modality_controllers])
         self.current_modality = self.order_of_interaction_modality[0]
 
         # Declare variables
