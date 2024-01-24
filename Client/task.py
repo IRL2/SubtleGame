@@ -96,10 +96,12 @@ class Task:
 
         # Update task status and completion time in the shared state
         write_to_shared_state(client=self.client, key='task-status', value='finished')
-        self.task_completion_time = self.timestamp_end - self.timestamp_start
-        write_to_shared_state(client=self.client,
-                              key="task-completion-time",
-                              value=str(self.task_completion_time))
+
+        if self.timestamp_start and self.timestamp_end:
+            self.task_completion_time = self.timestamp_end - self.timestamp_start
+            write_to_shared_state(client=self.client,
+                                  key="task-completion-time",
+                                  value=str(self.task_completion_time))
 
         # Wait for player to register that the task has finished
         print('Waiting for player to confirm end of task')
