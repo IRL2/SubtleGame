@@ -78,11 +78,6 @@ class KnotPullClient:
                 print("Currently not knotted")
             return
 
-        # A new knot?!
-        # TODO: add catch if there is another type of knot.
-        self.is_currently_knotted = True
-        print("How did you do that? A new knot!")
-
     def run_knot_pull_functions(self):
         """ Runs edited knot_pull functions to get the knot topology of the protein. """
         self.update_knot_pull_beads()
