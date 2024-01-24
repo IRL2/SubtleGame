@@ -19,11 +19,15 @@ def randomise_order(lst: list):
     return random.sample(lst, len(lst))
 
 
-def get_order_of_tasks():
+def get_order_of_tasks(run_short_game: bool):
     """ Returns a list of tasks for the game. This process is done twice (once for each half of the game). For each
-    half, the nanotube task will come first, then the knot-tying and trials task is randomised."""
+    half, the nanotube task will come first, then the knot-tying and trials task is randomised.
+    @param: test_run If true then the nanotube task will run twice, otherwise a full game will run """
 
-    tasks = [task_knot_tying, task_trials]
+    if run_short_game:
+        tasks = []
+    else:
+        tasks = [task_knot_tying, task_trials]
 
     # randomise the order of tasks
     section_1 = randomise_order(tasks)
@@ -62,7 +66,7 @@ class PuppeteeringClient:
     """ This class interfaces between the Nanover server, VR client and any required packages to control the game 
     logic for the Subtle Game."""
 
-    def __init__(self):
+    def __init__(self, short_game: bool = False):
 
         # Connect to a local Nanover server
         self.narupa_client = NarupaImdClient.autoconnect(name="SubtleGame")
@@ -71,7 +75,7 @@ class PuppeteeringClient:
         self.narupa_client.update_available_commands()
 
         # Get orders of randomised variables
-        self.order_of_tasks = get_order_of_tasks()
+        self.order_of_tasks = get_order_of_tasks(run_short_game=short_game)
         self.order_of_interaction_modality = randomise_order(['hands', 'controllers'])
         self.current_modality = self.order_of_interaction_modality[0]
 
