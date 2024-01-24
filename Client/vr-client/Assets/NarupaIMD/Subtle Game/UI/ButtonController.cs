@@ -29,17 +29,21 @@ namespace NarupaIMD.Subtle_Game.UI
         /// </summary>
         public void ButtonStartGame()
         {
-            if (!CanButtonBePressed())
+            /*if (!CanButtonBePressed())
             {
                 Debug.LogWarning("You are trying to press the button with the wrong interaction mode.");   
                 return;
-            }
+            }*/
             
+            Debug.LogWarning("Preparing game");
             // Prepare game
             Invoke(nameof(InvokePrepareGame), TimeDelay);
             
-            // Request next menu
-            Invoke(nameof(InvokeNextMenu), TimeDelay);
+            /*// Hide menu canvas
+            _canvasManager.HideCanvas();*/
+            
+            /*// Request next menu
+            Invoke(nameof(InvokeNextMenu), TimeDelay);*/
         }
         
         /// <summary>

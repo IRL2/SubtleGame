@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using NarupaImd;
 using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.UI;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 namespace NarupaIMD.Subtle_Game
 {
@@ -17,7 +19,7 @@ namespace NarupaIMD.Subtle_Game
     public class SubtleGameManager : MonoBehaviour
     {
         // SET YOUR LOCAL IP!
-        private const string IPAddress = "172.18.28.233";
+        private const string IPAddress = "192.168.50.38";
 
         #region Scene References
         
@@ -196,17 +198,21 @@ namespace NarupaIMD.Subtle_Game
         {
             // Enable interactions to begin with (needed to setup the grabbers)
             EnableInteractions = true;
+            ShowSimulation = true;
             
             // Autoconnect to a locally-running server
-            // await simulation.AutoConnect();
+            await simulation.AutoConnect();
             
             // Connect to a specific ip
-            await simulation.Connect(IPAddress, trajectoryPort:38801, imdPort:38801, multiplayerPort:38801);
+            //await simulation.Connect(IPAddress, trajectoryPort:38801, imdPort:38801, multiplayerPort:38801);
             
             // Initialise pinch grabs for interactions
             _pinchGrab.InitialiseInteractions();
+            
+            // Hide the menu
+            _canvasManager.HideCanvas();
 
-            // Let the Puppeteer Manager know that the player has connected
+            /*// Let the Puppeteer Manager know that the player has connected
             PlayerStatus = true;
             
             // Hide the simulation
@@ -216,9 +222,16 @@ namespace NarupaIMD.Subtle_Game
             EnableInteractions = false;
             
             // Log type of VR headset
-            HmdType = OVRPlugin.GetSystemHeadsetType().ToString();
+            HmdType = OVRPlugin.GetSystemHeadsetType().ToString();*/
         }
-        
+
+        private void Update()
+        {
+            // Switch between hands and controllers if the player switches
+            _pinchGrab.UseControllers = !OVRPlugin.GetHandTrackingEnabled();
+        }
+
+
         /// <summary>
         /// Populates the order of tasks from the list of tasks specified in the shared state and prepares the first
         /// task.

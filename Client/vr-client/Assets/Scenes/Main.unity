@@ -6571,7 +6571,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simulation: {fileID: 1265723033}
   userInteraction: {fileID: 50482150}
-  centeringSimBox: {fileID: 21014621}
   isIntroToSection: 1
   trialAnswerSubmission: {fileID: 1364228087}
 --- !u!114 &1364228087
@@ -7131,7 +7130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: m_text
-      value: Press the button to start the game!!
+      value: Press the button to connect!
       objectReference: {fileID: 0}
     - target: {fileID: 4269171732357299513, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: m_IsActive
@@ -12123,7 +12122,7 @@ MonoBehaviour:
     zAxis: {x: 0, y: 0, z: 1}
     origin: {x: 0, y: 0, z: 0}
   xMagnitude: 1
-  yMagnitude: 1
+  previousXMag: 1
   width: 0.02
   mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   material: {fileID: 2100000, guid: cceac67cd55e64d43b334053e949f786, type: 2}

@@ -65,6 +65,7 @@ namespace NarupaIMD.Subtle_Game.Visuals
                 SubtleGameManager.TaskTypeVal.Nanotube => 1f,
                 SubtleGameManager.TaskTypeVal.KnotTying => 0.75f,
                 SubtleGameManager.TaskTypeVal.Trials => 1f,
+                SubtleGameManager.TaskTypeVal.None => 1f,
                 _ => _simulationScale
             };
             
