@@ -1,3 +1,4 @@
+from datetime import datetime
 from Client.task import Task
 from narupa.app import NarupaImdClient
 import numpy as np
@@ -20,6 +21,8 @@ class NanotubeTask(Task):
     def _run_logic_for_specific_task(self):
 
         super()._run_logic_for_specific_task()
+
+        self.timestamp_start = datetime.now()
 
         while True:
 
@@ -51,6 +54,7 @@ class NanotubeTask(Task):
                 if self.methane_end_of_entry != methane_end_of_exit:
 
                     # Methane has been threaded!
+                    self.timestamp_end = datetime.now()
                     break
 
                 self.methane_end_of_entry = None
