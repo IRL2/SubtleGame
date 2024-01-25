@@ -94,16 +94,16 @@ class PuppeteeringClient:
                 if not self.first_practice_sim:
                     # If yes, increment interaction modality
                     self.current_modality = self.order_of_interaction_modality[1]
-                    write_to_shared_state(self.narupa_client, 'modality', self.current_modality)
+                    write_to_shared_state(client=self.narupa_client, key=modality, value=self.current_modality)
 
-                current_task = NanotubeTask(self.narupa_client, simulation_indices=self.nanotube_sim)
+                current_task = NanotubeTask(client=self.narupa_client, simulation_indices=self.nanotube_sim)
                 self.first_practice_sim = False
 
             elif task == task_knot_tying:
-                current_task = KnotTyingTask(self.narupa_client, simulation_indices=self.alanine_sim)
+                current_task = KnotTyingTask(client=self.narupa_client, simulation_indices=self.alanine_sim)
 
             elif task == task_trials:
-                current_task = TrialsTask(self.narupa_client, simulation_indices=self.trials_sims,
+                current_task = TrialsTask(client=self.narupa_client, simulation_indices=self.trials_sims,
                                           simulation_names=self.trials_sim_names)
 
             else:
@@ -124,9 +124,9 @@ class PuppeteeringClient:
         indexes from server."""
 
         # update the shared state
-        write_to_shared_state(self.narupa_client, 'game-status', 'waiting')
-        write_to_shared_state(self.narupa_client, 'modality', self.current_modality)
-        write_to_shared_state(self.narupa_client, 'order-of-tasks', self.order_of_tasks)
+        write_to_shared_state(client=self.narupa_client, key=game_status, value=waiting)
+        write_to_shared_state(client=self.narupa_client, key=modality, value=self.current_modality)
+        write_to_shared_state(client=self.narupa_client, key=order_of_tasks, value=self.order_of_tasks)
 
         # get simulation indices from server
         simulations = self.narupa_client.run_command('playback/list')
@@ -136,7 +136,7 @@ class PuppeteeringClient:
         """ Update the shared state and close the client at the end of the game. """
 
         print("Closing the narupa client and ending game.")
-        write_to_shared_state(self.narupa_client, 'game-status', 'finished')
+        write_to_shared_state(client=self.narupa_client, key=game_status, value=finished)
         self.narupa_client.close()
 
     def get_simulation_info(self, sims: dict):
