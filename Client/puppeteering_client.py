@@ -5,6 +5,7 @@ from task_trials import TrialsTask
 from additional_functions import write_to_shared_state
 from standardised_values import *
 import random
+import time
 
 
 def randomise_order(lst: list):
@@ -83,7 +84,8 @@ class PuppeteeringClient:
 
         # initialise game
         self._initialise_game()
-        print('Game initialised')
+        print('Game initialised, waiting for player to connect')
+        self._wait_for_vr_client_to_connect()
 
         # loop through the tasks
         for task in self.order_of_tasks:
@@ -94,7 +96,7 @@ class PuppeteeringClient:
                 if not self.first_practice_sim:
                     # If yes, increment interaction modality
                     self.current_modality = self.order_of_interaction_modality[1]
-                    write_to_shared_state(client=self.narupa_client, key=modality, value=self.current_modality)
+                    write_to_shared_state(client=self.narupa_client, key=key_modality, value=self.current_modality)
 
                 current_task = NanotubeTask(client=self.narupa_client, simulation_indices=self.nanotube_sim)
                 self.first_practice_sim = False
@@ -124,19 +126,37 @@ class PuppeteeringClient:
         indexes from server."""
 
         # update the shared state
-        write_to_shared_state(client=self.narupa_client, key=game_status, value=waiting)
-        write_to_shared_state(client=self.narupa_client, key=modality, value=self.current_modality)
-        write_to_shared_state(client=self.narupa_client, key=order_of_tasks, value=self.order_of_tasks)
+        write_to_shared_state(client=self.narupa_client, key=key_game_status, value=waiting)
+        write_to_shared_state(client=self.narupa_client, key=key_modality, value=self.current_modality)
+        write_to_shared_state(client=self.narupa_client, key=key_order_of_tasks, value=self.order_of_tasks)
 
         # get simulation indices from server
         simulations = self.narupa_client.run_command('playback/list')
         self.get_simulation_info(simulations)
 
+    def _wait_for_vr_client_to_connect(self):
+        """ Waits for the player to be connected."""
+
+        while True:
+
+            try:
+                # check whether the value matches the desired value for the specified key
+                current_val = self.narupa_client.latest_multiplayer_values[key_player_connected]
+
+                if current_val == true:
+                    break
+
+            except KeyError:
+                # If the desired key-value pair is not in shared state yet, wait a bit before trying again
+                time.sleep(1 / 30)
+
+        write_to_shared_state(client=self.narupa_client, key=key_game_status, value=in_progress)
+
     def _finish_game(self):
         """ Update the shared state and close the client at the end of the game. """
 
         print("Closing the narupa client and ending game.")
-        write_to_shared_state(client=self.narupa_client, key=game_status, value=finished)
+        write_to_shared_state(client=self.narupa_client, key=key_game_status, value=finished)
         self.narupa_client.close()
 
     def get_simulation_info(self, sims: dict):

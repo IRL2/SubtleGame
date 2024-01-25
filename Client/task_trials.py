@@ -34,7 +34,7 @@ class TrialsTask(Task):
             # For all but the first trial, need to prepare the simulation
             if trial_num != 0:
                 super()._prepare_task(index=self.current_index)
-                write_to_shared_state(client=self.client, key=trials_timer, value=started)
+                write_to_shared_state(client=self.client, key=key_trials_timer, value=started)
 
             self._run_single_trial()
 
@@ -83,7 +83,7 @@ class TrialsTask(Task):
             time.sleep(1 / self.frequency)
 
         # update shared state
-        write_to_shared_state(client=self.client, key=trials_timer, value=finished)
+        write_to_shared_state(client=self.client, key=key_trials_timer, value=finished)
 
         # pause simulation
         self.client.run_pause()
@@ -110,7 +110,7 @@ class TrialsTask(Task):
                         was_answer_correct = False
                         print("Incorrect answer :(")
 
-                    write_to_shared_state(client=self.client, key=trials_answer, value=str(was_answer_correct))
+                    write_to_shared_state(client=self.client, key=key_trials_answer, value=str(was_answer_correct))
                     break
 
             # If no answer has been logged yet, wait for a bit before trying again

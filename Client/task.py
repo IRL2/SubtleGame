@@ -41,10 +41,10 @@ class Task:
         self.client.run_command("playback/pause")
 
         # Update task type
-        write_to_shared_state(client=self.client, key=current_task, value=self.task_type)
+        write_to_shared_state(client=self.client, key=key_current_task, value=self.task_type)
 
         # Update task status
-        write_to_shared_state(client=self.client, key=task_status, value=ready)
+        write_to_shared_state(client=self.client, key=key_task_status, value=ready)
 
         print("Task prepared")
 
@@ -86,7 +86,7 @@ class Task:
                 time.sleep(1 / 30)
 
         # Update shared state
-        write_to_shared_state(client=self.client, key=task_status, value=in_progress)
+        write_to_shared_state(client=self.client, key=key_task_status, value=in_progress)
 
     def _check_if_sim_has_blown_up(self):
         """ Resets the simulation if the kinetic energy goes above a threshold value. """
@@ -100,11 +100,11 @@ class Task:
         """Handles the finishing of the task."""
 
         # Update task status and completion time in the shared state
-        write_to_shared_state(client=self.client, key=task_status, value=finished)
+        write_to_shared_state(client=self.client, key=key_task_status, value=finished)
 
         if self.timestamp_start and self.timestamp_end:
             self.task_completion_time = self.timestamp_end - self.timestamp_start
-            write_to_shared_state(client=self.client, key=task_completion_time, value=str(self.task_completion_time))
+            write_to_shared_state(client=self.client, key=key_task_completion_time, value=str(self.task_completion_time))
 
         # Wait for player to register that the task has finished
         print('Waiting for player to confirm end of task')
