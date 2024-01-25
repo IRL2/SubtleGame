@@ -3,11 +3,11 @@ from Client.task import Task
 from narupa.app import NarupaImdClient
 from Client.knot_pull_client import KnotPullClient
 import time
+from standardised_values import *
 
 
 class KnotTyingTask(Task):
-
-    task_type = "knot-tying"
+    task_type = task_knot_tying
 
     def __init__(self, client: NarupaImdClient, simulation_indices: list):
 
@@ -62,7 +62,7 @@ class KnotTyingTask(Task):
         with alanine.modify() as selection:
             selection.renderer = {
                 'render': 'ball and stick',
-                'color' : {'type': 'particle index', 'gradient' : [
+                'color': {'type': 'particle index', 'gradient': [
                     'tomato',
                     'darkorange',
                     'gold',
