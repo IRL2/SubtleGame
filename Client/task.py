@@ -1,6 +1,11 @@
 from narupa.app import NarupaImdClient
 from additional_functions import write_to_shared_state
 import time
+from standardised_values import *
+
+player_task_status = 'Player.TaskStatus'
+player_in_progress = 'InProgress'
+player_finished = 'Finished'
 
 
 class Task:
@@ -36,10 +41,10 @@ class Task:
         self.client.run_command("playback/pause")
 
         # Update task type
-        write_to_shared_state(self.client, 'current-task', self.task_type)
+        write_to_shared_state(client=self.client, key=key_current_task, value=self.task_type)
 
         # Update task status
-        write_to_shared_state(self.client, 'task-status', 'ready')
+        write_to_shared_state(client=self.client, key=key_task_status, value=ready)
 
         print("Task prepared")
 
@@ -50,9 +55,9 @@ class Task:
 
             try:
                 # check whether the value matches the desired value for the specified key
-                current_val = self.client.latest_multiplayer_values['Player.TaskStatus']
+                current_val = self.client.latest_multiplayer_values[player_task_status]
 
-                if current_val == 'InProgress':
+                if current_val == player_in_progress:
                     break
 
             except KeyError:
@@ -81,7 +86,7 @@ class Task:
                 time.sleep(1 / 30)
 
         # Update shared state
-        write_to_shared_state(self.client, 'task-status', 'in-progress')
+        write_to_shared_state(client=self.client, key=key_task_status, value=in_progress)
 
     def _check_if_sim_has_blown_up(self):
         """ Resets the simulation if the kinetic energy goes above a threshold value. """
@@ -95,13 +100,11 @@ class Task:
         """Handles the finishing of the task."""
 
         # Update task status and completion time in the shared state
-        write_to_shared_state(client=self.client, key='task-status', value='finished')
+        write_to_shared_state(client=self.client, key=key_task_status, value=finished)
 
         if self.timestamp_start and self.timestamp_end:
             self.task_completion_time = self.timestamp_end - self.timestamp_start
-            write_to_shared_state(client=self.client,
-                                  key="task-completion-time",
-                                  value=str(self.task_completion_time))
+            write_to_shared_state(client=self.client, key=key_task_completion_time, value=str(self.task_completion_time))
 
         # Wait for player to register that the task has finished
         print('Waiting for player to confirm end of task')
@@ -109,9 +112,9 @@ class Task:
 
             try:
                 # check whether the value matches the desired value for the specified key
-                current_val = self.client.latest_multiplayer_values['Player.TaskStatus']
+                current_val = self.client.latest_multiplayer_values[player_task_status]
 
-                if current_val == 'Finished':
+                if current_val == player_finished:
                     break
 
             except KeyError:

@@ -2,12 +2,15 @@ from Client.task import Task
 from narupa.app import NarupaImdClient
 import time
 from additional_functions import write_to_shared_state
+from standardised_values import *
+
+player_trial_answer = 'Player.TrialAnswer'
 
 
 class TrialsTask(Task):
 
-    task_type = "trials"
-    trial_answer_key = 'Player.TrialAnswer'
+    task_type = task_trials
+    trial_answer_key = player_trial_answer
     correct_answer = None
     answer_correct = False
     trial_duration = 3
@@ -31,7 +34,7 @@ class TrialsTask(Task):
             # For all but the first trial, need to prepare the simulation
             if trial_num != 0:
                 super()._prepare_task(index=self.current_index)
-                write_to_shared_state(self.client, "trials-timer", "started")
+                write_to_shared_state(client=self.client, key=key_trials_timer, value=started)
 
             self._run_single_trial()
 
@@ -80,7 +83,7 @@ class TrialsTask(Task):
             time.sleep(1 / self.frequency)
 
         # update shared state
-        write_to_shared_state(self.client, "trials-timer", "finished")
+        write_to_shared_state(client=self.client, key=key_trials_timer, value=finished)
 
         # pause simulation
         self.client.run_pause()
@@ -96,7 +99,7 @@ class TrialsTask(Task):
                 if current_val is not None:
 
                     if self.correct_answer is None:
-                        was_answer_correct = "None"
+                        was_answer_correct = none
                         print("No correct answer, so doesn't matter!")
 
                     elif current_val == self.correct_answer:
@@ -107,7 +110,7 @@ class TrialsTask(Task):
                         was_answer_correct = False
                         print("Incorrect answer :(")
 
-                    write_to_shared_state(self.client, "trials-answer", was_answer_correct)
+                    write_to_shared_state(client=self.client, key=key_trials_answer, value=str(was_answer_correct))
                     break
 
             # If no answer has been logged yet, wait for a bit before trying again
