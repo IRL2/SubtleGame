@@ -15,9 +15,9 @@ class Task:
     timestamp_end = None
     task_completion_time = None
 
-    def __init__(self, client: NarupaImdClient, simulation_indices: list):
+    def __init__(self, client: NarupaImdClient, simulations: dict):
         self.client = client
-        self.sim_indices = simulation_indices
+        self.simulations = simulations
 
     def run_task(self):
 
@@ -32,7 +32,7 @@ class Task:
     def _prepare_task(self, index: int = 0):
 
         # Load first simulation
-        self.client.run_command("playback/load", index=self.sim_indices[index])
+        self._load_simulation()
 
         # Update visualisation
         self._update_visualisations()
@@ -47,6 +47,10 @@ class Task:
         write_to_shared_state(client=self.client, key=key_task_status, value=ready)
 
         print("Task prepared")
+
+    def _load_simulation(self):
+        """ Container for loading a simulation. """
+        pass
 
     def _wait_for_vr_client(self):
 
@@ -65,7 +69,7 @@ class Task:
                 time.sleep(1 / 30)
 
     def _update_visualisations(self):
-        """Container for changing the task-specific visualisation the simulation."""
+        """ Container for changing the task-specific visualisation the simulation. """
         pass
 
     def _run_logic_for_specific_task(self):

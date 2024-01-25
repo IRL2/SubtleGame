@@ -16,9 +16,9 @@ class TrialsTask(Task):
     trial_duration = 3
     frequency = 30
 
-    def __init__(self, client: NarupaImdClient, simulation_indices: list, simulation_names: list):
+    def __init__(self, client: NarupaImdClient, simulations: list, simulation_names: list):
 
-        super().__init__(client=client, simulation_indices=simulation_indices)
+        super().__init__(client=client, simulations=simulations)
 
         self.sim_names = simulation_names
         self.current_index = None
@@ -27,7 +27,7 @@ class TrialsTask(Task):
 
         super()._run_logic_for_specific_task()
 
-        for trial_num in range(0, len(self.sim_indices)):
+        for trial_num in range(0, len(self.simulations)):
 
             self.current_index = trial_num
 

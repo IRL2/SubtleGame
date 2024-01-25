@@ -21,7 +21,8 @@ def get_order_of_tasks(run_short_game: bool):
     if run_short_game:
         tasks = []
     else:
-        tasks = [task_knot_tying, task_trials]
+        #tasks = [task_knot_tying, task_trials]
+        tasks = [task_knot_tying]
 
     # randomise the order of tasks
     section_1 = randomise_order(tasks)
@@ -81,14 +82,14 @@ class PuppeteeringClient:
                     self.current_modality = self.order_of_interaction_modality[1]
                     write_to_shared_state(client=self.narupa_client, key=key_modality, value=self.current_modality)
 
-                current_task = NanotubeTask(client=self.narupa_client, simulation_indices=self.nanotube_sim)
+                current_task = NanotubeTask(client=self.narupa_client, simulations=self.nanotube_sim)
                 self.first_practice_sim = False
 
             elif task == task_knot_tying:
-                current_task = KnotTyingTask(client=self.narupa_client, simulation_indices=self.alanine_sim)
+                current_task = KnotTyingTask(client=self.narupa_client, simulations=self.alanine_sim)
 
             elif task == task_trials:
-                current_task = TrialsTask(client=self.narupa_client, simulation_indices=self.trials_sims,
+                current_task = TrialsTask(client=self.narupa_client, simulations=self.trials_sims,
                                           simulation_names=self.trials_sim_names)
 
             else:
