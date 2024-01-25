@@ -51,7 +51,12 @@ class KnotPullClient:
         self.update_positions_of_alpha_carbons()
 
         # Run edited knot_pull functions.
-        self.run_knot_pull_functions()
+        try:
+            self.run_knot_pull_functions()
+
+        except ValueError as e:
+            print(f"Caught an exception: {e}. Skipping this iteration of the knot detection.")
+            return
 
         # Check for change in knot state.
         self.check_for_change_in_knot_state(init=first_check)
