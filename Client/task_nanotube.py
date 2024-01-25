@@ -11,13 +11,17 @@ class NanotubeTask(Task):
 
     task_type = task_nanotube
 
-    def __init__(self, client: NarupaImdClient, simulation_indices: list):
+    def __init__(self, client: NarupaImdClient, simulations: dict, simulation_counter: int):
 
-        super().__init__(client, simulation_indices)
+        super().__init__(client, simulations, sim_counter=simulation_counter)
 
         self.was_methane_in_nanotube = False
         self.is_methane_in_nanotube = False
         self.methane_end_of_entry = None
+
+    def _load_simulation(self):
+        """ Loads the nanotube simulation. """
+        self.client.run_command("playback/load", index=self.simulations[0]['nanotube_langevin.xml'])
 
     def _run_logic_for_specific_task(self):
 

@@ -9,11 +9,15 @@ from standardised_values import *
 class KnotTyingTask(Task):
     task_type = task_knot_tying
 
-    def __init__(self, client: NarupaImdClient, simulation_indices: list):
+    def __init__(self, client: NarupaImdClient, simulations: dict, simulation_counter: int):
 
-        super().__init__(client, simulation_indices)
+        super().__init__(client, simulations, sim_counter=simulation_counter)
 
         self.knot_pull_client = None
+
+    def _load_simulation(self):
+        """ Loads the 17-alanine simulation. """
+        self.client.run_command("playback/load", index=self.simulations[0]['17-ala.xml'])
 
     def _run_logic_for_specific_task(self):
         """ Checks for a knot approx. 30 times per second. Uses the Knot Pull program, which is available on GitHub (

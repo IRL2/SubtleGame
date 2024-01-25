@@ -16,9 +16,9 @@ class TrialsTask(Task):
     trial_duration = 3
     frequency = 30
 
-    def __init__(self, client: NarupaImdClient, simulation_indices: list, simulation_names: list):
+    def __init__(self, client: NarupaImdClient, simulations: list, simulation_names: list):
 
-        super().__init__(client=client, simulation_indices=simulation_indices)
+        super().__init__(client=client, simulations=simulations)
 
         self.sim_names = simulation_names
         self.current_index = None
@@ -27,13 +27,13 @@ class TrialsTask(Task):
 
         super()._run_logic_for_specific_task()
 
-        for trial_num in range(0, len(self.sim_indices)):
+        for trial_num in range(0, len(self.simulations)):
 
             self.current_index = trial_num
 
             # For all but the first trial, need to prepare the simulation
             if trial_num != 0:
-                super()._prepare_task(index=self.current_index)
+                super()._prepare_task()
                 write_to_shared_state(client=self.client, key=key_trials_timer, value=started)
 
             self._run_single_trial()

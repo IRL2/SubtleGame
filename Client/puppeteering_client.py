@@ -21,7 +21,8 @@ def get_order_of_tasks(run_short_game: bool):
     if run_short_game:
         tasks = []
     else:
-        tasks = [task_knot_tying, task_trials]
+        #tasks = [task_knot_tying, task_trials]
+        tasks = [task_knot_tying]
 
     # randomise the order of tasks
     section_1 = randomise_order(tasks)
@@ -36,24 +37,6 @@ def get_order_of_tasks(run_short_game: bool):
     section_2.insert(0, task_nanotube)
 
     return section_1 + section_2
-
-
-def get_simulation_index(sims: dict, name: str, get_names: bool = False):
-    """ Retrieves a list of the simulation indices/index and checks that the list is not empty. If specified, gets the
-    simulation names and returns these as well. """
-
-    sim_indices = [idx for idx, s in enumerate(sims['simulations']) if name in s]
-    if len(sim_indices) == 0:
-        raise ValueError(f"No {name} simulation found. Have you forgotten to load the simulation on the server? "
-                         f"Does the loaded .xml contain the term {name}?")
-
-    if not get_names:
-        return sim_indices
-    else:
-        sim_names = [s for idx, s in enumerate(sims['simulations']) if name in s]
-        if len(sim_names) == 0:
-            raise ValueError(f"Names of {name} simulation not found.")
-        return sim_indices, sim_names
 
 
 class PuppeteeringClient:
@@ -74,6 +57,7 @@ class PuppeteeringClient:
         self.current_modality = self.order_of_interaction_modality[0]
 
         # Declare variables
+        self.simulations = self.narupa_client.run_command('playback/list')
         self.nanotube_sim = None
         self.alanine_sim = None
         self.trials_sims = None
@@ -85,10 +69,13 @@ class PuppeteeringClient:
         # initialise game
         self._initialise_game()
         print('Game initialised, waiting for player to connect')
+
         self._wait_for_vr_client_to_connect()
 
         # loop through the tasks
         for task in self.order_of_tasks:
+
+            simulation_counter = self.narupa_client._current_frame.values["system.simulation.counter"]
 
             if task == task_nanotube:
 
@@ -98,14 +85,16 @@ class PuppeteeringClient:
                     self.current_modality = self.order_of_interaction_modality[1]
                     write_to_shared_state(client=self.narupa_client, key=key_modality, value=self.current_modality)
 
-                current_task = NanotubeTask(client=self.narupa_client, simulation_indices=self.nanotube_sim)
+                current_task = NanotubeTask(client=self.narupa_client, simulations=self.nanotube_sim,
+                                            simulation_counter=simulation_counter)
                 self.first_practice_sim = False
 
             elif task == task_knot_tying:
-                current_task = KnotTyingTask(client=self.narupa_client, simulation_indices=self.alanine_sim)
+                current_task = KnotTyingTask(client=self.narupa_client, simulations=self.alanine_sim,
+                                             simulation_counter=simulation_counter)
 
             elif task == task_trials:
-                current_task = TrialsTask(client=self.narupa_client, simulation_indices=self.trials_sims,
+                current_task = TrialsTask(client=self.narupa_client, simulations=self.trials_sims,
                                           simulation_names=self.trials_sim_names)
 
             else:
@@ -122,17 +111,18 @@ class PuppeteeringClient:
         print('Game finished')
 
     def _initialise_game(self):
-        """ Writes the key-value pairs to the shared state that are required to begin the game. Gets simulation
-        indexes from server."""
+        """ Gets simulation indices for each task for loading onto the server. Writes the required key-value pairs to
+        the shared state for initialising the game. """
+
+        # Get simulation indices for loading onto the server
+        self.nanotube_sim = self.get_sim_indices_and_names(sim_name_nanotube)
+        self.alanine_sim = self.get_sim_indices_and_names(sim_name_knot_tying)
+        self.trials_sims = self.get_sim_indices_and_names(sim_name_trials)
 
         # update the shared state
         write_to_shared_state(client=self.narupa_client, key=key_game_status, value=waiting)
         write_to_shared_state(client=self.narupa_client, key=key_modality, value=self.current_modality)
         write_to_shared_state(client=self.narupa_client, key=key_order_of_tasks, value=self.order_of_tasks)
-
-        # get simulation indices from server
-        simulations = self.narupa_client.run_command('playback/list')
-        self.get_simulation_info(simulations)
 
     def _wait_for_vr_client_to_connect(self):
         """ Waits for the player to be connected."""
@@ -159,13 +149,16 @@ class PuppeteeringClient:
         write_to_shared_state(client=self.narupa_client, key=key_game_status, value=finished)
         self.narupa_client.close()
 
-    def get_simulation_info(self, sims: dict):
-        """ Gets the indices of the simulations, and the names of the trials simulations. Raises an error
-        if any of the lists are empty."""
+    def get_sim_indices_and_names(self, name: str):
+        """ Returns a dictionary of the name(s) of the simulation(s) with their corresponding index for loading onto
+        the server."""
 
-        self.nanotube_sim = get_simulation_index(sims, sim_name_nanotube)
-        self.alanine_sim = get_simulation_index(sims, sim_name_knot_tying)
-        self.trials_sims, self.trials_sim_names = get_simulation_index(sims, sim_name_trials, True)
+        data = [{s: idx} for idx, s in enumerate(self.simulations['simulations']) if name in s]
+        if len(data) == 0:
+            raise ValueError(f"No {name} simulation found. Have you forgotten to load the simulation on the server? "
+                             f"Does the loaded .xml contain the term {name}?")
+
+        return data
 
 
 if __name__ == '__main__':
