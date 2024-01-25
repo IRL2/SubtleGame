@@ -26,13 +26,13 @@ def get_order_of_tasks(run_short_game: bool):
     section_1 = randomise_order(tasks)
 
     # add nanotube practice task to the beginning
-    section_1.insert(0, task_practice)
+    section_1.insert(0, task_nanotube)
 
     # randomise the order of tasks
     section_2 = randomise_order(tasks)
 
     # add nanotube practice task to the beginning
-    section_2.insert(0, task_practice)
+    section_2.insert(0, task_nanotube)
 
     return section_1 + section_2
 
@@ -88,7 +88,7 @@ class PuppeteeringClient:
         # loop through the tasks
         for task in self.order_of_tasks:
 
-            if task == task_practice:
+            if task == task_nanotube:
 
                 # Check if we are in the second section
                 if not self.first_practice_sim:

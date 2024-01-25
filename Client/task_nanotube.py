@@ -4,11 +4,12 @@ from narupa.app import NarupaImdClient
 import numpy as np
 from scipy.spatial import Delaunay
 import time
+from standardised_values import *
 
 
 class NanotubeTask(Task):
 
-    task_type = "nanotube"
+    task_type = task_nanotube
 
     def __init__(self, client: NarupaImdClient, simulation_indices: list):
 

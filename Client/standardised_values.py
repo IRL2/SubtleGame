@@ -2,7 +2,7 @@
 server_name = 'SubtleGame'
 
 # Task
-task_practice = 'nanotube'
+task_nanotube = 'nanotube'
 task_knot_tying = 'knot-tying'
 task_trials = 'trials'
 task_order = 'order-of-tasks'
@@ -50,8 +50,8 @@ modality_controllers = 'controllers'
 shared_state_keys_and_vals = {
     modality: [modality_hands, modality_controllers],
     game_status: [waiting, finished],  # TODO: add in progress
-    order_of_tasks: [task_practice, task_knot_tying, task_trials],
-    current_task: [task_practice, task_knot_tying, task_trials],
+    order_of_tasks: [task_nanotube, task_knot_tying, task_trials],
+    current_task: [task_nanotube, task_knot_tying, task_trials],
     task_status: [ready, in_progress, finished],
     trials_timer: [started, finished],
     trials_answer: [none, true, false]
