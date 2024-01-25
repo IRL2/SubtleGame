@@ -33,7 +33,7 @@ class TrialsTask(Task):
 
             # For all but the first trial, need to prepare the simulation
             if trial_num != 0:
-                super()._prepare_task(index=self.current_index)
+                super()._prepare_task()
                 write_to_shared_state(client=self.client, key=key_trials_timer, value=started)
 
             self._run_single_trial()

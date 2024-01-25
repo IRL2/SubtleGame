@@ -31,7 +31,7 @@ class Task:
 
         self._finish_task()
 
-    def _prepare_task(self, index: int = 0):
+    def _prepare_task(self):
 
         # Load simulation
         self._load_simulation()
