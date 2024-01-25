@@ -69,10 +69,13 @@ class PuppeteeringClient:
         # initialise game
         self._initialise_game()
         print('Game initialised, waiting for player to connect')
+
         self._wait_for_vr_client_to_connect()
 
         # loop through the tasks
         for task in self.order_of_tasks:
+
+            simulation_counter = self.narupa_client._current_frame.values["system.simulation.counter"]
 
             if task == task_nanotube:
 
@@ -82,11 +85,13 @@ class PuppeteeringClient:
                     self.current_modality = self.order_of_interaction_modality[1]
                     write_to_shared_state(client=self.narupa_client, key=key_modality, value=self.current_modality)
 
-                current_task = NanotubeTask(client=self.narupa_client, simulations=self.nanotube_sim)
+                current_task = NanotubeTask(client=self.narupa_client, simulations=self.nanotube_sim,
+                                            simulation_counter=simulation_counter)
                 self.first_practice_sim = False
 
             elif task == task_knot_tying:
-                current_task = KnotTyingTask(client=self.narupa_client, simulations=self.alanine_sim)
+                current_task = KnotTyingTask(client=self.narupa_client, simulations=self.alanine_sim,
+                                             simulation_counter=simulation_counter)
 
             elif task == task_trials:
                 current_task = TrialsTask(client=self.narupa_client, simulations=self.trials_sims,

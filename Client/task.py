@@ -15,9 +15,11 @@ class Task:
     timestamp_end = None
     task_completion_time = None
 
-    def __init__(self, client: NarupaImdClient, simulations: dict):
+    def __init__(self, client: NarupaImdClient, simulations: dict, sim_counter: int):
+
         self.client = client
         self.simulations = simulations
+        self.simulation_counter = sim_counter
 
     def run_task(self):
 
@@ -31,8 +33,11 @@ class Task:
 
     def _prepare_task(self, index: int = 0):
 
-        # Load first simulation
+        # Load simulation
         self._load_simulation()
+        print("Waiting for simulation to load")
+        self._wait_for_simulation_to_load()
+        print("Simulation loaded")
 
         # Update visualisation
         self._update_visualisations()
@@ -47,6 +52,21 @@ class Task:
         write_to_shared_state(client=self.client, key=key_task_status, value=ready)
 
         print("Task prepared")
+
+    def _wait_for_simulation_to_load(self):
+        """ Waits for the simulation to be loaded onto the server by checking if the simulation counter has
+        incremented."""
+        while True:
+
+            try:
+                current_val = self.client._current_frame.values["system.simulation.counter"]
+                if current_val == self.simulation_counter+1:
+                    break
+
+            except KeyError:
+                time.sleep(1 / 30)
+
+        self.simulation_counter += 1
 
     def _load_simulation(self):
         """ Container for loading a simulation. """
