@@ -1,0 +1,8 @@
+- xml path: 2_buckyballs.xml
+  pdb path: 2_buckyballs.pdb
+  multipliers:
+  - 0.5
+  - 1
+  - 1.5
+  type of force constant: angle
+  type of molecule: buckyball

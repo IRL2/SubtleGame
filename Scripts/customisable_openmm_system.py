@@ -300,7 +300,7 @@ def generate_xml_simulations(yaml_file: str, run_simulation: bool):
 
 if __name__ == '__main__':
     # ---------- USER TO EDIT ---------- #
-    my_yaml_file = 'example.yaml'
+    my_yaml_file = 'my_yaml.yaml'
 
     # ----------- RUN SCRIPT ----------- #
     generate_xml_simulations(yaml_file=my_yaml_file, run_simulation=False)
