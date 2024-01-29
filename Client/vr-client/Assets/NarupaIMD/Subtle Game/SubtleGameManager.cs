@@ -65,13 +65,16 @@ namespace NarupaIMD.Subtle_Game
         #endregion
 
         #region Shared State Keys and Values
-            private enum SharedStateKey
+            public enum SharedStateKey
             {
                 TaskStatus,
                 TaskType,
                 Connected,
                 TrialAnswer,
-                HeadsetType
+                HeadsetType,
+                CentreEyeAnchor,
+                RightHandAnchor,
+                LeftHandAnchor
             }
             public enum TaskStatusVal
             {
@@ -108,7 +111,7 @@ namespace NarupaIMD.Subtle_Game
                     WriteToSharedState(SharedStateKey.HeadsetType, _hmdType);
                 }
             }
-            #endregion
+        #endregion
         
         #region Task-related
             private List<string> OrderOfTasks { get; set; }
@@ -145,15 +148,21 @@ namespace NarupaIMD.Subtle_Game
         #endregion
         
         #region Player Status
+
+        public event Action PlayerConnected;
             public bool PlayerStatus
             {
-                set
+                get => _playerStatus;
+                private set
                 {
                     if (_playerStatus == value) return;
                     _playerStatus = value;
                     WriteToSharedState(SharedStateKey.Connected, value.ToString());
+                    if (!_playerStatus) return;
+                    PlayerConnected?.Invoke();
                 }
             }
+
             private bool _playerStatus;
         #endregion
         
