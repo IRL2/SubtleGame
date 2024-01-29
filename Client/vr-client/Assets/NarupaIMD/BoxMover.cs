@@ -14,8 +14,6 @@ public class BoxMover : MonoBehaviour
     [CanBeNull] private ManipulableTransform manipulable = null;
     [CanBeNull] private IActiveManipulation leftManipulation = null;
     [CanBeNull] private IActiveManipulation rightManipulation = null;
-    private bool leftIsPressed = false;
-    private bool rightIsPressed = false;
     
     // Start is called before the first frame update
     void Start()
@@ -35,23 +33,20 @@ public class BoxMover : MonoBehaviour
             var unitScaleTransformation =
                 new UnitScaleTransformation(position, rotation);
             
-            if (!leftIsPressed)
+            if (leftManipulation == null)
             {
                 leftManipulation = manipulable?.StartGrabManipulation(unitScaleTransformation);
             }
 
             leftManipulation?.UpdateManipulatorPose(unitScaleTransformation);
-            leftIsPressed = true;
         }
         else
         {
-            if (leftIsPressed)
+            if (leftManipulation != null)
             {
                 leftManipulation?.EndManipulation();
                 leftManipulation = null;
             }
-
-            leftIsPressed = false;
         }
         //if (OVRInput.GetDown(OVRInput.Button.SecondaryHandTrigger)) {
         if (OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) > 0.5f) {
@@ -60,23 +55,20 @@ public class BoxMover : MonoBehaviour
             var unitScaleTransformation =
                 new UnitScaleTransformation(position, rotation);
             
-            if (!rightIsPressed)
+            if (rightManipulation == null)
             {
                 rightManipulation = manipulable?.StartGrabManipulation(unitScaleTransformation);
             }
 
             rightManipulation?.UpdateManipulatorPose(unitScaleTransformation);
-            rightIsPressed = true;
         }
         else
         {
-            if (rightIsPressed)
+            if (rightManipulation != null)
             {
                 rightManipulation?.EndManipulation();
                 rightManipulation = null;
             }
-
-            rightIsPressed = false;
         }
         
         manipulable?.UpdateGesturesFromActiveManipulations();
