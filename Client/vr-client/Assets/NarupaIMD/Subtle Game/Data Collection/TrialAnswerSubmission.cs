@@ -27,8 +27,8 @@ namespace NarupaIMD.Subtle_Game.UI
         private ColorInput _colorMoleculeB;
         private List<ColorInput> _colors;
 
-        private readonly Color _originalColor = new(0f, 0f, 1.0f, 1.0f);
-        private readonly Color _endColor = new(0f, 1f, 0f, 1.0f);
+        private readonly Color _startSelectionColor = new(0f, 0f, 1.0f, 1.0f);
+        private readonly Color _endSelectionColor = new(0f, 1f, 0f, 1.0f);
         private Color _targetColor;
         
         private const float ColorChangeDuration = 2.0f;
@@ -115,7 +115,7 @@ namespace NarupaIMD.Subtle_Game.UI
         private IEnumerator WaitForAnswer()
         {
             // Reset default values
-            _targetColor = _originalColor;
+            _targetColor = _startSelectionColor;
             _answer = Answer.None;
             _wasInsideLastFrameA = false;
             _wasInsideLastFrameB = false;
@@ -130,7 +130,7 @@ namespace NarupaIMD.Subtle_Game.UI
                 if (_handInsideA != _wasInsideLastFrameA && !_selectionLockB)
                 {
                     // Update the target color based on the current state
-                    _targetColor = _handInsideA ? _endColor : _originalColor;
+                    _targetColor = _handInsideA ? _endSelectionColor : _startSelectionColor;
                     
                     // Not selecting
                     if (!_handInsideA)
@@ -158,7 +158,7 @@ namespace NarupaIMD.Subtle_Game.UI
                 if (_handInsideB != _wasInsideLastFrameB  && !_selectionLockA)
                 {
                     // Update the target color based on the current state
-                    _targetColor = _handInsideB ? _endColor : _originalColor;
+                    _targetColor = _handInsideB ? _endSelectionColor : _startSelectionColor;
                     
                     // Not selecting
                     if (!_handInsideB)
@@ -210,7 +210,7 @@ namespace NarupaIMD.Subtle_Game.UI
             {
                 // Lerp the color of the molecule
                 moleculeColor.Node.Input.Value =
-                    Color.Lerp(_originalColor, _targetColor, timer / ColorChangeDuration);
+                    Color.Lerp(_startSelectionColor, _targetColor, timer / ColorChangeDuration);
 
                 // Increment the timer
                 timer += Time.deltaTime;
@@ -231,7 +231,7 @@ namespace NarupaIMD.Subtle_Game.UI
                 _answer = answer;
 
                 // Ensure end colour is the desired colour
-                moleculeColor.Node.Input.Value = _endColor;
+                moleculeColor.Node.Input.Value = _endSelectionColor;
             }
         }
 
