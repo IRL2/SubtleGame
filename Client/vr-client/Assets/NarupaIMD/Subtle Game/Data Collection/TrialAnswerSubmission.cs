@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using Narupa.Visualisation.Components.Input;
 using UnityEngine;
 
@@ -27,6 +28,7 @@ namespace NarupaIMD.Subtle_Game.UI
         private ColorInput _colorMoleculeB;
         private List<ColorInput> _colors;
 
+        private Color _originalColor;
         private readonly Color _startSelectionColor = new(0f, 0f, 1.0f, 1.0f);
         private readonly Color _endSelectionColor = new(0f, 1f, 0f, 1.0f);
         private Color _targetColor;
@@ -62,6 +64,8 @@ namespace NarupaIMD.Subtle_Game.UI
             
             _colorMoleculeA = GetColorComponent("BUC_A");
             _colorMoleculeB = GetColorComponent("BUC_B");
+
+            _originalColor = _colorMoleculeA.Node.Input.Value;
 
             centreOfGeometryA.CalculateCentreOfGeometry();
             centreOfGeometryB.CalculateCentreOfGeometry();
@@ -138,7 +142,7 @@ namespace NarupaIMD.Subtle_Game.UI
                         // Unlock selection
                         _selectionLockA = false;
                         // Reset the color of the molecule
-                        _colorMoleculeA.Node.Input.Value = _targetColor;
+                        _colorMoleculeA.Node.Input.Value = _originalColor;
                     }
                     // Selecting
                     else
@@ -166,7 +170,7 @@ namespace NarupaIMD.Subtle_Game.UI
                         // Unlock selection
                         _selectionLockB = false;
                         // Reset the color of the molecule
-                        _colorMoleculeB.Node.Input.Value = _targetColor;
+                        _colorMoleculeB.Node.Input.Value = _originalColor;
                     }
                     // Selecting
                     else
