@@ -70,7 +70,8 @@ class Task:
 
     def _load_simulation(self):
         """ Container for loading a simulation. """
-        pass
+        for sim in self.simulations[0]:
+            self.client.run_command("playback/load", index=self.simulations[0][sim])
 
     def _wait_for_vr_client(self):
 

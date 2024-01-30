@@ -15,18 +15,14 @@ class KnotTyingTask(Task):
 
         self.knot_pull_client = None
 
-    def _load_simulation(self):
-        """ Loads the 17-alanine simulation. """
-        self.client.run_command("playback/load", index=self.simulations[0]['17-ala.xml'])
-
     def _run_logic_for_specific_task(self):
         """ Checks for a knot approx. 30 times per second. Uses the Knot Pull program, which is available on GitHub (
         https://github.com/dzarmola/knot_pull)."""
 
         super()._run_logic_for_specific_task()
 
-        self.particle_names = self.client.first_frame.particle_names
-        self.residue_ids = self.client.first_frame.residue_ids
+        self.particle_names = self.client._current_frame.particle_names
+        self.residue_ids = self.client._current_frame.residue_ids
 
         self.timestamp_start = datetime.now()
 

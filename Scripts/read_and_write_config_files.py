@@ -24,18 +24,26 @@ def write_yaml_to_file(config_data: list, filename: str):
     print('Written to file successfully')
 
 
-def create_yaml(buck_bond, buck_angle):
-    test_data = [
-        {'xml path': '2_buckyballs.xml', 'pdb path': '2_buckyballs.pdb', 'multipliers': buck_bond,
-         'type of force constant': 'bond', 'type of molecule': 'buckyball'},
-        {'xml path': '2_buckyballs.xml', 'pdb path': '2_buckyballs.pdb', 'multipliers': buck_angle,
-         'type of force constant': 'angle', 'type of molecule': 'buckyball'}]
+def create_yaml(buck_bond: list = None, buck_angle: list = None):
+    if buck_bond is None and buck_angle is None:
+        print("No parameters given.")
+        return
+
+    test_data = []
+
+    if buck_bond is not None:
+        test_data.append({'xml path': '2_buckyballs.xml', 'pdb path': '2_buckyballs.pdb', 'multipliers': buck_bond,
+                          'type of force constant': 'bond', 'type of molecule': 'buckyball'})
+
+    if buck_angle is not None:
+        test_data.append({'xml path': '2_buckyballs.xml', 'pdb path': '2_buckyballs.pdb', 'multipliers': buck_angle,
+                          'type of force constant': 'angle', 'type of molecule': 'buckyball'})
 
     write_yaml_to_file(test_data, 'my_yaml')
 
 
 if __name__ == '__main__':
-    buckyball_bond_multipliers = [1]
-    buckyball_angle_multipliers = [1]
+    # buckyball_bond_multipliers = [1]
+    buckyball_angle_multipliers = [0.5, 1, 1.5]
 
-    create_yaml(buck_bond=buckyball_bond_multipliers, buck_angle=buckyball_angle_multipliers)
+    create_yaml(buck_angle=buckyball_angle_multipliers)

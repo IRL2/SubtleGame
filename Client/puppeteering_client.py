@@ -21,8 +21,7 @@ def get_order_of_tasks(run_short_game: bool):
     if run_short_game:
         tasks = []
     else:
-        #tasks = [task_knot_tying, task_trials]
-        tasks = [task_knot_tying]
+        tasks = [task_knot_tying, task_trials]
 
     # randomise the order of tasks
     section_1 = randomise_order(tasks)
@@ -95,7 +94,7 @@ class PuppeteeringClient:
 
             elif task == task_trials:
                 current_task = TrialsTask(client=self.narupa_client, simulations=self.trials_sims,
-                                          simulation_names=self.trials_sim_names)
+                                          simulation_counter=simulation_counter)
 
             else:
                 print("Current task not recognised, closing the puppeteering client.")
