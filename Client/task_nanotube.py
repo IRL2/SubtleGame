@@ -19,10 +19,6 @@ class NanotubeTask(Task):
         self.is_methane_in_nanotube = False
         self.methane_end_of_entry = None
 
-    def _load_simulation(self):
-        """ Loads the nanotube simulation. """
-        self.client.run_command("playback/load", index=self.simulations[0]['nanotube_langevin.xml'])
-
     def _run_logic_for_specific_task(self):
 
         super()._run_logic_for_specific_task()
