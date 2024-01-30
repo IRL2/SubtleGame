@@ -89,7 +89,6 @@ class PuppeteeringClient:
                 self.first_practice_sim = False
 
             elif task == task_knot_tying:
-                print(self.alanine_sim)
                 current_task = KnotTyingTask(client=self.narupa_client, simulations=self.alanine_sim,
                                              simulation_counter=simulation_counter)
 
