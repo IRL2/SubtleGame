@@ -36,14 +36,11 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
         /// </summary>
         private void StartRecordingAvatar()
         {
-            _headset.Position = centerEyeAnchor.position;
-            _headset.Rotation = centerEyeAnchor.rotation;
+            var scale = new Vector3(1f, 1f, 1f);
             
-            _rightHand.Position = rightHandAnchor.position;
-            _rightHand.Rotation = rightHandAnchor.rotation;
-            
-            _leftHand.Position = leftHandAnchor.position;
-            _leftHand.Rotation = leftHandAnchor.rotation;
+            _headset = new Transformation(centerEyeAnchor.position, centerEyeAnchor.rotation, scale);
+            _rightHand = new Transformation(rightHandAnchor.position, rightHandAnchor.rotation, scale);
+            _leftHand = new Transformation(leftHandAnchor.position, leftHandAnchor.rotation, scale);
 
             StartCoroutine(RecordAvatar());
         }
@@ -58,10 +55,9 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
             /*WriteTransformToSharedState(CenterHeadset, centerEyeAnchor);
             WriteTransformToSharedState(RightHand, rightHandAnchor);
             WriteTransformToSharedState(LeftHand, leftHandAnchor);*/
-
-            simulation.Multiplayer.Avatars.FlushLocalAvatar(); 
+            
             simulation.Multiplayer.Avatars.LocalAvatar.SetTransformations(_headset, _rightHand, _leftHand);
-
+            simulation.Multiplayer.Avatars.FlushLocalAvatar(); 
             yield return new WaitForSeconds(1f/30f);
 
         }
