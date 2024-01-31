@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Narupa.Core.Math;
 using NarupaImd;
 using UnityEngine;
 
@@ -9,25 +10,25 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
     {
         [SerializeField] 
         private Transform centerEyeAnchor;
+        private Transformation _headset;
         private const SubtleGameManager.SharedStateKey CenterHeadset = SubtleGameManager.SharedStateKey.CentreEyeAnchor;
         
         [SerializeField] 
         private Transform rightHandAnchor;
+        private Transformation _rightHand;
         private const SubtleGameManager.SharedStateKey RightHand = SubtleGameManager.SharedStateKey.RightHandAnchor;
 
         
         [SerializeField] 
         private Transform leftHandAnchor;
+        private Transformation _leftHand;
         private const SubtleGameManager.SharedStateKey LeftHand = SubtleGameManager.SharedStateKey.LeftHandAnchor;
 
         [SerializeField] private NarupaImdSimulation simulation;
-        private SubtleGameManager _subtleGameManager;
-
 
         private void Start()
         {
-            _subtleGameManager = FindObjectOfType<SubtleGameManager>();
-            _subtleGameManager.PlayerConnected += StartRecordingAvatar;
+            simulation.Multiplayer.MultiplayerJoined += StartRecordingAvatar;
         }
         
         /// <summary>
@@ -35,6 +36,15 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
         /// </summary>
         private void StartRecordingAvatar()
         {
+            _headset.Position = centerEyeAnchor.position;
+            _headset.Rotation = centerEyeAnchor.rotation;
+            
+            _rightHand.Position = rightHandAnchor.position;
+            _rightHand.Rotation = rightHandAnchor.rotation;
+            
+            _leftHand.Position = leftHandAnchor.position;
+            _leftHand.Rotation = leftHandAnchor.rotation;
+
             StartCoroutine(RecordAvatar());
         }
 
@@ -44,15 +54,16 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
         /// </summary>
         private IEnumerator RecordAvatar()
         {
-            while (_subtleGameManager.PlayerStatus)
-            {
-                WriteTransformToSharedState(CenterHeadset, centerEyeAnchor);
-                WriteTransformToSharedState(RightHand, rightHandAnchor);
-                WriteTransformToSharedState(LeftHand, leftHandAnchor);
-                yield return new WaitForSeconds(1f/30f);
-            }
+            
+            /*WriteTransformToSharedState(CenterHeadset, centerEyeAnchor);
+            WriteTransformToSharedState(RightHand, rightHandAnchor);
+            WriteTransformToSharedState(LeftHand, leftHandAnchor);*/
 
-            yield return null;
+            simulation.Multiplayer.Avatars.FlushLocalAvatar(); 
+            simulation.Multiplayer.Avatars.LocalAvatar.SetTransformations(_headset, _rightHand, _leftHand);
+
+            yield return new WaitForSeconds(1f/30f);
+
         }
         
         /// <summary>
