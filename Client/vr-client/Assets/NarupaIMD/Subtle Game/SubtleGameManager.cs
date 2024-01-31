@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Narupa.Grpc.Multiplayer;
 using NarupaImd;
+using NarupaIMD.Subtle_Game.Data_Collection;
 using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.UI;
 using UnityEngine;
@@ -47,6 +48,8 @@ namespace NarupaIMD.Subtle_Game
                     _showSimulation = value;
                     simulation.gameObject.SetActive(_showSimulation);
                     EnableInteractions = _showSimulation;
+                    if (CurrentTaskType != TaskTypeVal.Trials) return;
+                    trialAnswerSubmission.ToggleDisplayScore(_showSimulation);
                 }
             }
             private bool _showSimulation;
@@ -362,6 +365,18 @@ namespace NarupaIMD.Subtle_Game
                     GetOrderOfTasks((List<object>)val);
                     break;
                 
+                case "puppeteer.task-status":
+                    if (val.ToString() == "finished")
+                    {
+                        FinishTask();
+                    }
+
+                    if (val.ToString() == "in-progress")
+                    {
+                        ShowSimulation = true;
+                    }
+                    break;
+                
                 case "puppeteer.trials-timer":
                     switch (val.ToString())
                     {
@@ -375,18 +390,23 @@ namespace NarupaIMD.Subtle_Game
                     }
 
                     break;
-
-                case "puppeteer.task-status":
-                    if (val.ToString() == "finished")
+                
+                case "puppeteer.trials-answer":
+                    switch (val.ToString())
                     {
-                        FinishTask();
+                        // Player answered correctly
+                        case "True":
+                            trialAnswerSubmission.CurrentScore++;
+                            break;
+                        
+                        // Player answered incorrectly
+                        case "False":
+                            trialAnswerSubmission.CurrentScore--;
+                            break;
                     }
 
-                    if (val.ToString() == "in-progress")
-                    {
-                        ShowSimulation = true;
-                    }
                     break;
+                
             }
         }
 

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using Narupa.Visualisation.Components.Input;
+using NarupaIMD.Subtle_Game.UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace NarupaIMD.Subtle_Game.UI
+namespace NarupaIMD.Subtle_Game.Data_Collection
 {
     internal enum Answer
     {
@@ -43,6 +44,18 @@ namespace NarupaIMD.Subtle_Game.UI
         private bool _wasInsideLastFrameA;
         private bool _wasInsideLastFrameB;
 
+        [SerializeField] private TrialsScoreUI trialsScoreUI;
+        public int CurrentScore{
+            get => _currentScore;
+            set
+            {
+                _currentScore = value;
+                trialsScoreUI.UpdateScore(_currentScore);
+            }
+        }
+
+        private int _currentScore;
+
         private void Start()
         {
             _subtleGameManager = FindObjectOfType<SubtleGameManager>();
@@ -73,6 +86,14 @@ namespace NarupaIMD.Subtle_Game.UI
             StartCoroutine(WaitForAnswer());
         }
         
+        /// <summary>
+        /// Toggles displaying the score to the player.
+        /// </summary>
+        public void ToggleDisplayScore(bool displayScore)
+        {
+            trialsScoreUI.gameObject.SetActive(displayScore);
+        }
+
         private IEnumerator CheckMoleculeIsNotNull(string moleculeName)
         {
             var color = GetColorComponent(moleculeName);
