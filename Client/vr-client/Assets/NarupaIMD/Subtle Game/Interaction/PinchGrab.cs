@@ -232,15 +232,13 @@ namespace NarupaIMD.Subtle_Game.Interaction
         {
             for (int i = 0; i < IndexAndThumbTransforms.Count; i += 2)
             {
-                if (i + 1 < IndexAndThumbTransforms.Count)
-                {
-                    bool primaryController = i == 0 ? true : false;
-                    Transform pokePosition = i == 0 ? PokePositions[0] : PokePositions[1];
-                    PinchGrabber grabber = new PinchGrabber(IndexAndThumbTransforms[i], IndexAndThumbTransforms[i + 1], PinchTriggerDistance, MarkerTriggerDistance, 
-                        InteractableSceneScript, NarupaImdSimulationScript, InteractionLineRendererBlueprint, AtomMarkerBlueprint,
-                        GrabNewAtomSound, UseControllers, primaryController, pokePosition);
-                    pinchGrabbers.Add(grabber);
-                }
+                if (i + 1 >= IndexAndThumbTransforms.Count) continue;
+                bool primaryController = i == 0;
+                Transform pokePosition = i == 0 ? PokePositions[0] : PokePositions[1];
+                PinchGrabber grabber = new PinchGrabber(IndexAndThumbTransforms[i], IndexAndThumbTransforms[i + 1], PinchTriggerDistance, MarkerTriggerDistance, 
+                    InteractableSceneScript, NarupaImdSimulationScript, InteractionLineRendererBlueprint, AtomMarkerBlueprint,
+                    GrabNewAtomSound, UseControllers, primaryController, pokePosition);
+                pinchGrabbers.Add(grabber);
             }
         }
         #endregion
@@ -260,10 +258,8 @@ namespace NarupaIMD.Subtle_Game.Interaction
             }
             
             // Update each PinchGrabber
-            for (int grabberIndex = 0; grabberIndex < pinchGrabbers.Count; grabberIndex++)
+            foreach (var grabber in pinchGrabbers)
             {
-                #region Update Grabber
-                var grabber = pinchGrabbers[grabberIndex];
                 // Safety Call, need to check if this is necessary
                 if (grabber.Grab == null) grabber.GetNewGrab();
                 if (grabber.Grab == null)
@@ -285,9 +281,7 @@ namespace NarupaIMD.Subtle_Game.Interaction
 
                 // If the grabber is pinching, we want to apply a force to the atom it hase grabbed. If it is not pinching, we still need to send an interaction but with ForceScale 0
                 UpdateGrab(grabber);
-                #endregion
-
-                #region Update Interaction
+                
                 // Create a new particle interaction
                 ParticleInteraction interaction = new ParticleInteraction
                 {
@@ -301,7 +295,6 @@ namespace NarupaIMD.Subtle_Game.Interaction
 
                 // Update the interaction in the NarupaImdSimulationScript
                 NarupaImdSimulationScript.Interactions.UpdateValue(grabber.Grab.Id, interaction);
-                #endregion
 
                 // Update the LineRenderer and Atom marker such that both highlight the atom this grabber is currently interacting with or would interact with if pinched.
                 UpdateAtomMarkerAndLineRenderer(grabber, interaction);
@@ -324,6 +317,18 @@ namespace NarupaIMD.Subtle_Game.Interaction
                 // Disable interaction line renderer
                 grabber.LineRenderer.enabled = false;
             }
+            
+            // Wipe interactions
+            var keys = NarupaImdSimulationScript.Interactions.Keys;
+            
+            foreach (var key in keys)
+            {
+                if (key.Contains("interaction."))
+                {
+                    NarupaImdSimulationScript.Interactions.RemoveValue(key);
+                }
+            }
+
         }
     
         /// <summary>
