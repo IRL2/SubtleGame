@@ -125,7 +125,7 @@ namespace Narupa.Grpc.Multiplayer
                 foreach (var (key, value) in src.ChangedKeys.Fields)
                     dest.ChangedKeys.Fields[key] = value;
             }
-
+        
             MultiplayerJoined?.Invoke();
         }
 
