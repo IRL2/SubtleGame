@@ -141,6 +141,8 @@ namespace NarupaIMD.Subtle_Game
                 }
             }
             private TaskStatusVal _taskStatus;
+
+            [SerializeField] private Confetti confetti;
         #endregion
 
         #region Interaction modality
@@ -181,6 +183,8 @@ namespace NarupaIMD.Subtle_Game
             
         private void Start()
         {
+            confetti.gameObject.SetActive(false);
+            
             // Find the Canvas Manager
             _canvasManager = FindObjectOfType<CanvasManager>();
             
@@ -314,6 +318,9 @@ namespace NarupaIMD.Subtle_Game
         {
             // Update task status
             TaskStatus = TaskStatusVal.Finished;
+            
+            confetti.gameObject.SetActive(true);
+            confetti.StartCelebrations();
 
             // Hide simulation
             ShowSimulation = false;

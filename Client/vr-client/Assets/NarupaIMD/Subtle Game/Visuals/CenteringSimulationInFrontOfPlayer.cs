@@ -1,6 +1,7 @@
 using Narupa.Visualisation;
 using NarupaIMD.Subtle_Game.UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game.Visuals
 {
@@ -33,6 +34,11 @@ namespace NarupaIMD.Subtle_Game.Visuals
         /// The center of the xy plane of the simulation box.
         /// </summary>
         [SerializeField] private CenterXYPlane centerXYPlane;
+        
+        /// <summary>
+        /// The center of the xy plane of the simulation box.
+        /// </summary>
+        [FormerlySerializedAs("centerXZPlane")] [SerializeField] private PointOfParticleEmission pointOfParticleEmission;
 
         /// <summary>
         /// Manager of the Subtle Game.
@@ -58,6 +64,7 @@ namespace NarupaIMD.Subtle_Game.Visuals
             SetSimulationScale();
             PutSimulationInFrontOfPlayer();
             centerXYPlane.UpdatePosition();
+            pointOfParticleEmission.UpdatePosition();
         }
         
         /// <summary>
