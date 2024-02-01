@@ -1,4 +1,6 @@
+using Narupa.Frontend.XR;
 using Narupa.Visualisation;
+using NarupaIMD.Subtle_Game.UI;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.Visuals
@@ -16,7 +18,7 @@ namespace NarupaIMD.Subtle_Game.Visuals
         /// </summary>
         [SerializeField]
         private Transform simulation;
-        
+
         /// <summary>
         /// The center eye anchor of the OVR Camera Rig.
         /// </summary>
@@ -32,7 +34,7 @@ namespace NarupaIMD.Subtle_Game.Visuals
         /// Manager of the Subtle Game.
         /// </summary>
         public SubtleGameManager subtleGameManager;
-        
+
         private void OnEnable()
         {
             simulationBox.SimulationBoxUpdated += UpdateSimulationBox;

@@ -59,6 +59,7 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
         private void Start()
         {
             _subtleGameManager = FindObjectOfType<SubtleGameManager>();
+            ToggleDisplayScore(false);
         }
 
         /// <summary>
@@ -87,11 +88,12 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
         }
         
         /// <summary>
-        /// Toggles displaying the score to the player.
+        /// Toggles displaying the score to the player. Resets the score to 0 if starting the task.
         /// </summary>
         public void ToggleDisplayScore(bool displayScore)
         {
             trialsScoreUI.gameObject.SetActive(displayScore);
+            if (displayScore) CurrentScore = 0;
         }
 
         private IEnumerator CheckMoleculeIsNotNull(string moleculeName)
