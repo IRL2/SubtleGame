@@ -6,7 +6,7 @@ namespace NarupaIMD.Subtle_Game.UI
     public class TrialsScoreUI: MonoBehaviour
     {
         public TMP_Text bodyText;
-        [SerializeField] private TrialsScorePosition desiredPosition;
+        [SerializeField] private CenterXYPlane centerXYPlane;
 
         /// <summary>
         /// Updates the score.
@@ -19,9 +19,9 @@ namespace NarupaIMD.Subtle_Game.UI
         /// <summary>
         /// Sets the position of the score.
         /// </summary>
-        private void OnEnable()
+        private void Update()
         {
-            transform.position = desiredPosition.transform.position;
+            transform.position = centerXYPlane.transform.position;
         }
     }
 }

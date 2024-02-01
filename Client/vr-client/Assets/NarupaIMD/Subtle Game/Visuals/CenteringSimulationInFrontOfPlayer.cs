@@ -1,4 +1,3 @@
-using Narupa.Frontend.XR;
 using Narupa.Visualisation;
 using NarupaIMD.Subtle_Game.UI;
 using UnityEngine;
@@ -29,6 +28,11 @@ namespace NarupaIMD.Subtle_Game.Visuals
         /// The desired scale of the lengths of the simulation box.
         /// </summary>
         private float _simulationScale;
+        
+        /// <summary>
+        /// The center of the xy plane of the simulation box.
+        /// </summary>
+        [SerializeField] private CenterXYPlane centerXYPlane;
 
         /// <summary>
         /// Manager of the Subtle Game.
@@ -53,6 +57,7 @@ namespace NarupaIMD.Subtle_Game.Visuals
         {
             SetSimulationScale();
             PutSimulationInFrontOfPlayer();
+            centerXYPlane.UpdatePosition();
         }
         
         /// <summary>

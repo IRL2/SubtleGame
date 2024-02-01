@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.UI
 {
-    public class TrialsScorePosition : MonoBehaviour
+    public class CenterXYPlane : MonoBehaviour
     {
         [SerializeField] private BoxVisualiser simulationBox;
         
         /// <summary>
-        /// Sets the position at the center of the xy plane of the simulation box.
+        /// Sets the position of this game object to the center of the xy plane of the simulation box.
         /// </summary>
-        public void Update()
+        public void UpdatePosition()
         {
             transform.localPosition = new Vector3(
                 simulationBox.xMagnitude * 0.5f, 
