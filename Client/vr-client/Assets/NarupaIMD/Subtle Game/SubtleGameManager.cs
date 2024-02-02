@@ -312,17 +312,20 @@ namespace NarupaIMD.Subtle_Game
         }
 
         /// <summary>
-        /// Finished the current task by setting the shared state value, hiding the simulation, preparing the next task,
-        /// and loading the outro menu. This is called when the puppeteering client sets the task status to finished.
+        /// Starts celebrations and calls the function to perform everything that is needed to be done to finish the
+        /// task. This is called when the puppeteering client sets the task status to finished.
         /// </summary>
         private void FinishTask()
         {
             confetti.gameObject.SetActive(true);
             confetti.StartCelebrations();
-
             StartCoroutine(DelayEndingTask());
         }
         
+        /// <summary>
+        /// Finishes the current task by setting the shared state value, hiding the simulation, preparing the next task,
+        /// and loading the outro menu.
+        /// </summary>
         private IEnumerator DelayEndingTask()
         {
             // Wait for 1 second
@@ -417,6 +420,7 @@ namespace NarupaIMD.Subtle_Game
                         
                         // Player answered incorrectly
                         case "False":
+                            Debug.LogWarning("incorrect score");
                             trialAnswerSubmission.CurrentScore--;
                             break;
                     }
