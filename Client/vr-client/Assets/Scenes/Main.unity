@@ -3674,9 +3674,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4787139029640928072, guid: b4150353d52807043b217abe87a111e4, type: 3}
       insertIndex: 2
       addedObject: {fileID: 1819504325}
-    - targetCorrespondingSourceObject: {fileID: 2075125420025657282, guid: b4150353d52807043b217abe87a111e4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: b4150353d52807043b217abe87a111e4, type: 3}
 --- !u!224 &489367252 stripped
 RectTransform:
@@ -4345,7 +4342,7 @@ GameObject:
   - component: {fileID: 627743195}
   - component: {fileID: 627743194}
   m_Layer: 0
-  m_Name: Center of xz plane
+  m_Name: Particle Emission
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4379,7 +4376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simulationBox: {fileID: 543794535019733083}
-  simulation: {fileID: 0}
+  simulation: {fileID: 1265723033}
 --- !u!23 &627743195
 MeshRenderer:
   m_ObjectHideFlags: 0
