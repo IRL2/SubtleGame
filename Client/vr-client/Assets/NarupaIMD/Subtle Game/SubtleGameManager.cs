@@ -309,6 +309,7 @@ namespace NarupaIMD.Subtle_Game
         {
             if (confetti.isActiveAndEnabled)
             {
+                confetti.StopConfetti();
                 confetti.gameObject.SetActive(false);
             } 
             

@@ -16,7 +16,12 @@ namespace NarupaIMD.Subtle_Game.Visuals
             transform.position = desiredPosition.position;
             StartCoroutine(ConfettiBurst());
         }
-        
+
+        public void StopConfetti()
+        {
+            StopCoroutine(ConfettiBurst());
+        }
+
         private IEnumerator ConfettiBurst()
         {
             confetti.Play();
