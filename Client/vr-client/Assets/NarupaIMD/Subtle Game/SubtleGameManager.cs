@@ -307,6 +307,11 @@ namespace NarupaIMD.Subtle_Game
         /// </summary>
         public void StartTask()
         {
+            if (confetti.isActiveAndEnabled)
+            {
+                confetti.gameObject.SetActive(false);
+            } 
+            
             TaskStatus = TaskStatusVal.InProgress;
             _canvasManager.HideCanvas();
         }
