@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -325,21 +324,10 @@ namespace NarupaIMD.Subtle_Game
         {
             confetti.gameObject.SetActive(true);
             confetti.StartCelebrations();
-            StartCoroutine(DelayEndingTask());
-        }
-        
-        /// <summary>
-        /// Finishes the current task by setting the shared state value, hiding the simulation, preparing the next task,
-        /// and loading the outro menu.
-        /// </summary>
-        private IEnumerator DelayEndingTask()
-        {
-            // Wait for 1 second
-            yield return new WaitForSeconds(1f);
             
             // Update task status
             TaskStatus = TaskStatusVal.Finished;
-            
+
             // Hide simulation
             ShowSimulation = false;
                         
@@ -349,7 +337,7 @@ namespace NarupaIMD.Subtle_Game
             // Load outro menu
             _canvasManager.LoadOutroToTask();
         }
-        
+
         /// <summary>
         /// Disables interactions with the simulation and requests answer from player.
         /// </summary>
