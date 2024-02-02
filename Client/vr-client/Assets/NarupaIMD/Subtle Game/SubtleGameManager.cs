@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -316,12 +317,20 @@ namespace NarupaIMD.Subtle_Game
         /// </summary>
         private void FinishTask()
         {
-            // Update task status
-            TaskStatus = TaskStatusVal.Finished;
-            
             confetti.gameObject.SetActive(true);
             confetti.StartCelebrations();
 
+            StartCoroutine(DelayEndingTask());
+        }
+        
+        private IEnumerator DelayEndingTask()
+        {
+            // Wait for 1 second
+            yield return new WaitForSeconds(1f);
+            
+            // Update task status
+            TaskStatus = TaskStatusVal.Finished;
+            
             // Hide simulation
             ShowSimulation = false;
                         
