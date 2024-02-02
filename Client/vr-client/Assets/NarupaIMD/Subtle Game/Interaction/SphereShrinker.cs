@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using NarupaIMD.Subtle_Game.Canvas;
 using NarupaIMD.Subtle_Game.UI;
+using NarupaIMD.Subtle_Game.UI.Canvas;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.Visuals

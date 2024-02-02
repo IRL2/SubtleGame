@@ -5,9 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Narupa.Grpc.Multiplayer;
 using NarupaImd;
+using NarupaIMD.Subtle_Game.Canvas;
 using NarupaIMD.Subtle_Game.Data_Collection;
 using NarupaIMD.Subtle_Game.Interaction;
-using NarupaIMD.Subtle_Game.UI;
+using NarupaIMD.Subtle_Game.Visuals;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game

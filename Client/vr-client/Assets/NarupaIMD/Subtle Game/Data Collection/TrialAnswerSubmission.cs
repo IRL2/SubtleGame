@@ -2,7 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using Narupa.Visualisation.Components.Input;
+using NarupaIMD.Subtle_Game.Canvas;
+using NarupaIMD.Subtle_Game.Simulation;
 using NarupaIMD.Subtle_Game.UI;
+using NarupaIMD.Subtle_Game.UI.Canvas;
+using NarupaIMD.Subtle_Game.UI.Simulation;
 using UnityEngine;
 using UnityEngine.Serialization;
 

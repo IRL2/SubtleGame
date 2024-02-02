@@ -1,7 +1,7 @@
 using Narupa.Visualisation;
 using UnityEngine;
 
-namespace NarupaIMD.Subtle_Game.UI
+namespace NarupaIMD.Subtle_Game.UI.Simulation
 {
     public class CenterXYPlane : MonoBehaviour
     {

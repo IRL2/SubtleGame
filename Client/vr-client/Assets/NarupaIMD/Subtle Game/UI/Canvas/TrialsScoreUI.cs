@@ -1,7 +1,8 @@
-﻿using TMPro;
+﻿using NarupaIMD.Subtle_Game.UI.Simulation;
+using TMPro;
 using UnityEngine;
 
-namespace NarupaIMD.Subtle_Game.UI
+namespace NarupaIMD.Subtle_Game.Canvas
 {
     public class TrialsScoreUI: MonoBehaviour
     {

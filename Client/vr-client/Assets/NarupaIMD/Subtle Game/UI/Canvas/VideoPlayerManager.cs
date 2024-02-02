@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Video;
 
-namespace NarupaIMD.Subtle_Game.UI
+namespace NarupaIMD.Subtle_Game.Canvas
 {
     public class VideoPlayerManager : MonoBehaviour
     {

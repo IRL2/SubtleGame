@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NarupaIMD.Subtle_Game.UI
+namespace NarupaIMD.Subtle_Game.Canvas
 {
     /// <summary>
     /// Class <c>CanvasModifier</c> used to modify GameObjects on a menu. 

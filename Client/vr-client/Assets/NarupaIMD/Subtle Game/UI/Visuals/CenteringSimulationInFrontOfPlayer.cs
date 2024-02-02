@@ -1,5 +1,5 @@
 using Narupa.Visualisation;
-using NarupaIMD.Subtle_Game.UI;
+using NarupaIMD.Subtle_Game.UI.Simulation;
 using UnityEngine;
 using UnityEngine.Serialization;
 

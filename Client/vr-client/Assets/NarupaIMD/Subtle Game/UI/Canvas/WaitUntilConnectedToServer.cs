@@ -1,6 +1,7 @@
+using NarupaIMD.Subtle_Game.Canvas;
 using UnityEngine;
 
-namespace NarupaIMD.Subtle_Game.UI
+namespace NarupaIMD.Subtle_Game.UI.Canvas
 {
     public class WaitUntilConnectedToServer : MonoBehaviour
     {

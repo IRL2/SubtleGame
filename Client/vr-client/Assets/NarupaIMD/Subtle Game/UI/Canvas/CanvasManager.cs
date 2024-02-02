@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace NarupaIMD.Subtle_Game.UI
+namespace NarupaIMD.Subtle_Game.Canvas
 {
     // Name of possible task canvases
     public enum CanvasType

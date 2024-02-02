@@ -2,7 +2,7 @@
 using NarupaImd;
 using UnityEngine;
 
-namespace NarupaIMD.Subtle_Game.UI
+namespace NarupaIMD.Subtle_Game.Visuals
 {
     public class PointOfParticleEmission : MonoBehaviour
     {

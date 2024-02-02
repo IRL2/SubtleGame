@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace NarupaIMD.Subtle_Game.UI
+namespace NarupaIMD.Subtle_Game.Canvas
 {
     /// <summary>
     /// Class <c>ButtonControllers</c> used to controls buttons on menu canvases. All button presses have a short time
