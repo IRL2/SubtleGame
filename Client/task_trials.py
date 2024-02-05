@@ -14,7 +14,6 @@ def _calculate_correct_answer(name: str, multiplier: float):
     Calculates the correct answer for the current trial. If the molecules are identical the correct answer will be None,
     else the correct answer is the most rigid molecule.
     """
-    # Get multiplier
 
     # Molecules are identical, there is no correct answer
     if multiplier == 1:
@@ -62,7 +61,8 @@ class TrialsTask(Task):
     def sort_simulations(self):
         """ Sorts the buckyball simulations that have been loaded onto the server. Randomly chooses one of the two
         available simulations for each value of the multiplier and sets the name, server index and correct answer
-        corresponding to each of the chosen simulations in the order that they will be presented to the player."""
+        corresponding to each of the chosen simulations in the order that they will be presented to the player. Gets
+        the most extremely modified systems and saves those for the practice trials. """
 
         names = []
         multipliers = []
@@ -144,7 +144,7 @@ class TrialsTask(Task):
                                          sim_correct_answers_least_rigid))
 
     def run_task(self):
-        """ Loop through the simulation indices and runs a psychophysical trial for each one. """
+        """ Runs practice trials and then trials proper. """
 
         # Randomise the order in which the player will get the most and least rigid simulations
         practice_sims = randomise_order([self.sims_most_rigid, self.sims_least_rigid])
