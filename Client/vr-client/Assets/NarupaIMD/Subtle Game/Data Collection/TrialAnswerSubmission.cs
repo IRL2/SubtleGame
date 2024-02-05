@@ -34,8 +34,8 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
         private List<ColorInput> _colors;
 
         private Color _originalColor;
-        private readonly Color _startSelectionColor = new(0f, 0f, 1.0f, 1.0f);
-        private readonly Color _endSelectionColor = new(0f, 1f, 0f, 1.0f);
+        private readonly Color _startSelectionColor = new (1,0.39f,0.016f, 1f);
+        private readonly Color _endSelectionColor = new(0f, 0f, 0.8f, 1f);
         private Color _targetColor;
         
         private const float ColorChangeDuration = 2.0f;
@@ -92,12 +92,19 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
         }
         
         /// <summary>
-        /// Toggles displaying the score to the player. Resets the score to 0 if starting the task.
+        /// Toggles displaying the score to the player.
         /// </summary>
         public void ToggleDisplayScore(bool displayScore)
         {
             trialsScoreUI.gameObject.SetActive(displayScore);
-            if (displayScore) CurrentScore = 0;
+        }
+        
+        /// <summary>
+        /// Resets the score to 0.
+        /// </summary>
+        public void ResetScore()
+        {
+            CurrentScore = 0;
         }
 
         private IEnumerator CheckMoleculeIsNotNull(string moleculeName)

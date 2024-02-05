@@ -315,6 +315,11 @@ namespace NarupaIMD.Subtle_Game
             
             TaskStatus = TaskStatusVal.InProgress;
             _canvasManager.HideCanvas();
+
+            if (CurrentTaskType == TaskTypeVal.Trials)
+            {
+                trialAnswerSubmission.ResetScore();
+            }
         }
 
         /// <summary>
@@ -410,12 +415,13 @@ namespace NarupaIMD.Subtle_Game
                     {
                         // Player answered correctly
                         case "True":
+                            Debug.LogWarning("correct answer");
                             trialAnswerSubmission.CurrentScore++;
                             break;
                         
                         // Player answered incorrectly
                         case "False":
-                            Debug.LogWarning("incorrect score");
+                            Debug.LogWarning("incorrect answer");
                             trialAnswerSubmission.CurrentScore--;
                             break;
                     }

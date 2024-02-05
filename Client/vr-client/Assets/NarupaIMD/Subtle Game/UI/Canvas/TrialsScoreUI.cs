@@ -1,4 +1,5 @@
-﻿using NarupaIMD.Subtle_Game.UI.Simulation;
+﻿using NarupaIMD.Subtle_Game.Data_Collection;
+using NarupaIMD.Subtle_Game.UI.Simulation;
 using TMPro;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
     {
         public TMP_Text bodyText;
         [SerializeField] private CenterXYPlane centerXYPlane;
+        [SerializeField] private TrialAnswerSubmission trialAnswerSubmission;
 
         /// <summary>
         /// Updates the score.

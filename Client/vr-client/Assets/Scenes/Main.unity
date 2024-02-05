@@ -5126,7 +5126,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1970046014712547868, guid: c60403ae780ade4418a8e95fed2ad997, type: 3}
       propertyPath: m_fontSize
-      value: 70
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1970046014712547868, guid: c60403ae780ade4418a8e95fed2ad997, type: 3}
       propertyPath: m_margin.x
@@ -5138,7 +5138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1970046014712547868, guid: c60403ae780ade4418a8e95fed2ad997, type: 3}
       propertyPath: m_fontSizeBase
-      value: 70
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2795614246044625176, guid: c60403ae780ade4418a8e95fed2ad997, type: 3}
       propertyPath: m_Enabled
@@ -5160,13 +5160,21 @@ PrefabInstance:
       propertyPath: desiredPosition
       value: 
       objectReference: {fileID: 1692057923}
+    - target: {fileID: 2939426002813200769, guid: c60403ae780ade4418a8e95fed2ad997, type: 3}
+      propertyPath: trialAnswerSubmission
+      value: 
+      objectReference: {fileID: 1364228087}
+    - target: {fileID: 4990023973907477760, guid: c60403ae780ade4418a8e95fed2ad997, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4990023973907477760, guid: c60403ae780ade4418a8e95fed2ad997, type: 3}
       propertyPath: m_fontSize
-      value: 70
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4990023973907477760, guid: c60403ae780ade4418a8e95fed2ad997, type: 3}
       propertyPath: m_fontSizeBase
-      value: 70
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5308964681253918110, guid: c60403ae780ade4418a8e95fed2ad997, type: 3}
       propertyPath: m_Name
@@ -5259,6 +5267,10 @@ PrefabInstance:
     - target: {fileID: 8540910212791418983, guid: c60403ae780ade4418a8e95fed2ad997, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 123
+      objectReference: {fileID: 0}
+    - target: {fileID: 8577809363409414588, guid: c60403ae780ade4418a8e95fed2ad997, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -124
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
