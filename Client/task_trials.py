@@ -193,10 +193,13 @@ class TrialsTask(Task):
     def _prepare_trial(self, name, server_index, correct_answer):
 
         # Set variables
-        # TODO: write these values to the shared state
         self.sim_name = name
         self.sim_index = server_index
         self.correct_answer = correct_answer
+
+        # Update shared state
+        write_to_shared_state(client=self.client, key=key_simulation_name, value=self.sim_name)
+        write_to_shared_state(client=self.client, key=key_simulation_server_index, value=self.sim_index)
 
         # Prepare task and wait for player to be ready
         self._prepare_task()

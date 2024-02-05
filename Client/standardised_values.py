@@ -24,6 +24,8 @@ key_task_status = 'task-status'
 key_trials_timer = 'trials-timer'
 key_trials_answer = 'trials-answer'
 key_task_completion_time = 'task-completion-time'
+key_simulation_name = 'simulation-name'
+key_simulation_server_index = 'simulation-server-index'
 
 # ---------------- #
 # VALUES
@@ -42,7 +44,6 @@ false = 'False'
 modality_hands = 'hands'
 modality_controllers = 'controllers'
 
-
 # ---------------- #
 # PLAYER
 # ---------------- #
@@ -60,4 +61,4 @@ shared_state_keys_and_vals = {
     key_trials_timer: [started, finished],
     key_trials_answer: [none, true, false]
 }
-keys_with_unrestricted_vals = [key_task_completion_time]
+keys_with_unrestricted_vals = [key_task_completion_time, key_simulation_name, key_simulation_server_index]
