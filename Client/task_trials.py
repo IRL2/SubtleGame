@@ -56,7 +56,6 @@ class TrialsTask(Task):
 
         self.sims_most_rigid = []
         self.sims_least_rigid = []
-        self.practice_trials_score_counter = 0
 
         self.sort_simulations()
 
@@ -137,23 +136,23 @@ class TrialsTask(Task):
                     sim_indices_least_rigid.append(sim[2])
                     sim_correct_answers_least_rigid.append(sim[3])
 
-        self.sims_most_rigid = list(zip(sim_names_most_rigid, sim_indices_most_rigid, sim_correct_answers_most_rigid))
-        self.sims_least_rigid = list(zip(sim_names_least_rigid, sim_indices_least_rigid, sim_correct_answers_least_rigid))
+        self.sims_most_rigid = list(zip(sim_names_most_rigid,
+                                        sim_indices_most_rigid,
+                                        sim_correct_answers_most_rigid))
+        self.sims_least_rigid = list(zip(sim_names_least_rigid,
+                                         sim_indices_least_rigid,
+                                         sim_correct_answers_least_rigid))
 
     def run_task(self):
         """ Loop through the simulation indices and runs a psychophysical trial for each one. """
-
-        # PRACTICE TRIALS HERE
 
         # Randomise the order in which the player will get the most and least rigid simulations
         practice_sims = randomise_order([self.sims_most_rigid, self.sims_least_rigid])
 
         write_to_shared_state(client=self.client, key=key_task_status, value=practice_in_progress)
 
-        # Loop through most and least rigid simulations
+        # Run practice trials
         for i in range(len(practice_sims)):
-
-            self.practice_trials_score_counter = 0
 
             # Repeat until player gets answer correct
             while true:
@@ -163,19 +162,12 @@ class TrialsTask(Task):
 
                 for n in range(len(practice_sims[i])):
 
-                    # Set variables
-                    self.sim_name = sims[n][0]
-                    self.sim_index = sims[n][1]
-                    self.correct_answer = sims[n][2]
+                    self._prepare_trial(name=sims[n][0],
+                                        server_index=sims[n][1],
+                                        correct_answer=sims[n][2])
 
-                    # Prepare task and wait for player to be ready
-                    self._prepare_task()
-                    self._wait_for_vr_client()
-
-                    # Run task
                     self._run_logic_for_specific_task()
 
-                    # Break if player got correct answer
                     if self.was_answer_correct == true:
                         break
 
@@ -183,20 +175,13 @@ class TrialsTask(Task):
                     print(f"practice number {i+1} finished!")
                     break
 
-        # Start looping through trials
+        # Run trials proper
         for trial_num in range(0, len(self.ordered_simulation_indices)):
 
-            # Set variables
-            # TODO: write these values to the shared state
-            self.sim_name = self.ordered_simulation_names[trial_num]
-            self.sim_index = self.ordered_simulation_indices[trial_num]
-            self.correct_answer = self.ordered_correct_answers[trial_num]
+            self._prepare_trial(name=self.ordered_simulation_names[trial_num],
+                                server_index=self.ordered_simulation_indices[trial_num],
+                                correct_answer=self.ordered_correct_answers[trial_num])
 
-            # Prepare task and wait for player to be ready
-            self._prepare_task()
-            self._wait_for_vr_client()
-
-            # Update task status on the first trial
             if trial_num == 0:
                 write_to_shared_state(client=self.client, key=key_task_status, value=in_progress)
 
@@ -204,6 +189,18 @@ class TrialsTask(Task):
 
         # End trials
         self._finish_task()
+
+    def _prepare_trial(self, name, server_index, correct_answer):
+
+        # Set variables
+        # TODO: write these values to the shared state
+        self.sim_name = name
+        self.sim_index = server_index
+        self.correct_answer = correct_answer
+
+        # Prepare task and wait for player to be ready
+        self._prepare_task()
+        self._wait_for_vr_client()
 
     def _run_logic_for_specific_task(self):
         """ Runs a psychophysics trial. Plays the simulation for the allotted time and pauses it once the timer is up.
