@@ -1,7 +1,7 @@
 from Client.task import Task
 from narupa.app import NarupaImdClient
 import time
-from additional_functions import write_to_shared_state
+from additional_functions import write_to_shared_state, randomise_order
 from standardised_values import *
 import random
 
@@ -52,7 +52,11 @@ class TrialsTask(Task):
         self.sim_index = None
         self.sim_name = None
         self.correct_answer = None
-        self.answer_correct = False
+        self.was_answer_correct = False
+
+        self.sims_most_rigid = []
+        self.sims_least_rigid = []
+        self.practice_trials_score_counter = 0
 
         self.sort_simulations()
 
@@ -66,6 +70,14 @@ class TrialsTask(Task):
         indexes = []
         correct_answers = []
         number_of_simulations = len(self.simulations)
+
+        sim_indices_least_rigid = []
+        sim_names_least_rigid = []
+        sim_correct_answers_least_rigid = []
+
+        sim_indices_most_rigid = []
+        sim_names_most_rigid = []
+        sim_correct_answers_most_rigid = []
 
         # Loop through each simulation
         for n in range(number_of_simulations):
@@ -93,6 +105,10 @@ class TrialsTask(Task):
         # Shuffle the order of multipliers
         random.shuffle(unique_multipliers)
 
+        # Get simulations with maximum rigidity differences
+        max_multiplier = max(unique_multipliers)
+        min_multiplier = min(unique_multipliers)
+
         # Loop through multipliers in the order that they will be presented to the player
         for i in range(len(unique_multipliers)):
 
@@ -103,12 +119,69 @@ class TrialsTask(Task):
             chosen_sim = random.choice(corresponding_sims)
 
             # Save data for the chosen simulation
+            self.ordered_simulation_names.append(chosen_sim[0])
             self.ordered_simulation_indices.append(chosen_sim[2])
             self.ordered_correct_answers.append(chosen_sim[3])
-            self.ordered_simulation_names.append(chosen_sim[0])
+
+            # Get simulations with maximum rigidities
+            if unique_multipliers[i] == max_multiplier:
+                for sim in corresponding_sims:
+                    sim_names_most_rigid.append(sim[0])
+                    sim_indices_most_rigid.append(sim[2])
+                    sim_correct_answers_most_rigid.append(sim[3])
+
+            # Get simulations with minimum rigidities
+            if unique_multipliers[i] == min_multiplier:
+                for sim in corresponding_sims:
+                    sim_names_least_rigid.append(sim[0])
+                    sim_indices_least_rigid.append(sim[2])
+                    sim_correct_answers_least_rigid.append(sim[3])
+
+        self.sims_most_rigid = list(zip(sim_names_most_rigid, sim_indices_most_rigid, sim_correct_answers_most_rigid))
+        self.sims_least_rigid = list(zip(sim_names_least_rigid, sim_indices_least_rigid, sim_correct_answers_least_rigid))
 
     def run_task(self):
         """ Loop through the simulation indices and runs a psychophysical trial for each one. """
+
+        # PRACTICE TRIALS HERE
+
+        # Randomise the order in which the player will get the most and least rigid simulations
+        practice_sims = randomise_order([self.sims_most_rigid, self.sims_least_rigid])
+
+        write_to_shared_state(client=self.client, key=key_task_status, value=practice_in_progress)
+
+        # Loop through most and least rigid simulations
+        for i in range(len(practice_sims)):
+
+            self.practice_trials_score_counter = 0
+
+            # Repeat until player gets answer correct
+            while true:
+
+                # random the order of the sims in which A is modified and B is modified
+                sims = randomise_order(practice_sims[i])
+
+                for n in range(len(practice_sims[i])):
+
+                    # Set variables
+                    self.sim_name = sims[n][0]
+                    self.sim_index = sims[n][1]
+                    self.correct_answer = sims[n][2]
+
+                    # Prepare task and wait for player to be ready
+                    self._prepare_task()
+                    self._wait_for_vr_client()
+
+                    # Run task
+                    self._run_logic_for_specific_task()
+
+                    # Break if player got correct answer
+                    if self.was_answer_correct == true:
+                        break
+
+                if self.was_answer_correct == true:
+                    print(f"practice number {i+1} finished!")
+                    break
 
         # Start looping through trials
         for trial_num in range(0, len(self.ordered_simulation_indices)):
@@ -174,18 +247,18 @@ class TrialsTask(Task):
                 if current_val is not None:
 
                     if self.correct_answer is None:
-                        was_answer_correct = none
+                        self.was_answer_correct = none
                         print("No correct answer, so doesn't matter!\n")
 
                     elif current_val == self.correct_answer:
-                        was_answer_correct = True
+                        self.was_answer_correct = true
                         print("Correct answer!\n")
 
                     else:
-                        was_answer_correct = False
+                        self.was_answer_correct = false
                         print("Incorrect answer :(\n")
 
-                    write_to_shared_state(client=self.client, key=key_trials_answer, value=str(was_answer_correct))
+                    write_to_shared_state(client=self.client, key=key_trials_answer, value=self.was_answer_correct)
                     break
 
             # If no answer has been logged yet, wait for a bit before trying again
