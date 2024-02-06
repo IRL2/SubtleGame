@@ -7,7 +7,6 @@ from standardised_values import *
 import time
 
 
-
 def get_order_of_tasks(run_short_game: bool):
     """ Returns a list of tasks for the game. This process is done twice (once for each half of the game). For each
     half, the nanotube task will come first, then the knot-tying and trials task is randomised.
@@ -64,7 +63,7 @@ class PuppeteeringClient:
         self._initialise_game()
         print('Game initialised, waiting for player to connect')
 
-        self._wait_for_vr_client_to_connect()
+        self._wait_for_vr_client_to_connect_to_server()
 
         # loop through the tasks
         for task in self.order_of_tasks:
@@ -118,7 +117,7 @@ class PuppeteeringClient:
         write_to_shared_state(client=self.narupa_client, key=key_modality, value=self.current_modality)
         write_to_shared_state(client=self.narupa_client, key=key_order_of_tasks, value=self.order_of_tasks)
 
-    def _wait_for_vr_client_to_connect(self):
+    def _wait_for_vr_client_to_connect_to_server(self):
         """ Waits for the player to be connected."""
 
         while True:
@@ -156,7 +155,6 @@ class PuppeteeringClient:
 
 
 if __name__ == '__main__':
-
     # Create puppeteering client
     puppeteering_client = PuppeteeringClient()
 
