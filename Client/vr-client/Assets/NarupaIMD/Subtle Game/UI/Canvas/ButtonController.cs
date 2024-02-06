@@ -70,7 +70,30 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// </summary>
         private void InvokeStartTask()
         {
-            _subtleGameManager.StartTask();
+            _subtleGameManager.StartTask(false);
+        }
+        
+        /// <summary>
+        /// Attach to a button for starting the practice task for the Trials.
+        /// </summary>
+        public void ButtonStartPracticeTask()
+        {
+            if (!CanButtonBePressed())
+            {
+                Debug.LogWarning("You are trying to press the button with the wrong interaction mode.");   
+                return;
+            }
+
+            // Invoke the button press
+            Invoke(nameof(InvokeStartTask), TimeDelay);
+        }
+        
+        /// <summary>
+        /// Request start task via the Puppeteer Manager.
+        /// </summary>
+        private void InvokeStartPracticeTask()
+        {
+            _subtleGameManager.StartTask(true);
         }
 
         /// <summary>

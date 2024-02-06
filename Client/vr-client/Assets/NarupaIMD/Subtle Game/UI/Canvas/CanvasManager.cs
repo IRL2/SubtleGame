@@ -23,13 +23,9 @@ namespace NarupaIMD.Subtle_Game.Canvas
     /// </summary>
     public class CanvasManager : MonoBehaviour
     {
-
-        #region Scene References
         private SubtleGameManager _subtleGameManager;
         private List<CanvasController> _canvasControllerList;
-        #endregion
-        
-        #region Canvases (task)
+
         private CanvasController LastActiveCanvas { get; set; }
         private CanvasType CurrentCanvasType
         {
@@ -41,9 +37,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
             get => _currentCanvasType;
         }
         private CanvasType _currentCanvasType;
-        #endregion
         
-        #region Menus (within task)
         private GameObject _currentMenu;
         private int CurrentMenuIndex
         {
@@ -59,11 +53,8 @@ namespace NarupaIMD.Subtle_Game.Canvas
         }
         private int _currentMenuIndex;
         private bool _isFirstMenu;
-        #endregion
-        
-        #region Other
-        private const float WaitTimeForOutroMenu = 1f;
-        #endregion
+
+        private const float TimeDelay = 1f;
 
         /// <summary>
         /// Populates scene references.
@@ -92,8 +83,6 @@ namespace NarupaIMD.Subtle_Game.Canvas
         {
             CurrentCanvasType = CanvasType.Intro;
         }
-
-        #region Canvases (task)
 
         /// <summary>
         /// Shows the previously active canvas.
@@ -185,9 +174,6 @@ namespace NarupaIMD.Subtle_Game.Canvas
             CurrentMenuIndex = 0;
         }
 
-        #endregion
-        
-        #region Menus (within a task)
         /// <summary>
         /// Increments to the next menu on the currently active canvas.
         /// </summary>
@@ -228,20 +214,18 @@ namespace NarupaIMD.Subtle_Game.Canvas
         }
         
         /// <summary>
-        /// Loads the outro menu for the current task. This is called once the player completes a task.
+        /// Loads the next menu for the current task. This is called once the player completes a task or practice task.
         /// </summary>
-        public void LoadOutroToTask()
+        public void LoadNextMenu()
         {
             // Wait before showing menu
-            StartCoroutine(Wait(WaitTimeForOutroMenu));
+            StartCoroutine(Wait(TimeDelay));
 
             // Load next menu
             ShowCanvas();
             RequestNextMenu();
         }
-        
-        #endregion
-        
+
         /// <summary>
         /// Wait for specified amount of time. Used for adding delays when showing and hiding menus.
         /// </summary>

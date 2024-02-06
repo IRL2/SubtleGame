@@ -149,7 +149,7 @@ class TrialsTask(Task):
         # Randomise the order in which the player will get the most and least rigid simulations
         practice_sims = randomise_order([self.sims_most_rigid, self.sims_least_rigid])
 
-        write_to_shared_state(client=self.client, key=key_task_status, value=practice_in_progress)
+        is_first_trial = True
 
         # Run practice trials
         for i in range(len(practice_sims)):
@@ -166,6 +166,10 @@ class TrialsTask(Task):
                                         server_index=sims[n][1],
                                         correct_answer=sims[n][2])
 
+                    if is_first_trial:
+                        write_to_shared_state(client=self.client, key=key_task_status, value=practice_in_progress)
+                        is_first_trial = False
+
                     self._run_logic_for_specific_task()
 
                     if self.was_answer_correct == true:
@@ -174,6 +178,9 @@ class TrialsTask(Task):
                 if self.was_answer_correct == true:
                     print(f"practice number {i+1} finished!")
                     break
+
+        # End practice trials
+        self._finish_practice_task()
 
         # Run trials proper
         for trial_num in range(0, len(self.ordered_simulation_indices)):
@@ -290,3 +297,24 @@ class TrialsTask(Task):
                 {'render': 'ball and stick',
                  'color': 'grey'
                  }
+
+    def _finish_practice_task(self):
+        """Handles the finishing of the practice task."""
+
+        # Update task status and completion time in the shared state
+        write_to_shared_state(client=self.client, key=key_task_status, value=practice_finished)
+
+        # Wait for player to register that the task has finished
+        print('Waiting for player to confirm end of practice task')
+        while True:
+
+            try:
+                # check whether the value matches the desired value for the specified key
+                current_val = self.client.latest_multiplayer_values[key_player_task_status]
+
+                if current_val == player_practice_finished:
+                    break
+
+            except KeyError:
+                # If the desired key-value pair is not in shared state yet, wait a bit before trying again
+                time.sleep(1 / 30)

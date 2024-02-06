@@ -3,13 +3,8 @@ from additional_functions import write_to_shared_state
 import time
 from standardised_values import *
 
-player_task_status = 'Player.TaskStatus'
-player_in_progress = 'InProgress'
-player_finished = 'Finished'
-
 
 class Task:
-
     task_type = None
     timestamp_start = None
     timestamp_end = None
@@ -66,7 +61,7 @@ class Task:
 
             try:
                 current_val = self.client._current_frame.values["system.simulation.counter"]
-                if current_val == self.simulation_counter+1:
+                if current_val == self.simulation_counter + 1:
                     break
 
             except KeyError:
@@ -85,7 +80,7 @@ class Task:
 
             try:
                 # check whether the value matches the desired value for the specified key
-                current_val = self.client.latest_multiplayer_values[player_task_status]
+                current_val = self.client.latest_multiplayer_values[key_player_task_status]
 
                 if current_val == player_in_progress:
                     break
@@ -144,7 +139,7 @@ class Task:
 
             try:
                 # check whether the value matches the desired value for the specified key
-                current_val = self.client.latest_multiplayer_values[player_task_status]
+                current_val = self.client.latest_multiplayer_values[key_player_task_status]
 
                 if current_val == player_finished:
                     break
