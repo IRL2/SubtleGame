@@ -2,15 +2,10 @@ from narupa.app import NarupaImdClient
 from task_nanotube import NanotubeTask
 from task_knot_tying import KnotTyingTask
 from task_trials import TrialsTask
-from additional_functions import write_to_shared_state
+from additional_functions import write_to_shared_state, randomise_order
 from standardised_values import *
-import random
 import time
 
-
-def randomise_order(lst: list):
-    """ Randomises the order of any list by sampling without replacement."""
-    return random.sample(lst, len(lst))
 
 
 def get_order_of_tasks(run_short_game: bool):

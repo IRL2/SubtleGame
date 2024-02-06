@@ -1,5 +1,6 @@
 from narupa.app import NarupaImdClient
 from standardised_values import *
+import random
 
 
 def write_to_shared_state(client: NarupaImdClient, key: str, value: str):
@@ -35,3 +36,9 @@ def check_that_key_val_pair_is_valid(key: str, val: str):
     if val not in shared_state_keys_and_vals[key]:
         raise NameError(f"Invalid shared state value '{val}' for key '{key}', it must be one of: "
                         f"{shared_state_keys_and_vals[key]}")
+
+def randomise_order(lst: list):
+    """ Randomises the order of any list by sampling without replacement."""
+    return random.sample(lst, len(lst))
+
+
