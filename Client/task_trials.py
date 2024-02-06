@@ -4,35 +4,11 @@ import time
 from additional_functions import write_to_shared_state
 from standardised_values import *
 import random
+from task_trials_additional_functions import *
+from puppeteering_client import randomise_order
 
 
 player_trial_answer = 'Player.TrialAnswer'
-
-
-def _calculate_correct_answer(name: str, multiplier: float):
-    """
-    Calculates the correct answer for the current trial. If the molecules are identical the correct answer will be None,
-    else the correct answer is the most rigid molecule.
-    """
-    # Get multiplier
-
-    # Molecules are identical, there is no correct answer
-    if multiplier == 1:
-        return
-
-    # Get residue for modified molecule
-    modified_molecule = name.split("_")[2].strip()
-
-    # The modified molecule is harder
-    if multiplier > 1:
-        return modified_molecule
-
-    # The reference molecule is harder, correct answer is the other one
-    else:
-        if modified_molecule == 'A':
-            return 'B'
-        else:
-            return 'A'
 
 
 class TrialsTask(Task):
@@ -53,77 +29,90 @@ class TrialsTask(Task):
         self.sim_name = None
         self.correct_answer = None
         self.answer_correct = False
+        self.was_answer_correct = False
+
+        self.sims_max_multiplier = []
+        self.sims_min_multiplier = []
 
         self.sort_simulations()
 
     def sort_simulations(self):
-        """ Sorts the buckyball simulations that have been loaded onto the server. Randomly chooses one of the two
-        available simulations for each value of the multiplier and sets the name, server index and correct answer
-        corresponding to each of the chosen simulations in the order that they will be presented to the player."""
 
-        names = []
-        multipliers = []
-        indexes = []
-        correct_answers = []
-        number_of_simulations = len(self.simulations)
+        """ Sort the buckyball simulations that are loaded on the server. Get the simulations corresponding to the
+        maximum and minimum multipliers for the practice trials. Generate a random order to present the simulations to
+        the player for the main part of the task. """
 
-        # Loop through each simulation
-        for n in range(number_of_simulations):
+        unique_multipliers = get_unique_multipliers(self.simulations)
 
-            # Get information from the name of the simulation
-            for name in self.simulations[n]:
-
-                # Skip duplicates
-                if name in names:
-                    continue
-
-                # Store data
-                names.append(name)
-                indexes.append(self.simulations[n][name])
-                multiplier = float(name.removesuffix(".xml").split("_")[3].strip())
-                multipliers.append(multiplier)
-                correct_answers.append(_calculate_correct_answer(name=name, multiplier=multiplier))
-
-        # Zip the lists
-        simulations = list(zip(names, multipliers, indexes, correct_answers))
-
-        # Get unique multipliers
-        unique_multipliers = list(set(multipliers))
-
-        # Shuffle the order of multipliers
+        # Randomise the order of multipliers in order to randomise the order of the trials
         random.shuffle(unique_multipliers)
 
-        # Loop through multipliers in the order that they will be presented to the player
-        for i in range(len(unique_multipliers)):
+        # Loop through each multiplier
+        for multiplier in unique_multipliers:
 
-            # Get possible simulations
-            corresponding_sims = [t for t in simulations if t[1] == unique_multipliers[i]]
+            # Get simulations for this multiplier
+            corresponding_sims = get_simulations_for_multiplier(simulations=self.simulations, multiplier=multiplier)
 
-            # Choose one of the two possible simulations at random
+            # Randomly choose one of these simulations
             chosen_sim = random.choice(corresponding_sims)
 
-            # Save data for the chosen simulation
-            self.ordered_simulation_indices.append(chosen_sim[2])
-            self.ordered_correct_answers.append(chosen_sim[3])
+            # Store the data for the chosen simulation
             self.ordered_simulation_names.append(chosen_sim[0])
+            self.ordered_simulation_indices.append(chosen_sim[1])
+            self.ordered_correct_answers.append(chosen_sim[2])
+
+            # Store the data for the simulations corresponding to the max and min multipliers for the practice trial
+            if multiplier == max(unique_multipliers):
+                self.sims_max_multiplier.extend(corresponding_sims)
+            elif multiplier == min(unique_multipliers):
+                self.sims_min_multiplier.extend(corresponding_sims)
 
     def run_task(self):
-        """ Loop through the simulation indices and runs a psychophysical trial for each one. """
+        """ Runs practice trials and then trials proper. """
 
-        # Start looping through trials
+        # Randomise the order in which the player will get the most and least rigid simulations
+        practice_sims = randomise_order([self.sims_max_multiplier, self.sims_min_multiplier])
+
+        is_first_trial = True
+
+        # Run practice trials
+        for i in range(len(practice_sims)):
+
+            # Repeat until player gets answer correct
+            while true:
+
+                # random the order of the sims in which A is modified and B is modified
+                sims = randomise_order(practice_sims[i])
+
+                for n in range(len(practice_sims[i])):
+
+                    self._prepare_trial(name=sims[n][0],
+                                        server_index=sims[n][1],
+                                        correct_answer=sims[n][2])
+
+                    if is_first_trial:
+                        write_to_shared_state(client=self.client, key=key_task_status, value=practice_in_progress)
+                        is_first_trial = False
+
+                    self._run_logic_for_specific_task()
+
+                    if self.was_answer_correct == true:
+                        break
+
+                if self.was_answer_correct == true:
+                    print(f"practice number {i + 1} finished!")
+                    break
+
+        # End practice trials
+        self._finish_practice_task()
+
+        # Run trials proper
         for trial_num in range(0, len(self.ordered_simulation_indices)):
 
-            # Set variables
-            # TODO: write these values to the shared state
-            self.sim_name = self.ordered_simulation_names[trial_num]
-            self.sim_index = self.ordered_simulation_indices[trial_num]
-            self.correct_answer = self.ordered_correct_answers[trial_num]
+            self._prepare_trial(name=self.ordered_simulation_names[trial_num],
+                                server_index=self.ordered_simulation_indices[trial_num],
+                                correct_answer=self.ordered_correct_answers[trial_num])
 
-            # Prepare task and wait for player to be ready
-            self._prepare_task()
-            self._wait_for_vr_client()
-
-            # Update task status on the first trial
             if trial_num == 0:
                 write_to_shared_state(client=self.client, key=key_task_status, value=in_progress)
 
@@ -132,9 +121,26 @@ class TrialsTask(Task):
         # End trials
         self._finish_task()
 
+    def _prepare_trial(self, name, server_index, correct_answer):
+
+        # Set variables
+        self.sim_name = name
+        self.sim_index = server_index
+        self.correct_answer = correct_answer
+
+        # Update shared state
+        write_to_shared_state(client=self.client, key=key_simulation_name, value=self.sim_name)
+        write_to_shared_state(client=self.client, key=key_simulation_server_index, value=self.sim_index)
+
+        # Prepare task and wait for player to be ready
+        self._prepare_task()
+        self._wait_for_vr_client()
+
     def _run_logic_for_specific_task(self):
         """ Runs a psychophysics trial. Plays the simulation for the allotted time and pauses it once the timer is up.
         Then waits for the player to submit their answer."""
+
+        print("Timer started")
 
         # Timer started: update shared state and play sim
         write_to_shared_state(client=self.client, key=key_trials_timer, value=started)
@@ -149,6 +155,8 @@ class TrialsTask(Task):
         write_to_shared_state(client=self.client, key=key_trials_timer, value=finished)
         self.client.run_pause()
 
+        print("Timer ended")
+
         # Wait for player to answer
         self._wait_for_player_to_answer()
 
@@ -160,6 +168,7 @@ class TrialsTask(Task):
         """ Waits for the player to submit an answer by monitoring the answer in the shared state. Once the answer has
         been submitted, it wipes it from the shared state.  """
 
+        print("Waiting for player to answer...")
         while True:
 
             # check if player has logged an answer and break loop if they have
@@ -169,18 +178,18 @@ class TrialsTask(Task):
                 if current_val is not None:
 
                     if self.correct_answer is None:
-                        was_answer_correct = none
+                        self.was_answer_correct = none
                         print("No correct answer, so doesn't matter!\n")
 
                     elif current_val == self.correct_answer:
-                        was_answer_correct = True
-                        print("correct answer!\n")
+                        self.was_answer_correct = true
+                        print("Correct answer!\n")
 
                     else:
-                        was_answer_correct = False
+                        self.was_answer_correct = false
                         print("Incorrect answer :(\n")
 
-                    write_to_shared_state(client=self.client, key=key_trials_answer, value=str(was_answer_correct))
+                    write_to_shared_state(client=self.client, key=key_trials_answer, value=self.was_answer_correct)
                     break
 
             # If no answer has been logged yet, wait for a bit before trying again
@@ -212,3 +221,24 @@ class TrialsTask(Task):
                 {'render': 'ball and stick',
                  'color': 'grey'
                  }
+
+    def _finish_practice_task(self):
+        """Handles the finishing of the practice task."""
+
+        # Update task status and completion time in the shared state
+        write_to_shared_state(client=self.client, key=key_task_status, value=practice_finished)
+
+        # Wait for player to register that the task has finished
+        print('Waiting for player to confirm end of practice task')
+        while True:
+
+            try:
+                # check whether the value matches the desired value for the specified key
+                current_val = self.client.latest_multiplayer_values[key_player_task_status]
+
+                if current_val == player_practice_finished:
+                    break
+
+            except KeyError:
+                # If the desired key-value pair is not in shared state yet, wait a bit before trying again
+                time.sleep(1 / 30)
