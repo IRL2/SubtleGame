@@ -10,14 +10,14 @@ def calculate_correct_answer(sim_file_name: str):
     if multiplier == 1:
         return
 
-    # Get residue for modified molecule
-    modified_molecule = sim_file_name.split("_")[2].strip()
+    # Get residue id of modified molecule
+    modified_molecule = get_residue_of_modified_molecule(sim_file_name=sim_file_name)
 
-    # The modified molecule is harder
+    # The modified molecule is harder, return the residue id
     if multiplier > 1:
         return modified_molecule
 
-    # The reference molecule is harder, correct answer is the other one
+    # The reference molecule is harder, return the residue id of the other molecule
     else:
         if modified_molecule == 'A':
             return 'B'
@@ -40,6 +40,11 @@ def get_unique_multipliers(simulations: dict):
 def get_multiplier_of_simulation(sim_file_name: str):
     """ Returns the multiplier of the simulation, which is stored in the simulation name. """
     return float(sim_file_name.removesuffix(".xml").split("_")[3].strip())
+
+
+def get_residue_of_modified_molecule(sim_file_name: str):
+    """ Returns the residue id of the modified molecule in the simulation, which is stored in the simulation name. """
+    return sim_file_name.split("_")[2].strip()
 
 
 def get_simulations_for_multiplier(simulations: dict, multiplier: float):
