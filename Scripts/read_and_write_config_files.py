@@ -43,7 +43,7 @@ def create_yaml(buck_bond: list = None, buck_angle: list = None):
 
 
 if __name__ == '__main__':
-    # buckyball_bond_multipliers = [1]
-    buckyball_angle_multipliers = [0.5, 1, 1.5]
+    buckyball_bond_multipliers = [0.25, 0.5, 0.8, 1.2, 1.5, 1.75]
+    buckyball_angle_multipliers = [0.25, 0.8, 1.2, 1.75]
 
-    create_yaml(buck_angle=buckyball_angle_multipliers)
+    create_yaml(buck_angle=buckyball_angle_multipliers, buck_bond=buckyball_bond_multipliers)
