@@ -153,7 +153,7 @@ class TrialsTask(Task):
                         write_to_shared_state(client=self.client, key=key_task_status, value=practice_in_progress)
                         is_first_trial = False
 
-                    self._run_logic_for_specific_task()
+                    self._run_task_logic()
 
                     if self.was_answer_correct == true:
                         break
@@ -175,7 +175,7 @@ class TrialsTask(Task):
             if trial_num == 0:
                 write_to_shared_state(client=self.client, key=key_task_status, value=in_progress)
 
-            self._run_logic_for_specific_task()
+            self._run_task_logic()
 
         # End trials
         self._finish_task()
@@ -193,9 +193,9 @@ class TrialsTask(Task):
 
         # Prepare task and wait for player to be ready
         self._prepare_task()
-        self._wait_for_vr_client()
+        self._wait_for_vr_client_to_start_task()
 
-    def _run_logic_for_specific_task(self):
+    def _run_task_logic(self):
         """ Runs a psychophysics trial. Plays the simulation for the allotted time and pauses it once the timer is up.
         Then waits for the player to submit their answer."""
 
@@ -219,7 +219,7 @@ class TrialsTask(Task):
         # Wait for player to answer
         self._wait_for_player_to_answer()
 
-    def _load_simulation(self):
+    def _request_load_simulation(self):
         """ Loads the simulation corresponding to the current simulation index. """
         self.client.run_command("playback/load", index=self.sim_index)
 

@@ -24,16 +24,16 @@ class Task:
 
         self._prepare_task()
 
-        self._wait_for_vr_client()
+        self._wait_for_vr_client_to_start_task()
 
-        self._run_logic_for_specific_task()
+        self._run_task_logic()
 
         self._finish_task()
 
     def _prepare_task(self):
 
         # Load simulation
-        self._load_simulation()
+        self._request_load_simulation()
 
         print("Waiting for simulation to load")
         self._wait_for_simulation_to_load()
@@ -69,11 +69,11 @@ class Task:
 
         self.simulation_counter += 1
 
-    def _load_simulation(self):
+    def _request_load_simulation(self):
         """ Loads the simulation. """
         self.client.run_command("playback/load", index=self.sim_index)
 
-    def _wait_for_vr_client(self):
+    def _wait_for_vr_client_to_start_task(self):
 
         print('Waiting for player to start task')
         while True:
@@ -93,7 +93,7 @@ class Task:
         """ Container for changing the task-specific visualisation the simulation. """
         pass
 
-    def _run_logic_for_specific_task(self):
+    def _run_task_logic(self):
         """Container for the logic specific to each task."""
 
         print('Starting task')
