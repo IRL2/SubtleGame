@@ -11,7 +11,7 @@ class NanotubeTask(Task):
 
     task_type = task_nanotube
 
-    def __init__(self, client: NarupaImdClient, simulations: dict, simulation_counter: int):
+    def __init__(self, client: NarupaImdClient, simulations: list, simulation_counter: int):
 
         super().__init__(client, simulations, sim_counter=simulation_counter)
 
@@ -19,9 +19,9 @@ class NanotubeTask(Task):
         self.is_methane_in_nanotube = False
         self.methane_end_of_entry = None
 
-    def _run_logic_for_specific_task(self):
+    def _run_task_logic(self):
 
-        super()._run_logic_for_specific_task()
+        super()._run_task_logic()
 
         self.timestamp_start = datetime.now()
 

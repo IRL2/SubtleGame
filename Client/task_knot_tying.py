@@ -9,17 +9,17 @@ from standardised_values import *
 class KnotTyingTask(Task):
     task_type = task_knot_tying
 
-    def __init__(self, client: NarupaImdClient, simulations: dict, simulation_counter: int):
+    def __init__(self, client: NarupaImdClient, simulations: list, simulation_counter: int):
 
         super().__init__(client, simulations, sim_counter=simulation_counter)
 
         self.knot_pull_client = None
 
-    def _run_logic_for_specific_task(self):
+    def _run_task_logic(self):
         """ Checks for a knot approx. 30 times per second. Uses the Knot Pull program, which is available on GitHub (
         https://github.com/dzarmola/knot_pull)."""
 
-        super()._run_logic_for_specific_task()
+        super()._run_task_logic()
 
         self.particle_names = self.client._current_frame.particle_names
         self.residue_ids = self.client._current_frame.residue_ids

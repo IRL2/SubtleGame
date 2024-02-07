@@ -19,7 +19,7 @@ namespace NarupaIMD.Subtle_Game
     public class SubtleGameManager : MonoBehaviour
     {
         // SET YOUR LOCAL IP!
-        private const string IPAddress = "172.18.28.233";
+        private const string IPAddress = "172.18.13.49";
 
         #region Scene References
         
