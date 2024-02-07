@@ -1,9 +1,8 @@
 from Client.task import Task
 from narupa.app import NarupaImdClient
 import time
-from additional_functions import write_to_shared_state, randomise_order
+from additional_functions import write_to_shared_state
 from standardised_values import *
-import random
 from task_trials_functions import *
 
 player_trial_answer = 'Player.TrialAnswer'
@@ -32,57 +31,24 @@ class TrialsTask(Task):
         self.sims_max_multiplier = []
         self.sims_min_multiplier = []
 
-        self.sort_simulations()
-
-    def sort_simulations(self):
-        """ Sort the buckyball simulations that are loaded on the server. Get the simulations corresponding to the
-        maximum and minimum multipliers for the practice trials. Generate a random order to present the simulations to
-        the player for the main part of the task. """
-
-        unique_multipliers = get_unique_multipliers(self.simulations)
-
-        # Randomise the order of multipliers in order to randomise the order of the trials
-        random.shuffle(unique_multipliers)
-
-        # Loop through each multiplier
-        for multiplier in unique_multipliers:
-
-            # Get simulations for this multiplier
-            corresponding_sims = get_simulations_for_multiplier(simulations=self.simulations, multiplier=multiplier)
-
-            # Randomly choose one of these simulations
-            chosen_sim = random.choice(corresponding_sims)
-
-            # Store the data for the chosen simulation
-            self.ordered_simulation_names.append(chosen_sim[0])
-            self.ordered_simulation_indices.append(chosen_sim[1])
-            self.ordered_correct_answers.append(chosen_sim[2])
-
-            # Store the data for the simulations corresponding to the max and min multipliers for the practice trial
-            if multiplier == max(unique_multipliers):
-                self.sims_max_multiplier.extend(corresponding_sims)
-            elif multiplier == min(unique_multipliers):
-                self.sims_min_multiplier.extend(corresponding_sims)
+        self.practice_sims, self.main_sims = get_order_of_simulations(self.simulations)
 
     def run_task(self):
         """ Runs practice trials and then trials proper. """
 
-        # Randomise the order in which the player will get the most and least rigid simulations
-        practice_sims = randomise_order([self.sims_max_multiplier, self.sims_min_multiplier])
-
-        # Run practice trials
-        # Do this until player gets a correct answer for both the min and max multiplier values
+        # Run practice trials until player gets a correct answer for both the min and max multiplier values
         is_first_trial = True
 
-        for i in range(len(practice_sims)):
+        for i in range(len(self.practice_sims)):
 
             # Repeat until player gets answer correct
             while true:
 
                 # Randomise the order of presentation of the A-modified and B-modified simulations
-                sims = randomise_order(practice_sims[i])
+                sims = randomise_order(self.practice_sims[i])
 
-                for n in range(len(practice_sims[i])):
+                # Loop through these two simulations
+                for n in range(len(sims)):
 
                     self._prepare_trial(name=sims[n][0],
                                         server_index=sims[n][1],
@@ -105,11 +71,11 @@ class TrialsTask(Task):
         self._finish_practice_task()
 
         # Run trials proper
-        for trial_num in range(0, len(self.ordered_simulation_indices)):
+        for trial_num in range(len(self.main_sims)):
 
-            self._prepare_trial(name=self.ordered_simulation_names[trial_num],
-                                server_index=self.ordered_simulation_indices[trial_num],
-                                correct_answer=self.ordered_correct_answers[trial_num])
+            self._prepare_trial(name=self.main_sims[trial_num][0],
+                                server_index=self.main_sims[trial_num][1],
+                                correct_answer=self.main_sims[trial_num][2])
 
             if trial_num == 0:
                 write_to_shared_state(client=self.client, key=key_task_status, value=in_progress)
