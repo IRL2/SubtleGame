@@ -2,34 +2,9 @@ from narupa.app import NarupaImdClient
 from task_nanotube import NanotubeTask
 from task_knot_tying import KnotTyingTask
 from task_trials import TrialsTask
-from additional_functions import write_to_shared_state, randomise_order
+from additional_functions import write_to_shared_state, randomise_order, get_order_of_tasks
 from standardised_values import *
 import time
-
-
-def get_order_of_tasks(run_short_game: bool):
-    """ Returns a list of tasks for the game. This process is done twice (once for each half of the game). For each
-    half, the nanotube task will come first, then the knot-tying and trials task is randomised.
-    @param: test_run If true then the nanotube task will run twice, otherwise a full game will run """
-
-    if run_short_game:
-        tasks = []
-    else:
-        tasks = [task_knot_tying, task_trials]
-
-    # randomise the order of tasks
-    section_1 = randomise_order(tasks)
-
-    # add nanotube practice task to the beginning
-    section_1.insert(0, task_nanotube)
-
-    # randomise the order of tasks
-    section_2 = randomise_order(tasks)
-
-    # add nanotube practice task to the beginning
-    section_2.insert(0, task_nanotube)
-
-    return section_1 + section_2
 
 
 class PuppeteeringClient:

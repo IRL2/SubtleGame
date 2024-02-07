@@ -4,8 +4,8 @@ import time
 from additional_functions import write_to_shared_state
 from standardised_values import *
 import random
-from task_trials_additional_functions import *
-from puppeteering_client import randomise_order
+from task_trials_functions import *
+from additional_functions import randomise_order
 
 
 player_trial_answer = 'Player.TrialAnswer'
@@ -18,7 +18,7 @@ class TrialsTask(Task):
     trial_duration = 3
     frequency = 30
 
-    def __init__(self, client: NarupaImdClient, simulations: dict, simulation_counter: int):
+    def __init__(self, client: NarupaImdClient, simulations: list, simulation_counter: int):
 
         super().__init__(client=client, simulations=simulations, sim_counter=simulation_counter)
 
@@ -73,15 +73,16 @@ class TrialsTask(Task):
         # Randomise the order in which the player will get the most and least rigid simulations
         practice_sims = randomise_order([self.sims_max_multiplier, self.sims_min_multiplier])
 
+        # Run practice trials
+        # Do this until player gets a correct answer for both the min and max multiplier values
         is_first_trial = True
 
-        # Run practice trials
         for i in range(len(practice_sims)):
 
             # Repeat until player gets answer correct
             while true:
 
-                # random the order of the sims in which A is modified and B is modified
+                # Randomise the order of presentation of the A-modified and B-modified simulations
                 sims = randomise_order(practice_sims[i])
 
                 for n in range(len(practice_sims[i])):

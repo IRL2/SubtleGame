@@ -25,16 +25,14 @@ def calculate_correct_answer(sim_file_name: str):
             return 'A'
 
 
-def get_unique_multipliers(simulations: dict):
+def get_unique_multipliers(simulations: list):
     """ Returns a list of unique multipliers from the dictionary of simulations. """
-
     unique_multipliers = set()
-
     for simulation in simulations:
         for name in simulation:
             unique_multipliers.add(get_multiplier_of_simulation(sim_file_name=name))
 
-    return unique_multipliers
+    return list(unique_multipliers)
 
 
 def get_multiplier_of_simulation(sim_file_name: str):
@@ -47,7 +45,7 @@ def get_residue_of_modified_molecule(sim_file_name: str):
     return sim_file_name.split("_")[2].strip()
 
 
-def get_simulations_for_multiplier(simulations: dict, multiplier: float):
+def get_simulations_for_multiplier(simulations: list, multiplier: float):
     """ Get simulations corresponding to a given multiplier. """
 
     corresponding_sims = []

@@ -15,7 +15,7 @@ class Task:
     timestamp_end = None
     task_completion_time = None
 
-    def __init__(self, client: NarupaImdClient, simulations: dict, sim_counter: int):
+    def __init__(self, client: NarupaImdClient, simulations: list, sim_counter: int):
 
         self.client = client
         self.simulations = simulations
