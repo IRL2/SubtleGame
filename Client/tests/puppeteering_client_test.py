@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from puppeteering_client import get_order_of_tasks
 from standardised_values import task_trials, task_knot_tying, task_nanotube
 
