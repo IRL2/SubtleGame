@@ -14,7 +14,7 @@ def calculate_correct_answer(sim_file_name: str):
         return
 
     # Get residue id of modified molecule
-    modified_molecule = get_residue_of_modified_molecule(sim_file_name=sim_file_name)
+    modified_molecule = get_residue_id_of_modified_molecule(sim_file_name=sim_file_name)
 
     # The modified molecule is harder, return the residue id
     if multiplier > 1:
@@ -43,7 +43,7 @@ def get_multiplier_of_simulation(sim_file_name: str):
     return float(sim_file_name.removesuffix(".xml").split("_")[3].strip())
 
 
-def get_residue_of_modified_molecule(sim_file_name: str):
+def get_residue_id_of_modified_molecule(sim_file_name: str):
     """ Returns the residue id of the modified molecule in the simulation, which is stored in the simulation name. """
     return sim_file_name.split("_")[2].strip()
 
@@ -62,7 +62,7 @@ def get_simulations_for_multiplier(simulations: list, multiplier: float):
 
 
 def get_order_of_simulations(simulations):
-    """ Returns the simulations for the main task and for the practice task, each in the order that they will be
+    """ Returns the simulations for the main and practice parts of the Trials task, each in the order that they will be
     presented to the player. """
 
     unique_multipliers = get_unique_multipliers(simulations)

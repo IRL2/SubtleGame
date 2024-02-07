@@ -43,10 +43,10 @@ class TestTaskTrialsFunctions(unittest.TestCase):
         self.assertEqual(get_multiplier_of_simulation(self.name_0), 1.75)
         self.assertEqual(get_multiplier_of_simulation(self.name_1), 0.5)
 
-    def test_get_residue_of_modified_molecule(self):
-        self.assertEqual(get_residue_of_modified_molecule(self.name_0), resid_B)
-        self.assertEqual(get_residue_of_modified_molecule(self.name_1), resid_B)
-        self.assertEqual(get_residue_of_modified_molecule(self.name_2), resid_A)
+    def test_get_residue_id_of_modified_molecule(self):
+        self.assertEqual(get_residue_id_of_modified_molecule(self.name_0), resid_B)
+        self.assertEqual(get_residue_id_of_modified_molecule(self.name_1), resid_B)
+        self.assertEqual(get_residue_id_of_modified_molecule(self.name_2), resid_A)
 
     def test_get_simulations_for_multiplier(self):
         self.assertEqual(get_simulations_for_multiplier(self.simulations, multiplier=self.multiplier_0),
