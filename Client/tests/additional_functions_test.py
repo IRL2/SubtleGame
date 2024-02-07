@@ -3,7 +3,7 @@ from unittest.mock import patch
 from additional_functions import *
 
 
-class TestRandomiseOrder(unittest.TestCase):
+class TestRandomiseListOrder(unittest.TestCase):
     @patch('random.sample')
     def test_randomise_order(self, mock_sample):
 

@@ -1,4 +1,4 @@
-from Client.task_trials_functions import *
+from Client.task_trials import *
 import unittest
 from unittest.mock import patch
 
@@ -6,7 +6,7 @@ resid_A = 'A'
 resid_B = 'B'
 
 
-class TestTaskTrialsFunctions(unittest.TestCase):
+class TestTaskTrialsMethods(unittest.TestCase):
     name_0 = "buckyball_bond_B_1.75.xml"
     multiplier_0 = 1.75
     index_0 = 0
