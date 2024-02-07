@@ -2,7 +2,7 @@ from narupa.app import NarupaImdClient
 from task_nanotube import NanotubeTask
 from task_knot_tying import KnotTyingTask
 from task_trials import TrialsTask
-from additional_functions import write_to_shared_state, randomise_order, get_order_of_tasks
+from additional_functions import write_to_shared_state, randomise_list_order, get_order_of_tasks
 from standardised_values import *
 import time
 
@@ -21,7 +21,7 @@ class PuppeteeringClient:
 
         # Get orders of randomised variables
         self.order_of_tasks = get_order_of_tasks(run_short_game=short_game)
-        self.order_of_interaction_modality = randomise_order([modality_hands, modality_controllers])
+        self.order_of_interaction_modality = randomise_list_order([modality_hands, modality_controllers])
         self.current_modality = self.order_of_interaction_modality[0]
 
         # Declare variables

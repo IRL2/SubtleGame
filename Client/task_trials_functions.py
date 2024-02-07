@@ -1,5 +1,5 @@
 import random
-from additional_functions import randomise_order
+from additional_functions import randomise_list_order
 
 
 def calculate_correct_answer(sim_file_name: str):
@@ -91,6 +91,6 @@ def get_order_of_simulations(simulations):
         elif multiplier == min(unique_multipliers):
             sims_min_multiplier.extend(corresponding_sims)
 
-    practice_task_sims = randomise_order([sims_max_multiplier, sims_min_multiplier])
+    practice_task_sims = randomise_list_order([sims_max_multiplier, sims_min_multiplier])
 
     return practice_task_sims, main_task_sims

@@ -11,7 +11,7 @@ class TestRandomiseOrder(unittest.TestCase):
         mock_sample.return_value = [5, 2, 3, 1, 4]
 
         # Assert that the result matches the expected output
-        self.assertEqual(randomise_order(input_list), mock_sample.return_value)
+        self.assertEqual(randomise_list_order(input_list), mock_sample.return_value)
 
         mock_sample.assert_called_once_with(input_list, len(input_list))
 

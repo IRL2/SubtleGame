@@ -4,7 +4,7 @@ import random
 
 
 def write_to_shared_state(client: NarupaImdClient, key: str, value):
-    """ Writes a key-value pair to the shared state with the puppeteer client namespace. """
+    """ Writes a valid key-value pair to the shared state with the puppeteer client namespace. """
 
     check_that_key_val_pair_is_valid(key=key, val=value)
 
@@ -37,7 +37,7 @@ def check_that_key_val_pair_is_valid(key: str, val):
                         f"{shared_state_keys_and_vals[key]}")
 
 
-def randomise_order(lst: list):
+def randomise_list_order(lst: list):
     """ Randomises the order of any list by sampling without replacement."""
     return random.sample(lst, len(lst))
 
@@ -55,7 +55,7 @@ def get_order_of_tasks(run_short_game: bool):
     order_of_tasks = []
 
     for n in range(2):
-        t = randomise_order(tasks)
+        t = randomise_list_order(tasks)
         t.insert(0, task_nanotube)
         order_of_tasks.extend(t)
 
@@ -71,4 +71,3 @@ def get_simulation_name_and_server_index(simulations: dict, sim_name: str):
         raise ValueError(f"No {sim_name} simulation found. Have you forgotten to load the simulation on the server? "
                          f"Does the loaded .xml contain the term {sim_name}?")
     return sim_info
-

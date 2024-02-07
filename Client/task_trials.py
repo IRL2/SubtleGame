@@ -45,7 +45,7 @@ class TrialsTask(Task):
             while true:
 
                 # Randomise the order of presentation of the A-modified and B-modified simulations
-                sims = randomise_order(self.practice_sims[i])
+                sims = randomise_list_order(self.practice_sims[i])
 
                 # Loop through these two simulations
                 for n in range(len(sims)):
