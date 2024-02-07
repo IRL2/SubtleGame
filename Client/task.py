@@ -82,7 +82,7 @@ class Task:
                 # check whether the value matches the desired value for the specified key
                 current_val = self.client.latest_multiplayer_values[key_player_task_status]
 
-                if current_val == player_in_progress:
+                if current_val == player_in_progress or current_val == player_practice_in_progress:
                     break
 
             except KeyError:
