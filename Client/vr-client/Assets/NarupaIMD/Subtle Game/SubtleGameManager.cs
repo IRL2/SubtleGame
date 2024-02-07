@@ -80,6 +80,7 @@ namespace NarupaIMD.Subtle_Game
             }
             public enum TaskStatusVal
             {
+                None,
                 Intro,
                 Finished,
                 InProgress,
@@ -300,6 +301,7 @@ namespace NarupaIMD.Subtle_Game
             }
             
             CurrentTaskType = _orderOfTasks[CurrentTaskNum]; // update current task
+            TaskStatus = TaskStatusVal.Intro; // update task status
         }
         
         /// <summary>
