@@ -1,7 +1,7 @@
 from Client.task import Task
 from narupa.app import NarupaImdClient
 import time
-from additional_functions import write_to_shared_state
+from additional_functions import write_to_shared_state, randomise_list_order
 from standardised_values import *
 from task_trials_functions import *
 
