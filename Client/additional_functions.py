@@ -3,6 +3,7 @@ from standardised_values import *
 import random
 from task_trials_functions import get_unique_multipliers, get_simulations_for_multiplier
 
+
 def write_to_shared_state(client: NarupaImdClient, key: str, value):
     """ Writes a key-value pair to the shared state with the puppeteer client namespace. """
 
@@ -99,9 +100,9 @@ def get_order_of_tasks(run_short_game: bool):
     order_of_tasks = []
 
     for n in range(2):
-        tasks = randomise_order(tasks)
-        tasks.insert(0, task_nanotube)
-        order_of_tasks.extend(tasks)
+        t = randomise_order(tasks)
+        t.insert(0, task_nanotube)
+        order_of_tasks.extend(t)
 
     return order_of_tasks
 
