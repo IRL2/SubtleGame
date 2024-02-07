@@ -11,7 +11,7 @@ class NanotubeTask(Task):
 
     task_type = task_nanotube
 
-    def __init__(self, client: NarupaImdClient, simulations: dict, simulation_counter: int):
+    def __init__(self, client: NarupaImdClient, simulations: list, simulation_counter: int):
 
         super().__init__(client, simulations, sim_counter=simulation_counter)
 

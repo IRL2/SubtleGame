@@ -9,7 +9,7 @@ from standardised_values import *
 class KnotTyingTask(Task):
     task_type = task_knot_tying
 
-    def __init__(self, client: NarupaImdClient, simulations: dict, simulation_counter: int):
+    def __init__(self, client: NarupaImdClient, simulations: list, simulation_counter: int):
 
         super().__init__(client, simulations, sim_counter=simulation_counter)
 
