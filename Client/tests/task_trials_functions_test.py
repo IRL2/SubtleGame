@@ -39,7 +39,8 @@ class TestTaskTrialsFunctions(unittest.TestCase):
         self.assertEqual(get_multiplier_of_simulation(self.name_1), 0.5)
 
     def test_get_unique_multipliers(self):
-        self.assertEqual(get_unique_multipliers(simulations=self.simulations), {1.75, 0.5})
+        self.assertEqual(set(get_unique_multipliers(simulations=self.simulations)), {1.75, 0.5})
+        self.assertEqual(len(get_unique_multipliers(simulations=self.simulations)), len({1.75, 0.5}))
 
     def test_get_residue_of_modified_molecule(self):
         self.assertEqual(get_residue_of_modified_molecule(self.name_0), resid_B)
