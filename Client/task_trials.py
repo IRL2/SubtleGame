@@ -1,18 +1,15 @@
 from Client.task import Task
 from narupa.app import NarupaImdClient
 import time
-from additional_functions import write_to_shared_state
+from additional_functions import write_to_shared_state, randomise_order
 from standardised_values import *
 import random
 from task_trials_functions import *
-from additional_functions import randomise_order
-
 
 player_trial_answer = 'Player.TrialAnswer'
 
 
 class TrialsTask(Task):
-
     task_type = task_trials
     trial_answer_key = player_trial_answer
     trial_duration = 3
@@ -28,6 +25,7 @@ class TrialsTask(Task):
         self.sim_index = None
         self.sim_name = None
         self.correct_answer = None
+
         self.answer_correct = False
         self.was_answer_correct = False
 
@@ -37,7 +35,6 @@ class TrialsTask(Task):
         self.sort_simulations()
 
     def sort_simulations(self):
-
         """ Sort the buckyball simulations that are loaded on the server. Get the simulations corresponding to the
         maximum and minimum multipliers for the practice trials. Generate a random order to present the simulations to
         the player for the main part of the task. """

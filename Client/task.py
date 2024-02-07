@@ -3,13 +3,8 @@ from additional_functions import write_to_shared_state
 import time
 from standardised_values import *
 
-player_task_status = 'Player.TaskStatus'
-player_in_progress = 'InProgress'
-player_finished = 'Finished'
-
 
 class Task:
-
     task_type = None
     timestamp_start = None
     timestamp_end = None
@@ -20,6 +15,10 @@ class Task:
         self.client = client
         self.simulations = simulations
         self.simulation_counter = sim_counter
+
+        for sim in self.simulations[0]:
+            self.sim_index = self.simulations[0][sim]
+            self.sim_name = sim
 
     def run_task(self):
 
@@ -35,8 +34,10 @@ class Task:
 
         # Load simulation
         self._load_simulation()
+
         print("Waiting for simulation to load")
         self._wait_for_simulation_to_load()
+
         print("Simulation loaded")
 
         # Update visualisation
@@ -45,10 +46,10 @@ class Task:
         # Pause simulation
         self.client.run_command("playback/pause")
 
-        # Update task type
+        # Update shared state
+        write_to_shared_state(client=self.client, key=key_simulation_name, value=self.sim_name)
+        write_to_shared_state(client=self.client, key=key_simulation_server_index, value=self.sim_index)
         write_to_shared_state(client=self.client, key=key_current_task, value=self.task_type)
-
-        # Update task status
         write_to_shared_state(client=self.client, key=key_task_status, value=ready)
 
         print("Task prepared")
@@ -60,7 +61,7 @@ class Task:
 
             try:
                 current_val = self.client._current_frame.values["system.simulation.counter"]
-                if current_val == self.simulation_counter+1:
+                if current_val == self.simulation_counter + 1:
                     break
 
             except KeyError:
@@ -69,9 +70,8 @@ class Task:
         self.simulation_counter += 1
 
     def _load_simulation(self):
-        """ Container for loading a simulation. """
-        for sim in self.simulations[0]:
-            self.client.run_command("playback/load", index=self.simulations[0][sim])
+        """ Loads the simulation. """
+        self.client.run_command("playback/load", index=self.sim_index)
 
     def _wait_for_vr_client(self):
 
@@ -80,7 +80,7 @@ class Task:
 
             try:
                 # check whether the value matches the desired value for the specified key
-                current_val = self.client.latest_multiplayer_values[player_task_status]
+                current_val = self.client.latest_multiplayer_values[key_player_task_status]
 
                 if current_val == player_in_progress:
                     break
@@ -104,7 +104,7 @@ class Task:
         # Check that frames are being received
         while True:
             try:
-                test = self.client.latest_frame.particle_positions
+                _ = self.client.latest_frame.particle_positions
                 break
             except KeyError:
                 print("No particle positions found, waiting for 1/30 seconds before trying again.")
@@ -129,7 +129,9 @@ class Task:
 
         if self.timestamp_start and self.timestamp_end:
             self.task_completion_time = self.timestamp_end - self.timestamp_start
-            write_to_shared_state(client=self.client, key=key_task_completion_time, value=str(self.task_completion_time))
+            write_to_shared_state(client=self.client,
+                                  key=key_task_completion_time,
+                                  value=str(self.task_completion_time))
 
         # Wait for player to register that the task has finished
         print('Waiting for player to confirm end of task')
@@ -137,7 +139,7 @@ class Task:
 
             try:
                 # check whether the value matches the desired value for the specified key
-                current_val = self.client.latest_multiplayer_values[player_task_status]
+                current_val = self.client.latest_multiplayer_values[key_player_task_status]
 
                 if current_val == player_finished:
                     break
@@ -145,4 +147,3 @@ class Task:
             except KeyError:
                 # If the desired key-value pair is not in shared state yet, wait a bit before trying again
                 time.sleep(1 / 30)
-

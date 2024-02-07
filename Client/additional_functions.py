@@ -3,7 +3,6 @@ from standardised_values import *
 import random
 from task_trials_functions import get_unique_multipliers, get_simulations_for_multiplier
 
-
 def write_to_shared_state(client: NarupaImdClient, key: str, value):
     """ Writes a key-value pair to the shared state with the puppeteer client namespace. """
 
@@ -116,3 +115,4 @@ def get_simulation_name_and_server_index(simulations: dict, sim_name: str):
         raise ValueError(f"No {sim_name} simulation found. Have you forgotten to load the simulation on the server? "
                          f"Does the loaded .xml contain the term {sim_name}?")
     return sim_info
+
