@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using Narupa.Visualisation.Components.Input;
+using NarupaIMD.Subtle_Game.Canvas;
+using NarupaIMD.Subtle_Game.Simulation;
+using NarupaIMD.Subtle_Game.UI;
+using NarupaIMD.Subtle_Game.UI.Canvas;
+using NarupaIMD.Subtle_Game.UI.Simulation;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace NarupaIMD.Subtle_Game.UI
+namespace NarupaIMD.Subtle_Game.Data_Collection
 {
     internal enum Answer
     {
@@ -29,8 +34,8 @@ namespace NarupaIMD.Subtle_Game.UI
         private List<ColorInput> _colors;
 
         private Color _originalColor;
-        private readonly Color _startSelectionColor = new(0f, 0f, 1.0f, 1.0f);
-        private readonly Color _endSelectionColor = new(0f, 1f, 0f, 1.0f);
+        private readonly Color _startSelectionColor = new (1,0.39f,0.016f, 1f);
+        private readonly Color _endSelectionColor = new(0f, 0f, 0.8f, 1f);
         private Color _targetColor;
         
         private const float ColorChangeDuration = 2.0f;
@@ -43,9 +48,22 @@ namespace NarupaIMD.Subtle_Game.UI
         private bool _wasInsideLastFrameA;
         private bool _wasInsideLastFrameB;
 
+        [SerializeField] private TrialsScoreUI trialsScoreUI;
+        public int CurrentScore{
+            get => _currentScore;
+            set
+            {
+                _currentScore = value;
+                trialsScoreUI.UpdateScore(_currentScore);
+            }
+        }
+
+        private int _currentScore;
+
         private void Start()
         {
             _subtleGameManager = FindObjectOfType<SubtleGameManager>();
+            ToggleDisplayScore(false);
         }
 
         /// <summary>
@@ -73,6 +91,22 @@ namespace NarupaIMD.Subtle_Game.UI
             StartCoroutine(WaitForAnswer());
         }
         
+        /// <summary>
+        /// Toggles displaying the score to the player.
+        /// </summary>
+        public void ToggleDisplayScore(bool displayScore)
+        {
+            trialsScoreUI.gameObject.SetActive(displayScore);
+        }
+        
+        /// <summary>
+        /// Resets the score to 0.
+        /// </summary>
+        public void ResetScore()
+        {
+            CurrentScore = 0;
+        }
+
         private IEnumerator CheckMoleculeIsNotNull(string moleculeName)
         {
             var color = GetColorComponent(moleculeName);

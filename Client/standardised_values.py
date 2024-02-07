@@ -24,6 +24,8 @@ key_task_status = 'task-status'
 key_trials_timer = 'trials-timer'
 key_trials_answer = 'trials-answer'
 key_task_completion_time = 'task-completion-time'
+key_simulation_name = 'simulation-name'
+key_simulation_server_index = 'simulation-server-index'
 
 # ---------------- #
 # VALUES
@@ -33,7 +35,9 @@ ready = 'ready'
 waiting = 'waiting'
 started = 'started'
 in_progress = 'in-progress'
+practice_in_progress = 'practice-in-progress'
 finished = 'finished'
+practice_finished = 'practice-finished'
 none = 'None'
 true = 'True'
 false = 'False'
@@ -41,11 +45,14 @@ false = 'False'
 modality_hands = 'hands'
 modality_controllers = 'controllers'
 
-
 # ---------------- #
 # PLAYER
 # ---------------- #
 key_player_connected = 'Player.Connected'
+key_player_task_status = 'Player.TaskStatus'
+player_in_progress = 'InProgress'
+player_finished = 'Finished'
+player_practice_finished = 'PracticeFinished'
 
 # ---------------- #
 # SHARED STATE
@@ -55,8 +62,8 @@ shared_state_keys_and_vals = {
     key_game_status: [waiting, in_progress, finished],
     key_order_of_tasks: [task_nanotube, task_knot_tying, task_trials],
     key_current_task: [task_nanotube, task_knot_tying, task_trials],
-    key_task_status: [ready, in_progress, finished],
+    key_task_status: [ready, practice_in_progress, in_progress, practice_finished, finished],
     key_trials_timer: [started, finished],
     key_trials_answer: [none, true, false]
 }
-keys_with_unrestricted_vals = [key_task_completion_time]
+keys_with_unrestricted_vals = [key_task_completion_time, key_simulation_name, key_simulation_server_index]

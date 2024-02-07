@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Narupa.Grpc.Multiplayer;
 using NarupaImd;
+using NarupaIMD.Subtle_Game.Canvas;
+using NarupaIMD.Subtle_Game.Data_Collection;
 using NarupaIMD.Subtle_Game.Interaction;
-using NarupaIMD.Subtle_Game.UI;
+using NarupaIMD.Subtle_Game.Visuals;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game
@@ -47,6 +49,8 @@ namespace NarupaIMD.Subtle_Game
                     _showSimulation = value;
                     simulation.gameObject.SetActive(_showSimulation);
                     EnableInteractions = _showSimulation;
+                    if (CurrentTaskType != TaskTypeVal.Trials) return;
+                    trialAnswerSubmission.ToggleDisplayScore(_showSimulation);
                 }
             }
             private bool _showSimulation;
@@ -78,7 +82,9 @@ namespace NarupaIMD.Subtle_Game
             {
                 Intro,
                 Finished,
-                InProgress
+                InProgress,
+                PracticeInProgress,
+                PracticeFinished
             }
             public enum TaskTypeVal
             {
@@ -138,6 +144,8 @@ namespace NarupaIMD.Subtle_Game
                 }
             }
             private TaskStatusVal _taskStatus;
+
+            [SerializeField] private Confetti confetti;
         #endregion
 
         #region Interaction modality
@@ -178,6 +186,8 @@ namespace NarupaIMD.Subtle_Game
             
         private void Start()
         {
+            confetti.gameObject.SetActive(false);
+            
             // Find the Canvas Manager
             _canvasManager = FindObjectOfType<CanvasManager>();
             
@@ -297,18 +307,49 @@ namespace NarupaIMD.Subtle_Game
         /// Starts the current task by hiding the menu, showing the simulation and enabling interactions. This is called
         /// once the player has finished the intro menu for the task.
         /// </summary>
-        public void StartTask()
+        public void StartTask(bool isPractice)
         {
-            TaskStatus = TaskStatusVal.InProgress;
+            if (confetti.isActiveAndEnabled)
+            {
+                confetti.StopConfetti();
+                confetti.gameObject.SetActive(false);
+            }
+
+            TaskStatus = isPractice ? TaskStatusVal.PracticeInProgress : TaskStatusVal.InProgress;
+            
             _canvasManager.HideCanvas();
+
+            if (CurrentTaskType == TaskTypeVal.Trials)
+            {
+                trialAnswerSubmission.ResetScore();
+            }
+        }
+        
+        /// <summary>
+        /// Starts celebrations and calls the function to perform everything that is needed to be done to finish the
+        /// task. This is called when the puppeteering client sets the task status to finished.
+        /// </summary>
+        private void FinishPracticeTask()
+        {
+            // Update task status
+            TaskStatus = TaskStatusVal.PracticeFinished;
+            
+            // Hide simulation
+            ShowSimulation = false;
+
+            // Load next menu
+            _canvasManager.LoadNextMenu();
         }
 
         /// <summary>
-        /// Finished the current task by setting the shared state value, hiding the simulation, preparing the next task,
-        /// and loading the outro menu. This is called when the puppeteering client sets the task status to finished.
+        /// Starts celebrations and calls the function to perform everything that is needed to be done to finish the
+        /// task. This is called when the puppeteering client sets the task status to finished.
         /// </summary>
         private void FinishTask()
         {
+            confetti.gameObject.SetActive(true);
+            confetti.StartCelebrations();
+            
             // Update task status
             TaskStatus = TaskStatusVal.Finished;
 
@@ -319,9 +360,9 @@ namespace NarupaIMD.Subtle_Game
             PrepareNextTask();
                         
             // Load outro menu
-            _canvasManager.LoadOutroToTask();
+            _canvasManager.LoadNextMenu();
         }
-        
+
         /// <summary>
         /// Disables interactions with the simulation and requests answer from player.
         /// </summary>
@@ -362,6 +403,24 @@ namespace NarupaIMD.Subtle_Game
                     GetOrderOfTasks((List<object>)val);
                     break;
                 
+                case "puppeteer.task-status":
+                    switch (val.ToString())
+                    {
+                        case "in-progress":
+                            ShowSimulation = true;
+                            break;
+                        case "finished":
+                            FinishTask();
+                            break;
+                        case "practice-in-progress":
+                            ShowSimulation = true;
+                            break;
+                        case "practice-finished":
+                            FinishPracticeTask();
+                            break;
+                    }
+                    break;
+                
                 case "puppeteer.trials-timer":
                     switch (val.ToString())
                     {
@@ -375,18 +434,25 @@ namespace NarupaIMD.Subtle_Game
                     }
 
                     break;
-
-                case "puppeteer.task-status":
-                    if (val.ToString() == "finished")
+                
+                case "puppeteer.trials-answer":
+                    switch (val.ToString())
                     {
-                        FinishTask();
+                        // Player answered correctly
+                        case "True":
+                            Debug.LogWarning("correct answer");
+                            trialAnswerSubmission.CurrentScore++;
+                            break;
+                        
+                        // Player answered incorrectly
+                        case "False":
+                            Debug.LogWarning("incorrect answer");
+                            trialAnswerSubmission.CurrentScore--;
+                            break;
                     }
 
-                    if (val.ToString() == "in-progress")
-                    {
-                        ShowSimulation = true;
-                    }
                     break;
+                
             }
         }
 
