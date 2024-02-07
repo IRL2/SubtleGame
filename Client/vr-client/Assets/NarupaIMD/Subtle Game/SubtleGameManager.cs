@@ -212,10 +212,10 @@ namespace NarupaIMD.Subtle_Game
             EnableInteractions = true;
             
             // Autoconnect to a locally-running server
-            // await simulation.AutoConnect();
+            await simulation.AutoConnectByName("SubtleGame");
             
             // Connect to a specific ip
-            await simulation.Connect(IPAddress, trajectoryPort:38801, imdPort:38801, multiplayerPort:38801);
+            //await simulation.Connect(IPAddress, trajectoryPort:38801, imdPort:38801, multiplayerPort:38801);
             
             // Initialise pinch grabs for interactions
             _pinchGrab.InitialiseInteractions();
