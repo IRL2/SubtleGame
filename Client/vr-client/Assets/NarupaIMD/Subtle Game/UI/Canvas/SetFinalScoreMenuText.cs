@@ -15,6 +15,11 @@ namespace NarupaIMD.Subtle_Game.Canvas
             SetBodyText();
         }
         
+        private void Update()
+        {
+            SetBodyText();
+        }
+        
         /// <summary>
         /// Sets the body text of the current menu telling the player which interaction modality they will be using for
         /// the next section.
