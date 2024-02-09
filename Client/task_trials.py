@@ -193,7 +193,7 @@ class TrialsTask(Task):
 
         # Prepare task and wait for player to be ready
         self._prepare_task()
-        self._wait_for_vr_client_to_start_task()
+        self._wait_for_task_in_progress()
 
     def _run_task_logic(self):
         """ Runs a psychophysics trial. Plays the simulation for the allotted time and pauses it once the timer is up.

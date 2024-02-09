@@ -9,8 +9,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
         public TMP_Text bodyText;
         private SubtleGameManager _subtleGameManager;
         private string _modality;
-        
-        
+
         private void OnEnable()
         {
             _subtleGameManager = FindObjectOfType<SubtleGameManager>();
@@ -24,22 +23,15 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// </summary>
         private void SetBodyText()
         {
-            switch (_subtleGameManager.CurrentInteractionModality)
+            _modality = _subtleGameManager.CurrentInteractionModality switch
             {
-                case SubtleGameManager.Modality.Controllers:
-                    _modality = "controllers";
-                    break;
-                case SubtleGameManager.Modality.Hands:
-                    _modality = "your hands";
-                    break;
-                case SubtleGameManager.Modality.None:
-                    _modality = "hands or controllers";
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            
-            bodyText.SetText($"For this section you will be using \n{_modality}");
+                SubtleGameManager.Modality.Controllers => "controllers",
+                SubtleGameManager.Modality.Hands => "your hands",
+                SubtleGameManager.Modality.None => "hands or controllers",
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            bodyText.SetText(_modality);
         }
     }
 }

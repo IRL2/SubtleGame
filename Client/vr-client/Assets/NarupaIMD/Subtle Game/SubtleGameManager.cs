@@ -80,6 +80,7 @@ namespace NarupaIMD.Subtle_Game
             }
             public enum TaskStatusVal
             {
+                None,
                 Intro,
                 Finished,
                 InProgress,
@@ -270,7 +271,6 @@ namespace NarupaIMD.Subtle_Game
                 }
             }
             OrderOfTasksReceived = true;
-            PrepareNextTask();
         }
         
         /// <summary>
@@ -279,7 +279,7 @@ namespace NarupaIMD.Subtle_Game
         /// completed: if yes, end the game, if no, update current task. This function is called once when the order of
         /// tasks is first populated and each time thereafter once a task is finished.
         /// </summary>
-        private void PrepareNextTask()
+        public void PrepareNextTask()
         {
             // Check if this is the first time this function has been called
             if (_startOfGame)
@@ -301,6 +301,7 @@ namespace NarupaIMD.Subtle_Game
             }
             
             CurrentTaskType = _orderOfTasks[CurrentTaskNum]; // update current task
+            TaskStatus = TaskStatusVal.Intro; // update task status
         }
         
         /// <summary>
@@ -355,10 +356,7 @@ namespace NarupaIMD.Subtle_Game
 
             // Hide simulation
             ShowSimulation = false;
-                        
-            // Prepare next task
-            PrepareNextTask();
-                        
+
             // Load outro menu
             _canvasManager.LoadNextMenu();
         }

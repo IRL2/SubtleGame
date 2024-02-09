@@ -12,6 +12,12 @@ def write_to_shared_state(client: NarupaImdClient, key: str, value):
     client.set_shared_value(formatted_key, value)
 
 
+def remove_puppeteer_key_from_shared_state(client: NarupaImdClient, key: str):
+    """ Removes a key from the shared state that has the puppeteer namespace. """
+    formatted_key = "puppeteer." + key
+    client.remove_shared_value(formatted_key)
+
+
 def check_that_key_val_pair_is_valid(key: str, val):
     """ Checks if the key-value pair is permitted for writing to the shared state. """
 

@@ -85,7 +85,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
             }
 
             // Invoke the button press
-            Invoke(nameof(InvokeStartTask), TimeDelay);
+            Invoke(nameof(InvokeStartPracticeTask), TimeDelay);
         }
         
         /// <summary>
@@ -143,7 +143,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
         {
             if (!CanButtonBePressed())
             {
-             Debug.LogWarning("You are trying to press the button with the wrong interaction mode.");   
+             Debug.LogWarning("You are trying to press the button with the wrong interaction mode or only one controller is tracking.");   
                 return;
             }
             
