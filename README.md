@@ -43,7 +43,7 @@ Hand tracking must be enabled on your VR headset to play the game. To do this:
 
 ## Running a game
 
-1. Run a server by navigating to `./Client/rust-server-2023-10-19` and clicking `narupa-gui.exe`. Open the Network tab and change the Server name to `SubtleGame`. Run the default simulation by clicking `Run demonstration input!` or select a simulation file from your computer and click `Run the selected file!`.
+1. Run a server by navigating to `./Client/rust-server-2023-10-19` and clicking `narupa-gui.exe`. Open the Network tab and change the Server name to `SubtleGame`. For the game to run sucesfully you need to load a minimum of four simulations: (1) nanotube, (2) 17-ala, (3) a buckyball simulation with a number smaller than 1 in the file name and (4) a buckyball simulation with a number larger than 1 in the file name. Click `Run the selected file!`.
 2. Run the Python script `./Client/puppeteering-client.py` from inside your `subtle-game` conda environment (either using the terminal or your Python IDE, as detailed above).
 3. Open `Oculus Link` or `Air Link` from inside your Oculus headset.
 4. Open Unity and click play to start the game.
