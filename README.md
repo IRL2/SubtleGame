@@ -26,6 +26,7 @@ The game is handled by a Python client that is referred to as the 'puppeteering 
 2. Click the `Add` button and select the `./Client/vr-client` directory.
 3. If not already installed, you should get a prompt to install the required version of Unity (2022.3.8f1). Install this along with the Android Build Support with OpenJDK and Android SDK & NDK Tools.
 4. Open the game using this version of Unity and open the `Main` scene, which is found in the `./Assets/Scenes` directory.
+5. IMPORTANT NOTE: the IP is hardcoded into the VR client. Navigate to `./Assets/NarupaIMD/Subtle Game/SubtleGameManager.cs` and type your IP address into the `IPAdress` variable at the top of the script.
 
 ### Oculus PC App Settings
 
