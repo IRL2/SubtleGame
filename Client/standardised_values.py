@@ -50,6 +50,7 @@ modality_controllers = 'controllers'
 # ---------------- #
 key_player_connected = 'Player.Connected'
 key_player_task_status = 'Player.TaskStatus'
+player_intro = 'Intro'
 player_in_progress = 'InProgress'
 player_practice_in_progress = 'PracticeInProgress'
 player_finished = 'Finished'

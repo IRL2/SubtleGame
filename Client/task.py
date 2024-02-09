@@ -1,5 +1,5 @@
 from narupa.app import NarupaImdClient
-from additional_functions import write_to_shared_state
+from additional_functions import write_to_shared_state, remove_puppeteer_key_from_shared_state
 import time
 from standardised_values import *
 
@@ -23,8 +23,10 @@ class Task:
     def run_task(self):
 
         self._prepare_task()
+        self._wait_for_task_intro()
 
-        self._wait_for_vr_client_to_start_task()
+        self._wipe_shared_state_values_from_previous_task()
+        self._wait_for_task_in_progress()
 
         self._run_task_logic()
 
@@ -73,9 +75,25 @@ class Task:
         """ Loads the simulation. """
         self.client.run_command("playback/load", index=self.sim_index)
 
-    def _wait_for_vr_client_to_start_task(self):
+    def _wait_for_task_intro(self):
 
-        print('Waiting for player to start task')
+        print("Waiting for player to start intro to task")
+        while True:
+
+            try:
+                # check whether the value matches the desired value for the specified key
+                current_val = self.client.latest_multiplayer_values[key_player_task_status]
+
+                if current_val == player_intro:
+                    break
+
+            except KeyError:
+                # If the desired key-value pair is not in shared state yet, wait a bit before trying again
+                time.sleep(1 / 30)
+
+    def _wait_for_task_in_progress(self):
+
+        print("Waiting for player to start task")
         while True:
 
             try:
@@ -147,3 +165,12 @@ class Task:
             except KeyError:
                 # If the desired key-value pair is not in shared state yet, wait a bit before trying again
                 time.sleep(1 / 30)
+
+    def _wipe_shared_state_values_from_previous_task(self):
+        """Remove necessary keys leftover from previous tasks."""
+
+        try:
+            remove_puppeteer_key_from_shared_state(client=self.client, key=key_task_completion_time)
+
+        except KeyError:
+            return
