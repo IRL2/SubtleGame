@@ -43,12 +43,17 @@ Hand tracking must be enabled on your VR headset to play the game. To do this:
 
 ## Running a game
 
-1. Run a server by navigating to `./Client/rust-server-2023-10-19` and clicking `narupa-gui.exe`. Open the Network tab and change the Server name to `SubtleGame`. For the game to run sucesfully you need to load a minimum of four simulations:
+1. Run a server by navigating to `./Client/rust-server-2023-10-19` and clicking `narupa-gui.exe`. Open the Network tab and change the Server name to `SubtleGame`.
+
+For the game to run you need to load a minimum of four simulations:
 - nanotube_langevin
 - 17-ala
 - a buckyball simulation with a number smaller than 1 in the file name, e.g., `buckyballs_angle_A_0.5.xml`
 - a buckyball simulation with a number larger than 1 in the file name, e.g., `buckyballs_angle_B_1.5.xml`
-2. Select `file input` and click on the `+` and `-` symbols to add and remove simulations. Once you have selected these simulations, click `Run the selected file!`.
+
+You can load more buckyball simulations if you wish. For the practice trials, the simulations with the highest and lowest numbers will be given to the player. For the main trials, one simulation of each number will be presented in a random order. E.g., say that you load `buckyballs_angle_A_0.5.xml`, `buckyballs_angle_B_0.5.xml`, `buckyballs_angle_A_1.xml`, `buckyballs_angle_B_1.xml`, `buckyballs_angle_A_1.5.xml`, and `buckyballs_angle_B_1.5.xml`. The practice trials will involve all four simulations for the values 0.5 and 1.5, and the two simulations for each will be randomly presented to the player until they get one correct for each value. The main trials will then involve three simulations: one each for the values 0.5, 1 and 1.5. 
+
+2. To load these simulations, select `file input` and click on the `+` and `-` symbols to add and remove simulations. Once you have selected these simulations, click `Run the selected file!`.
 3. Run the Python script `./Client/puppeteering-client.py` from inside your `subtle-game` conda environment (either using the terminal or your Python IDE, as detailed above).
 4. Open `Oculus Link` or `Air Link` from inside your Oculus headset.
 5. Open Unity and click play to start the game.
