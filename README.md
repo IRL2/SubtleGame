@@ -26,7 +26,6 @@ The game is handled by a Python client that is referred to as the 'puppeteering 
 2. Click the `Add` button and select the `./Client/vr-client` directory.
 3. If not already installed, you should get a prompt to install the required version of Unity (2022.3.8f1). Install this along with the Android Build Support with OpenJDK and Android SDK & NDK Tools.
 4. Open the game using this version of Unity and open the `Main` scene, which is found in the `./Assets/Scenes` directory.
-5. IMPORTANT NOTE: the IP is hardcoded into the VR client. Navigate to `./Assets/NarupaIMD/Subtle Game/SubtleGameManager.cs` and type your IP address into the `IPAdress` variable at the top of the script.
 
 ### Oculus PC App Settings
 
@@ -57,3 +56,6 @@ You can load more buckyball simulations if you wish. For the practice trials, th
 4. Run the Python script `./Client/puppeteering-client.py` from inside your `subtle-game` conda environment (either using the terminal or your Python IDE, as detailed above).
 5. Open `Oculus Link` or `Air Link` from inside your Oculus headset.
 6. Open Unity and click play to start the game.
+
+IMPORTANT NOTE: both the VR client and puppeteering client are hardcoded to connect to a locally-running server called "SubtleGame". This will cause issues if you are on the same network as another person who is also running the game. If you want to change the server name, you need to change this in the VR client (`./Client/vr-client/Assets/NarupaIMD/Subtle Game/SubtleGameManager.cs`) and the puppeteering client (`./Client/puppeteering_client.py"`), and then type this server name into the server before you start.
+
