@@ -18,9 +18,6 @@ namespace NarupaIMD.Subtle_Game
     /// </summary>
     public class SubtleGameManager : MonoBehaviour
     {
-        // SET YOUR LOCAL IP!
-        private const string IPAddress = "172.18.13.49";
-
         #region Scene References
         
             public NarupaImdSimulation simulation;
@@ -212,11 +209,8 @@ namespace NarupaIMD.Subtle_Game
             EnableInteractions = true;
             
             // Autoconnect to a locally-running server
-            // await simulation.AutoConnect();
-            
-            // Connect to a specific ip
-            await simulation.Connect(IPAddress, trajectoryPort:38801, imdPort:38801, multiplayerPort:38801);
-            
+            await simulation.AutoConnectByName("SubtleGame");
+
             // Initialise pinch grabs for interactions
             _pinchGrab.InitialiseInteractions();
 
