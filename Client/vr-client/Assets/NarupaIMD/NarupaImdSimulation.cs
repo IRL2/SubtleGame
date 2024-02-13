@@ -149,6 +149,20 @@ namespace NarupaImd
         }
 
         /// <summary>
+        /// Run an ESSD search and connect to the first service found with
+        /// matching name, or none if the timeout elapses without finding 
+        /// a service.
+        /// </summary>
+        public async Task AutoConnectByName(string name, int millisecondsTimeout = 1000)
+        {
+            var client = new Client();
+            var services = await Task.Run(() => client.SearchForServices(millisecondsTimeout));
+            var service = services.FirstOrDefault(service => service.Name.Contains(name));
+            if (service is { })
+                await Connect(service);
+        }
+
+        /// <summary>
         /// Close all sessions.
         /// </summary>
         public async Task CloseAsync()
