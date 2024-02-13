@@ -76,7 +76,7 @@ namespace NarupaIMD.Subtle_Game.Visuals
             var scale = simBox.localScale;
 
             Debug.LogWarning("Updating sim box");
-            subtleGameManager.simulation.Multiplayer.SimulationPose.UpdateValueWithLock(new Transformation(position, rotation, scale));
+            subtleGameManager.simulation.Multiplayer.SimulationPose.UpdateValueWithoutLock(new Transformation(position, rotation, scale));
         }
         
         /// <summary>

@@ -218,6 +218,17 @@ namespace Narupa.Grpc.Multiplayer
             }
         }
 
+        // TODO: added off the cuff by MW, needs review--bypassing lock because of GRPC
+        // problems for now
+        /// <summary>
+        /// Set the local value of this key, without trying to lock it.
+        /// </summary>
+        public void UpdateValueWithoutLock(TValue value)
+        {
+            SetLocalValue(value);
+            CopyLocalValueToRemote();
+        }
+
         private void SetLocalValue(TValue value)
         {
             this.value = value;
