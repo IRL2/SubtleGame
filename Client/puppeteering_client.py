@@ -127,20 +127,21 @@ class PuppeteeringClient:
     def _wait_for_vr_client_to_connect_to_server(self):
         """ Waits for the player to be connected."""
 
+        self._wait_for_key_values(key_player_connected, true)
+        write_to_shared_state(client=self.narupa_client, key=key_game_status, value=in_progress)
+
+    def _wait_for_key_values(self, key, *values):
         while True:
-
             try:
-                # check whether the value matches the desired value for the specified key
-                current_val = self.narupa_client.latest_multiplayer_values[key_player_connected]
-
-                if current_val == true:
+                value = self.narupa_client.latest_multiplayer_values[key]
+                if value in values:
                     break
 
             except KeyError:
-                # If the desired key-value pair is not in shared state yet, wait a bit before trying again
-                time.sleep(1 / 30)
+                pass
 
-        write_to_shared_state(client=self.narupa_client, key=key_game_status, value=in_progress)
+            # If the desired key-value pair is not in shared state yet, wait a bit before trying again
+            time.sleep(standard_rate)
 
     def _finish_game(self):
         """ Update the shared state and close the client at the end of the game. """

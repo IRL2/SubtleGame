@@ -12,6 +12,9 @@ task_order = 'order-of-tasks'
 sim_name_nanotube = 'nanotube'
 sim_name_knot_tying = '17-ala'
 sim_name_trials = 'buckyball'
+# Frequency
+standard_frequency = 30
+standard_rate = 1 / standard_frequency
 
 # ---------------- #
 # KEYS

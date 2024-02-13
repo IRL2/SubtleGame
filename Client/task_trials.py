@@ -107,7 +107,6 @@ class TrialsTask(Task):
     task_type = task_trials
     trial_answer_key = player_trial_answer
     trial_duration = 3
-    frequency = 30
 
     def __init__(self, client: NarupaImdClient, simulations: list, simulation_counter: int):
 
@@ -206,9 +205,9 @@ class TrialsTask(Task):
         self.client.run_play()
 
         # Keep checking that the simulation has not blown up for desired length of trial
-        for _ in range(self.trial_duration * self.frequency):
+        for _ in range(self.trial_duration * standard_frequency):
             self._check_if_sim_has_blown_up()
-            time.sleep(1 / self.frequency)
+            time.sleep(standard_rate)
 
         # Timer ended: update shared state and pause sim
         write_to_shared_state(client=self.client, key=key_trials_timer, value=finished)
@@ -253,7 +252,7 @@ class TrialsTask(Task):
 
             # If no answer has been logged yet, wait for a bit before trying again
             except KeyError:
-                time.sleep(1 / 30)
+                time.sleep(standard_rate)
 
         # Remove answer once it has been received, ready for the next trial or the end of the trials
         self.client.remove_shared_value(self.trial_answer_key)
@@ -300,4 +299,4 @@ class TrialsTask(Task):
 
             except KeyError:
                 # If the desired key-value pair is not in shared state yet, wait a bit before trying again
-                time.sleep(1 / 30)
+                time.sleep(standard_rate)

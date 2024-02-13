@@ -35,13 +35,9 @@ class KnotTyingTask(Task):
         while True:
 
             # Check that the particle positions exist in the latest frame
-            while True:
-                try:
-                    test = self.client.latest_frame.particle_positions
-                    break
-                except KeyError:
-                    print("No particle positions found, waiting for 1/30 seconds before trying again.")
-                    time.sleep(1 / 30)
+            while not hasattr(self.client.latest_frame, 'particle_positions'):
+                print("No particle positions found, waiting for 1/30 seconds before trying again.")
+                time.sleep(standard_rate)
 
             self.knot_pull_client.check_if_chain_is_knotted(
                 atom_positions=self.client.latest_frame.particle_positions)
@@ -51,7 +47,7 @@ class KnotTyingTask(Task):
                 break
 
             self._check_if_sim_has_blown_up()
-            time.sleep(1 / 30)
+            time.sleep(standard_rate)
 
     def _update_visualisations(self):
         """ Applies rainbow gradient visualisation. """
