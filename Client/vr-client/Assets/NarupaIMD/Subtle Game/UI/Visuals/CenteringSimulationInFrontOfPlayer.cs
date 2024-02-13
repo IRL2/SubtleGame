@@ -46,8 +46,7 @@ namespace NarupaIMD.Subtle_Game.Visuals
         /// Manager of the Subtle Game.
         /// </summary>
         public SubtleGameManager subtleGameManager;
-
-        [SerializeField] private SimBoxManager simBoxManager;
+        
 
         private void OnEnable()
         {
