@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Narupa.Grpc.Multiplayer;
 using NarupaImd;
 using NarupaIMD.Subtle_Game.Canvas;
 using NarupaIMD.Subtle_Game.Data_Collection;
@@ -22,11 +21,9 @@ namespace NarupaIMD.Subtle_Game
         
             public NarupaImdSimulation simulation;
             public GameObject userInteraction;
-            
             private CanvasManager _canvasManager;
-            private MultiplayerSession _session;
 
-        #endregion
+            #endregion
 
         #region Preparing Game
 
