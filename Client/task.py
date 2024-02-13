@@ -78,34 +78,24 @@ class Task:
     def _wait_for_task_intro(self):
 
         print("Waiting for player to start intro to task")
-        while True:
-
-            try:
-                # check whether the value matches the desired value for the specified key
-                current_val = self.client.latest_multiplayer_values[key_player_task_status]
-
-                if current_val == player_intro:
-                    break
-
-            except KeyError:
-                # If the desired key-value pair is not in shared state yet, wait a bit before trying again
-                time.sleep(1 / 30)
+        self._wait_for_key_values(key_player_task_status, player_intro)
 
     def _wait_for_task_in_progress(self):
-
         print("Waiting for player to start task")
+        self._wait_for_key_values(key_player_task_status, player_in_progress, player_practice_in_progress)
+
+    def _wait_for_key_values(self, key, *values):
         while True:
-
             try:
-                # check whether the value matches the desired value for the specified key
-                current_val = self.client.latest_multiplayer_values[key_player_task_status]
-
-                if current_val == player_in_progress or current_val == player_practice_in_progress:
+                value = self.client.latest_multiplayer_values[key]
+                if value in values:
                     break
 
             except KeyError:
-                # If the desired key-value pair is not in shared state yet, wait a bit before trying again
-                time.sleep(1 / 30)
+                pass
+
+            # If the desired key-value pair is not in shared state yet, wait a bit before trying again
+            time.sleep(1/30)
 
     def _update_visualisations(self):
         """ Container for changing the task-specific visualisation the simulation. """
@@ -153,18 +143,7 @@ class Task:
 
         # Wait for player to register that the task has finished
         print('Waiting for player to confirm end of task')
-        while True:
-
-            try:
-                # check whether the value matches the desired value for the specified key
-                current_val = self.client.latest_multiplayer_values[key_player_task_status]
-
-                if current_val == player_finished:
-                    break
-
-            except KeyError:
-                # If the desired key-value pair is not in shared state yet, wait a bit before trying again
-                time.sleep(1 / 30)
+        self._wait_for_key_values(key_player_task_status, player_finished)
 
     def _wipe_shared_state_values_from_previous_task(self):
         """Remove necessary keys leftover from previous tasks."""
