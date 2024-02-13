@@ -1,3 +1,4 @@
+using Narupa.Core.Math;
 using Narupa.Visualisation;
 using NarupaIMD.Subtle_Game.UI.Simulation;
 using UnityEngine;
@@ -44,6 +45,7 @@ namespace NarupaIMD.Subtle_Game.Visuals
         /// Manager of the Subtle Game.
         /// </summary>
         public SubtleGameManager subtleGameManager;
+        
 
         private void OnEnable()
         {
@@ -61,10 +63,19 @@ namespace NarupaIMD.Subtle_Game.Visuals
         /// </summary>
         private void UpdateSimulationBox()
         {
+            // Move simulation box
             SetSimulationScale();
             PutSimulationInFrontOfPlayer();
             centerXYPlane.UpdatePosition();
             pointOfParticleEmission.UpdatePosition();
+            
+            // Update scene in shared state
+            var simBox = transform;
+            var position = simBox.position;
+            var rotation = simBox.rotation;
+            var scale = simBox.lossyScale;
+            subtleGameManager.simulation.Multiplayer.SimulationPose.UpdateValueWithoutLock(
+                new Transformation(position, rotation, scale));
         }
         
         /// <summary>
