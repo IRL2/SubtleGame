@@ -82,7 +82,7 @@ class Task:
 
     def _wait_for_task_in_progress(self):
         print("Waiting for player to start task")
-        self._wait_for_key_values(key_player_task_status, player_in_progress, player_practice_in_progress)
+        self._wait_for_key_values(key_player_task_status, player_in_progress)
 
     def _wait_for_key_values(self, key, *values):
         while True:
