@@ -57,7 +57,7 @@ class PuppeteeringClient:
 
         # initialise game
         self._initialise_game()
-        print('Game initialised, waiting for player to connect')
+        print('\nGame initialised, waiting for player to connect')
 
         self._wait_for_vr_client_to_connect_to_server()
 
@@ -118,9 +118,11 @@ class PuppeteeringClient:
         the server."""
 
         data = [{s: idx} for idx, s in enumerate(self.simulations['simulations']) if name in s]
+
         if len(data) == 0:
-            raise ValueError(f"No {name} simulation found. Have you forgotten to load the simulation on the server? "
-                             f"Does the loaded .xml contain the term {name}?")
+            raise ValueError(f"No {name} simulation found on the server. The game will not run properly. Have you "
+                             f"forgotten to load the simulation? Does the loaded .xml contain the term"
+                             f" `{name}`?")
 
         return data
 
