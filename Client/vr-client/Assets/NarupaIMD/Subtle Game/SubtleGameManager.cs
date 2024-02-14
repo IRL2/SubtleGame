@@ -78,8 +78,6 @@ namespace NarupaIMD.Subtle_Game
                 Intro,
                 Finished,
                 InProgress,
-                PracticeInProgress,
-                PracticeFinished
             }
             public enum TaskTypeVal
             {
@@ -299,7 +297,7 @@ namespace NarupaIMD.Subtle_Game
         /// Starts the current task by hiding the menu, showing the simulation and enabling interactions. This is called
         /// once the player has finished the intro menu for the task.
         /// </summary>
-        public void StartTask(bool isPractice)
+        public void StartTask()
         {
             if (confetti.isActiveAndEnabled)
             {
@@ -307,30 +305,13 @@ namespace NarupaIMD.Subtle_Game
                 confetti.gameObject.SetActive(false);
             }
 
-            TaskStatus = isPractice ? TaskStatusVal.PracticeInProgress : TaskStatusVal.InProgress;
-            
+            TaskStatus = TaskStatusVal.InProgress;
             _canvasManager.HideCanvas();
 
             if (CurrentTaskType == TaskTypeVal.Trials)
             {
                 trialAnswerSubmission.ResetScore();
             }
-        }
-        
-        /// <summary>
-        /// Starts celebrations and calls the function to perform everything that is needed to be done to finish the
-        /// task. This is called when the puppeteering client sets the task status to finished.
-        /// </summary>
-        private void FinishPracticeTask()
-        {
-            // Update task status
-            TaskStatus = TaskStatusVal.PracticeFinished;
-            
-            // Hide simulation
-            ShowSimulation = false;
-
-            // Load next menu
-            _canvasManager.LoadNextMenu();
         }
 
         /// <summary>
@@ -400,12 +381,6 @@ namespace NarupaIMD.Subtle_Game
                             break;
                         case "finished":
                             FinishTask();
-                            break;
-                        case "practice-in-progress":
-                            ShowSimulation = true;
-                            break;
-                        case "practice-finished":
-                            FinishPracticeTask();
                             break;
                     }
                     break;

@@ -1,7 +1,7 @@
 from Client.task import Task
 from narupa.app import NarupaImdClient
 import time
-from additional_functions import write_to_shared_state, randomise_list_order
+from additional_functions import write_to_shared_state
 from standardised_values import *
 import random
 
@@ -70,8 +70,8 @@ def get_simulations_for_multiplier(simulations: list, multiplier: float):
 
 
 def get_order_of_simulations(simulations):
-    """ Returns the simulations for the main and practice parts of the Trials task, each in the order that they will be
-    presented to the player. """
+    """ Returns the simulations for the main and practice parts (the simulations with the max and min force constant
+    coefficients) of the Trials task, each in the order that they will be presented to the player. """
 
     unique_multipliers = get_unique_multipliers(simulations)
 
@@ -128,41 +128,7 @@ class TrialsTask(Task):
         self.practice_sims, self.main_sims = get_order_of_simulations(self.simulations)
 
     def run_task(self):
-        """ Runs practice trials and then trials proper. """
-
-        # Run practice trials until player gets a correct answer for both the min and max multiplier values
-        is_first_trial = True
-
-        for i in range(len(self.practice_sims)):
-
-            # Repeat until player gets answer correct
-            while true:
-
-                # Randomise the order of presentation of the A-modified and B-modified simulations
-                sims = randomise_list_order(self.practice_sims[i])
-
-                # Loop through these two simulations
-                for n in range(len(sims)):
-
-                    self._prepare_trial(name=sims[n][0],
-                                        server_index=sims[n][1],
-                                        correct_answer=sims[n][2])
-
-                    if is_first_trial:
-                        write_to_shared_state(client=self.client, key=key_task_status, value=practice_in_progress)
-                        is_first_trial = False
-
-                    self._run_task_logic()
-
-                    if self.was_answer_correct == true:
-                        break
-
-                if self.was_answer_correct == true:
-                    print(f"practice number {i + 1} finished!")
-                    break
-
-        # End practice trials
-        self._finish_practice_task()
+        """ Runs through the psychophysics trials. """
 
         # Run trials proper
         for trial_num in range(len(self.main_sims)):
@@ -279,24 +245,3 @@ class TrialsTask(Task):
                 {'render': 'ball and stick',
                  'color': 'grey'
                  }
-
-    def _finish_practice_task(self):
-        """Handles the finishing of the practice task."""
-
-        # Update task status and completion time in the shared state
-        write_to_shared_state(client=self.client, key=key_task_status, value=practice_finished)
-
-        # Wait for player to register that the task has finished
-        print('Waiting for player to confirm end of practice task')
-        while True:
-
-            try:
-                # check whether the value matches the desired value for the specified key
-                current_val = self.client.latest_multiplayer_values[key_player_task_status]
-
-                if current_val == player_practice_finished:
-                    break
-
-            except KeyError:
-                # If the desired key-value pair is not in shared state yet, wait a bit before trying again
-                time.sleep(standard_rate)
