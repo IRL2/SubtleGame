@@ -90,7 +90,7 @@ namespace NarupaIMD.Subtle_Game.Visuals
                 SubtleGameManager.TaskTypeVal.Nanotube => 1f,
                 SubtleGameManager.TaskTypeVal.KnotTying => 0.75f,
                 SubtleGameManager.TaskTypeVal.Trials => 1f,
-                _ => _simulationScale
+                _ => 1f
             };
             
             // Set the scale of the simulation game object
