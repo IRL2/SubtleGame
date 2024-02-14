@@ -90,9 +90,9 @@ namespace NarupaIMD.Subtle_Game.Canvas
         }
 
         /// <summary>
-        /// Attach to a button for switching menu canvas (task).
+        /// Attach to a button for switching menu task.
         /// </summary>
-        public void ButtonSwitchCanvas()
+        public void ButtonSwitchTask()
         {
             
             if (!CanButtonBePressed())
@@ -102,19 +102,19 @@ namespace NarupaIMD.Subtle_Game.Canvas
             }
             
             // Invoke button press
-            Invoke(nameof(InvokeSwitchCanvas), TimeDelay);
+            Invoke(nameof(InvokeSwitchTask), TimeDelay);
         }
 
         /// <summary>
         /// Request switch of canvas from the Canvas Manager.
         /// </summary>
-        private void InvokeSwitchCanvas()
+        private void InvokeSwitchTask()
         {
             _canvasManager.RequestCanvasForNextTask();
         }
         
         /// <summary>
-        /// Attach to a button for switching canvas (task).
+        /// Attach to a button for switching task.
         /// </summary>
         public void ButtonNextMenu()
         {
