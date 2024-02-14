@@ -109,15 +109,10 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// <summary>
         /// Modifies the current canvas by enabling the game objects specified by the Canvas Modifier.
         /// </summary>
-        public void ModifyCanvas(CanvasModifier canvasModifier)
+        public void RequestModifyCanvas(CanvasModifier canvasModifier)
         {
             if (canvasModifier == null) return;
-            
-            // Loop through the game objects and set each one active
-            foreach (GameObject obj in canvasModifier.gameObjectsToAppear)
-            {
-                obj.SetActive(true);
-            }
+            canvasModifier.ModifyCanvas();
         }
         
         /// <summary>
