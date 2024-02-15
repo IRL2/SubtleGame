@@ -1,6 +1,7 @@
 from narupa.app import NarupaImdClient
 from task_nanotube import NanotubeTask
 from task_knot_tying import KnotTyingTask
+from task_sandbox import SandboxTask
 from task_trials import TrialsTask
 from additional_functions import write_to_shared_state, randomise_list_order
 from standardised_values import *
@@ -42,7 +43,8 @@ class PuppeteeringClient:
 
         # Get orders of randomised variables
         self.order_of_tasks = get_order_of_tasks(run_short_game=short_game)
-        self.order_of_interaction_modality = randomise_list_order([modality_hands, modality_controllers])
+        # self.order_of_interaction_modality = randomise_list_order([modality_hands, modality_controllers])
+        self.order_of_interaction_modality = randomise_list_order([modality_hands])
         self.current_modality = self.order_of_interaction_modality[0]
 
         # Declare variables
@@ -58,8 +60,26 @@ class PuppeteeringClient:
         # initialise game
         self._initialise_game()
         print('\nGame initialised, waiting for player to connect')
-
         self._wait_for_vr_client_to_connect_to_server()
+        print("Player connected, waiting for them to choose a task")
+
+        while True:
+            try:
+                value = self.narupa_client.latest_multiplayer_values[key_player_task_type]
+                if value == player_sandbox:
+                    simulation_counter = self.narupa_client._current_frame.values["system.simulation.counter"]
+                    current_task = SandboxTask(client=self.narupa_client, simulations=self.nanotube_sim,
+                                               simulation_counter=simulation_counter)
+                    current_task.run_task()
+                    continue
+                else:
+                    break
+
+            except KeyError:
+                pass
+
+            # If the desired key-value pair is not in shared state yet, wait a bit before trying again
+            time.sleep(standard_rate)
 
         # loop through the tasks
         for task in self.order_of_tasks:

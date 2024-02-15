@@ -86,7 +86,8 @@ namespace NarupaIMD.Subtle_Game
                 Nanotube,
                 GameFinished,
                 KnotTying,
-                Trials
+                Trials,
+                Sandbox
             }
 
             public enum Modality
@@ -291,6 +292,15 @@ namespace NarupaIMD.Subtle_Game
             
             CurrentTaskType = _orderOfTasks[CurrentTaskNum]; // update current task
             TaskStatus = TaskStatusVal.Intro; // update task status
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public void StartSandbox()
+        {
+            CurrentTaskType = TaskTypeVal.Sandbox;
+            _canvasManager.HideCanvas();
         }
         
         /// <summary>

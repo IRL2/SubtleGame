@@ -4,6 +4,7 @@
 # Server
 server_name = 'SubtleGame'
 # Task
+task_sandbox = 'sandbox'
 task_nanotube = 'nanotube'
 task_knot_tying = 'knot-tying'
 task_trials = 'trials'
@@ -50,8 +51,10 @@ modality_controllers = 'controllers'
 # PLAYER
 # ---------------- #
 key_player_connected = 'Player.Connected'
+key_player_task_type = 'Player.TaskType'
 key_player_task_status = 'Player.TaskStatus'
 player_intro = 'Intro'
+player_sandbox = 'Sandbox'
 player_in_progress = 'InProgress'
 player_finished = 'Finished'
 
