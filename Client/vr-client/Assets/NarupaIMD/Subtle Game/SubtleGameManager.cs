@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,6 +32,8 @@ namespace NarupaIMD.Subtle_Game
             public bool OrderOfTasksReceived { get; private set; }
             private PinchGrab _pinchGrab;
             [NonSerialized] public bool grabbersReady;
+
+            private Coroutine _playerInSandbox;
         
         #endregion
         
@@ -301,6 +304,7 @@ namespace NarupaIMD.Subtle_Game
         {
             CurrentTaskType = TaskTypeVal.Sandbox;
             StartTask();
+            _playerInSandbox = StartCoroutine(AllowPlayerToSwitchBetweenHandsAndControllers());
         }
         
         /// <summary>
@@ -322,6 +326,20 @@ namespace NarupaIMD.Subtle_Game
             {
                 trialAnswerSubmission.ResetScore();
             }
+        }
+        
+        /// <summary>
+        /// Continuously checks whether the hands are tracking and communicates this to the pinch grab script. This
+        /// allows the player to switch between hands and controllers when in the sandbox.
+        /// </summary>
+        private IEnumerator AllowPlayerToSwitchBetweenHandsAndControllers()
+        {
+            while (true)
+            {
+                _pinchGrab.UseControllers = !OVRPlugin.GetHandTrackingEnabled();
+                yield return new WaitForSeconds(1 / 30f);
+            }
+            // TODO: add logic for exiting this coroutine
         }
 
         /// <summary>
@@ -360,21 +378,13 @@ namespace NarupaIMD.Subtle_Game
             switch (key)
             {
                 case "puppeteer.modality":
-                    
-                    switch (val.ToString())
+
+                    CurrentInteractionModality = val.ToString() switch
                     {
-                        case "hands":
-                            CurrentInteractionModality = Modality.Hands;
-                            break;
-                        
-                        case "controllers":
-                            CurrentInteractionModality = Modality.Controllers;
-                            break;
-                        
-                        default:
-                            Debug.LogError("Interaction modality not recognised.");
-                            break;
-                    }
+                        "hands" => Modality.Hands,
+                        "controllers" => Modality.Controllers,
+                        _ => Modality.None
+                    };
 
                     isIntroToSection = true;
                     break;
