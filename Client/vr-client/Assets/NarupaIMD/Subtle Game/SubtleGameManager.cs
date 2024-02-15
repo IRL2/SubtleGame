@@ -298,7 +298,7 @@ namespace NarupaIMD.Subtle_Game
         }
         
         /// <summary>
-        /// 
+        /// Start sandbox.
         /// </summary>
         public void StartSandbox()
         {
