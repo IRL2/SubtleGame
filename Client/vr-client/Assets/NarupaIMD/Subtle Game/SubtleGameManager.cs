@@ -300,7 +300,7 @@ namespace NarupaIMD.Subtle_Game
         public void StartSandbox()
         {
             CurrentTaskType = TaskTypeVal.Sandbox;
-            _canvasManager.HideCanvas();
+            StartTask();
         }
         
         /// <summary>

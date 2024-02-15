@@ -15,19 +15,14 @@ class SandboxTask(Task):
         super().__init__(client, simulations, sim_counter=simulation_counter)
 
     def run_task(self):
-
-        # Load simulation
-        self._request_load_simulation()
-        print("Waiting for simulation to load")
-        self._wait_for_simulation_to_load()
-        print("Simulation loaded")
-
-        # Run task
-        self._update_visualisations()
+        self._prepare_task()
         self._run_task_logic()
+        self._finish_task()
 
     def _run_task_logic(self):
+
         write_to_shared_state(client=self.client, key=key_task_status, value=in_progress)
+
         print('Starting sandbox')
         self.client.run_play()
         self._wait_for_player_to_exit_sandbox()
@@ -74,3 +69,8 @@ class SandboxTask(Task):
                 'scale': 0.1,
                 'render': 'ball and stick'
             }
+
+    def _finish_task(self):
+        """Handles the finishing of the task."""
+        self.client.remove_shared_value(key_task_status)
+        self.client.remove_shared_value(key_current_task)

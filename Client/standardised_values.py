@@ -65,7 +65,7 @@ shared_state_keys_and_vals = {
     key_modality: [modality_hands, modality_controllers],
     key_game_status: [waiting, in_progress, finished],
     key_order_of_tasks: [task_nanotube, task_knot_tying, task_trials],
-    key_current_task: [task_nanotube, task_knot_tying, task_trials],
+    key_current_task: [task_sandbox, task_nanotube, task_knot_tying, task_trials],
     key_task_status: [ready, in_progress, finished],
     key_trials_timer: [started, finished],
     key_trials_answer: [none, true, false]
