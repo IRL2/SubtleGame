@@ -43,8 +43,7 @@ class PuppeteeringClient:
 
         # Get orders of randomised variables
         self.order_of_tasks = get_order_of_tasks(run_short_game=short_game)
-        # self.order_of_interaction_modality = randomise_list_order([modality_hands, modality_controllers])
-        self.order_of_interaction_modality = randomise_list_order([modality_hands])
+        self.order_of_interaction_modality = randomise_list_order([modality_hands, modality_controllers])
         self.current_modality = self.order_of_interaction_modality[0]
 
         # Declare variables
