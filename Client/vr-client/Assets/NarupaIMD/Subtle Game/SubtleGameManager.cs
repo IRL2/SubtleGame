@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,8 +32,10 @@ namespace NarupaIMD.Subtle_Game
             public bool OrderOfTasksReceived { get; private set; }
             private PinchGrab _pinchGrab;
             [NonSerialized] public bool grabbersReady;
-        
-        #endregion
+
+            private Coroutine _sandboxCoroutine;
+
+            #endregion
         
         #region Simulation and User Interaction
 
@@ -86,7 +89,8 @@ namespace NarupaIMD.Subtle_Game
                 Nanotube,
                 GameFinished,
                 KnotTying,
-                Trials
+                Trials,
+                Sandbox
             }
 
             public enum Modality
@@ -121,7 +125,6 @@ namespace NarupaIMD.Subtle_Game
                 get => _currentTaskType;
                 private set
                 {
-                    if (_currentTaskType == value) return;
                     _currentTaskType = value;
                     WriteToSharedState(SharedStateKey.TaskType, value.ToString());
                 }
@@ -129,9 +132,9 @@ namespace NarupaIMD.Subtle_Game
             private TaskTypeVal _currentTaskType;
             public TaskStatusVal TaskStatus
             {
+                get => _taskStatus;
                 set
                 {
-                    if (_taskStatus == value) return;
                     _taskStatus = value;
                     WriteToSharedState(SharedStateKey.TaskStatus, value.ToString());
                 }
@@ -294,6 +297,16 @@ namespace NarupaIMD.Subtle_Game
         }
         
         /// <summary>
+        /// Start sandbox.
+        /// </summary>
+        public void StartSandbox()
+        {
+            CurrentTaskType = TaskTypeVal.Sandbox;
+            StartTask();
+            _sandboxCoroutine = StartCoroutine(PlayerInSandbox());
+        }
+        
+        /// <summary>
         /// Starts the current task by hiding the menu, showing the simulation and enabling interactions. This is called
         /// once the player has finished the intro menu for the task.
         /// </summary>
@@ -311,6 +324,34 @@ namespace NarupaIMD.Subtle_Game
             if (CurrentTaskType == TaskTypeVal.Trials)
             {
                 trialAnswerSubmission.ResetScore();
+            }
+        }
+        
+        /// <summary>
+        /// Checks if the hands are tracking and communicates this to the pinch grab script. This allows the player to
+        /// switch between hands and controllers when in the sandbox. Player can exit by clicking the 'start' menu
+        /// button, which is the burger menu on the left touch controller and the left finger pinch when looking at
+        /// your palm whilst hands are tracking.
+        /// </summary>
+        private IEnumerator PlayerInSandbox()
+        {
+            while (true)
+            {
+                // Check whether controllers or hands are tracking
+                _pinchGrab.UseControllers = !OVRPlugin.GetHandTrackingEnabled();
+                
+                // Exit if player clicks start button
+                if (OVRInput.GetDown(OVRInput.Button.Start, OVRInput.Controller.LTouch))
+                {
+                    StopCoroutine(_sandboxCoroutine);
+                    RemoveKeyFromSharedState(SharedStateKey.TaskType);
+                    RemoveKeyFromSharedState(SharedStateKey.TaskStatus);
+                    ShowSimulation = false;
+                    _canvasManager.ShowCanvas();
+                    yield break;
+                }
+                
+                yield return null;
             }
         }
 
@@ -350,21 +391,13 @@ namespace NarupaIMD.Subtle_Game
             switch (key)
             {
                 case "puppeteer.modality":
-                    
-                    switch (val.ToString())
+
+                    CurrentInteractionModality = val.ToString() switch
                     {
-                        case "hands":
-                            CurrentInteractionModality = Modality.Hands;
-                            break;
-                        
-                        case "controllers":
-                            CurrentInteractionModality = Modality.Controllers;
-                            break;
-                        
-                        default:
-                            Debug.LogError("Interaction modality not recognised.");
-                            break;
-                    }
+                        "hands" => Modality.Hands,
+                        "controllers" => Modality.Controllers,
+                        _ => Modality.None
+                    };
 
                     isIntroToSection = true;
                     break;
@@ -427,6 +460,15 @@ namespace NarupaIMD.Subtle_Game
         {
             var formattedKey = new string("Player." + key); // format the key
             simulation.Multiplayer.SetSharedState(formattedKey, value); // set key-value pair in the shared state
+        }
+
+        /// <summary>
+        /// Remove key from the shared state with the 'Player.' identifier. 
+        /// </summary>
+        private void RemoveKeyFromSharedState(SharedStateKey key)
+        {
+            var formattedKey = new string("Player." + key);
+            simulation.Multiplayer.RemoveSharedStateKey(formattedKey);
         }
         
         /// <summary>

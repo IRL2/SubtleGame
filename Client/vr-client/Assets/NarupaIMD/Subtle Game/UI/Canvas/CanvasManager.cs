@@ -87,7 +87,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// <summary>
         /// Shows the previously active canvas.
         /// </summary>
-        private void ShowCanvas()
+        public void ShowCanvas()
         {
             if (LastActiveCanvas != null)
             {

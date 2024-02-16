@@ -4,11 +4,13 @@
 # Server
 server_name = 'SubtleGame'
 # Task
+task_sandbox = 'sandbox'
 task_nanotube = 'nanotube'
 task_knot_tying = 'knot-tying'
 task_trials = 'trials'
 task_order = 'order-of-tasks'
 # Simulation
+sim_name_sandbox = 'sandbox'
 sim_name_nanotube = 'nanotube'
 sim_name_knot_tying = '17-ala'
 sim_name_trials = 'buckyball'
@@ -50,8 +52,13 @@ modality_controllers = 'controllers'
 # PLAYER
 # ---------------- #
 key_player_connected = 'Player.Connected'
+key_player_task_type = 'Player.TaskType'
 key_player_task_status = 'Player.TaskStatus'
 player_intro = 'Intro'
+player_sandbox = 'Sandbox'
+player_nanotube = 'Nanotube'
+player_knot_tying = 'KnotTying'
+player_trials = 'Trials'
 player_in_progress = 'InProgress'
 player_finished = 'Finished'
 
@@ -62,7 +69,7 @@ shared_state_keys_and_vals = {
     key_modality: [modality_hands, modality_controllers],
     key_game_status: [waiting, in_progress, finished],
     key_order_of_tasks: [task_nanotube, task_knot_tying, task_trials],
-    key_current_task: [task_nanotube, task_knot_tying, task_trials],
+    key_current_task: [task_sandbox, task_nanotube, task_knot_tying, task_trials],
     key_task_status: [ready, in_progress, finished],
     key_trials_timer: [started, finished],
     key_trials_answer: [none, true, false]

@@ -53,6 +53,22 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// <summary>
         /// Attach to a button for starting a task.
         /// </summary>
+        public void ButtonStartSandbox()
+        {
+            Invoke(nameof(InvokeStartSandbox), TimeDelay);
+        }
+        
+        /// <summary>
+        /// Request start task via the Puppeteer Manager.
+        /// </summary>
+        private void InvokeStartSandbox()
+        {
+            _subtleGameManager.StartSandbox();
+        }
+        
+        /// <summary>
+        /// Attach to a button for starting a task.
+        /// </summary>
         public void ButtonStartTask()
         {
             if (!CanButtonBePressed())

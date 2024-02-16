@@ -1,6 +1,7 @@
 from narupa.app import NarupaImdClient
 from task_nanotube import NanotubeTask
 from task_knot_tying import KnotTyingTask
+from task_sandbox import SandboxTask
 from task_trials import TrialsTask
 from additional_functions import write_to_shared_state, randomise_list_order
 from standardised_values import *
@@ -47,6 +48,7 @@ class PuppeteeringClient:
 
         # Declare variables
         self.simulations = self.narupa_client.run_command('playback/list')
+        self.sandbox_sim = None
         self.nanotube_sim = None
         self.alanine_sim = None
         self.trials_sims = None
@@ -58,8 +60,26 @@ class PuppeteeringClient:
         # initialise game
         self._initialise_game()
         print('\nGame initialised, waiting for player to connect')
-
         self._wait_for_vr_client_to_connect_to_server()
+        print("Player connected, waiting for them to choose a task")
+
+        while True:
+            try:
+                value = self.narupa_client.latest_multiplayer_values[key_player_task_type]
+                if value == player_sandbox:
+                    simulation_counter = self.narupa_client._current_frame.values["system.simulation.counter"]
+                    current_task = SandboxTask(client=self.narupa_client, simulations=self.sandbox_sim,
+                                               simulation_counter=simulation_counter)
+                    current_task.run_task()
+                    continue
+                elif value in [player_nanotube, player_knot_tying, player_trials]:
+                    break
+
+            except KeyError:
+                pass
+
+            # If the desired key-value pair is not in shared state yet, wait a bit before trying again
+            time.sleep(standard_rate)
 
         # loop through the tasks
         for task in self.order_of_tasks:
@@ -104,6 +124,7 @@ class PuppeteeringClient:
         the shared state for initialising the game. """
 
         # Get simulation indices for loading onto the server
+        self.sandbox_sim = self.get_name_and_server_index_of_simulations_for_task(sim_name_sandbox)
         self.nanotube_sim = self.get_name_and_server_index_of_simulations_for_task(sim_name_nanotube)
         self.alanine_sim = self.get_name_and_server_index_of_simulations_for_task(sim_name_knot_tying)
         self.trials_sims = self.get_name_and_server_index_of_simulations_for_task(sim_name_trials)
