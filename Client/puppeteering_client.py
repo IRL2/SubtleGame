@@ -48,6 +48,7 @@ class PuppeteeringClient:
 
         # Declare variables
         self.simulations = self.narupa_client.run_command('playback/list')
+        self.sandbox_sim = None
         self.nanotube_sim = None
         self.alanine_sim = None
         self.trials_sims = None
@@ -67,7 +68,7 @@ class PuppeteeringClient:
                 value = self.narupa_client.latest_multiplayer_values[key_player_task_type]
                 if value == player_sandbox:
                     simulation_counter = self.narupa_client._current_frame.values["system.simulation.counter"]
-                    current_task = SandboxTask(client=self.narupa_client, simulations=self.nanotube_sim,
+                    current_task = SandboxTask(client=self.narupa_client, simulations=self.sandbox_sim,
                                                simulation_counter=simulation_counter)
                     current_task.run_task()
                     continue
@@ -123,6 +124,7 @@ class PuppeteeringClient:
         the shared state for initialising the game. """
 
         # Get simulation indices for loading onto the server
+        self.sandbox_sim = self.get_name_and_server_index_of_simulations_for_task(sim_name_sandbox)
         self.nanotube_sim = self.get_name_and_server_index_of_simulations_for_task(sim_name_nanotube)
         self.alanine_sim = self.get_name_and_server_index_of_simulations_for_task(sim_name_knot_tying)
         self.trials_sims = self.get_name_and_server_index_of_simulations_for_task(sim_name_trials)

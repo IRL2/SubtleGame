@@ -43,33 +43,6 @@ class SandboxTask(Task):
             except KeyError:
                 break
 
-    def _update_visualisations(self):
-
-        # Clear current selections
-        self.client.clear_selections()
-
-        # Create selection for nanotube
-        nanotube_selection = self.client.create_selection("CNT", list(range(0, 60)))
-        nanotube_selection.remove()
-        # Set gradient of nanotube
-        with nanotube_selection.modify() as selection:
-            selection.renderer = \
-                {'render': 'ball and stick',
-                 'color': {'type': 'particle index', 'gradient': ['white', 'SlateGrey', [0.1, 0.5, 0.3]]}
-                 }
-
-        # Create selection for methane
-        methane_selection = self.client.create_selection("MET", list(range(60, 65)))
-        methane_selection.remove()
-
-        # Set colour of methane
-        with methane_selection.modify() as selection:
-            selection.renderer = {
-                'color': 'CornflowerBlue',
-                'scale': 0.1,
-                'render': 'ball and stick'
-            }
-
     def _finish_task(self):
         """Handles the finishing of the task."""
         remove_key_from_shared_state(client=self.client, key=key_task_status)

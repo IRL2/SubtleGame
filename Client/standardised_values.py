@@ -10,6 +10,7 @@ task_knot_tying = 'knot-tying'
 task_trials = 'trials'
 task_order = 'order-of-tasks'
 # Simulation
+sim_name_sandbox = 'sandbox'
 sim_name_nanotube = 'nanotube'
 sim_name_knot_tying = '17-ala'
 sim_name_trials = 'buckyball'
