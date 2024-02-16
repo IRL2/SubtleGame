@@ -71,7 +71,7 @@ class PuppeteeringClient:
                                                simulation_counter=simulation_counter)
                     current_task.run_task()
                     continue
-                else:
+                elif value in [player_nanotube, player_knot_tying, player_trials]:
                     break
 
             except KeyError:

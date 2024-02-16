@@ -33,9 +33,9 @@ namespace NarupaIMD.Subtle_Game
             private PinchGrab _pinchGrab;
             [NonSerialized] public bool grabbersReady;
 
-            private Coroutine _playerInSandbox;
-        
-        #endregion
+            private Coroutine _sandboxCoroutine;
+
+            #endregion
         
         #region Simulation and User Interaction
 
@@ -125,7 +125,6 @@ namespace NarupaIMD.Subtle_Game
                 get => _currentTaskType;
                 private set
                 {
-                    if (_currentTaskType == value) return;
                     _currentTaskType = value;
                     WriteToSharedState(SharedStateKey.TaskType, value.ToString());
                 }
@@ -133,9 +132,9 @@ namespace NarupaIMD.Subtle_Game
             private TaskTypeVal _currentTaskType;
             public TaskStatusVal TaskStatus
             {
+                get => _taskStatus;
                 set
                 {
-                    if (_taskStatus == value) return;
                     _taskStatus = value;
                     WriteToSharedState(SharedStateKey.TaskStatus, value.ToString());
                 }
@@ -304,7 +303,7 @@ namespace NarupaIMD.Subtle_Game
         {
             CurrentTaskType = TaskTypeVal.Sandbox;
             StartTask();
-            _playerInSandbox = StartCoroutine(AllowPlayerToSwitchBetweenHandsAndControllers());
+            _sandboxCoroutine = StartCoroutine(PlayerInSandbox());
         }
         
         /// <summary>
@@ -329,17 +328,31 @@ namespace NarupaIMD.Subtle_Game
         }
         
         /// <summary>
-        /// Continuously checks whether the hands are tracking and communicates this to the pinch grab script. This
-        /// allows the player to switch between hands and controllers when in the sandbox.
+        /// Checks if the hands are tracking and communicates this to the pinch grab script. This allows the player to
+        /// switch between hands and controllers when in the sandbox. Player can exit by clicking the 'start' menu
+        /// button, which is the burger menu on the left touch controller and the left finger pinch when looking at
+        /// your palm whilst hands are tracking.
         /// </summary>
-        private IEnumerator AllowPlayerToSwitchBetweenHandsAndControllers()
+        private IEnumerator PlayerInSandbox()
         {
             while (true)
             {
+                // Check whether controllers or hands are tracking
                 _pinchGrab.UseControllers = !OVRPlugin.GetHandTrackingEnabled();
-                yield return new WaitForSeconds(1 / 30f);
+                
+                // Exit if player clicks start button
+                if (OVRInput.GetDown(OVRInput.Button.Start, OVRInput.Controller.LTouch))
+                {
+                    StopCoroutine(_sandboxCoroutine);
+                    RemoveKeyFromSharedState(SharedStateKey.TaskType);
+                    RemoveKeyFromSharedState(SharedStateKey.TaskStatus);
+                    ShowSimulation = false;
+                    _canvasManager.ShowCanvas();
+                    yield break;
+                }
+                
+                yield return null;
             }
-            // TODO: add logic for exiting this coroutine
         }
 
         /// <summary>
@@ -447,6 +460,15 @@ namespace NarupaIMD.Subtle_Game
         {
             var formattedKey = new string("Player." + key); // format the key
             simulation.Multiplayer.SetSharedState(formattedKey, value); // set key-value pair in the shared state
+        }
+
+        /// <summary>
+        /// Remove key from the shared state with the 'Player.' identifier. 
+        /// </summary>
+        private void RemoveKeyFromSharedState(SharedStateKey key)
+        {
+            var formattedKey = new string("Player." + key);
+            simulation.Multiplayer.RemoveSharedStateKey(formattedKey);
         }
         
         /// <summary>
