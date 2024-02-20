@@ -74,7 +74,7 @@ namespace NarupaIMD.Subtle_Game.Visuals
             var position = simBox.position;
             var rotation = simBox.rotation;
             var scale = simBox.lossyScale;
-            subtleGameManager.simulation.Multiplayer.SimulationPose.UpdateValueWithoutLock(
+            subtleGameManager.simulation.Multiplayer.SimulationPose.UpdateValueWithLock(
                 new Transformation(position, rotation, scale));
         }
         
