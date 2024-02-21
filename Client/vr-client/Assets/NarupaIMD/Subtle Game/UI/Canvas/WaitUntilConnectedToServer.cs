@@ -21,7 +21,10 @@ namespace NarupaIMD.Subtle_Game.UI.Canvas
             if (!_subtleGameManager.OrderOfTasksReceived || !_subtleGameManager.grabbersReady) return;
             
             // Show necessary UI elements on the canvas
-            _canvasManager.RequestModifyCanvas(canvasModifier);
+            // _canvasManager.RequestModifyCanvas(canvasModifier);
+
+            // Jump in to the next menu
+            _canvasManager.RequestNextMenu();
         }
     }
 }
