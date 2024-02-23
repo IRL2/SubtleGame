@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8e3d862e-de99-4872-872c-e26f3efad996" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../puppeteering-client.py" beforeDir="false" afterPath="$PROJECT_DIR$/../puppeteering-client.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.vr-client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.vr-client/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/UI/CanvasManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Visuals/TheOtherFactor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NarupaIMD/Subtle Game/Visuals/TheOtherFactor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Narupa/Grpc/Trajectory/TrajectorySession.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Narupa/Grpc/Trajectory/TrajectorySession.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/BasicMenuWithButton.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/BasicMenuWithButton.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,6 +134,7 @@
       <workItem from="1700830215016" duration="6892000" />
       <workItem from="1700845470906" duration="790000" />
       <workItem from="1700900025958" duration="2179000" />
+      <workItem from="1701337169858" duration="1310000" />
     </task>
     <servers />
   </component>

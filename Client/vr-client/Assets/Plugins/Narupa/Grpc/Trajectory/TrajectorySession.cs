@@ -65,6 +65,7 @@ namespace Narupa.Grpc.Trajectory
             void ReceiveFrame(GetFrameResponse response)
             {
                 CurrentFrameIndex = (int) response.FrameIndex;
+                Debug.Log($"Received frame {CurrentFrameIndex}");
                 var (frame, changes) = FrameConverter.ConvertFrame(response.Frame, CurrentFrame);
                 trajectorySnapshot.SetCurrentFrame(frame, changes);
             }

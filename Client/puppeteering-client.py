@@ -80,7 +80,6 @@ class PuppeteeringClient:
             # wait until player is in the INTRO
             self._wait_for_key_in_shared_state('Player.TaskStatus', 'InProgress')
             self._write_to_shared_state('task-status', 'in-progress')
-            self._set_color_of_nanotube()
             self._run_nanotube_task()
 
         # Player has completed the task.
