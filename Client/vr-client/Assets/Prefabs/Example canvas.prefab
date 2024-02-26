@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7405220175002004350}
   - component: {fileID: 5297016059828509850}
   - component: {fileID: 7214045676631728308}
-  - component: {fileID: 7101892406687254403}
   m_Layer: 0
   m_Name: Example canvas
   m_TagString: Untagged
@@ -118,19 +117,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasType: 2
   orderedListOfMenus: []
---- !u!114 &7101892406687254403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1993769644905264480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66a39de2e3134b148c7adb01ed5bc821, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  passthroughManager: {fileID: 0}
 --- !u!1 &3338347691508911078
 GameObject:
   m_ObjectHideFlags: 0
