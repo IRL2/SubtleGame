@@ -2329,7 +2329,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1464610667}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1587983022138046959, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: m_text
@@ -2541,15 +2541,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8831589731342960626, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: m_LocalScale.x
-      value: -0.0016666667
+      value: 0.0005
       objectReference: {fileID: 0}
     - target: {fileID: 8831589731342960626, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.0016666667
+      value: 0.0005
       objectReference: {fileID: 0}
     - target: {fileID: 8831589731342960626, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.0016666667
+      value: 0.0005
       objectReference: {fileID: 0}
     - target: {fileID: 8831589731342960626, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2573,11 +2573,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8831589731342960626, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8831589731342960626, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8831589731342960626, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2612,13 +2612,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1149125434810716764, guid: b4150353d52807043b217abe87a111e4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2010631157}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1993769644905264480, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1404708425}
   m_SourcePrefab: {fileID: 100100000, guid: b4150353d52807043b217abe87a111e4, type: 3}
---- !u!224 &219482221 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8831589731342960626, guid: b4150353d52807043b217abe87a111e4, type: 3}
-  m_PrefabInstance: {fileID: 219482220}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &219482222 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1149125434810716764, guid: b4150353d52807043b217abe87a111e4, type: 3}
@@ -18439,6 +18437,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1993769644905264480, guid: b4150353d52807043b217abe87a111e4, type: 3}
   m_PrefabInstance: {fileID: 219482220}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1404708425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404708420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9340025bf094b77bc3bd4594de62db8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handInstructions: {fileID: 734731903}
+  controllerInstructions: {fileID: 67055963}
+  pinchGrab: {fileID: 1039910427}
+  centerXYPlane: {fileID: 1692057923}
 --- !u!1 &1407123488
 GameObject:
   m_ObjectHideFlags: 0
@@ -19409,7 +19423,6 @@ Transform:
   - {fileID: 230018913}
   - {fileID: 1692057922}
   - {fileID: 627743193}
-  - {fileID: 219482221}
   m_Father: {fileID: 1152867538}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1471000238
@@ -21430,7 +21443,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505349cabccdfbd4c99d9e8a915c5fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulation: {fileID: 1265723034}
   simulationBox: {fileID: 543794535019733083}
+  taskInstructionsManager: {fileID: 1404708425}
   instructionsCanvas: {fileID: 1404708420}
   handInstructions: {fileID: 734731903}
   controllerInstructions: {fileID: 67055963}
@@ -42331,4 +42346,5 @@ SceneRoots:
   - {fileID: 2767777564478886469}
   - {fileID: 50482151}
   - {fileID: 1621786873}
+  - {fileID: 219482220}
   - {fileID: 1364228085}
