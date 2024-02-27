@@ -66,7 +66,7 @@ namespace NarupaIMD.Subtle_Game.Visuals
             // Move simulation box
             SetSimulationScale();
             PutSimulationInFrontOfPlayer();
-            centerXYPlane.UpdatePosition();
+            centerXYPlane.PositionCenterOfXYPlane();
             pointOfParticleEmission.UpdatePosition();
             
             // Update scene in shared state
