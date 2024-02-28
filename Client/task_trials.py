@@ -164,22 +164,23 @@ class TrialsTask(Task):
         """ Runs a psychophysics trial. Plays the simulation for the allotted time and pauses it once the timer is up.
         Then waits for the player to submit their answer."""
 
-        print("Timer started")
+        # print("Timer started")
 
         # Timer started: update shared state and play sim
         write_to_shared_state(client=self.client, key=key_trials_timer, value=started)
-        self.client.run_play()
 
-        # Keep checking that the simulation has not blown up for desired length of trial
-        for _ in range(self.trial_duration * standard_frequency):
-            self._check_if_sim_has_blown_up()
-            time.sleep(standard_rate)
+        # self.client.run_play()
+        #
+        # # Keep checking that the simulation has not blown up for desired length of trial
+        # for _ in range(self.trial_duration * standard_frequency):
+        #     self._check_if_sim_has_blown_up()
+        #     time.sleep(standard_rate)
+        #
+        # # Timer ended: update shared state and pause sim
+        # write_to_shared_state(client=self.client, key=key_trials_timer, value=finished)
+        # self.client.run_pause()
 
-        # Timer ended: update shared state and pause sim
-        write_to_shared_state(client=self.client, key=key_trials_timer, value=finished)
-        self.client.run_pause()
-
-        print("Timer ended")
+        # print("Timer ended")
 
         # Wait for player to answer
         self._wait_for_player_to_answer()

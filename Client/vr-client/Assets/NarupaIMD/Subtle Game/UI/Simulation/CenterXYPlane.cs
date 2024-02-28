@@ -1,5 +1,4 @@
 using Narupa.Visualisation;
-using NarupaIMD.Subtle_Game.Canvas;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.UI.Simulation
@@ -10,11 +9,6 @@ namespace NarupaIMD.Subtle_Game.UI.Simulation
         /// The simulation box.
         /// </summary>
         [SerializeField] private BoxVisualiser simulationBox;
-        
-        /// <summary>
-        /// The in-task instructions manager.
-        /// </summary>
-        [SerializeField] private TaskInstructionsManager taskInstructionsManager;
 
         /// <summary>
         /// Sets the position of this game object to the center of the xy plane of the simulation box and shows the
@@ -27,17 +21,6 @@ namespace NarupaIMD.Subtle_Game.UI.Simulation
                 simulationBox.xMagnitude * 0.5f, 
                 simulationBox.xMagnitude * 0.5f, 
                 simulationBox.xMagnitude);
-            
-            // Show in-task instructions
-            taskInstructionsManager.gameObject.SetActive(true);
-        }
-        
-        /// <summary>
-        /// Hides the in-task instructions canvas.
-        /// </summary>
-        private void OnDisable()
-        {
-            taskInstructionsManager.gameObject.SetActive(false);
         }
     }
 }

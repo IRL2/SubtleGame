@@ -89,7 +89,7 @@ namespace NarupaIMD.Subtle_Game.Interaction
         [Tooltip("List of Transform objects for index and thumb pairs. Each pair will be responsible for one 'grabber'.")]
         public List<Transform> IndexAndThumbTransforms;
         [Tooltip("Threshold distance between index and thumb to activate a pinch, triggering a grab interaction.")]
-        private float PinchTriggerDistance = .01f;
+        private float PinchTriggerDistance = .02f;
         #endregion
 
         #region Grab
