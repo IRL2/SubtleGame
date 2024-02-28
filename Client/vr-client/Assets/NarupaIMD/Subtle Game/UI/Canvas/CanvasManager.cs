@@ -15,7 +15,8 @@ namespace NarupaIMD.Subtle_Game.Canvas
         Nanotube,
         Outro,
         KnotTying,
-        Trials
+        Trials,
+        Instructions
     }
 
     /// <summary>
@@ -135,6 +136,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
                 SubtleGameManager.TaskTypeVal.GameFinished => CanvasType.Outro,
                 SubtleGameManager.TaskTypeVal.KnotTying => CanvasType.KnotTying,
                 SubtleGameManager.TaskTypeVal.Trials => CanvasType.Trials,
+                SubtleGameManager.TaskTypeVal.Sandbox => CanvasType.Instructions,
                 _ => CurrentCanvasType
             };
         }
