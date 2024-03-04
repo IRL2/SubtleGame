@@ -12,7 +12,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
         private bool _timerIsRunning;
         private float _timeElapsed;
         
-        private float _duration = 15f;
+        private float _duration = 10f;
         
         private void Start()
         {
@@ -24,7 +24,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
         {
             // Check if timer is running
             if (!_timerIsRunning) return;
-            
+
             if(_timeElapsed < _duration)
             {
                 // Increment timer
