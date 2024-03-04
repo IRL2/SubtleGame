@@ -94,6 +94,12 @@ namespace NarupaIMD.Subtle_Game.Canvas
             {
                 LastActiveCanvas.gameObject.SetActive(true);
             }
+            
+            // Show current menu
+            if (_currentMenu)
+            {
+                _currentMenu.SetActive(true);
+            }
         }
         
         /// <summary>
