@@ -101,6 +101,14 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// </summary>
         public void HideCanvas()
         {
+            // Hide current menu
+            if (_currentMenu)
+            {
+                _currentMenu.SetActive(false);
+            }
+            
+            
+            // Hide canvas
             if (LastActiveCanvas != null)
             {
                 LastActiveCanvas.gameObject.SetActive(false);
