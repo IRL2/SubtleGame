@@ -7,6 +7,11 @@ namespace NarupaIMD.Subtle_Game.Canvas
     public class TaskInstructionsManager : MonoBehaviour
     {
         /// <summary>
+        /// Game object for the trials timer
+        /// </summary>
+        [SerializeField] private GameObject timer;
+        
+        /// <summary>
         /// Game object with the instructions on how interact with molecules using hands.
         /// </summary>
         [SerializeField] private GameObject handInstructions;
@@ -41,24 +46,24 @@ namespace NarupaIMD.Subtle_Game.Canvas
                 handInstructions.SetActive(true);
                 controllerInstructions.SetActive(false); 
             }
+            
+            // Update position
+            gameObject.transform.position = centerXYPlane.transform.position;
         }
         
         /// <summary>
-        /// Sets the position and enables the canvas for the in-task instructions.
+        /// Enables the background canvas.
         /// </summary>
         private void OnEnable()
         {
-            // Update position
-            transform.position = centerXYPlane.transform.position;
-            
-            // Set active
-            gameObject.SetActive(true);
-            
-            // Set background active
+            // Enable background
             foreach (Transform child in transform)
             {
                 child.gameObject.SetActive(true);
             }
+            
+            // Show timer
+            timer.SetActive(true);
         }
     }
 }
