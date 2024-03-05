@@ -106,7 +106,6 @@ def get_order_of_simulations(simulations):
 class TrialsTask(Task):
     task_type = task_trials
     trial_answer_key = player_trial_answer
-    trial_duration = 3
 
     def __init__(self, client: NarupaImdClient, simulations: list, simulation_counter: int):
 
