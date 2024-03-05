@@ -128,6 +128,7 @@ class TrialsTask(Task):
         self.practice_sims, self.main_sims = get_order_of_simulations(self.simulations)
 
         write_to_shared_state(client=self.client, key=key_trials_sims, value=str(self.main_sims))
+        write_to_shared_state(client=self.client, key=key_number_of_trials, value=len(self.main_sims))
 
     def run_task(self):
         """ Runs through the psychophysics trials. """
