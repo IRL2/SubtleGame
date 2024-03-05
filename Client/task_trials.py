@@ -5,7 +5,6 @@ from additional_functions import write_to_shared_state
 from standardised_values import *
 import random
 
-
 player_trial_answer = 'Player.TrialAnswer'
 
 
@@ -69,14 +68,11 @@ def get_simulations_for_multiplier(simulations: list, multiplier: float):
     return corresponding_sims
 
 
-def get_order_of_simulations(simulations):
+def get_order_of_simulations(simulations, num_repeats):
     """ Returns the simulations for the main and practice parts (the simulations with the max and min force constant
     coefficients) of the Trials task, each in the order that they will be presented to the player. """
 
     unique_multipliers = get_unique_multipliers(simulations)
-
-    # Randomise the order of multipliers in order to randomise the order of the trials
-    random.shuffle(unique_multipliers)
 
     # Initialise lists
     main_task_sims = []
@@ -89,8 +85,10 @@ def get_order_of_simulations(simulations):
         # Get simulations for this multiplier
         corresponding_sims = get_simulations_for_multiplier(simulations=simulations, multiplier=multiplier)
 
-        # Randomly choose one of these simulations
-        main_task_sims.append(random.choice(corresponding_sims))
+        # Choose n simulations, where n is the number of repeats
+        for n in range(num_repeats):
+            # Randomly choose one of the simulations
+            main_task_sims.append(random.choice(corresponding_sims))
 
         # Store the data for the simulations with max and min multipliers for the practice task
         if multiplier == max(unique_multipliers):
@@ -100,6 +98,9 @@ def get_order_of_simulations(simulations):
 
     practice_task_sims = random.sample([sims_max_multiplier, sims_min_multiplier], 2)
 
+    # Randomise the order of the simulations
+    random.shuffle(main_task_sims)
+
     return practice_task_sims, main_task_sims
 
 
@@ -107,9 +108,11 @@ class TrialsTask(Task):
     task_type = task_trials
     trial_answer_key = player_trial_answer
 
-    def __init__(self, client: NarupaImdClient, simulations: list, simulation_counter: int):
+    def __init__(self, client: NarupaImdClient, simulations: list, simulation_counter: int, number_of_repeats):
 
         super().__init__(client=client, simulations=simulations, sim_counter=simulation_counter)
+
+        self.num_of_repeats = number_of_repeats
 
         self.ordered_simulation_names = []
         self.ordered_correct_answers = []
@@ -124,9 +127,10 @@ class TrialsTask(Task):
         self.sims_max_multiplier = []
         self.sims_min_multiplier = []
 
-        self.practice_sims, self.main_sims = get_order_of_simulations(self.simulations)
+        self.practice_sims, self.main_sims = get_order_of_simulations(self.simulations, num_repeats=self.num_of_repeats)
 
         write_to_shared_state(client=self.client, key=key_trials_sims, value=str(self.main_sims))
+
         write_to_shared_state(client=self.client, key=key_number_of_trials, value=len(self.main_sims))
 
     def run_task(self):
