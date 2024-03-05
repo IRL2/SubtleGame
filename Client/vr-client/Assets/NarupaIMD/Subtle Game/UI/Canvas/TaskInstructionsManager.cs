@@ -1,4 +1,5 @@
-﻿using NarupaIMD.Subtle_Game.Interaction;
+﻿using System.Collections.Generic;
+using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.UI.Simulation;
 using UnityEngine;
 
@@ -30,7 +31,17 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// The game object representing the center of the XY plane of the simulation box.
         /// </summary>
         [SerializeField] private CenterXYPlane centerXYPlane;
+
+        /// <summary>
+        /// An ordered list of the trials task icon game objects.
+        /// </summary>
+        public List<TrialIcon> trialsTaskIcons;
         
+        /// <summary>
+        /// An index for the current trial in this set of tasks.
+        /// </summary>
+        private int _currentTrialIndex;
+
         /// <summary>
         /// Updates the in-task instructions based on the current interaction modality set in the Pinch Grab script.
         /// </summary>
@@ -64,6 +75,21 @@ namespace NarupaIMD.Subtle_Game.Canvas
             
             // Show timer
             timer.SetActive(true);
+        }
+    
+        /// <summary>
+        /// Calls the function to update the icon for the current trials task.
+        /// </summary>
+        public void UpdateTrialIcon(TrialIcon.State state)
+        {
+            if (_currentTrialIndex >= trialsTaskIcons.Count) return;
+            
+            var currentIcon = trialsTaskIcons[_currentTrialIndex];
+
+            if (currentIcon == null) return;
+            
+            currentIcon.SetState(state);
+            _currentTrialIndex++;
         }
     }
 }

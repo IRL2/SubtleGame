@@ -440,12 +440,19 @@ namespace NarupaIMD.Subtle_Game
                     {
                         // Player answered correctly
                         case "True":
+                            taskInstructions.UpdateTrialIcon(state: TrialIcon.State.Correct);
                             trialAnswerSubmission.CurrentScore++;
                             break;
                         
                         // Player answered incorrectly
                         case "False":
+                            taskInstructions.UpdateTrialIcon(state: TrialIcon.State.Incorrect);
                             trialAnswerSubmission.CurrentScore--;
+                            break;
+                        
+                        // No correct answer
+                        case "None":
+                            taskInstructions.UpdateTrialIcon(state: TrialIcon.State.Ambivalent);
                             break;
                     }
                     break;
