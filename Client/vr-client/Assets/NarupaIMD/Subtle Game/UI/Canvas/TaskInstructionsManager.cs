@@ -32,9 +32,53 @@ namespace NarupaIMD.Subtle_Game.Canvas
         [SerializeField] private CenterXYPlane centerXYPlane;
         
         /// <summary>
+        /// The Trial Icon Manager.
+        /// </summary>
+        [SerializeField] private TrialIconManager trialIconManager;
+
+        /// <summary>
+        /// The Subtle Game Manager.
+        /// </summary>
+        private SubtleGameManager _subtleGameManager;
+
+        private bool _playerWasInTrials;
+
+        private SubtleGameManager.TaskTypeVal _previousTask;
+
+        /// <summary>
+        /// Gets the Subtle Game Manager and hides the in-task instructions canvas.
+        /// </summary>
+        private void Start()
+        {
+            _subtleGameManager = FindObjectOfType<SubtleGameManager>();
+            ShowOrHideInstructionsCanvas(false);
+        }
+
+        /// <summary>
         /// Updates the in-task instructions based on the current interaction modality set in the Pinch Grab script.
         /// </summary>
         private void Update()
+        {
+            UpdateInteractionInstructions();
+            UpdatePositionOfInstructions();
+            ShowOrHideInstructionsCanvas(_subtleGameManager.ShowSimulation);
+            
+            if (_subtleGameManager is null) return;
+            
+            // Is the player currently in the trials task?
+            var playerInTrials = _subtleGameManager.CurrentTaskType == SubtleGameManager.TaskTypeVal.Trials;
+            
+            // Is this the beginning or end of the trials task? If not, return
+            if (_playerWasInTrials == playerInTrials) return;
+            
+            EnableTrialsRelatedGameObjects(playerInTrials);
+            _playerWasInTrials = playerInTrials;
+        }
+        
+        /// <summary>
+        /// Enables the correct instructions based on the current interaction mode.
+        /// </summary>
+        private void UpdateInteractionInstructions()
         {
             if (pinchGrab.UseControllers)
             {
@@ -46,24 +90,32 @@ namespace NarupaIMD.Subtle_Game.Canvas
                 handInstructions.SetActive(true);
                 controllerInstructions.SetActive(false); 
             }
-            
-            // Update position
+        }
+        
+        /// <summary>
+        /// Puts the in-task instructions at the center of the XY plane.
+        /// </summary>
+        private void UpdatePositionOfInstructions()
+        {
             gameObject.transform.position = centerXYPlane.transform.position;
         }
         
         /// <summary>
-        /// Enables the background canvas.
+        /// Enables the relevant task-related elements on the instructions canvas.
         /// </summary>
-        private void OnEnable()
+        private void EnableTrialsRelatedGameObjects(bool isTrials)
         {
-            // Enable background
+            timer.SetActive(isTrials);
+            trialIconManager.gameObject.SetActive(isTrials);
+            trialIconManager.ResetTrials();
+        }
+
+        private void ShowOrHideInstructionsCanvas(bool showCanvas)
+        {
             foreach (Transform child in transform)
             {
-                child.gameObject.SetActive(true);
+                child.gameObject.SetActive(showCanvas);
             }
-            
-            // Show timer
-            timer.SetActive(true);
         }
     }
 }

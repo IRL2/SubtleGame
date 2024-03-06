@@ -41,20 +41,16 @@ namespace NarupaIMD.Subtle_Game
 
             public bool ShowSimulation
             {
+                get => _showSimulation;
                 set
                 {
                     _showSimulation = value;
                     simulation.gameObject.SetActive(_showSimulation);
-                    taskInstructions.gameObject.SetActive(_showSimulation);
                     EnableInteractions = _showSimulation;
-                    
-                    if (CurrentTaskType != TaskTypeVal.Trials) return;
-                    trialAnswerSubmission.ToggleDisplayScore(_showSimulation);
                 }
             }
-            private bool _showSimulation;
 
-            [SerializeField] private TaskInstructionsManager taskInstructions;
+            private bool _showSimulation;
             private bool EnableInteractions
             {
                 set
@@ -171,7 +167,7 @@ namespace NarupaIMD.Subtle_Game
         #region Trials
         
         private TrialsTimer _timer;
-        
+        [SerializeField] private TrialIconManager trialIconManager;
         [SerializeField] private TrialAnswerSubmission trialAnswerSubmission;
         public string TrialAnswer
         {
@@ -330,9 +326,6 @@ namespace NarupaIMD.Subtle_Game
             
             _canvasManager.HideCanvas();
             _showSimulation = true;
-
-            if (CurrentTaskType != TaskTypeVal.Trials) return;
-            trialAnswerSubmission.ResetScore();
         }
 
         /// <summary>
@@ -440,12 +433,17 @@ namespace NarupaIMD.Subtle_Game
                     {
                         // Player answered correctly
                         case "True":
-                            trialAnswerSubmission.CurrentScore++;
+                            trialIconManager.UpdateTrialIcon(state: TrialIcon.State.Correct);
                             break;
                         
                         // Player answered incorrectly
                         case "False":
-                            trialAnswerSubmission.CurrentScore--;
+                            trialIconManager.UpdateTrialIcon(state: TrialIcon.State.Incorrect);
+                            break;
+                        
+                        // No correct answer
+                        case "None":
+                            trialIconManager.UpdateTrialIcon(state: TrialIcon.State.Ambivalent);
                             break;
                     }
                     break;

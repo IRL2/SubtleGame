@@ -33,7 +33,7 @@ class PuppeteeringClient:
     """ This class interfaces between the Nanover server, VR client and any required packages to control the game 
     logic for the Subtle Game."""
 
-    def __init__(self, short_game: bool = False):
+    def __init__(self, short_game: bool = False, number_of_trial_repeats: int = 1):
 
         # Connect to a local Nanover server
         self.narupa_client = NarupaImdClient.autoconnect(name=server_name)
@@ -52,6 +52,7 @@ class PuppeteeringClient:
         self.nanotube_sim = None
         self.alanine_sim = None
         self.trials_sims = None
+        self.num_of_trial_repeats = number_of_trial_repeats
         self.trials_sim_names = None
         self.first_practice_sim = True
 
@@ -86,7 +87,8 @@ class PuppeteeringClient:
 
             elif task == task_trials:
                 current_task = TrialsTask(client=self.narupa_client, simulations=self.trials_sims,
-                                          simulation_counter=simulation_counter)
+                                          simulation_counter=simulation_counter,
+                                          number_of_repeats=self.num_of_trial_repeats)
 
             else:
                 print("Current task not recognised, closing the puppeteering client.")
@@ -182,8 +184,10 @@ class PuppeteeringClient:
 
 if __name__ == '__main__':
 
+    number_of_repeats = 2
+
     # Create puppeteering client
-    puppeteering_client = PuppeteeringClient()
+    puppeteering_client = PuppeteeringClient(number_of_trial_repeats=number_of_repeats)
 
     # Start game
     puppeteering_client.run_game()

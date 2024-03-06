@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Narupa.Visualisation.Components.Input;
-using NarupaIMD.Subtle_Game.Canvas;
 using NarupaIMD.Subtle_Game.Simulation;
 using UnityEngine;
 
@@ -43,25 +42,10 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
         private Answer _answer = Answer.None;
         private bool _wasInsideLastFrameA;
         private bool _wasInsideLastFrameB;
-        
-        [SerializeField] private TrialsTimer timer;
-
-        [SerializeField] private TrialsScoreUI trialsScoreUI;
-        public int CurrentScore{
-            get => _currentScore;
-            set
-            {
-                _currentScore = value;
-                trialsScoreUI.UpdateScore(_currentScore);
-            }
-        }
-
-        private int _currentScore;
 
         private void Start()
         {
             _subtleGameManager = FindObjectOfType<SubtleGameManager>();
-            ToggleDisplayScore(false);
         }
 
         /// <summary>
@@ -87,22 +71,6 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
             centreOfGeometryB.CalculateCentreOfGeometry();
 
             StartCoroutine(WaitForAnswer());
-        }
-        
-        /// <summary>
-        /// Toggles displaying the score to the player.
-        /// </summary>
-        public void ToggleDisplayScore(bool displayScore)
-        {
-            trialsScoreUI.gameObject.SetActive(displayScore);
-        }
-        
-        /// <summary>
-        /// Resets the score to 0.
-        /// </summary>
-        public void ResetScore()
-        {
-            CurrentScore = 0;
         }
 
         private IEnumerator CheckMoleculeIsNotNull(string moleculeName)
