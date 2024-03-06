@@ -16,6 +16,7 @@ The game is handled by a Python client that is referred to as the 'puppeteering 
     - `conda activate subtle-game` to activate the environment you have just created.
 3. Install the following packages in this environment by clicking on the following URLs and following the up-to-date installation instructions.
     - [Numpy](https://anaconda.org/anaconda/numpy)
+    - [Random-Username](https://pypi.org/project/random-username/)
     - [Narupa Protocol](https://gitlab.com/intangiblerealities/narupa-protocol/-/tree/master), by typing `conda install -c irl -c omnia -c conda-forge narupa-server` into your terminal.
     - [Knot-Pull](https://github.com/dzarmola/knot_pull)
 4. Open the `SubtleGame` directory in your favourite Python IDE. Select the `subtle-game` conda environment as your python interpreter and set the `SubtleGame` directory to be the root. Note that if you are running the puppeteering-client script from the terminal, ensure that you have activated the subtle-game environment by typing `conda activate subtle-game`.
