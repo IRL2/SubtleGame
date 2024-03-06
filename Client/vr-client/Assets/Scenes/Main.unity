@@ -2906,6 +2906,9 @@ PrefabInstance:
       addedObject: {fileID: 3942382125365766018}
     - targetCorrespondingSourceObject: {fileID: 1149125434810716764, guid: b4150353d52807043b217abe87a111e4, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 375088768}
+    - targetCorrespondingSourceObject: {fileID: 1149125434810716764, guid: b4150353d52807043b217abe87a111e4, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1245036775}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1993769644905264480, guid: b4150353d52807043b217abe87a111e4, type: 3}
@@ -4593,6 +4596,68 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3934615514651101025, guid: 79ceca905a37ea94ca1dc62536b68b9e, type: 3}
   m_PrefabInstance: {fileID: 371644160}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &375088767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 375088768}
+  - component: {fileID: 375088769}
+  m_Layer: 0
+  m_Name: Trials Running Score
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &375088768
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375088767}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 219482222}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 518, y: -205.7}
+  m_SizeDelta: {x: 700, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &375088769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375088767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &378033642
 GameObject:
   m_ObjectHideFlags: 0
@@ -17180,6 +17245,8 @@ MonoBehaviour:
   - {fileID: 118751889}
   - {fileID: 607568740}
   - {fileID: 58347023}
+  runningScoreParent: {fileID: 375088767}
+  runningScorePrefab: {fileID: 3416820320948185554, guid: 1858859260c7dab48b62ee53b959a14d, type: 3}
 --- !u!1 &1255986318
 GameObject:
   m_ObjectHideFlags: 0
@@ -18566,7 +18633,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simulation: {fileID: 1265723033}
   userInteraction: {fileID: 50482150}
-  taskInstructions: {fileID: 1404708425}
   confetti: {fileID: 1233017830}
   isIntroToSection: 1
   trialIconManager: {fileID: 1245036777}

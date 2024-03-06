@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.Canvas
 {
+    
     public class TrialIconManager : MonoBehaviour
     {
         /// <summary>
@@ -14,6 +16,11 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// Index of the current trial.
         /// </summary>
         private int _currentTrialIndex;
+
+        private int _runningScore;
+
+        public GameObject runningScoreParent;
+        public GameObject runningScorePrefab;
 
         private void Start()
         {
@@ -27,6 +34,21 @@ namespace NarupaIMD.Subtle_Game.Canvas
         {
             ResetIcons();
             _currentTrialIndex = 0;
+            _runningScore = 0;
+        }
+        
+        /// <summary>
+        /// Loops through all icons and resets them to the 'normal' state.
+        /// </summary>
+        private void MoveToNextSetOfTrials()
+        {
+            // Record score for the set and write to the UI
+            GameObject scoreObj = Instantiate(runningScorePrefab, runningScoreParent.transform);
+            TextMeshProUGUI textMesh = scoreObj.GetComponentInChildren<TextMeshProUGUI>();
+            textMesh.text = _runningScore.ToString();
+            
+            // Reset the set of trials
+            ResetTrials();
         }
         
         /// <summary>
@@ -47,13 +69,22 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// </summary>
         public void UpdateTrialIcon(TrialIcon.State state)
         {
-            if (_currentTrialIndex >= trialsTaskIcons.Count) return;
-            
+            // Update the score and icon
             var currentIcon = trialsTaskIcons[_currentTrialIndex];
-
-            if (currentIcon == null) return;
+            //if (currentIcon == null) return;
             currentIcon.SetIconState(state);
             _currentTrialIndex++;
+
+            if (state == TrialIcon.State.Correct)
+            {
+                _runningScore++;
+            }
+            
+            // Check if this was the final one in the set
+            if (_currentTrialIndex == trialsTaskIcons.Count)
+            {
+                MoveToNextSetOfTrials();
+            }
         }
     }
 }
