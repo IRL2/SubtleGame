@@ -17,7 +17,7 @@ def generate_username_for_player():
         username = generate_username(1)
         print("Username: ", username)
 
-        user_input = input("Do you want to repeat the function? (Y/N): ").strip().upper()
+        user_input = input("Type 'y' to accept this username: ").strip().upper()
 
         if user_input != 'Y':
             print("Generating another username. ")
