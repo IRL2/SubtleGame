@@ -31,7 +31,12 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// The game object representing the center of the XY plane of the simulation box.
         /// </summary>
         [SerializeField] private CenterXYPlane centerXYPlane;
-
+        
+        /// <summary>
+        /// The Trial Icon Manager.
+        /// </summary>
+        [SerializeField] private TrialIconManager trialIconManager;
+        
         /// <summary>
         /// An ordered list of the trials task icon game objects.
         /// </summary>
@@ -41,6 +46,21 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// An index for the current trial in this set of tasks.
         /// </summary>
         private int _currentTrialIndex;
+        
+        /// <summary>
+        /// The Subtle Game Manager.
+        /// </summary>
+        private SubtleGameManager _subtleGameManager;
+        
+        /// <summary>
+        /// Boolean to keep track of whether the player is in the trials task.
+        /// </summary>
+        public bool playerInTrials;
+
+        private void Start()
+        {
+            _subtleGameManager = FindObjectOfType<SubtleGameManager>();
+        }
 
         /// <summary>
         /// Updates the in-task instructions based on the current interaction modality set in the Pinch Grab script.
@@ -72,13 +92,31 @@ namespace NarupaIMD.Subtle_Game.Canvas
             {
                 child.gameObject.SetActive(true);
             }
+
+            if (_subtleGameManager is null) return;
             
-            // Show timer
-            timer.SetActive(true);
+            // Reset trials-related stuff if this is the beginning of the trials task
+            if (_subtleGameManager.CurrentTaskType == SubtleGameManager.TaskTypeVal.Trials && !playerInTrials)
+            {
+                _currentTrialIndex = 0;
+               timer.SetActive(true);
+               trialIconManager.gameObject.SetActive(true);
+               trialIconManager.ResetIcons();
+               playerInTrials = true;
+            }
+            
+            // Hide trials-related stuff if not in the trials task
+            if (_subtleGameManager.CurrentTaskType != SubtleGameManager.TaskTypeVal.Trials)
+            {
+                timer.SetActive(false);
+                trialIconManager.gameObject.SetActive(false);
+                playerInTrials = false;
+            }
+            
         }
     
         /// <summary>
-        /// Calls the function to update the icon for the current trials task.
+        /// Sets the state of the icon for the current trials task.
         /// </summary>
         public void UpdateTrialIcon(TrialIcon.State state)
         {
@@ -87,8 +125,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
             var currentIcon = trialsTaskIcons[_currentTrialIndex];
 
             if (currentIcon == null) return;
-            
-            currentIcon.SetState(state);
+            currentIcon.SetIconState(state);
             _currentTrialIndex++;
         }
     }
