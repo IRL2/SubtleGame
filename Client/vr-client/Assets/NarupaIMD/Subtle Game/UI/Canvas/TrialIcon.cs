@@ -26,19 +26,16 @@ namespace NarupaIMD.Subtle_Game.Canvas
             switch (state)
             {
                 case State.Correct:
-                    Debug.LogWarning("Setting icon to correct");
                     ambivalentAnswer.SetActive(false);
                     correctAnswer.SetActive(true);
                     incorrectAnswer.SetActive(false);
                     break;
                 case State.Incorrect:
-                    Debug.LogWarning("Setting icon to incorrect");
                     ambivalentAnswer.SetActive(false);
                     correctAnswer.SetActive(false);
                     incorrectAnswer.SetActive(true);
                     break;
                 case State.Ambivalent:
-                    Debug.LogWarning("Setting icon to ambiv");
                     ambivalentAnswer.SetActive(true);
                     correctAnswer.SetActive(false);
                     incorrectAnswer.SetActive(false);

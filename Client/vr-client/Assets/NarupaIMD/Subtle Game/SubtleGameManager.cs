@@ -171,7 +171,7 @@ namespace NarupaIMD.Subtle_Game
         #region Trials
         
         private TrialsTimer _timer;
-        
+        [SerializeField] private TrialIconManager trialIconManager;
         [SerializeField] private TrialAnswerSubmission trialAnswerSubmission;
         public string TrialAnswer
         {
@@ -440,19 +440,19 @@ namespace NarupaIMD.Subtle_Game
                     {
                         // Player answered correctly
                         case "True":
-                            taskInstructions.UpdateTrialIcon(state: TrialIcon.State.Correct);
+                            trialIconManager.UpdateTrialIcon(state: TrialIcon.State.Correct);
                             trialAnswerSubmission.CurrentScore++;
                             break;
                         
                         // Player answered incorrectly
                         case "False":
-                            taskInstructions.UpdateTrialIcon(state: TrialIcon.State.Incorrect);
+                            trialIconManager.UpdateTrialIcon(state: TrialIcon.State.Incorrect);
                             trialAnswerSubmission.CurrentScore--;
                             break;
                         
                         // No correct answer
                         case "None":
-                            taskInstructions.UpdateTrialIcon(state: TrialIcon.State.Ambivalent);
+                            trialIconManager.UpdateTrialIcon(state: TrialIcon.State.Ambivalent);
                             break;
                     }
                     break;

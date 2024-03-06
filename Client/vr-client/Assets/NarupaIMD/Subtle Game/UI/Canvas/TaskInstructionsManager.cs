@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using NarupaIMD.Subtle_Game.Interaction;
+﻿using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.UI.Simulation;
 using UnityEngine;
 
@@ -36,26 +35,11 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// The Trial Icon Manager.
         /// </summary>
         [SerializeField] private TrialIconManager trialIconManager;
-        
-        /// <summary>
-        /// An ordered list of the trials task icon game objects.
-        /// </summary>
-        public List<TrialIcon> trialsTaskIcons;
-        
-        /// <summary>
-        /// An index for the current trial in this set of tasks.
-        /// </summary>
-        private int _currentTrialIndex;
-        
+
         /// <summary>
         /// The Subtle Game Manager.
         /// </summary>
         private SubtleGameManager _subtleGameManager;
-        
-        /// <summary>
-        /// Boolean to keep track of whether the player is in the trials task.
-        /// </summary>
-        public bool playerInTrials;
 
         private void Start()
         {
@@ -96,13 +80,11 @@ namespace NarupaIMD.Subtle_Game.Canvas
             if (_subtleGameManager is null) return;
             
             // Reset trials-related stuff if this is the beginning of the trials task
-            if (_subtleGameManager.CurrentTaskType == SubtleGameManager.TaskTypeVal.Trials && !playerInTrials)
+            if (_subtleGameManager.CurrentTaskType == SubtleGameManager.TaskTypeVal.Trials && !trialIconManager.isPlayerInTrials)
             {
-                _currentTrialIndex = 0;
-               timer.SetActive(true);
+                timer.SetActive(true);
                trialIconManager.gameObject.SetActive(true);
-               trialIconManager.ResetIcons();
-               playerInTrials = true;
+               trialIconManager.ResetTrials();
             }
             
             // Hide trials-related stuff if not in the trials task
@@ -110,23 +92,8 @@ namespace NarupaIMD.Subtle_Game.Canvas
             {
                 timer.SetActive(false);
                 trialIconManager.gameObject.SetActive(false);
-                playerInTrials = false;
+                trialIconManager.isPlayerInTrials = false;
             }
-            
-        }
-    
-        /// <summary>
-        /// Sets the state of the icon for the current trials task.
-        /// </summary>
-        public void UpdateTrialIcon(TrialIcon.State state)
-        {
-            if (_currentTrialIndex >= trialsTaskIcons.Count) return;
-            
-            var currentIcon = trialsTaskIcons[_currentTrialIndex];
-
-            if (currentIcon == null) return;
-            currentIcon.SetIconState(state);
-            _currentTrialIndex++;
         }
     }
 }
