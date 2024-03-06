@@ -47,9 +47,6 @@ namespace NarupaIMD.Subtle_Game
                     simulation.gameObject.SetActive(_showSimulation);
                     taskInstructions.gameObject.SetActive(_showSimulation);
                     EnableInteractions = _showSimulation;
-                    
-                    if (CurrentTaskType != TaskTypeVal.Trials) return;
-                    trialAnswerSubmission.ToggleDisplayScore(_showSimulation);
                 }
             }
             private bool _showSimulation;
@@ -330,9 +327,6 @@ namespace NarupaIMD.Subtle_Game
             
             _canvasManager.HideCanvas();
             _showSimulation = true;
-
-            if (CurrentTaskType != TaskTypeVal.Trials) return;
-            trialAnswerSubmission.ResetScore();
         }
 
         /// <summary>
@@ -441,13 +435,11 @@ namespace NarupaIMD.Subtle_Game
                         // Player answered correctly
                         case "True":
                             trialIconManager.UpdateTrialIcon(state: TrialIcon.State.Correct);
-                            trialAnswerSubmission.CurrentScore++;
                             break;
                         
                         // Player answered incorrectly
                         case "False":
                             trialIconManager.UpdateTrialIcon(state: TrialIcon.State.Incorrect);
-                            trialAnswerSubmission.CurrentScore--;
                             break;
                         
                         // No correct answer
