@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,28 +9,17 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// An ordered list of the trials task icon game objects.
         /// </summary>
         public List<TrialIcon> trialsTaskIcons;
-        
-        /// <summary>
-        ///  Boolean to keep track of whether the player in currently in the trials task.
-        /// </summary>
-        [NonSerialized] public bool isPlayerInTrials;
-        
+
         /// <summary>
         /// Index of the current trial.
         /// </summary>
         private int _currentTrialIndex;
 
-        /// <summary>
-        /// Enables all trial icons.
-        /// </summary>
-        private void OnEnable()
+        private void Start()
         {
-            for( var i = 0; i < transform.childCount; ++i )
-            {
-                transform.GetChild(i).gameObject.SetActive(true);
-            }
+            gameObject.SetActive(false);
         }
-        
+
         /// <summary>
         /// Loops through all icons and resets them to the 'normal' state.
         /// </summary>
@@ -39,18 +27,18 @@ namespace NarupaIMD.Subtle_Game.Canvas
         {
             ResetIcons();
             _currentTrialIndex = 0;
-            isPlayerInTrials = true;
         }
         
         /// <summary>
-        /// Loops through all icons and resets them to the 'normal' state.
+        /// Loops through all icons, enables and resets them to the 'normal' state.
         /// </summary>
         private void ResetIcons()
         {
             for( var i = 0; i < transform.childCount; ++i )
             {
-                var icon = transform.GetChild(i).gameObject.GetComponent<TrialIcon>();
-                icon.ResetIcon();
+                var obj = transform.GetChild(i).gameObject;
+                obj.SetActive(true);
+                obj.GetComponent<TrialIcon>().ResetIcon();
             }
         }
         

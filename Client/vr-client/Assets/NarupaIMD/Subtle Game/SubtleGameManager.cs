@@ -41,17 +41,16 @@ namespace NarupaIMD.Subtle_Game
 
             public bool ShowSimulation
             {
+                get => _showSimulation;
                 set
                 {
                     _showSimulation = value;
                     simulation.gameObject.SetActive(_showSimulation);
-                    taskInstructions.gameObject.SetActive(_showSimulation);
                     EnableInteractions = _showSimulation;
                 }
             }
-            private bool _showSimulation;
 
-            [SerializeField] private TaskInstructionsManager taskInstructions;
+            private bool _showSimulation;
             private bool EnableInteractions
             {
                 set
