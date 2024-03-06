@@ -21,6 +21,7 @@ standard_rate = 1 / standard_frequency
 # ---------------- #
 # KEYS
 # ---------------- #
+key_username = 'participant-username'
 key_modality = 'modality'
 key_game_status = 'game-status'
 key_order_of_tasks = 'order-of-tasks'
@@ -76,5 +77,6 @@ shared_state_keys_and_vals = {
     key_trials_timer: [started, finished],
     key_trials_answer: [none, true, false]
 }
+
 keys_with_unrestricted_vals = [key_task_completion_time, key_simulation_name, key_simulation_server_index,
-                               key_trials_sims, key_number_of_trials]
+                               key_trials_sims, key_number_of_trials, key_username]

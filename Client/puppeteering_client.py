@@ -7,6 +7,23 @@ from additional_functions import write_to_shared_state, randomise_list_order
 from standardised_values import *
 import time
 import random
+from random_username.generate import generate_username
+
+
+def generate_username_for_player():
+    """ Generates a random username for the player."""
+    while True:
+        # Perform the function
+        username = generate_username(1)
+        print("Username: ", username)
+
+        user_input = input("Type 'y' to accept this username: ").strip().upper()
+
+        if user_input != 'Y':
+            print("Generating another username. ")
+        else:
+            print("Keeping username.")
+            return username
 
 
 def get_order_of_tasks(run_short_game: bool):
@@ -34,6 +51,8 @@ class PuppeteeringClient:
     logic for the Subtle Game."""
 
     def __init__(self, short_game: bool = False, number_of_trial_repeats: int = 1):
+
+        self.username = generate_username_for_player()
 
         # Connect to a local Nanover server
         self.narupa_client = NarupaImdClient.autoconnect(name=server_name)
@@ -111,7 +130,8 @@ class PuppeteeringClient:
         self.alanine_sim = self.get_name_and_server_index_of_simulations_for_task(sim_name_knot_tying)
         self.trials_sims = self.get_name_and_server_index_of_simulations_for_task(sim_name_trials)
 
-        # Update the shared state
+        # update the shared state
+        write_to_shared_state(client=self.narupa_client, key=key_username, value=self.username)
         write_to_shared_state(client=self.narupa_client, key=key_game_status, value=waiting)
         write_to_shared_state(client=self.narupa_client, key=key_modality, value=self.current_modality)
         write_to_shared_state(client=self.narupa_client, key=key_order_of_tasks, value=self.order_of_tasks)
