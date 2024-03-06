@@ -48,6 +48,7 @@ You will need to load a minimum of three simulations:
 - The nanotube + methane: `nanotube_langevin.xml`
 - The 17-alanine polypeptide: `17-ala.xml`
 - A buckyball simulation: e.g., `buckyballs_angle_A_0.5.xml`
+- The sandbox simulation: `sandbox_2_C10_alkanes.xml`
 
 You can load more buckyball simulations if you wish. 
 

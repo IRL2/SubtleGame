@@ -15,7 +15,8 @@ namespace NarupaIMD.Subtle_Game.Canvas
         Nanotube,
         Outro,
         KnotTying,
-        Trials
+        Trials,
+        Instructions
     }
 
     /// <summary>
@@ -93,6 +94,12 @@ namespace NarupaIMD.Subtle_Game.Canvas
             {
                 LastActiveCanvas.gameObject.SetActive(true);
             }
+            
+            // Show current menu
+            if (_currentMenu)
+            {
+                _currentMenu.SetActive(true);
+            }
         }
         
         /// <summary>
@@ -100,6 +107,14 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// </summary>
         public void HideCanvas()
         {
+            // Hide current menu
+            if (_currentMenu)
+            {
+                _currentMenu.SetActive(false);
+            }
+            
+            
+            // Hide canvas
             if (LastActiveCanvas != null)
             {
                 LastActiveCanvas.gameObject.SetActive(false);
@@ -135,6 +150,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
                 SubtleGameManager.TaskTypeVal.GameFinished => CanvasType.Outro,
                 SubtleGameManager.TaskTypeVal.KnotTying => CanvasType.KnotTying,
                 SubtleGameManager.TaskTypeVal.Trials => CanvasType.Trials,
+                SubtleGameManager.TaskTypeVal.Sandbox => CanvasType.Instructions,
                 _ => CurrentCanvasType
             };
         }

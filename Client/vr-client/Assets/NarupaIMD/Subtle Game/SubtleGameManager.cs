@@ -41,15 +41,15 @@ namespace NarupaIMD.Subtle_Game
 
             public bool ShowSimulation
             {
+                get => _showSimulation;
                 set
                 {
                     _showSimulation = value;
                     simulation.gameObject.SetActive(_showSimulation);
                     EnableInteractions = _showSimulation;
-                    if (CurrentTaskType != TaskTypeVal.Trials) return;
-                    trialAnswerSubmission.ToggleDisplayScore(_showSimulation);
                 }
             }
+
             private bool _showSimulation;
             private bool EnableInteractions
             {
@@ -166,8 +166,9 @@ namespace NarupaIMD.Subtle_Game
         
         #region Trials
         
-        [SerializeField]
-        private TrialAnswerSubmission trialAnswerSubmission;
+        private TrialsTimer _timer;
+        [SerializeField] private TrialIconManager trialIconManager;
+        [SerializeField] private TrialAnswerSubmission trialAnswerSubmission;
         public string TrialAnswer
         {
             set => WriteToSharedState(SharedStateKey.TrialAnswer, value);
@@ -189,6 +190,9 @@ namespace NarupaIMD.Subtle_Game
             
             // Find the pinch grab script
             _pinchGrab = FindObjectOfType<PinchGrab>();
+            
+            // Find the trials timer script
+            _timer = FindObjectOfType<TrialsTimer>();
 
             // Request Canvas Manager to setup the game
             _canvasManager.StartGame();
@@ -308,7 +312,7 @@ namespace NarupaIMD.Subtle_Game
         
         /// <summary>
         /// Starts the current task by hiding the menu, showing the simulation and enabling interactions. This is called
-        /// once the player has finished the intro menu for the task.
+        /// once the player has finished the intro menu for the task. If the task trial is being started, start the trial.
         /// </summary>
         public void StartTask()
         {
@@ -319,14 +323,11 @@ namespace NarupaIMD.Subtle_Game
             }
 
             TaskStatus = TaskStatusVal.InProgress;
+            
             _canvasManager.HideCanvas();
-
-            if (CurrentTaskType == TaskTypeVal.Trials)
-            {
-                trialAnswerSubmission.ResetScore();
-            }
+            _showSimulation = true;
         }
-        
+
         /// <summary>
         /// Checks if the hands are tracking and communicates this to the pinch grab script. This allows the player to
         /// switch between hands and controllers when in the sandbox. Player can exit by clicking the 'start' menu
@@ -377,8 +378,9 @@ namespace NarupaIMD.Subtle_Game
         /// <summary>
         /// Disables interactions with the simulation and requests answer from player.
         /// </summary>
-        private void FinishCurrentTrial()
+        public void FinishCurrentTrial()
         {
+            simulation.PauseTrajectory();
             EnableInteractions = false;
             trialAnswerSubmission.RequestAnswerFromPlayer();
         }
@@ -391,14 +393,12 @@ namespace NarupaIMD.Subtle_Game
             switch (key)
             {
                 case "puppeteer.modality":
-
                     CurrentInteractionModality = val.ToString() switch
                     {
                         "hands" => Modality.Hands,
                         "controllers" => Modality.Controllers,
                         _ => Modality.None
                     };
-
                     isIntroToSection = true;
                     break;
 
@@ -421,15 +421,11 @@ namespace NarupaIMD.Subtle_Game
                 case "puppeteer.trials-timer":
                     switch (val.ToString())
                     {
-                        case "finished":
-                            FinishCurrentTrial();
-                            break;
-                        
                         case "started":
                             ShowSimulation = true;
+                            _timer.StartTimer();
                             break;
                     }
-
                     break;
                 
                 case "puppeteer.trials-answer":
@@ -437,19 +433,20 @@ namespace NarupaIMD.Subtle_Game
                     {
                         // Player answered correctly
                         case "True":
-                            Debug.LogWarning("correct answer");
-                            trialAnswerSubmission.CurrentScore++;
+                            trialIconManager.UpdateTrialIcon(state: TrialIcon.State.Correct);
                             break;
                         
                         // Player answered incorrectly
                         case "False":
-                            Debug.LogWarning("incorrect answer");
-                            trialAnswerSubmission.CurrentScore--;
+                            trialIconManager.UpdateTrialIcon(state: TrialIcon.State.Incorrect);
+                            break;
+                        
+                        // No correct answer
+                        case "None":
+                            trialIconManager.UpdateTrialIcon(state: TrialIcon.State.Ambivalent);
                             break;
                     }
-
                     break;
-                
             }
         }
 

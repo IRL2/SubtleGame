@@ -5,13 +5,18 @@ namespace NarupaIMD.Subtle_Game.UI.Simulation
 {
     public class CenterXYPlane : MonoBehaviour
     {
-        [SerializeField] private BoxVisualiser simulationBox;
-        
         /// <summary>
-        /// Sets the position of this game object to the center of the xy plane of the simulation box.
+        /// The simulation box.
         /// </summary>
-        public void UpdatePosition()
+        [SerializeField] private BoxVisualiser simulationBox;
+
+        /// <summary>
+        /// Sets the position of this game object to the center of the xy plane of the simulation box and shows the
+        /// in-task instructions canvas.
+        /// </summary>
+        public void PositionCenterOfXYPlane()
         {
+            // Update position of current game object
             transform.localPosition = new Vector3(
                 simulationBox.xMagnitude * 0.5f, 
                 simulationBox.xMagnitude * 0.5f, 

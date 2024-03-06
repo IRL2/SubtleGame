@@ -50,7 +50,7 @@ class PuppeteeringClient:
     """ This class interfaces between the Nanover server, VR client and any required packages to control the game 
     logic for the Subtle Game."""
 
-    def __init__(self, short_game: bool = False):
+    def __init__(self, short_game: bool = False, number_of_trial_repeats: int = 1):
 
         self.username = generate_username_for_player()
 
@@ -71,36 +71,19 @@ class PuppeteeringClient:
         self.nanotube_sim = None
         self.alanine_sim = None
         self.trials_sims = None
+        self.num_of_trial_repeats = number_of_trial_repeats
         self.trials_sim_names = None
         self.first_practice_sim = True
 
     def run_game(self):
 
-        # initialise game
+        print('STARTING GAME!\n')
+
         self._initialise_game()
-        print('\nGame initialised, waiting for player to connect')
         self._wait_for_vr_client_to_connect_to_server()
-        print("Player connected, waiting for them to choose a task")
+        self._player_in_main_menu()
 
-        while True:
-            try:
-                value = self.narupa_client.latest_multiplayer_values[key_player_task_type]
-                if value == player_sandbox:
-                    simulation_counter = self.narupa_client._current_frame.values["system.simulation.counter"]
-                    current_task = SandboxTask(client=self.narupa_client, simulations=self.sandbox_sim,
-                                               simulation_counter=simulation_counter)
-                    current_task.run_task()
-                    continue
-                elif value in [player_nanotube, player_knot_tying, player_trials]:
-                    break
-
-            except KeyError:
-                pass
-
-            # If the desired key-value pair is not in shared state yet, wait a bit before trying again
-            time.sleep(standard_rate)
-
-        # loop through the tasks
+        # Loop through the tasks
         for task in self.order_of_tasks:
 
             simulation_counter = self.narupa_client._current_frame.values["system.simulation.counter"]
@@ -123,20 +106,19 @@ class PuppeteeringClient:
 
             elif task == task_trials:
                 current_task = TrialsTask(client=self.narupa_client, simulations=self.trials_sims,
-                                          simulation_counter=simulation_counter)
+                                          simulation_counter=simulation_counter,
+                                          number_of_repeats=self.num_of_trial_repeats)
 
             else:
                 print("Current task not recognised, closing the puppeteering client.")
                 break
 
             # Run the task
-            print('\nRunning ' + task + ' task')
+            print('\n- Running ' + task + ' task')
             current_task.run_task()
             print('Finished ' + task + ' task\n')
 
-        # gracefully finish the game
         self._finish_game()
-        print('Game finished')
 
     def _initialise_game(self):
         """ Gets simulation indices for each task for loading onto the server. Writes the required key-value pairs to
@@ -154,6 +136,32 @@ class PuppeteeringClient:
         write_to_shared_state(client=self.narupa_client, key=key_modality, value=self.current_modality)
         write_to_shared_state(client=self.narupa_client, key=key_order_of_tasks, value=self.order_of_tasks)
 
+        # Print game setup to the terminal
+        print('\nGame initialised:')
+        print('Order of tasks: ', self.order_of_tasks)
+        print('Current interaction modality: ', self.current_modality, '\n')
+
+    def _player_in_main_menu(self):
+        print("Player connected, waiting for them to choose a task")
+
+        # Wait for player to choose between sandbox and main game
+        while True:
+            try:
+                value = self.narupa_client.latest_multiplayer_values[key_player_task_type]
+                if value == player_sandbox:
+                    simulation_counter = self.narupa_client._current_frame.values["system.simulation.counter"]
+                    current_task = SandboxTask(client=self.narupa_client, simulations=self.sandbox_sim,
+                                               simulation_counter=simulation_counter)
+                    current_task.run_task()
+                    continue
+                elif value in [player_nanotube, player_knot_tying, player_trials]:
+                    break
+
+            except KeyError:
+                pass
+
+            time.sleep(standard_rate)
+
     def get_name_and_server_index_of_simulations_for_task(self, name: str):
         """ Returns a dictionary of the name(s) of the simulation(s) with their corresponding index for loading onto
         the server."""
@@ -169,7 +177,7 @@ class PuppeteeringClient:
 
     def _wait_for_vr_client_to_connect_to_server(self):
         """ Waits for the player to be connected."""
-
+        print("Waiting for player to connect...")
         self._wait_for_key_values(key_player_connected, true)
         write_to_shared_state(client=self.narupa_client, key=key_game_status, value=in_progress)
 
@@ -188,17 +196,18 @@ class PuppeteeringClient:
 
     def _finish_game(self):
         """ Update the shared state and close the client at the end of the game. """
-
         print("Closing the narupa client and ending game.")
         write_to_shared_state(client=self.narupa_client, key=key_game_status, value=finished)
         self.narupa_client.close()
+        print('Game finished')
 
 
 if __name__ == '__main__':
 
+    number_of_repeats = 2
+
     # Create puppeteering client
-    puppeteering_client = PuppeteeringClient()
+    puppeteering_client = PuppeteeringClient(number_of_trial_repeats=number_of_repeats)
 
     # Start game
-    print('Starting game\n')
     puppeteering_client.run_game()

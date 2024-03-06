@@ -33,11 +33,9 @@ namespace NarupaIMD.Subtle_Game.Interaction
 
         #region Transparency
         [Tooltip("Maximum alpha (transparency) value for the LineRenderer. Decreases as the distance between the grabber and the atom increases.")]
-        [Range(0f, 1f)]
-        public float LineRendererMaxAlpha = .05f;
+        private float LineRendererMaxAlpha = .35f;
         [Tooltip("Minimum alpha (transparency) value to ensure the LineRenderer is always slightly visible.")]
-        [Range(0f, 1f)]
-        public float LineRendererMinAlpha = 0.005f;
+        private float LineRendererMinAlpha = 0.25f;
         [Tooltip("Factor by which the LineRenderer's alpha decreases with distance. Typically set to 1 for linear scaling.")]
         public float LineRendererAlphaScalingFactor = .05f;
         #endregion
@@ -66,8 +64,7 @@ namespace NarupaIMD.Subtle_Game.Interaction
         [Range(0f, .1f)]
         public float AtomMarkerScale = .025f;
         [Tooltip("Pinch distance threshold for displaying the Atom Marker and LineRenderer.")]
-        [Range(0f, 0.2f)]
-        public float MarkerTriggerDistance = .06f;
+        private float MarkerTriggerDistance = .03f;
         #endregion
 
         #region Script References
@@ -92,8 +89,7 @@ namespace NarupaIMD.Subtle_Game.Interaction
         [Tooltip("List of Transform objects for index and thumb pairs. Each pair will be responsible for one 'grabber'.")]
         public List<Transform> IndexAndThumbTransforms;
         [Tooltip("Threshold distance between index and thumb to activate a pinch, triggering a grab interaction.")]
-        [Range(0f, .04f)]
-        public float PinchTriggerDistance = .02f;
+        private float PinchTriggerDistance = .02f;
         #endregion
 
         #region Grab
