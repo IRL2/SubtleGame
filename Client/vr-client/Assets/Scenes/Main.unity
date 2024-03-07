@@ -5483,7 +5483,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 60, y: -83}
+  m_AnchoredPosition: {x: 60, y: -37}
   m_SizeDelta: {x: 800, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &448594010
@@ -8095,6 +8095,7 @@ GameObject:
   - component: {fileID: 737160946}
   - component: {fileID: 737160948}
   - component: {fileID: 737160947}
+  - component: {fileID: 737160949}
   m_Layer: 0
   m_Name: Score - final score %
   m_TagString: Untagged
@@ -8218,6 +8219,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 737160945}
   m_CullTransparentMesh: 1
+--- !u!114 &737160949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737160945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bef2c368df71544292bcafc009f7a45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &758986353
 GameObject:
   m_ObjectHideFlags: 0
@@ -20402,7 +20415,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1461631878
 RectTransform:
   m_ObjectHideFlags: 0
