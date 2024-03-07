@@ -19,6 +19,8 @@ namespace NarupaIMD.Subtle_Game.Canvas
 
         private int _runningScore;
 
+        public string playerScore = "Player score";
+
         public GameObject runningScoreParent;
         public GameObject runningScorePrefab;
 
@@ -71,16 +73,25 @@ namespace NarupaIMD.Subtle_Game.Canvas
         {
             // Update the score and icon
             var currentIcon = trialsTaskIcons[_currentTrialIndex];
-            //if (currentIcon == null) return;
-            currentIcon.SetIconState(state);
-            _currentTrialIndex++;
-
+            if (currentIcon == null)
+            {
+                Debug.LogWarning("Icon missing");
+            }
+            else
+            { 
+                currentIcon.SetIconState(state);
+            }
+            
+            // Update running score
             if (state == TrialIcon.State.Correct)
             {
                 _runningScore++;
             }
+            PlayerPrefs.SetInt(playerScore, _runningScore);
             
-            // Check if this was the final one in the set
+            // Update trial index
+            _currentTrialIndex++;
+            // Check if this was the final one in the set of 7
             if (_currentTrialIndex == trialsTaskIcons.Count)
             {
                 MoveToNextSetOfTrials();
