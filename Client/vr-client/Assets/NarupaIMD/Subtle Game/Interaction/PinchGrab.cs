@@ -108,6 +108,14 @@ namespace NarupaIMD.Subtle_Game.Interaction
         public float FetchClosestAtomUpdateInterval = .1f;
         #endregion
 
+        #region Pinch Stability
+        
+        private Dictionary<PinchGrabber, Vector3[]> _previousPositionsDict = new Dictionary<PinchGrabber, Vector3[]>();
+        public bool pinchDetectionStable;
+        private int _numFramesToCheck = 15;
+
+        #endregion
+
         #region Audio Effects
         /// <summary>
         /// Configuration for audio feedback during interactions.
@@ -274,10 +282,19 @@ namespace NarupaIMD.Subtle_Game.Interaction
 
                 // Update PinchTransform position and rotation
                 UpdateGrabberPinchPosition(grabber);
-
-                // If the grabber is pinching, we want to apply a force to the atom it hase grabbed. If it is not pinching, we still need to send an interaction but with ForceScale 0
-                UpdateGrab(grabber);
                 
+                // Add safety check to see if the grabber is still being tracked
+                if (!_previousPositionsDict.ContainsKey(grabber))
+                {
+                    // Initialize the previous positions array for the grabber if not initialized yet
+                    InitializePreviousPositions(grabber, _numFramesToCheck); // Stability check is performed over last few frames
+                }
+                UpdatePreviousPositions(grabber);
+                HasGrabberMovedInLastFewFrames(grabber);
+                
+                // If the grabber is pinching and stable, we want to apply a force to the atom it has grabbed. If it is not pinching, we still need to send an interaction but with ForceScale 0
+                UpdateGrab(grabber);
+
                 // Create a new particle interaction
                 ParticleInteraction interaction = new ParticleInteraction
                 {
@@ -346,6 +363,44 @@ namespace NarupaIMD.Subtle_Game.Interaction
                 grabber.PinchPositionTransform.rotation = grabber.ThumbTip.rotation;
             }
         }
+        
+        /// <summary>
+        /// Initialise dictionary for the grabber positions over the last few frames.
+        /// </summary>
+        private void InitializePreviousPositions(PinchGrabber grabber, int arraySize)
+        {
+            _previousPositionsDict[grabber] = new Vector3[arraySize];
+        }
+        
+        /// <summary>
+        /// Add the current position of the grabber to the dictionary of the grabber positions over the last few frames.
+        /// </summary>
+        private void UpdatePreviousPositions(PinchGrabber grabber)
+        {
+            var previousPositions = _previousPositionsDict[grabber];
+            for (var i = 0; i < previousPositions.Length - 1; i++)
+            {
+                previousPositions[i] = previousPositions[i + 1];
+            }
+            previousPositions[^1] = grabber.PinchPositionTransform.position;
+        }
+
+        /// <summary>
+        /// Check if the position of the grabber has changed in the last few frames. If not, set the
+        /// pinchDetectionStable boolean to false.
+        /// </summary>
+        private void HasGrabberMovedInLastFewFrames(PinchGrabber grabber)
+        {
+            var previousPositions = _previousPositionsDict[grabber]; // Get previous positions for this grabber
+            
+            var previousPosition = previousPositions[0]; // The oldest recorded position
+            pinchDetectionStable = true;
+            for (var i = 1; i < previousPositions.Length; i++)
+            {
+                if (previousPositions[i] != previousPosition) break;
+                pinchDetectionStable = false;
+            }
+        }
 
         /// <summary>
         /// Manages the active and inactive states of each PinchGrabber.
@@ -356,7 +411,7 @@ namespace NarupaIMD.Subtle_Game.Interaction
         private void UpdateGrab(PinchGrabber grabber)
         {
             grabber.CheckForPinch();
-            if (grabber.Pinched)
+            if (grabber.Pinched && pinchDetectionStable)
             {
                 grabber.ForceScale = InteractionForceScale;
             }
