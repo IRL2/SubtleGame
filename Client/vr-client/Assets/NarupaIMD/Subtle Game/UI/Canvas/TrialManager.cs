@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -13,44 +14,118 @@ namespace NarupaIMD.Subtle_Game.Canvas
         public List<TrialIcon> trialsTaskIcons;
 
         /// <summary>
-        /// Index of the current trial.
+        /// Index of the trial in the current set.
         /// </summary>
-        private int _currentTrialIndex;
-
-        private int _runningScore;
-
-        public string playerScore = "Player score";
-
-        public GameObject runningScoreParent;
-        public GameObject runningScorePrefab;
+        private int _setTrialIndex;
+        
+        /// <summary>
+        /// Running score for the current set.
+        /// </summary>
+        private int _runningScoreForSet;
+        
+        /// <summary>
+        /// Running total of the number of trials within the current task.
+        /// </summary>
+        private int _totalNumberOfTrials;
+        
+        /// <summary>
+        /// Running score for the current task.
+        /// </summary>
+        private int _totalRunningScore;
+        
+        /// <summary>
+        /// Running score as a percentage for the current task.
+        /// </summary>
+        private float _totalRunningScorePercentage;
+        
+        /// <summary>
+        /// Key for saving the player's percentage score as a <cref>PlayerPref</cref>.
+        /// </summary>
+        [NonSerialized] public const string PlayerScorePercentage = "Player score";
+        
+        /// <summary>
+        /// Game object that will be the parent for the icons of the total score for each set.
+        /// </summary>
+        public GameObject gameObjectForSetScores;
+        
+        /// <summary>
+        /// Prefab of the icon used to display the total score for each set on the UI canvas.
+        /// </summary>
+        public GameObject setScorePrefab;
 
         private void Start()
         {
             gameObject.SetActive(false);
         }
-
+        
         /// <summary>
-        /// Loops through all icons and resets them to the 'normal' state.
+        /// Resets variables and game objects ready to start a new trials task.
         /// </summary>
-        public void ResetTrials()
+        public void ResetTrialsTask()
         {
-            ResetIcons();
-            _currentTrialIndex = 0;
-            _runningScore = 0;
+            // Reset variables for entire task
+            _totalNumberOfTrials = 0;
+            _totalRunningScore = 0;
+            
+            // Reset variables for this set of trials
+            ResetTrialSet(true);
         }
         
         /// <summary>
-        /// Loops through all icons and resets them to the 'normal' state.
+        /// Called by the <cref>SubtleGameManager</cref> to log the player's answer to the current trial.
         /// </summary>
-        private void MoveToNextSetOfTrials()
+        public void LogTrialAnswer(TrialIcon.State state)
+        {
+            UpdateTrialIcon(state);
+            UpdateScoreCalculations(state);
+            
+            _totalNumberOfTrials++;
+            
+            // Check if this was the final one in the set of 7
+            if (_setTrialIndex == trialsTaskIcons.Count)
+            {
+                MoveToNextSet();
+            }
+        }
+        
+        /// <summary>
+        /// Resets variables and game objects ready start a new set of trials.
+        /// </summary>
+        private void ResetTrialSet(bool isFirstTrial)
+        {
+            ResetIcons();
+            _setTrialIndex = 0;
+            _runningScoreForSet = 0;
+
+            if (!isFirstTrial)
+            {
+                // Record score for the set
+                RecordScoreForSet();
+            }
+        }
+        
+        /// <summary>
+        /// Creates a game object on the in-task instructions canvas with a total score for the current set of trials.
+        /// </summary>
+        private void RecordScoreForSet()
+        {
+            GameObject scoreObj = Instantiate(setScorePrefab, gameObjectForSetScores.transform);
+            TextMeshProUGUI textMesh = scoreObj.GetComponentInChildren<TextMeshProUGUI>();
+            textMesh.text = _runningScoreForSet.ToString();
+        }
+        
+        /// <summary>
+        /// Moves onto next set of trials.
+        /// </summary>
+        private void MoveToNextSet()
         {
             // Record score for the set and write to the UI
-            GameObject scoreObj = Instantiate(runningScorePrefab, runningScoreParent.transform);
+            GameObject scoreObj = Instantiate(setScorePrefab, gameObjectForSetScores.transform);
             TextMeshProUGUI textMesh = scoreObj.GetComponentInChildren<TextMeshProUGUI>();
-            textMesh.text = _runningScore.ToString();
+            textMesh.text = _runningScoreForSet.ToString();
             
             // Reset the set of trials
-            ResetTrials();
+            ResetTrialSet(false);
         }
         
         /// <summary>
@@ -65,14 +140,13 @@ namespace NarupaIMD.Subtle_Game.Canvas
                 obj.GetComponent<TrialIcon>().ResetIcon();
             }
         }
-        
+
         /// <summary>
-        /// Sets the state of the icon for the current trials task.
+        /// Updates the icon corresponding to the current trial.
         /// </summary>
-        public void UpdateTrialIcon(TrialIcon.State state)
+        private void UpdateTrialIcon(TrialIcon.State state)
         {
-            // Update the score and icon
-            var currentIcon = trialsTaskIcons[_currentTrialIndex];
+            var currentIcon = trialsTaskIcons[_setTrialIndex];
             if (currentIcon == null)
             {
                 Debug.LogWarning("Icon missing");
@@ -82,20 +156,25 @@ namespace NarupaIMD.Subtle_Game.Canvas
                 currentIcon.SetIconState(state);
             }
             
+            _setTrialIndex++;
+        }
+        
+        /// <summary>
+        /// Updates the running score and the overall player score.
+        /// </summary>
+        private void UpdateScoreCalculations(TrialIcon.State state)
+        {
             // Update running score
             if (state == TrialIcon.State.Correct)
             {
-                _runningScore++;
+                _runningScoreForSet++;
+                _totalRunningScore++;
             }
-            PlayerPrefs.SetInt(playerScore, _runningScore);
             
-            // Update trial index
-            _currentTrialIndex++;
-            // Check if this was the final one in the set of 7
-            if (_currentTrialIndex == trialsTaskIcons.Count)
-            {
-                MoveToNextSetOfTrials();
-            }
+            // Update total score
+            _totalRunningScorePercentage = (float)_totalRunningScore / _totalNumberOfTrials * 100f;
+            var roundedPercentageScore = Mathf.Round(_totalRunningScorePercentage * 10f) / 10f;
+            PlayerPrefs.SetFloat(PlayerScorePercentage, roundedPercentageScore);
         }
     }
 }

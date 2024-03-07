@@ -108,7 +108,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
         {
             timer.SetActive(isTrials);
             trialManager.gameObject.SetActive(isTrials);
-            trialManager.ResetTrials();
+            trialManager.ResetTrialsTask();
         }
 
         private void ShowOrHideInstructionsCanvas(bool showCanvas)

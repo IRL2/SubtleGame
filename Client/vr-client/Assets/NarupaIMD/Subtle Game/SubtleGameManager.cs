@@ -434,17 +434,17 @@ namespace NarupaIMD.Subtle_Game
                     {
                         // Player answered correctly
                         case "True":
-                            trialManager.UpdateTrialIcon(state: TrialIcon.State.Correct);
+                            trialManager.LogTrialAnswer(state: TrialIcon.State.Correct);
                             break;
                         
                         // Player answered incorrectly
                         case "False":
-                            trialManager.UpdateTrialIcon(state: TrialIcon.State.Incorrect);
+                            trialManager.LogTrialAnswer(state: TrialIcon.State.Incorrect);
                             break;
                         
                         // No correct answer
                         case "None":
-                            trialManager.UpdateTrialIcon(state: TrialIcon.State.Ambivalent);
+                            trialManager.LogTrialAnswer(state: TrialIcon.State.Ambivalent);
                             break;
                     }
                     break;
