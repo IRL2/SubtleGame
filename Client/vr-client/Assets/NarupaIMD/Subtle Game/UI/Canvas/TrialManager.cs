@@ -78,9 +78,13 @@ namespace NarupaIMD.Subtle_Game.Canvas
         {
             UpdateTrialIcon(state);
             UpdateScoreCalculations(state);
-            
-            _totalNumberOfTrials++;
-            
+
+            if (state != TrialIcon.State.Ambivalent)
+            {
+                // Only count trials that have a correct answer
+                _totalNumberOfTrials++;
+            }
+
             // Check if this was the final one in the set of 7
             if (_setTrialIndex == trialsTaskIcons.Count)
             {
