@@ -68,7 +68,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
             _totalRunningScore = 0;
             
             // Reset variables for this set of trials
-            ResetTrialSet(true);
+            ResetSet(true);
         }
         
         /// <summary>
@@ -76,36 +76,37 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// </summary>
         public void LogTrialAnswer(TrialIcon.State state)
         {
-            UpdateTrialIcon(state);
-            UpdateScoreCalculations(state);
-
+            UpdateCurrentTrialIcon(state);
+            
             if (state != TrialIcon.State.Ambivalent)
             {
                 // Only count trials that have a correct answer
                 _totalNumberOfTrials++;
             }
+            
+            UpdateScoreCalculations(state);
 
             // Check if this was the final one in the set of 7
             if (_setTrialIndex == trialsTaskIcons.Count)
             {
-                MoveToNextSet();
+                ResetSet(false);
             }
         }
         
         /// <summary>
         /// Resets variables and game objects ready start a new set of trials.
         /// </summary>
-        private void ResetTrialSet(bool isFirstTrial)
+        private void ResetSet(bool isFirstTrial)
         {
-            ResetIcons();
-            _setTrialIndex = 0;
-            _runningScoreForSet = 0;
-
             if (!isFirstTrial)
             {
-                // Record score for the set
                 RecordScoreForSet();
             }
+            
+            ResetIcons();
+            
+            _setTrialIndex = 0;
+            _runningScoreForSet = 0;
         }
         
         /// <summary>
@@ -117,21 +118,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
             TextMeshProUGUI textMesh = scoreObj.GetComponentInChildren<TextMeshProUGUI>();
             textMesh.text = _runningScoreForSet.ToString();
         }
-        
-        /// <summary>
-        /// Moves onto next set of trials.
-        /// </summary>
-        private void MoveToNextSet()
-        {
-            // Record score for the set and write to the UI
-            GameObject scoreObj = Instantiate(setScorePrefab, gameObjectForSetScores.transform);
-            TextMeshProUGUI textMesh = scoreObj.GetComponentInChildren<TextMeshProUGUI>();
-            textMesh.text = _runningScoreForSet.ToString();
-            
-            // Reset the set of trials
-            ResetTrialSet(false);
-        }
-        
+
         /// <summary>
         /// Loops through all icons, enables and resets them to the 'normal' state.
         /// </summary>
@@ -148,7 +135,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// <summary>
         /// Updates the icon corresponding to the current trial.
         /// </summary>
-        private void UpdateTrialIcon(TrialIcon.State state)
+        private void UpdateCurrentTrialIcon(TrialIcon.State state)
         {
             var currentIcon = trialsTaskIcons[_setTrialIndex];
             if (currentIcon == null)
