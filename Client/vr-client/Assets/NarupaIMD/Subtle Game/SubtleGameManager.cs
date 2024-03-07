@@ -9,6 +9,7 @@ using NarupaIMD.Subtle_Game.Data_Collection;
 using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.Visuals;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game
 {
@@ -167,7 +168,7 @@ namespace NarupaIMD.Subtle_Game
         #region Trials
         
         private TrialsTimer _timer;
-        [SerializeField] private TrialIconManager trialIconManager;
+        [FormerlySerializedAs("trialIconManager")] [SerializeField] private TrialManager trialManager;
         [SerializeField] private TrialAnswerSubmission trialAnswerSubmission;
         public string TrialAnswer
         {
@@ -433,17 +434,17 @@ namespace NarupaIMD.Subtle_Game
                     {
                         // Player answered correctly
                         case "True":
-                            trialIconManager.UpdateTrialIcon(state: TrialIcon.State.Correct);
+                            trialManager.UpdateTrialIcon(state: TrialIcon.State.Correct);
                             break;
                         
                         // Player answered incorrectly
                         case "False":
-                            trialIconManager.UpdateTrialIcon(state: TrialIcon.State.Incorrect);
+                            trialManager.UpdateTrialIcon(state: TrialIcon.State.Incorrect);
                             break;
                         
                         // No correct answer
                         case "None":
-                            trialIconManager.UpdateTrialIcon(state: TrialIcon.State.Ambivalent);
+                            trialManager.UpdateTrialIcon(state: TrialIcon.State.Ambivalent);
                             break;
                     }
                     break;

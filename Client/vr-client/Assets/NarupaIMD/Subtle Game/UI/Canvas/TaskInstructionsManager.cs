@@ -1,6 +1,7 @@
 ﻿using NarupaIMD.Subtle_Game.Interaction;
 using NarupaIMD.Subtle_Game.UI.Simulation;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NarupaIMD.Subtle_Game.Canvas
 {
@@ -34,7 +35,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// <summary>
         /// The Trial Icon Manager.
         /// </summary>
-        [SerializeField] private TrialIconManager trialIconManager;
+        [FormerlySerializedAs("trialIconManager")] [SerializeField] private TrialManager trialManager;
 
         /// <summary>
         /// The Subtle Game Manager.
@@ -106,8 +107,8 @@ namespace NarupaIMD.Subtle_Game.Canvas
         private void EnableTrialsRelatedGameObjects(bool isTrials)
         {
             timer.SetActive(isTrials);
-            trialIconManager.gameObject.SetActive(isTrials);
-            trialIconManager.ResetTrials();
+            trialManager.gameObject.SetActive(isTrials);
+            trialManager.ResetTrials();
         }
 
         private void ShowOrHideInstructionsCanvas(bool showCanvas)

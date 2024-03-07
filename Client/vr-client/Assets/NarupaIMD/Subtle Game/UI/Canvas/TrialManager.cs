@@ -5,7 +5,7 @@ using UnityEngine;
 namespace NarupaIMD.Subtle_Game.Canvas
 {
     
-    public class TrialIconManager : MonoBehaviour
+    public class TrialManager : MonoBehaviour
     {
         /// <summary>
         /// An ordered list of the trials task icon game objects.
