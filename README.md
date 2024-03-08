@@ -54,7 +54,7 @@ You will need to load a minimum of three simulations:
 You can load more buckyball simulations if you wish. 
 
 2. To load the simulations, select `File input` and click on the `+` and `-` symbols to add and remove simulations. Click `Select files` and choose one of the files located in the `\Inputs` directory. Repeat this until you have all the required simulations, then click `Run the selected file!`.
-4. Run the Python script `./Client/puppeteering-client.py` from inside your `subtle-game` conda environment (either using the terminal or your Python IDE, as detailed above).
+4. Run the Python script `./Client/puppeteering-client.py` from inside your `subtle-game` conda environment (either using the terminal or your Python IDE, as detailed above). A randomly-generated username will appear on the terminal. Type `y` and press `Enter` on your keyboard to accept this username and continue, or alternatively press `Enter` to generate a new username.
 5. Open `Oculus Link` or `Air Link` from inside your Oculus headset.
 6. Open Unity and click play to start the game.
 
