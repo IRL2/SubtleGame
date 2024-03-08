@@ -1,11 +1,9 @@
 from Client.task import Task
 from narupa.app import NarupaImdClient
 import time
-from additional_functions import write_to_shared_state
+from additional_functions import write_to_shared_state, remove_puppeteer_key_from_shared_state
 from standardised_values import *
 import random
-
-player_trial_answer = 'Player.TrialAnswer'
 
 
 def calculate_correct_answer(sim_file_name: str):
@@ -106,7 +104,7 @@ def get_order_of_simulations(simulations, num_repeats):
 
 class TrialsTask(Task):
     task_type = task_trials
-    trial_answer_key = player_trial_answer
+    isFirstTrialOfGame = True
 
     def __init__(self, client: NarupaImdClient, simulations: list, simulation_counter: int, number_of_repeats):
 
@@ -181,12 +179,19 @@ class TrialsTask(Task):
         """ Waits for the player to submit an answer by monitoring the answer in the shared state. Once the answer has
         been submitted, it wipes it from the shared state.  """
 
+        if not self.isFirstTrialOfGame:
+            # Ensure puppeteer's previous answer is removed
+            remove_puppeteer_key_from_shared_state(client=self.client, key=key_trials_answer)
+        else:
+            self.isFirstTrialOfGame = False
+
         print("Waiting for player to answer...")
+
         while True:
 
             # check if player has logged an answer and break loop if they have
             try:
-                current_val = self.client.latest_multiplayer_values[self.trial_answer_key]
+                current_val = self.client.latest_multiplayer_values[key_player_trial_answer]
 
                 if current_val is not None:
 
@@ -209,8 +214,8 @@ class TrialsTask(Task):
             except KeyError:
                 time.sleep(standard_rate)
 
-        # Remove answer once it has been received, ready for the next trial or the end of the trials
-        self.client.remove_shared_value(self.trial_answer_key)
+        # Remove Player's answer once it has been received, ready for the next trial or the end of the trials
+        self.client.remove_shared_value(key_player_trial_answer)
 
     def _update_visualisations(self):
 
