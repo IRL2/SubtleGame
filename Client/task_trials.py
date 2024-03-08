@@ -16,7 +16,7 @@ def calculate_correct_answer(sim_file_name: str):
 
     # Molecules are identical, there is no correct answer
     if multiplier == 1:
-        return
+        return ambivalent
 
     # Get residue id of modified molecule
     modified_molecule = get_residue_id_of_modified_molecule(sim_file_name=sim_file_name)
@@ -104,7 +104,6 @@ def get_order_of_simulations(simulations, num_repeats):
 
 class TrialsTask(Task):
     task_type = task_trials
-    isFirstTrialOfGame = True
 
     def __init__(self, client: NarupaImdClient, simulations: list, simulation_counter: int, number_of_repeats):
 
@@ -129,13 +128,15 @@ class TrialsTask(Task):
 
         write_to_shared_state(client=self.client, key=key_trials_sims, value=str(self.main_sims))
 
-        write_to_shared_state(client=self.client, key=key_number_of_trials, value=len(self.main_sims))
+        self.number_of_trials = len(self.main_sims)
+
+        write_to_shared_state(client=self.client, key=key_number_of_trials, value=self.number_of_trials)
 
     def run_task(self):
         """ Runs through the psychophysics trials. """
 
         # Run trials proper
-        for trial_num in range(len(self.main_sims)):
+        for trial_num in range(self.number_of_trials):
 
             self._prepare_trial(name=self.main_sims[trial_num][0],
                                 server_index=self.main_sims[trial_num][1],
@@ -179,12 +180,6 @@ class TrialsTask(Task):
         """ Waits for the player to submit an answer by monitoring the answer in the shared state. Once the answer has
         been submitted, it wipes it from the shared state.  """
 
-        if not self.isFirstTrialOfGame:
-            # Ensure puppeteer's previous answer is removed
-            remove_puppeteer_key_from_shared_state(client=self.client, key=key_trials_answer)
-        else:
-            self.isFirstTrialOfGame = False
-
         print("Waiting for player to answer...")
 
         while True:
@@ -195,8 +190,8 @@ class TrialsTask(Task):
 
                 if current_val is not None:
 
-                    if self.correct_answer is None:
-                        self.was_answer_correct = none
+                    if self.correct_answer is ambivalent:
+                        self.was_answer_correct = ambivalent
                         print("No correct answer, so doesn't matter!\n")
 
                     elif current_val == self.correct_answer:
@@ -214,8 +209,13 @@ class TrialsTask(Task):
             except KeyError:
                 time.sleep(standard_rate)
 
-        # Remove Player's answer once it has been received, ready for the next trial or the end of the trials
+        # TODO: This is a temporary fix that ensures there is enough time between writing and recording the key
+        # wait 1 second to ensure the key is recorded by the server
+        time.sleep(0.1)
+
+        # Remove previous answers
         self.client.remove_shared_value(key_player_trial_answer)
+        remove_puppeteer_key_from_shared_state(client=self.client, key=key_trials_answer)
 
     def _update_visualisations(self):
 

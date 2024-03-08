@@ -44,7 +44,7 @@ waiting = 'waiting'
 started = 'started'
 in_progress = 'in-progress'
 finished = 'finished'
-none = 'None'
+ambivalent = 'Ambivalent'
 true = 'True'
 false = 'False'
 # Interaction modality
@@ -76,7 +76,7 @@ shared_state_keys_and_vals = {
     key_current_task: [task_sandbox, task_nanotube, task_knot_tying, task_trials],
     key_task_status: [ready, in_progress, finished],
     key_trials_timer: [started, finished],
-    key_trials_answer: [none, true, false]
+    key_trials_answer: [ambivalent, true, false]
 }
 
 keys_with_unrestricted_vals = [key_task_completion_time, key_simulation_name, key_simulation_server_index,
