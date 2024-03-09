@@ -44,7 +44,7 @@ waiting = 'waiting'
 started = 'started'
 in_progress = 'in-progress'
 finished = 'finished'
-none = 'None'
+ambivalent = 'Ambivalent'
 true = 'True'
 false = 'False'
 # Interaction modality
@@ -57,6 +57,7 @@ modality_controllers = 'controllers'
 key_player_connected = 'Player.Connected'
 key_player_task_type = 'Player.TaskType'
 key_player_task_status = 'Player.TaskStatus'
+key_player_trial_answer = 'Player.TrialAnswer'
 player_intro = 'Intro'
 player_sandbox = 'Sandbox'
 player_nanotube = 'Nanotube'
@@ -75,7 +76,7 @@ shared_state_keys_and_vals = {
     key_current_task: [task_sandbox, task_nanotube, task_knot_tying, task_trials],
     key_task_status: [ready, in_progress, finished],
     key_trials_timer: [started, finished],
-    key_trials_answer: [none, true, false]
+    key_trials_answer: [ambivalent, true, false]
 }
 
 keys_with_unrestricted_vals = [key_task_completion_time, key_simulation_name, key_simulation_server_index,

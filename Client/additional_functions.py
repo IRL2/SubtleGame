@@ -14,15 +14,9 @@ def write_to_shared_state(client: NarupaImdClient, key: str, value):
     client.set_shared_value(formatted_key, value)
 
 
-def remove_key_from_shared_state(client: NarupaImdClient, key: str):
+def remove_puppeteer_key_from_shared_state(client: NarupaImdClient, key: str):
     """ Remove a key from the shared state with the puppeteer client namespace. """
     formatted_key = puppeteer_namespace + key
-    client.remove_shared_value(formatted_key)
-
-
-def remove_puppeteer_key_from_shared_state(client: NarupaImdClient, key: str):
-    """ Removes a key from the shared state that has the puppeteer namespace. """
-    formatted_key = "puppeteer." + key
     client.remove_shared_value(formatted_key)
 
 

@@ -443,7 +443,7 @@ namespace NarupaIMD.Subtle_Game
                             break;
                         
                         // No correct answer
-                        case "None":
+                        case "Ambivalent":
                             trialManager.LogTrialAnswer(state: TrialIcon.State.Ambivalent);
                             break;
                     }
