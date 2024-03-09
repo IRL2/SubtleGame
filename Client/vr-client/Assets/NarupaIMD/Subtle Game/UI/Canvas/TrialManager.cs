@@ -32,7 +32,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// Running total of the number of trials within the current task.
         /// </summary>
         private int _totalNumberOfTrials;
-        
+
         /// <summary>
         /// Running score for the current task.
         /// </summary>
@@ -57,9 +57,15 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// Prefab of the icon used to display the total score for each set on the UI canvas.
         /// </summary>
         public GameObject setScorePrefab;
+        
+        /// <summary>
+        /// The Subtle Game Manager.
+        /// </summary>
+        private SubtleGameManager _subtleGameManager;
 
         private void Start()
         {
+            _subtleGameManager = FindObjectOfType<SubtleGameManager>();
             gameObject.SetActive(false);
         }
         
@@ -71,6 +77,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
             // Reset variables for entire task
             _totalNumberOfTrials = 0;
             _totalRunningScore = 0;
+            _subtleGameManager.currentTrialNumber = -1;
 
             // Reset variables for this set of trials
             ResetSet(true);
@@ -94,7 +101,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
                 // Only count trials that have a correct answer
                 _totalNumberOfTrials++;
             }
-            
+
             UpdateScoreCalculations(state);
 
             // Check if this was the final one in the set of 7

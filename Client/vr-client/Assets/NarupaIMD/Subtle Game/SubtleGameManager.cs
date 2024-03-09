@@ -75,6 +75,7 @@ namespace NarupaIMD.Subtle_Game
                 Connected,
                 TrialAnswer,
                 HeadsetType,
+                TrialNumber
             }
             public enum TaskStatusVal
             {
@@ -170,12 +171,18 @@ namespace NarupaIMD.Subtle_Game
         private TrialsTimer _timer;
         [FormerlySerializedAs("trialIconManager")] [SerializeField] private TrialManager trialManager;
         [SerializeField] private TrialAnswerSubmission trialAnswerSubmission;
+
+        public int currentTrialNumber;
         public string TrialAnswer
         {
-            set => WriteToSharedState(SharedStateKey.TrialAnswer, value);
+            set
+            {
+                WriteToSharedState(SharedStateKey.TrialAnswer, value);
+                WriteToSharedState(SharedStateKey.TrialNumber, currentTrialNumber.ToString());
+            }
         }
-        
-		#endregion
+
+        #endregion
 
         private SubtleGameManager()
         {
