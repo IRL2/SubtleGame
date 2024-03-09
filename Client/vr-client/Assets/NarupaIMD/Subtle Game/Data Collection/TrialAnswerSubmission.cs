@@ -231,6 +231,7 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
                 if (!(Math.Abs(timer - ColorChangeDuration) < 0.01f)) continue;
 
                 // Else, player has submitted their answer
+                _subtleGameManager.currentTrialNumber++;
                 _answer = answer;
 
                 // Ensure end colour is the desired colour
