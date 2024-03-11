@@ -162,10 +162,6 @@ class TrialsTask(Task):
         self.sim_index = server_index
         self.correct_answer = correct_answer
 
-        # Update shared state
-        write_to_shared_state(client=self.client, key=key_simulation_name, value=self.sim_name)
-        write_to_shared_state(client=self.client, key=key_simulation_server_index, value=self.sim_index)
-
         # Prepare task and wait for player to be ready
         self._prepare_task()
         self._wait_for_task_in_progress()
