@@ -1,6 +1,5 @@
 from Client.task import Task
 from narupa.app import NarupaImdClient
-import time
 from additional_functions import write_to_shared_state, remove_puppeteer_key_from_shared_state
 from standardised_values import *
 import random
