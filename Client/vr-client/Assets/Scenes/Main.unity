@@ -9884,9 +9884,8 @@ GameObject:
   - component: {fileID: 898926697}
   - component: {fileID: 898926700}
   - component: {fileID: 898926699}
-  - component: {fileID: 898926698}
   m_Layer: 0
-  m_Name: Timer
+  m_Name: Timer face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9911,20 +9910,6 @@ RectTransform:
   m_AnchoredPosition: {x: -659, y: 0}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &898926698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 898926696}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bb73cd4c2404b0483d584cfb4cf696e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  subtleGameManager: {fileID: 1364228086}
-  timerImage: {fileID: 898926699}
 --- !u!114 &898926699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10875,7 +10860,7 @@ GameObject:
   - component: {fileID: 956931949}
   - component: {fileID: 956931948}
   m_Layer: 0
-  m_Name: Background
+  m_Name: Timer Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11556,7 +11541,7 @@ GameObject:
   - component: {fileID: 991938753}
   - component: {fileID: 991938752}
   m_Layer: 0
-  m_Name: Time left
+  m_Name: Time left label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14191,7 +14176,7 @@ GameObject:
   - component: {fileID: 1180934786}
   - component: {fileID: 1180934785}
   m_Layer: 0
-  m_Name: Label
+  m_Name: Timer desc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27591,13 +27576,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1965970942}
+  - component: {fileID: 1965970943}
   m_Layer: 0
   m_Name: Trials timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1965970942
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27621,6 +27607,21 @@ RectTransform:
   m_AnchoredPosition: {x: 1000, y: -864}
   m_SizeDelta: {x: 2000, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1965970943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965970941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bb73cd4c2404b0483d584cfb4cf696e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subtleGameManager: {fileID: 1364228086}
+  timerImage: {fileID: 898926699}
+  timerLabel: {fileID: 991938752}
 --- !u!1 &1971381720
 GameObject:
   m_ObjectHideFlags: 0
