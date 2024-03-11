@@ -194,6 +194,10 @@ namespace NarupaIMD.Subtle_Game
             
             // Find the trials timer script
             _timer = FindObjectOfType<TrialsTimer>();
+            if (_timer == null){
+                Debug.LogError("TrialsTimer object not found!");
+            }
+
 
             // Request Canvas Manager to setup the game
             _canvasManager.StartGame();
