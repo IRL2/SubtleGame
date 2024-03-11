@@ -64,6 +64,7 @@ class Task:
             try:
                 current_val = self.client._current_frame.values["system.simulation.counter"]
                 if current_val == self.simulation_counter + 1:
+                    write_to_shared_state(client=self.client, key=key_sim_counter, value=current_val)
                     break
 
             except KeyError:
