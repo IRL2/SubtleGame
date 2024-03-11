@@ -25,6 +25,7 @@ key_username = 'participant-username'
 key_modality = 'modality'
 key_game_status = 'game-status'
 key_order_of_tasks = 'order-of-tasks'
+key_sim_counter = 'system-simulation-counter'
 key_current_task = 'current-task'
 key_task_status = 'task-status'
 key_trials_sims = 'trials-simulations'
@@ -81,4 +82,4 @@ shared_state_keys_and_vals = {
 }
 
 keys_with_unrestricted_vals = [key_task_completion_time, key_simulation_name, key_simulation_server_index,
-                               key_trials_sims, key_number_of_trials, key_username]
+                               key_trials_sims, key_number_of_trials, key_username, key_sim_counter]
