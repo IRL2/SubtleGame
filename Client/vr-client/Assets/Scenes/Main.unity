@@ -3324,66 +3324,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 252356321}
   m_CullTransparentMesh: 1
---- !u!1 &256052031
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 256052033}
-  - component: {fileID: 256052032}
-  m_Layer: 0
-  m_Name: Trial score
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &256052032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 256052031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 4
-  m_StartCorner: 3
-  m_StartAxis: 0
-  m_CellSize: {x: 100, y: 0}
-  m_Spacing: {x: 0, y: 0}
-  m_Constraint: 0
-  m_ConstraintCount: 2
---- !u!224 &256052033
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 256052031}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1149125435030198832}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1000, y: -1158}
-  m_SizeDelta: {x: 2000, y: 300}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &267687094 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6370653959786014112, guid: b4150353d52807043b217abe87a111e4, type: 3}
@@ -12838,6 +12778,7 @@ MonoBehaviour:
   InteractionType: spring
   InteractionForceScale: 200
   FetchClosestAtomUpdateInterval: 0.1
+  pinchDetectionStable: 0
   GrabNewAtomSound: {fileID: 8300000, guid: a05d082cd207b4b12a47c089be8b7a62, type: 3}
 --- !u!1 &1051888780 stripped
 GameObject:
@@ -19669,8 +19610,6 @@ MonoBehaviour:
   - {fileID: 118751889}
   - {fileID: 607568740}
   - {fileID: 58347023}
-  gameObjectForSetScores: {fileID: 256052031}
-  setScorePrefab: {fileID: 3416820320948185554, guid: 1858859260c7dab48b62ee53b959a14d, type: 3}
 --- !u!1 &1255986318
 GameObject:
   m_ObjectHideFlags: 0
@@ -21061,6 +21000,7 @@ MonoBehaviour:
   isIntroToSection: 1
   trialManager: {fileID: 1245036777}
   trialAnswerSubmission: {fileID: 1364228087}
+  currentTrialNumber: 0
 --- !u!114 &1364228087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32747,7 +32687,6 @@ RectTransform:
   - {fileID: 440835137}
   - {fileID: 2042550786}
   - {fileID: 1070907157}
-  - {fileID: 256052033}
   - {fileID: 1965970942}
   - {fileID: 730321552}
   - {fileID: 1245036775}
