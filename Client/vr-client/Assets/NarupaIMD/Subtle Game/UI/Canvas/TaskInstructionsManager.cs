@@ -62,13 +62,15 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// <summary>
         /// The game object representing the center of the XY plane of the simulation box.
         /// </summary>
-        [SerializeField] private BoxVisualiser simulationBox;
+        [SerializeField] private GameObject simulationBox;
 
         
         /// <summary>
         /// The Trial Icon Manager.
         /// </summary>
-        [FormerlySerializedAs("trialIconManager")] [SerializeField] private TrialManager trialProgressmanager;
+        [FormerlySerializedAs("trialIconManager")] [SerializeField] private TrialManager trialProgressManager;
+
+        [SerializeField] private GameObject trialsProgressBackground;
 
         /// <summary>
         /// The Subtle Game Manager.
@@ -94,20 +96,19 @@ namespace NarupaIMD.Subtle_Game.Canvas
             _panel = this.gameObject.transform.GetChild(0).gameObject;
 
             _panel.SetActive(false);
-
-            // hide it by default, so the element is active but not visible
-            // ShowOrHideInstructionsCanvas(false);
-
-            // SetupLayout();
         }
 
 
         /// <summary>
         /// Updates the in-task instructions based on the current interaction modality set in the Pinch Grab script.
         /// </summary>
-        private void Update()
+        private void OnGUI()
         {
             if (_subtleGameManager is null) return;
+
+            // to overcome race conditions, we position and setup the input instructions constantly
+            SetupPanelPosition();
+            SetupInputInstructions();
 
             // activate the instructions panel when the simulation starts (and the panel is not active)
             if (_subtleGameManager.ShowSimulation && _panel.activeSelf==false)
@@ -116,28 +117,38 @@ namespace NarupaIMD.Subtle_Game.Canvas
                 SetupLayout();
             }
 
+            var playerInTrials = _subtleGameManager.CurrentTaskType == SubtleGameManager.TaskTypeVal.Trials;
+
             // deactivate the panel when the simulation ends (and the panel is active)
+            // except when the player is not in trials
             if (_subtleGameManager.ShowSimulation==false && _panel.activeSelf)
             {
-                _panel.SetActive(false);
+                if (playerInTrials) {
+                    return;
+                } else {
+                    trialProgressManager.ResetTrialsTask();
+                    _panel.SetActive(false);
+                }
             }
-
-            // update the progression
-            // ...
-
-            // ShowOrHideInstructionsCanvas(_subtleGameManager.ShowSimulation);
         }
 
         /// <summary>
-        /// Positions the in-task instructions UI in the right place
-        /// Enables the corresponding UI elements for the task: header, task icon, input method, timer, progression
-        /// Called when simulation starts and on each frame?
-        /// Sets the in-task instructions UI layout, enabling the corresponding ui elements based on the current interaction modality set in the Pinch Grab script.
+        /// Positions the panel and activate the proper elements
         /// </summary>
         private void SetupLayout()
         {
-            PlaceInstructions();
+            SetupPanelPosition();
 
+            SetupTaskElements();
+
+            SetupInputInstructions();
+        }
+
+        // <summary>
+        //  Activate the proper elements for each task
+        // </summary>
+        private void SetupTaskElements()
+        {
             // hide all the objects. start with an empty canvas
             foreach (Transform child in _panel.transform)
             {
@@ -150,8 +161,9 @@ namespace NarupaIMD.Subtle_Game.Canvas
                 case SubtleGameManager.TaskTypeVal.Trials:
                     taskTrialsInstructions.SetActive(true);
                     timer.SetActive(true);
-                    trialProgressmanager.gameObject.SetActive(true);
-                    trialProgressmanager.ResetTrialsTask();
+                    trialProgressManager.gameObject.SetActive(true);
+                    trialsProgressBackground.SetActive(true);
+                    // trialProgressmanager.ResetTrialsTask(); // <-- this is going to be called when the whole panel is deactivates 
                     break;
 
                 case SubtleGameManager.TaskTypeVal.KnotTying:
@@ -169,8 +181,13 @@ namespace NarupaIMD.Subtle_Game.Canvas
 
                 default: break;
             }
+        }
 
-            // activate the correspondant controllers for each test type and input method
+        // <summary>
+        // Activate the correspondant controllers for each test type and input method
+        // </summary>
+        private void SetupInputInstructions()
+        {
            if (_subtleGameManager.CurrentTaskType == SubtleGameManager.TaskTypeVal.Sandbox)
            {
                 inputBothInputsInstructions.SetActive(true);
@@ -180,36 +197,8 @@ namespace NarupaIMD.Subtle_Game.Canvas
                 inputHandInstructions.SetActive( !pinchGrab.UseControllers );
                 inputControllerInstructions.SetActive( pinchGrab.UseControllers );
            }
-
-        //    if ((_subtleGameManager.CurrentTaskType != SubtleGameManager.TaskTypeVal.Sandbox) && pinchGrab.UseControllers)
-        //     {
-        //         handInstructions.SetActive(false);
-        //         controllerInstructions.SetActive(true);
-        //     }
-        //     else
-        //     {
-        //         handInstructions.SetActive(true);
-        //         controllerInstructions.SetActive(false); 
-        //     }
         }
-        private void originalUpdate()
-        {
-            UpdatePositionOfInstructions();
 
-            UpdateInteractionInstructions();
-            ShowOrHideInstructionsCanvas(_subtleGameManager.ShowSimulation);
-            
-            if (_subtleGameManager is null) return;
-            
-            // Is the player currently in the trials task?
-            var playerInTrials = _subtleGameManager.CurrentTaskType == SubtleGameManager.TaskTypeVal.Trials;
-            
-            // Is this the beginning or end of the trials task? If not, return
-            if (_playerWasInTrials == playerInTrials) return;
-            
-            EnableTrialsRelatedGameObjects(playerInTrials);
-            _playerWasInTrials = playerInTrials;
-        }
         
         /// <summary>
         /// Enables the correct instructions based on the current interaction mode.
@@ -228,51 +217,21 @@ namespace NarupaIMD.Subtle_Game.Canvas
             }
         }
 
+
         /// <summary>
-        /// Puts the in-task instructions at right face of the simulation box
+        /// Place the in-task instructions at right face of the simulation box
+        /// depends on the simulationbox
         /// </summary>
-        private void PlaceInstructions()
+        private void SetupPanelPosition()
         {
             gameObject.transform.localPosition = new Vector3(
-                // simulationBox.xMagnitude * 0.5f, 
-                // simulationBox.xMagnitude * 0.5f, 
-                // 1f );
-
-                // simulationBox.gameObject.transform.position.x,
-                // simulationBox.gameObject.transform.position.y,
-                // simulationBox.gameObject.transform.position.z);
-
-                simulationBox.gameObject.transform.position.x ,
-                simulationBox.gameObject.transform.position.y ,
-                simulationBox.gameObject.transform.position.z );
-
-                // simulationBox.xMagnitude * 2f,
-                // simulationBox.xMagnitude * 1f, 
-                // simulationBox.xMagnitude * 0.5f);
+                simulationBox.transform.position.x,
+                simulationBox.transform.position.y,
+                simulationBox.transform.position.z);
 
             gameObject.transform.localEulerAngles = new(0f, 90f, 0f);
         }
         
-        /// <summary>
-        /// Puts the in-task instructions at left face of the simulation box
-        /// deprecated!
-        /// </summary>
-        private void UpdatePositionOfInstructions()
-        {
-            gameObject.transform.position = new Vector3(
-                simulationBox.xMagnitude * 2f, 
-                simulationBox.xMagnitude * 1f, 
-                simulationBox.xMagnitude * 0.5f);
-
-            gameObject.transform.localEulerAngles = new(0f, 90f, 0f);
-            // Vector3 rightFacePlacement = new Vector3(2f, 1f, 0.5f);
-            // gameObject.transform.position = Vector3.Scale ( centerXYPlane.transform.position, rightFacePlacement ); 
-            // gameObject.transform.position = new Vector3(2f, 1f, 0.5f)
-            //     centerXYPlane.transform.position.x * 2f, 
-            //     centerXYPlane.transform.position.y * 1f, 
-            //     centerXYPlane.transform.position.z * 0.5f);
- 
-        }
         
         /// <summary>
         /// Enables the relevant task-related elements on the instructions canvas.
@@ -280,8 +239,8 @@ namespace NarupaIMD.Subtle_Game.Canvas
         private void EnableTrialsRelatedGameObjects(bool isTrials)
         {
             timer.SetActive(isTrials);
-            trialProgressmanager.gameObject.SetActive(isTrials);
-            trialProgressmanager.ResetTrialsTask();
+            trialProgressManager.gameObject.SetActive(isTrials);
+            trialProgressManager.ResetTrialsTask();
         }
 
         // <summary>
