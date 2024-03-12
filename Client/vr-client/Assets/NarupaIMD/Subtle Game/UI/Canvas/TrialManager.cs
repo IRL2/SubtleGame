@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 namespace NarupaIMD.Subtle_Game.Canvas
@@ -47,17 +46,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// Key for saving the player's percentage score as a <cref>PlayerPref</cref>.
         /// </summary>
         [NonSerialized] public const string PlayerScorePercentage = "Player score";
-        
-        /// <summary>
-        /// Game object that will be the parent for the icons of the total score for each set.
-        /// </summary>
-        public GameObject gameObjectForSetScores;
-        
-        /// <summary>
-        /// Prefab of the icon used to display the total score for each set on the UI canvas.
-        /// </summary>
-        public GameObject setScorePrefab;
-        
+
         /// <summary>
         /// The Subtle Game Manager.
         /// </summary>
@@ -123,23 +112,11 @@ namespace NarupaIMD.Subtle_Game.Canvas
             }
             else
             {
-                RecordScoreForSet();
                 _setIndex++;
             }
             
             // Reset variables
             _setTrialIndex = 0;
-            _runningScoreForSet = 0;
-        }
-        
-        /// <summary>
-        /// Creates a game object on the in-task instructions canvas with a total score for the current set of trials.
-        /// </summary>
-        private void RecordScoreForSet()
-        {
-            GameObject scoreObj = Instantiate(setScorePrefab, gameObjectForSetScores.transform);
-            TextMeshProUGUI textMesh = scoreObj.GetComponentInChildren<TextMeshProUGUI>();
-            textMesh.text = _runningScoreForSet.ToString();
         }
 
         /// <summary>
@@ -181,7 +158,6 @@ namespace NarupaIMD.Subtle_Game.Canvas
             // Update running score
             if (state == TrialIcon.State.Correct)
             {
-                _runningScoreForSet++;
                 _totalRunningScore++;
             }
             

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace NarupaIMD.Subtle_Game.Canvas
@@ -8,11 +9,12 @@ namespace NarupaIMD.Subtle_Game.Canvas
         [SerializeField] private SubtleGameManager subtleGameManager;
         
         [SerializeField] private Image timerImage;
+        [SerializeField] private TextMeshProUGUI timerLabel;
 
         private bool _timerIsRunning;
         private float _timeElapsed;
         
-        private float _duration = 10f;
+        private float _duration = 15f;
         
         private void Start()
         {
@@ -29,7 +31,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
             {
                 // Increment timer
                 _timeElapsed += Time.deltaTime;
-                timerImage.fillAmount = _timeElapsed / _duration;
+                timerImage.fillAmount = (_duration - _timeElapsed) / _duration;
             }
             else
             {
@@ -37,6 +39,9 @@ namespace NarupaIMD.Subtle_Game.Canvas
                 _timerIsRunning = false;
                 subtleGameManager.FinishCurrentTrial();
             }
+
+            int _label = Mathf.CeilToInt ( _duration - _timeElapsed );
+            timerLabel.text = _label.ToString();
         }
         
         public void StartTimer()
