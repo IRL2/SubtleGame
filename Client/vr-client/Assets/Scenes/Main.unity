@@ -1162,7 +1162,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press the trigger and move the controller to pull it
+  m_text: Press the index trigger and move the controller to pull the atom
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
   m_sharedMaterial: {fileID: 1493041879290801791, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
@@ -1889,7 +1889,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tie a knot with the XYZ molecule
+  m_text: Tie a knot in the 17'alanine polypeptide molecule
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
   m_sharedMaterial: {fileID: 1493041879290801791, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
@@ -6726,7 +6726,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Traverse the tube
+  m_text: Traverse the nanotube
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
   m_sharedMaterial: {fileID: 1493041879290801791, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
@@ -9494,7 +9494,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sensing task
+  m_text: Sensing molecules
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
   m_sharedMaterial: {fileID: 1493041879290801791, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
@@ -12605,7 +12605,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Select an atom by placing the controller inside the atom
+  m_text: The nearest atom to your controller will be selected
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
   m_sharedMaterial: {fileID: 1493041879290801791, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
@@ -26438,7 +26438,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Move the A-17 Molecule through the nano tube
+  m_text: Move the 17-alanine molecule through the nanotube
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
   m_sharedMaterial: {fileID: 1493041879290801791, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
@@ -29422,7 +29422,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ...............
+  m_text: Make a pinch and move your hand to pull the atom
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
   m_sharedMaterial: {fileID: 1493041879290801791, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
@@ -36560,7 +36560,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Use the oculus controller
+  m_text: Use the controllers
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
   m_sharedMaterial: {fileID: 1493041879290801791, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
@@ -39610,7 +39610,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Sense the flexibility of each molecule
+  m_text: 'Interact with the molecules and select the most rigid
 
 '
   m_isRightToLeft: 0
