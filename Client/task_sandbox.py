@@ -2,7 +2,7 @@ from Client.task import Task
 from narupa.app import NarupaImdClient
 import time
 
-from additional_functions import write_to_shared_state, remove_key_from_shared_state
+from additional_functions import write_to_shared_state, remove_puppeteer_key_from_shared_state
 from standardised_values import *
 
 
@@ -45,5 +45,5 @@ class SandboxTask(Task):
 
     def _finish_task(self):
         """Handles the finishing of the task."""
-        remove_key_from_shared_state(client=self.client, key=key_task_status)
-        remove_key_from_shared_state(client=self.client, key=key_current_task)
+        remove_puppeteer_key_from_shared_state(client=self.client, key=key_task_status)
+        remove_puppeteer_key_from_shared_state(client=self.client, key=key_current_task)

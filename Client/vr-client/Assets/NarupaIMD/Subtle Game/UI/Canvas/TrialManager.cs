@@ -24,10 +24,15 @@ namespace NarupaIMD.Subtle_Game.Canvas
         private int _runningScoreForSet;
         
         /// <summary>
+        /// Index of the current set.
+        /// </summary>
+        private int _setIndex;
+        
+        /// <summary>
         /// Running total of the number of trials within the current task.
         /// </summary>
         private int _totalNumberOfTrials;
-        
+
         /// <summary>
         /// Running score for the current task.
         /// </summary>
@@ -52,9 +57,15 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// Prefab of the icon used to display the total score for each set on the UI canvas.
         /// </summary>
         public GameObject setScorePrefab;
+        
+        /// <summary>
+        /// The Subtle Game Manager.
+        /// </summary>
+        private SubtleGameManager _subtleGameManager;
 
         private void Start()
         {
+            _subtleGameManager = FindObjectOfType<SubtleGameManager>();
             gameObject.SetActive(false);
         }
         
@@ -66,7 +77,8 @@ namespace NarupaIMD.Subtle_Game.Canvas
             // Reset variables for entire task
             _totalNumberOfTrials = 0;
             _totalRunningScore = 0;
-            
+            _subtleGameManager.currentTrialNumber = -1;
+
             // Reset variables for this set of trials
             ResetSet(true);
         }
@@ -76,6 +88,12 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// </summary>
         public void LogTrialAnswer(TrialIcon.State state)
         {
+            // If this is the end of the first trial and NOT the first set, reset the icons
+            if (_setTrialIndex == 0 && _setIndex != 0)
+            {
+                ResetIcons();
+            }
+
             UpdateCurrentTrialIcon(state);
             
             if (state != TrialIcon.State.Ambivalent)
@@ -83,7 +101,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
                 // Only count trials that have a correct answer
                 _totalNumberOfTrials++;
             }
-            
+
             UpdateScoreCalculations(state);
 
             // Check if this was the final one in the set of 7
@@ -98,13 +116,18 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// </summary>
         private void ResetSet(bool isFirstTrial)
         {
-            if (!isFirstTrial)
+            if (isFirstTrial)
+            {
+                ResetIcons();
+                _setIndex = 0;
+            }
+            else
             {
                 RecordScoreForSet();
+                _setIndex++;
             }
             
-            ResetIcons();
-            
+            // Reset variables
             _setTrialIndex = 0;
             _runningScoreForSet = 0;
         }

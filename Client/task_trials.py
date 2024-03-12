@@ -1,11 +1,13 @@
 from Client.task import Task
 from narupa.app import NarupaImdClient
-import time
-from additional_functions import write_to_shared_state
+from additional_functions import write_to_shared_state, remove_puppeteer_key_from_shared_state
 from standardised_values import *
 import random
 
-player_trial_answer = 'Player.TrialAnswer'
+molecule_A = 'A'
+molecule_B = 'B'
+
+list_of_valid_answers = [molecule_A, molecule_B]
 
 
 def calculate_correct_answer(sim_file_name: str):
@@ -18,7 +20,7 @@ def calculate_correct_answer(sim_file_name: str):
 
     # Molecules are identical, there is no correct answer
     if multiplier == 1:
-        return
+        return ambivalent
 
     # Get residue id of modified molecule
     modified_molecule = get_residue_id_of_modified_molecule(sim_file_name=sim_file_name)
@@ -29,10 +31,10 @@ def calculate_correct_answer(sim_file_name: str):
 
     # The reference molecule is harder, return the residue id of the other molecule
     else:
-        if modified_molecule == 'A':
-            return 'B'
+        if modified_molecule == molecule_A:
+            return molecule_B
         else:
-            return 'A'
+            return molecule_A
 
 
 def get_unique_multipliers(simulations: list):
@@ -106,7 +108,6 @@ def get_order_of_simulations(simulations, num_repeats):
 
 class TrialsTask(Task):
     task_type = task_trials
-    trial_answer_key = player_trial_answer
 
     def __init__(self, client: NarupaImdClient, simulations: list, simulation_counter: int, number_of_repeats):
 
@@ -131,13 +132,15 @@ class TrialsTask(Task):
 
         write_to_shared_state(client=self.client, key=key_trials_sims, value=str(self.main_sims))
 
-        write_to_shared_state(client=self.client, key=key_number_of_trials, value=len(self.main_sims))
+        self.number_of_trials = len(self.main_sims)
+
+        write_to_shared_state(client=self.client, key=key_number_of_trials, value=self.number_of_trials)
 
     def run_task(self):
         """ Runs through the psychophysics trials. """
 
         # Run trials proper
-        for trial_num in range(len(self.main_sims)):
+        for trial_num in range(self.number_of_trials):
 
             self._prepare_trial(name=self.main_sims[trial_num][0],
                                 server_index=self.main_sims[trial_num][1],
@@ -146,7 +149,8 @@ class TrialsTask(Task):
             if trial_num == 0:
                 write_to_shared_state(client=self.client, key=key_task_status, value=in_progress)
 
-            self._run_task_logic()
+            write_to_shared_state(client=self.client, key=key_trials_timer, value=started)
+            self._wait_for_player_to_answer(current_trial_number=trial_num)
 
         # End trials
         self._finish_task()
@@ -158,59 +162,41 @@ class TrialsTask(Task):
         self.sim_index = server_index
         self.correct_answer = correct_answer
 
-        # Update shared state
-        write_to_shared_state(client=self.client, key=key_simulation_name, value=self.sim_name)
-        write_to_shared_state(client=self.client, key=key_simulation_server_index, value=self.sim_index)
-
         # Prepare task and wait for player to be ready
         self._prepare_task()
         self._wait_for_task_in_progress()
-
-    def _run_task_logic(self):
-        """ Runs a psychophysics trial. Plays the simulation for the allotted time and pauses it once the timer is up.
-        Then waits for the player to submit their answer."""
-
-        write_to_shared_state(client=self.client, key=key_trials_timer, value=started)
-        self._wait_for_player_to_answer()
 
     def _request_load_simulation(self):
         """ Loads the simulation corresponding to the current simulation index. """
         self.client.run_command("playback/load", index=self.sim_index)
 
-    def _wait_for_player_to_answer(self):
-        """ Waits for the player to submit an answer by monitoring the answer in the shared state. Once the answer has
-        been submitted, it wipes it from the shared state.  """
+    def _wait_for_player_to_answer(self, current_trial_number: int):
+        """ Waits for the player to submit an answer and, once received, sorts it and updates the shared state with the
+        correctness of the answer: 'Ambivalent', 'True', or 'False'.  """
 
-        print("Waiting for player to answer...")
-        while True:
+        print(f"Waiting for player to answer trial number: {current_trial_number}")
 
-            # check if player has logged an answer and break loop if they have
-            try:
-                current_val = self.client.latest_multiplayer_values[self.trial_answer_key]
+        # Remove puppeteer's previous answer
+        remove_puppeteer_key_from_shared_state(client=self.client, key=key_trials_answer)
 
-                if current_val is not None:
+        # Wait for player's answer
+        super()._wait_for_key_values(key_player_trial_number, str(current_trial_number))
+        answer = self.client.latest_multiplayer_values[key_player_trial_answer]
 
-                    if self.correct_answer is None:
-                        self.was_answer_correct = none
-                        print("No correct answer, so doesn't matter!\n")
+        # Check answer is valid
+        if answer not in list_of_valid_answers:
+            raise ValueError("Invalid answer provided. Answer must be 'A' or 'B'.")
 
-                    elif current_val == self.correct_answer:
-                        self.was_answer_correct = true
-                        print("Correct answer!\n")
-
-                    else:
-                        self.was_answer_correct = false
-                        print("Incorrect answer :(\n")
-
-                    write_to_shared_state(client=self.client, key=key_trials_answer, value=self.was_answer_correct)
-                    break
-
-            # If no answer has been logged yet, wait for a bit before trying again
-            except KeyError:
-                time.sleep(standard_rate)
-
-        # Remove answer once it has been received, ready for the next trial or the end of the trials
-        self.client.remove_shared_value(self.trial_answer_key)
+        # Sort answer and update the shared state
+        if self.correct_answer == ambivalent:
+            self.was_answer_correct = ambivalent
+        elif answer == self.correct_answer:
+            self.was_answer_correct = true
+        elif answer != self.correct_answer and self.correct_answer in list_of_valid_answers:
+            self.was_answer_correct = false
+        else:
+            raise ValueError("An unexpected error occurred.")
+        write_to_shared_state(client=self.client, key=key_trials_answer, value=self.was_answer_correct)
 
     def _update_visualisations(self):
 

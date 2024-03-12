@@ -51,6 +51,7 @@ class Task:
         # Update shared state
         write_to_shared_state(client=self.client, key=key_simulation_name, value=self.sim_name)
         write_to_shared_state(client=self.client, key=key_simulation_server_index, value=self.sim_index)
+        write_to_shared_state(client=self.client, key=key_sim_counter, value=self.simulation_counter)
         write_to_shared_state(client=self.client, key=key_current_task, value=self.task_type)
         write_to_shared_state(client=self.client, key=key_task_status, value=ready)
 
@@ -64,6 +65,7 @@ class Task:
             try:
                 current_val = self.client._current_frame.values["system.simulation.counter"]
                 if current_val == self.simulation_counter + 1:
+                    print(f"Sim counter = {self.simulation_counter} and current val = {current_val}")
                     break
 
             except KeyError:
