@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +14,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
         private bool _timerIsRunning;
         private float _timeElapsed;
         
-        private float _duration = 10f;
+        private float _duration = 15f;
         
         private void Start()
         {
