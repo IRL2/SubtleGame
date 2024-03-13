@@ -985,7 +985,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 71845975}
-  - component: {fileID: 71845974}
   m_Layer: 0
   m_Name: PinchSimulationScaler
   m_TagString: Untagged
@@ -993,26 +992,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &71845974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 71845973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b2b1bfba5f8cba4b9c467e5543aff90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ThumbTipTransforms:
-  - {fileID: 4595471348484302799}
-  - {fileID: 4887313454428485390}
-  MiddleFingerTipTransforms:
-  - {fileID: 3675295410859812432}
-  - {fileID: 359393469706056710}
-  ScaleTriggerDistance: 0.015
-  ScalingSoundEffect: {fileID: 8300000, guid: 452cab5cd4cc31a4bbda065fe1729e0d, type: 3}
 --- !u!4 &71845975
 Transform:
   m_ObjectHideFlags: 0
