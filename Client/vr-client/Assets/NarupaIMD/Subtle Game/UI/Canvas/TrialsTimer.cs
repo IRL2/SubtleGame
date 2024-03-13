@@ -16,6 +16,8 @@ namespace NarupaIMD.Subtle_Game.Canvas
         
         private float _duration = 15f;
         
+        public bool finishTrialEarly;
+        
         private void Start()
         {
             if (timerImage != null) return;
@@ -26,19 +28,18 @@ namespace NarupaIMD.Subtle_Game.Canvas
         {
             // Check if timer is running
             if (!_timerIsRunning) return;
-
-            if(_timeElapsed < _duration)
+            
+            if (finishTrialEarly || _timeElapsed >= _duration)
             {
-                // Increment timer
-                _timeElapsed += Time.deltaTime;
-                timerImage.fillAmount = (_duration - _timeElapsed) / _duration;
-            }
-            else
-            {
-                // Timer finished, finish trial
                 FinishTimer();
+                return;
             }
 
+            // Increment timer
+            _timeElapsed += Time.deltaTime;
+            timerImage.fillAmount = (_duration - _timeElapsed) / _duration;
+            
+            // Update the timer on the UI
             int _label = Mathf.CeilToInt ( _duration - _timeElapsed );
             timerLabel.text = _label.ToString();
         }
@@ -54,6 +55,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
         private void FinishTimer()
         {
             _timerIsRunning = false;
+            finishTrialEarly = false;
             subtleGameManager.FinishCurrentTrial();
         }
     }
