@@ -182,6 +182,8 @@ namespace NarupaIMD.Subtle_Game
             }
         }
 
+        public TrialsTimer trialsTimer;
+
         #endregion
 
         private SubtleGameManager()
@@ -386,7 +388,15 @@ namespace NarupaIMD.Subtle_Game
             // Load outro menu
             _canvasManager.LoadNextMenu();
         }
-
+        
+        /// <summary>
+        /// Sets the boolean on the trial timer to end the timer on the next frame.
+        /// </summary>
+        public void FinishTrialEarly()
+        {
+            trialsTimer.finishTrialEarly = true;
+        }
+        
         /// <summary>
         /// Disables interactions with the simulation and requests answer from player.
         /// </summary>

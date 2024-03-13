@@ -88,6 +88,29 @@ namespace NarupaIMD.Subtle_Game.Canvas
         {
             _subtleGameManager.StartTask();
         }
+        
+        /// <summary>
+        /// Attach to the button for finishing the trial early.
+        /// </summary>
+        public void ButtonFinishTrialEarly()
+        {
+            if (!CanButtonBePressed())
+            {
+                Debug.LogWarning("You are trying to press the button with the wrong interaction mode.");   
+                return;
+            }
+            
+            // Prepare game
+            Invoke(nameof(InvokeFinishTrialEarly), TimeDelay);
+        }
+        
+        /// <summary>
+        /// Sets the boolean to finish the trial early.
+        /// </summary>
+        private void InvokeFinishTrialEarly()
+        {
+            _subtleGameManager.FinishTrialEarly();
+        }
 
         /// <summary>
         /// Attach to a button for quitting the application.

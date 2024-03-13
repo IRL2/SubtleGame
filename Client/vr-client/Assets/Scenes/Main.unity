@@ -7901,7 +7901,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 126997455834770876, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 126997455834770876, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -7917,11 +7917,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 126997455834770876, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ButtonStartGame
+      value: ButtonFinishTrialEarly
       objectReference: {fileID: 0}
     - target: {fileID: 126997455834770876, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: NarupaIMD.Subtle_Game.UI.ButtonController, NarupaImd
+      value: NarupaIMD.Subtle_Game.Canvas.ButtonController, NarupaImd
       objectReference: {fileID: 0}
     - target: {fileID: 126997455834770876, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -8099,10 +8099,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 656991192480398139, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6406907961171276735, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
 --- !u!4 &664773392 stripped
 Transform:
@@ -20182,6 +20179,7 @@ MonoBehaviour:
   trialManager: {fileID: 1245036777}
   trialAnswerSubmission: {fileID: 1364228087}
   currentTrialNumber: 0
+  trialsTimer: {fileID: 1965970943}
 --- !u!114 &1364228087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27586,6 +27584,7 @@ MonoBehaviour:
   subtleGameManager: {fileID: 1364228086}
   timerImage: {fileID: 898926699}
   timerLabel: {fileID: 991938752}
+  finishTrialEarly: 0
 --- !u!1 &1971381720
 GameObject:
   m_ObjectHideFlags: 0
