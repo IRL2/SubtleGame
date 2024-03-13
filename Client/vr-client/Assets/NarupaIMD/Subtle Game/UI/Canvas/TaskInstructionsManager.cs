@@ -1,6 +1,5 @@
 ﻿using NarupaIMD.Subtle_Game.Interaction;
-using Narupa.Visualisation;
-using NarupaIMD.Subtle_Game.UI.Simulation;
+using NarupaIMD.Subtle_Game.Data_Collection;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -63,7 +62,6 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// The game object representing the center of the XY plane of the simulation box.
         /// </summary>
         [SerializeField] private GameObject simulationBox;
-
         
         /// <summary>
         /// The Trial Icon Manager.
@@ -76,6 +74,8 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// The Subtle Game Manager.
         /// </summary>
         private SubtleGameManager _subtleGameManager;
+        
+        [SerializeField] private TrialAnswerSubmission trialAnswerSubmission;
 
         // <summary>
         // Panel game object containing all of the instructions elements
@@ -85,6 +85,8 @@ namespace NarupaIMD.Subtle_Game.Canvas
         private bool _playerWasInTrials;
 
         private SubtleGameManager.TaskTypeVal _previousTask;
+
+        [SerializeField] private GameObject selectingAnswerForTrialsInstructions;
 
         /// <summary>
         /// Gets the Subtle Game Manager and hides the in-task instructions canvas.
@@ -98,6 +100,14 @@ namespace NarupaIMD.Subtle_Game.Canvas
             _panel.SetActive(false);
         }
 
+        private void OnEnable()
+        {
+            trialAnswerSubmission.PlayerIsSelectingAnswer += HandlePlayerIsSelectingAnswer;
+        }
+        private void OnDisable()
+        {
+            trialAnswerSubmission.PlayerIsSelectingAnswer -= HandlePlayerIsSelectingAnswer;
+        }
 
         /// <summary>
         /// Updates the in-task instructions based on the current interaction modality set in the Pinch Grab script.
@@ -253,6 +263,11 @@ namespace NarupaIMD.Subtle_Game.Canvas
             {
                 child.gameObject.SetActive(showCanvas);
             }
+        }
+
+        private void HandlePlayerIsSelectingAnswer(bool playerIsSelectingAnswer)
+        {
+            selectingAnswerForTrialsInstructions.SetActive(playerIsSelectingAnswer);
         }
     }
 }
