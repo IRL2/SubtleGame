@@ -10207,7 +10207,7 @@ GameObject:
   - component: {fileID: 945886121}
   - component: {fileID: 945886120}
   m_Layer: 0
-  m_Name: Sprite (2)
+  m_Name: Sprite - how to select
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10229,7 +10229,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 272, y: 576.50006}
+  m_AnchoredPosition: {x: -300, y: 650}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &945886120
@@ -21854,7 +21854,7 @@ GameObject:
   - component: {fileID: 1483173247}
   - component: {fileID: 1483173246}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: Sprite - which to choose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21876,7 +21876,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -222, y: 576.50006}
+  m_AnchoredPosition: {x: -700, y: 650}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1483173246
@@ -21992,7 +21992,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -800.00024, y: -1000}
-  m_SizeDelta: {x: 2000, y: 2000}
+  m_SizeDelta: {x: 1000, y: 750}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1490121853
 MonoBehaviour:
