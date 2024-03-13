@@ -111,7 +111,6 @@ namespace NarupaIMD.Subtle_Game.Interaction
         #region Pinch Stability
         
         private Dictionary<PinchGrabber, Vector3[]> _previousPositionsDict = new Dictionary<PinchGrabber, Vector3[]>();
-        public bool pinchDetectionStable;
         private int _numFramesToCheck = 15;
 
         #endregion
@@ -394,11 +393,9 @@ namespace NarupaIMD.Subtle_Game.Interaction
             var previousPositions = _previousPositionsDict[grabber]; // Get previous positions for this grabber
             
             var previousPosition = previousPositions[0]; // The oldest recorded position
-            pinchDetectionStable = true;
             for (var i = 1; i < previousPositions.Length; i++)
             {
                 if (previousPositions[i] != previousPosition) break;
-                pinchDetectionStable = false;
             }
         }
 
@@ -411,7 +408,7 @@ namespace NarupaIMD.Subtle_Game.Interaction
         private void UpdateGrab(PinchGrabber grabber)
         {
             grabber.CheckForPinch();
-            if (grabber.Pinched && pinchDetectionStable)
+            if (grabber.Pinched)
             {
                 grabber.ForceScale = InteractionForceScale;
             }
