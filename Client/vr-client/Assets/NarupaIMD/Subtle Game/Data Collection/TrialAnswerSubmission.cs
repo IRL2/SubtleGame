@@ -17,6 +17,9 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
     {
         private SubtleGameManager _subtleGameManager;
         
+        public delegate void PlayerIsAnsweringEventHandler(bool isSelected);
+        public event PlayerIsAnsweringEventHandler PlayerIsSelectingAnswer;
+
         [SerializeField] private CentreOfGeometry centreOfGeometryA;
         [SerializeField] private CentreOfGeometry centreOfGeometryB;
         [SerializeField] private Transform rightIndexTip;
@@ -70,6 +73,7 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
             centreOfGeometryA.CalculateCentreOfGeometry();
             centreOfGeometryB.CalculateCentreOfGeometry();
 
+            PlayerIsSelectingAnswer?.Invoke(true);
             StartCoroutine(WaitForAnswer());
         }
 
@@ -188,6 +192,7 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
                 if (_answer != Answer.None)
                 {
                     _subtleGameManager.TrialAnswer = _answer.ToString();
+                    PlayerIsSelectingAnswer?.Invoke(false);
                     break;
                 }
                 
@@ -196,6 +201,7 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
             }
             
             // Hide simulation 
+            // TODO: do we need to do this?
             _subtleGameManager.ShowSimulation = false;
         }
 
@@ -263,5 +269,6 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
             
             return rightHandInside || leftHandInside;
         }
+
     }
 }
