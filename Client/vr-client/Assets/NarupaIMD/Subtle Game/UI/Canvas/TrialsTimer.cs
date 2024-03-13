@@ -36,8 +36,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
             else
             {
                 // Timer finished, finish trial
-                _timerIsRunning = false;
-                subtleGameManager.FinishCurrentTrial();
+                FinishTimer();
             }
 
             int _label = Mathf.CeilToInt ( _duration - _timeElapsed );
@@ -50,6 +49,12 @@ namespace NarupaIMD.Subtle_Game.Canvas
             _timerIsRunning = true;
             _timeElapsed = 0;
             timerImage.fillAmount = 0;
+        }
+
+        private void FinishTimer()
+        {
+            _timerIsRunning = false;
+            subtleGameManager.FinishCurrentTrial();
         }
     }
 }
