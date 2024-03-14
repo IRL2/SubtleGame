@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Globalization;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,7 +32,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
             
             if (finishTrialEarly || _timeElapsed >= _duration)
             {
-                FinishTimer();
+                FinishTimer(_timeElapsed.ToString());
                 return;
             }
 
@@ -52,8 +53,9 @@ namespace NarupaIMD.Subtle_Game.Canvas
             timerImage.fillAmount = 0;
         }
 
-        private void FinishTimer()
+        private void FinishTimer(string timeElapsed)
         {
+            subtleGameManager.DurationOfTrial = timeElapsed;
             _timerIsRunning = false;
             finishTrialEarly = false;
             subtleGameManager.FinishCurrentTrial();

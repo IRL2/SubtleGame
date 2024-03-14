@@ -75,7 +75,8 @@ namespace NarupaIMD.Subtle_Game
                 Connected,
                 TrialAnswer,
                 HeadsetType,
-                TrialNumber
+                TrialNumber,
+                TrialDuration
             }
             public enum TaskStatusVal
             {
@@ -183,6 +184,11 @@ namespace NarupaIMD.Subtle_Game
         }
 
         public TrialsTimer trialsTimer;
+
+        public string DurationOfTrial
+        {
+            set => WriteToSharedState(SharedStateKey.TrialDuration, value);
+        }
 
         #endregion
 
