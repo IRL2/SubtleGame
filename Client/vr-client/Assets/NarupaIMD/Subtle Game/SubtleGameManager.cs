@@ -130,6 +130,36 @@ namespace NarupaIMD.Subtle_Game
                 {
                     _currentTaskType = value;
                     WriteToSharedState(SharedStateKey.TaskType, value.ToString());
+                    
+                    // Set interaction potential and scaling
+                    switch (value)
+                    {
+                        case TaskTypeVal.Sandbox:
+                            _pinchGrab.InteractionType = "gaussian";
+                            _pinchGrab.InteractionForceScale = 200f;
+                            break;
+                        case TaskTypeVal.Nanotube:
+                            _pinchGrab.InteractionType = "gaussian";
+                            _pinchGrab.InteractionForceScale = 200f;
+                            break;
+                        case TaskTypeVal.KnotTying:
+                            _pinchGrab.InteractionType = "gaussian";
+                            _pinchGrab.InteractionForceScale = 425f;
+                            break;
+                        case TaskTypeVal.Trials:
+                            _pinchGrab.InteractionType = "spring";
+                            _pinchGrab.InteractionForceScale = 175f;
+                            break;
+                        case TaskTypeVal.None:
+                        case TaskTypeVal.Sphere:
+                        case TaskTypeVal.GameFinished:
+                        default:
+                            _pinchGrab.InteractionType = "gaussian";
+                            _pinchGrab.InteractionForceScale = 200f;
+                            break;
+                    }
+                    Debug.Log($"Setting interaction type to {_pinchGrab.InteractionType}");
+                    Debug.Log($"Setting interaction type to {_pinchGrab.InteractionForceScale}");
                 }
             }
             private TaskTypeVal _currentTaskType;
