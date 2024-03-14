@@ -47,6 +47,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
         
         public void StartTimer()
         {
+            finishTrialEarly = false;
             subtleGameManager.simulation.PlayTrajectory();
             _timerIsRunning = true;
             _timeElapsed = 0;
@@ -57,7 +58,6 @@ namespace NarupaIMD.Subtle_Game.Canvas
         {
             subtleGameManager.DurationOfTrial = timeElapsed;
             _timerIsRunning = false;
-            finishTrialEarly = false;
             subtleGameManager.FinishCurrentTrial();
         }
     }
