@@ -31,7 +31,7 @@ namespace NarupaIMD.Subtle_Game
 
             private bool _startOfGame = true;
             public bool OrderOfTasksReceived { get; private set; }
-            private PinchGrab _pinchGrab;
+            
             [NonSerialized] public bool grabbersReady;
 
             private Coroutine _sandboxCoroutine;
@@ -39,7 +39,8 @@ namespace NarupaIMD.Subtle_Game
             #endregion
         
         #region Simulation and User Interaction
-
+        
+            private PinchGrab _pinchGrab;
             public bool ShowSimulation
             {
                 get => _showSimulation;
@@ -64,7 +65,7 @@ namespace NarupaIMD.Subtle_Game
 
             private bool _enableInteractions;
 
-        #endregion
+            #endregion
 
         #region Shared State Keys and Values
 
