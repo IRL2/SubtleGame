@@ -76,7 +76,8 @@ namespace NarupaIMD.Subtle_Game
                 Connected,
                 TrialAnswer,
                 HeadsetType,
-                TrialNumber
+                TrialNumber,
+                TrialDuration
             }
             public enum TaskStatusVal
             {
@@ -211,6 +212,13 @@ namespace NarupaIMD.Subtle_Game
                 WriteToSharedState(SharedStateKey.TrialAnswer, value);
                 WriteToSharedState(SharedStateKey.TrialNumber, currentTrialNumber.ToString());
             }
+        }
+
+        public TrialsTimer trialsTimer;
+
+        public string DurationOfTrial
+        {
+            set => WriteToSharedState(SharedStateKey.TrialDuration, value);
         }
 
         #endregion
@@ -417,7 +425,15 @@ namespace NarupaIMD.Subtle_Game
             // Load outro menu
             _canvasManager.LoadNextMenu();
         }
-
+        
+        /// <summary>
+        /// Sets the boolean on the trial timer to end the timer on the next frame.
+        /// </summary>
+        public void FinishTrialEarly()
+        {
+            trialsTimer.finishTrialEarly = true;
+        }
+        
         /// <summary>
         /// Disables interactions with the simulation and requests answer from player.
         /// </summary>

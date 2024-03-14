@@ -17,11 +17,23 @@ namespace NarupaIMD.Subtle_Game.Canvas
         private SubtleGameManager _subtleGameManager;
         
         private const float TimeDelay = 0.15f;
+
+        // <summary>
+        // A link to the PokeInteractable component to control the button state enable/disable it
+        // <summary>
+        private Oculus.Interaction.PokeInteractable _buttonInteractable;
         
         private void Start()
         {
             _canvasManager = FindObjectOfType<CanvasManager>();
             _subtleGameManager = FindObjectOfType<SubtleGameManager>();
+
+            _buttonInteractable = this.gameObject.GetComponent<Oculus.Interaction.PokeInteractable>();
+            if (_buttonInteractable == null) {
+                Debug.LogWarning("Call find its attached PokeInteractable component, state change wont work");
+                return;
+            }
+            _buttonInteractable.Enable();
         }
         
         /// <summary>
@@ -87,6 +99,48 @@ namespace NarupaIMD.Subtle_Game.Canvas
         private void InvokeStartTask()
         {
             _subtleGameManager.StartTask();
+        }
+        
+        /// <summary>
+        /// Attach to the button for finishing the trial early.
+        /// </summary>
+        public void ButtonFinishTrialEarly()
+        {
+            if (!CanButtonBePressed())
+            {
+                Debug.LogWarning("You are trying to press the button with the wrong interaction mode.");   
+                return;
+            }
+            
+            // Prepare game
+            Invoke(nameof(InvokeFinishTrialEarly), TimeDelay);
+        }
+        
+        /// <summary>
+        /// Sets the boolean to finish the trial early.
+        /// </summary>
+        private void InvokeFinishTrialEarly()
+        {
+            _subtleGameManager.FinishTrialEarly();
+            Disable();
+        }
+
+        // <summary>
+        // Disable the button thorugh the PokeInteractable component state
+        // </summary>
+        public void Disable()
+        {
+            if (_buttonInteractable == null) return;
+            _buttonInteractable.Disable();
+        }
+
+        // <summary>
+        // Enable the button thorugh the PokeInteractable component state
+        // </summary>
+        public void Enable()
+        {
+            if (_buttonInteractable == null) return;
+            _buttonInteractable.Enable();
         }
 
         /// <summary>
