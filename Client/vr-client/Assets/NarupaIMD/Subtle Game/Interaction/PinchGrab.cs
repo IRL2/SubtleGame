@@ -100,9 +100,9 @@ namespace NarupaIMD.Subtle_Game.Interaction
         // A list of grabbers that handle the pinching functionality, one for each index-thumb pair in IndexAndThumbTransforms.
         private List<PinchGrabber> pinchGrabbers;
         [Tooltip("Specifies the type of interaction (e.g., 'spring', 'gaussian') that will be sent to Narupa when a grab occurs.")]
-        public string InteractionType = "gaussian";
+        [NonSerialized] public string InteractionType = "gaussian";
         [Tooltip("Defines the magnitude of the interaction force sent to Narupa during a grab.")]
-        public float InteractionForceScale = 100f;
+        [NonSerialized] public float InteractionForceScale = 200f;
         [Tooltip("Time interval for updating the closest atom to a grabber when not pinching. Note: This operation can be computationally expensive.")]
         [Range(.0139f, .1f)]
         public float FetchClosestAtomUpdateInterval = .1f;

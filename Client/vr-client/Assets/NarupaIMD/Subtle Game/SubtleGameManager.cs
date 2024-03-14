@@ -31,7 +31,7 @@ namespace NarupaIMD.Subtle_Game
 
             private bool _startOfGame = true;
             public bool OrderOfTasksReceived { get; private set; }
-            private PinchGrab _pinchGrab;
+            
             [NonSerialized] public bool grabbersReady;
 
             private Coroutine _sandboxCoroutine;
@@ -39,7 +39,8 @@ namespace NarupaIMD.Subtle_Game
             #endregion
         
         #region Simulation and User Interaction
-
+        
+            private PinchGrab _pinchGrab;
             public bool ShowSimulation
             {
                 get => _showSimulation;
@@ -64,7 +65,7 @@ namespace NarupaIMD.Subtle_Game
 
             private bool _enableInteractions;
 
-        #endregion
+            #endregion
 
         #region Shared State Keys and Values
 
@@ -129,6 +130,36 @@ namespace NarupaIMD.Subtle_Game
                 {
                     _currentTaskType = value;
                     WriteToSharedState(SharedStateKey.TaskType, value.ToString());
+                    
+                    // Set interaction potential and scaling
+                    switch (value)
+                    {
+                        case TaskTypeVal.Sandbox:
+                            _pinchGrab.InteractionType = "gaussian";
+                            _pinchGrab.InteractionForceScale = 200f;
+                            break;
+                        case TaskTypeVal.Nanotube:
+                            _pinchGrab.InteractionType = "gaussian";
+                            _pinchGrab.InteractionForceScale = 200f;
+                            break;
+                        case TaskTypeVal.KnotTying:
+                            _pinchGrab.InteractionType = "gaussian";
+                            _pinchGrab.InteractionForceScale = 425f;
+                            break;
+                        case TaskTypeVal.Trials:
+                            _pinchGrab.InteractionType = "spring";
+                            _pinchGrab.InteractionForceScale = 175f;
+                            break;
+                        case TaskTypeVal.None:
+                        case TaskTypeVal.Sphere:
+                        case TaskTypeVal.GameFinished:
+                        default:
+                            _pinchGrab.InteractionType = "gaussian";
+                            _pinchGrab.InteractionForceScale = 200f;
+                            break;
+                    }
+                    Debug.Log($"Setting interaction type to {_pinchGrab.InteractionType}");
+                    Debug.Log($"Setting interaction type to {_pinchGrab.InteractionForceScale}");
                 }
             }
             private TaskTypeVal _currentTaskType;
