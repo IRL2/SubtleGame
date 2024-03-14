@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,13 @@ namespace NarupaIMD.Subtle_Game.Canvas
     public class TrialsTimer : MonoBehaviour
     {
         [SerializeField] private SubtleGameManager subtleGameManager;
+
+
+        // <summary>
+        // A link to the Answer Now button to enable/disable it
+        // <summary>
+        [SerializeField] private ButtonController answerNowButton;
+
         
         [SerializeField] private Image timerImage;
         [SerializeField] private TextMeshProUGUI timerLabel;
@@ -23,6 +31,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
         {
             if (timerImage != null) return;
             Debug.LogError("Timer Image is not assigned!");
+            answerNowButton.Enable();
         }
 
         private void Update()
@@ -38,11 +47,8 @@ namespace NarupaIMD.Subtle_Game.Canvas
 
             // Increment timer
             _timeElapsed += Time.deltaTime;
-            timerImage.fillAmount = (_duration - _timeElapsed) / _duration;
-            
-            // Update the timer on the UI
-            int _label = Mathf.CeilToInt ( _duration - _timeElapsed );
-            timerLabel.text = _label.ToString();
+
+            UpdateTimerVisuals();
         }
         
         public void StartTimer()
@@ -52,6 +58,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
             _timerIsRunning = true;
             _timeElapsed = 0;
             timerImage.fillAmount = 0;
+            answerNowButton.Enable();
         }
 
         private void FinishTimer(string timeElapsed)
@@ -59,6 +66,38 @@ namespace NarupaIMD.Subtle_Game.Canvas
             subtleGameManager.DurationOfTrial = timeElapsed;
             _timerIsRunning = false;
             subtleGameManager.FinishCurrentTrial();
+            answerNowButton.Disable();
+            StartCoroutine(AnimateTimerToZero());
         }
+
+        // <summary>
+        // A coroutine to animate lower the timer value to zero
+        // </summary>
+        IEnumerator AnimateTimerToZero()
+        {
+            while (timerImage.fillAmount > 0)
+            {
+                _timeElapsed += 0.5f;
+                UpdateTimerVisuals();
+                yield return new WaitForSeconds(0.01f);
+            }
+            
+        }
+
+        // <summary>
+        // Refresh the number label and the circular graph base on the global _timeElapsed value
+        // </summary>
+        private void UpdateTimerVisuals()
+        {
+            timerImage.fillAmount = (_duration - _timeElapsed) / _duration ;
+
+            int _label = Mathf.CeilToInt ( _duration - _timeElapsed );
+            timerLabel.text = _label.ToString();
+
+            if (_duration - _timeElapsed < 0.1) {
+                timerLabel.text = "0";
+            }
+        }
+
     }
 }
