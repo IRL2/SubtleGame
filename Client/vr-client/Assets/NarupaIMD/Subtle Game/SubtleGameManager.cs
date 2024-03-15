@@ -408,6 +408,16 @@ namespace NarupaIMD.Subtle_Game
                 yield return null;
             }
         }
+        
+        IEnumerator StartTrialWithDelay()
+        {
+            // Wait for 2 seconds
+            yield return new WaitForSeconds(1f);
+
+            // Show simulation and begin timer for the trial
+            ShowSimulation = true;
+            _timer.StartTimer();
+        }
 
         /// <summary>
         /// Starts celebrations and calls the function to perform everything that is needed to be done to finish the
@@ -483,8 +493,7 @@ namespace NarupaIMD.Subtle_Game
                     switch (val.ToString())
                     {
                         case "started":
-                            ShowSimulation = true;
-                            _timer.StartTimer();
+                            StartCoroutine(StartTrialWithDelay());
                             break;
                     }
                     break;
