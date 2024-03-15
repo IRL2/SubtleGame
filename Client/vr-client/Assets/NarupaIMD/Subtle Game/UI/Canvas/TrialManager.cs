@@ -26,6 +26,8 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// Index of the current set.
         /// </summary>
         private int _setIndex;
+
+        [NonSerialized] public const string CurrentRound = "";
         
         /// <summary>
         /// Running total of the number of trials within the current task.
@@ -109,10 +111,14 @@ namespace NarupaIMD.Subtle_Game.Canvas
             {
                 ResetIcons();
                 _setIndex = 0;
+                var indexForUI = _setIndex + 1;
+                PlayerPrefs.SetFloat(CurrentRound, indexForUI);
             }
             else
             {
                 _setIndex++;
+                var indexForUI = _setIndex + 1;
+                PlayerPrefs.SetFloat(CurrentRound, indexForUI);
             }
             
             // Reset variables
