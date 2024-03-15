@@ -378,7 +378,8 @@ namespace NarupaIMD.Subtle_Game
             TaskStatus = TaskStatusVal.InProgress;
             
             _canvasManager.HideCanvas();
-            _showSimulation = true;
+            if (CurrentTaskType == TaskTypeVal.Trials) return;
+            ShowSimulation = true;
         }
 
         /// <summary>
@@ -411,7 +412,6 @@ namespace NarupaIMD.Subtle_Game
         
         IEnumerator StartTrialWithDelay()
         {
-            // Wait for 2 seconds
             yield return new WaitForSeconds(1f);
 
             // Show simulation and begin timer for the trial
@@ -480,9 +480,6 @@ namespace NarupaIMD.Subtle_Game
                 case "puppeteer.task-status":
                     switch (val.ToString())
                     {
-                        case "in-progress":
-                            ShowSimulation = true;
-                            break;
                         case "finished":
                             FinishTask();
                             break;
