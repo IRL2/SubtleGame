@@ -13,7 +13,7 @@ list_of_valid_answers = [molecule_A, molecule_B]
 def calculate_correct_answer(sim_file_name: str):
     """
     Calculates the correct answer for the current trial. If the molecules are identical the correct answer will be None,
-    else the correct answer is the most rigid molecule.
+    else the correct answer is the softest molecule.
     """
 
     multiplier = get_multiplier_of_simulation(sim_file_name=sim_file_name)
@@ -25,11 +25,11 @@ def calculate_correct_answer(sim_file_name: str):
     # Get residue id of modified molecule
     modified_molecule = get_residue_id_of_modified_molecule(sim_file_name=sim_file_name)
 
-    # The modified molecule is harder, return the residue id
-    if multiplier > 1:
+    # The modified molecule is softer, return its residue id
+    if multiplier < 1:
         return modified_molecule
 
-    # The reference molecule is harder, return the residue id of the other molecule
+    # The modified molecule is harder, return the residue id of the unmodified molecule
     else:
         if modified_molecule == molecule_A:
             return molecule_B
