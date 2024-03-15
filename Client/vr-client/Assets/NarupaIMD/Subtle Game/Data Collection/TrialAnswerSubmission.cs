@@ -26,6 +26,8 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
         [SerializeField] private Transform leftIndexTip;
         [SerializeField] private Transform rightController;
         [SerializeField] private Transform leftController;
+
+        [SerializeField] private TrialAnswerPopupManager trialAnswerPopup;
         
         private ColorInput _colorMoleculeA;
         private ColorInput _colorMoleculeB;
@@ -193,6 +195,10 @@ namespace NarupaIMD.Subtle_Game.Data_Collection
                 {
                     _subtleGameManager.TrialAnswer = _answer.ToString();
                     PlayerIsSelectingAnswer?.Invoke(false);
+                    
+                    // pass the location of the answered molecule
+                    trialAnswerPopup.PlaceAt(_wasInsideLastFrameA ? centreOfGeometryA.transform.position : centreOfGeometryB.transform.position);
+
                     break;
                 }
                 

@@ -25,6 +25,8 @@ namespace NarupaIMD.Subtle_Game
             public GameObject userInteraction;
             private CanvasManager _canvasManager;
 
+            [SerializeField] private TrialAnswerPopupManager trialAnswerPopup;
+
             #endregion
 
         #region Preparing Game
@@ -505,6 +507,8 @@ namespace NarupaIMD.Subtle_Game
                             trialManager.LogTrialAnswer(state: TrialIcon.State.Ambivalent);
                             break;
                     }
+                    // call the answer pop up to show (must be called after positioned by the trialanswersubmission)
+                    trialAnswerPopup.Pop(val.ToString());
                     break;
             }
         }
