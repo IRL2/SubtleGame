@@ -68,7 +68,10 @@ namespace NarupaIMD.Subtle_Game.Canvas
         /// </summary>
         [FormerlySerializedAs("trialIconManager")] [SerializeField] private TrialManager trialProgressManager;
 
-        [SerializeField] private GameObject trialsProgressBackground;
+        // <summary>
+        // The gameobject group to set the visibility of the progress
+        // <summary>
+        [SerializeField] private GameObject trialsProgressGroup;
 
         /// <summary>
         /// The Subtle Game Manager.
@@ -172,7 +175,7 @@ namespace NarupaIMD.Subtle_Game.Canvas
                     taskTrialsInstructions.SetActive(true);
                     timer.SetActive(true);
                     trialProgressManager.gameObject.SetActive(true);
-                    trialsProgressBackground.SetActive(true);
+                    trialsProgressGroup.SetActive(true);
                     // trialProgressmanager.ResetTrialsTask(); // <-- this is going to be called when the whole panel is deactivates 
                     break;
 

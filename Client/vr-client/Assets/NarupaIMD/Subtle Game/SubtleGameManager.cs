@@ -25,6 +25,8 @@ namespace NarupaIMD.Subtle_Game
             public GameObject userInteraction;
             private CanvasManager _canvasManager;
 
+            [SerializeField] private TrialAnswerPopupManager trialAnswerPopup;
+
             #endregion
 
         #region Preparing Game
@@ -376,7 +378,8 @@ namespace NarupaIMD.Subtle_Game
             TaskStatus = TaskStatusVal.InProgress;
             
             _canvasManager.HideCanvas();
-            _showSimulation = true;
+            if (CurrentTaskType == TaskTypeVal.Trials) return;
+            ShowSimulation = true;
         }
 
         /// <summary>
@@ -405,6 +408,15 @@ namespace NarupaIMD.Subtle_Game
                 
                 yield return null;
             }
+        }
+        
+        IEnumerator StartTrialWithDelay()
+        {
+            yield return new WaitForSeconds(1f);
+
+            // Show simulation and begin timer for the trial
+            ShowSimulation = true;
+            _timer.StartTimer();
         }
 
         /// <summary>
@@ -468,9 +480,6 @@ namespace NarupaIMD.Subtle_Game
                 case "puppeteer.task-status":
                     switch (val.ToString())
                     {
-                        case "in-progress":
-                            ShowSimulation = true;
-                            break;
                         case "finished":
                             FinishTask();
                             break;
@@ -481,8 +490,7 @@ namespace NarupaIMD.Subtle_Game
                     switch (val.ToString())
                     {
                         case "started":
-                            ShowSimulation = true;
-                            _timer.StartTimer();
+                            StartCoroutine(StartTrialWithDelay());
                             break;
                     }
                     break;
@@ -505,6 +513,8 @@ namespace NarupaIMD.Subtle_Game
                             trialManager.LogTrialAnswer(state: TrialIcon.State.Ambivalent);
                             break;
                     }
+                    // call the answer pop up to show (must be called after positioned by the trialanswersubmission)
+                    trialAnswerPopup.Pop(val.ToString());
                     break;
             }
         }
