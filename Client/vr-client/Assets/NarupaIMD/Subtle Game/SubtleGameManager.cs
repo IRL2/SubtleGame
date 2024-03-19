@@ -139,15 +139,15 @@ namespace NarupaIMD.Subtle_Game
                     {
                         case TaskTypeVal.Sandbox:
                             _pinchGrab.InteractionType = "gaussian";
-                            _pinchGrab.InteractionForceScale = 200f;
+                            _pinchGrab.InteractionForceScale = 300f;
                             break;
                         case TaskTypeVal.Nanotube:
                             _pinchGrab.InteractionType = "gaussian";
-                            _pinchGrab.InteractionForceScale = 200f;
+                            _pinchGrab.InteractionForceScale = 300f;
                             break;
                         case TaskTypeVal.KnotTying:
                             _pinchGrab.InteractionType = "gaussian";
-                            _pinchGrab.InteractionForceScale = 425f;
+                            _pinchGrab.InteractionForceScale = 525f;
                             break;
                         case TaskTypeVal.Trials:
                             _pinchGrab.InteractionType = "spring";
@@ -161,8 +161,8 @@ namespace NarupaIMD.Subtle_Game
                             _pinchGrab.InteractionForceScale = 200f;
                             break;
                     }
-                    Debug.Log($"Setting interaction type to {_pinchGrab.InteractionType}");
-                    Debug.Log($"Setting interaction type to {_pinchGrab.InteractionForceScale}");
+                    Debug.Log($"Setting user interaction type: {_pinchGrab.InteractionType}");
+                    Debug.Log($"Setting interaction force scale: {_pinchGrab.InteractionForceScale}");
                 }
             }
             private TaskTypeVal _currentTaskType;
