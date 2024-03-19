@@ -412,8 +412,12 @@ namespace NarupaIMD.Subtle_Game
         
         IEnumerator StartTrialWithDelay()
         {
-            yield return new WaitForSeconds(1f);
-
+            // Delay start of trial if this is not the first trial of the task
+            if (currentTrialNumber != -1)
+            {
+                yield return new WaitForSeconds(1f);
+            }
+            
             // Show simulation and begin timer for the trial
             ShowSimulation = true;
             _timer.StartTimer();
