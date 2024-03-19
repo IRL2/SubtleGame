@@ -30,6 +30,7 @@ key_current_task = 'current-task'
 key_task_status = 'task-status'
 key_trials_sims = 'trials-simulations'
 key_number_of_trials = 'number-of-trials'
+key_number_of_trial_repeats = 'number-of-trial-repeats'
 key_trials_timer = 'trials-timer'
 key_trials_answer = 'trials-answer'
 key_task_completion_time = 'task-completion-time'
@@ -82,4 +83,5 @@ shared_state_keys_and_vals = {
 }
 
 keys_with_unrestricted_vals = [key_task_completion_time, key_simulation_name, key_simulation_server_index,
-                               key_trials_sims, key_number_of_trials, key_username, key_sim_counter]
+                               key_trials_sims, key_number_of_trials, key_number_of_trial_repeats, key_username,
+                               key_sim_counter]
