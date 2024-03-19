@@ -222,6 +222,8 @@ namespace NarupaIMD.Subtle_Game
         {
             set => WriteToSharedState(SharedStateKey.TrialDuration, value);
         }
+        
+        [NonSerialized] public const string NumberOfTrialRounds = "Number of trial rounds";
 
         #endregion
 
@@ -519,6 +521,13 @@ namespace NarupaIMD.Subtle_Game
                     }
                     // call the answer pop up to show (must be called after positioned by the trialanswersubmission)
                     trialAnswerPopup.Pop(val.ToString());
+                    break;
+                
+                case "puppeteer.number-of-trial-repeats":
+                    if (int.TryParse(val.ToString(), out var intValue))
+                    {
+                        PlayerPrefs.SetInt(NumberOfTrialRounds, intValue);
+                    }
                     break;
             }
         }
