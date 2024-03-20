@@ -31,10 +31,21 @@ def check_that_key_val_pair_is_valid(key: str, val):
     if key not in shared_state_keys_and_vals:
         raise NameError(f"Invalid shared state key '{key}', it must be one of "f"{shared_state_keys_and_vals.keys()}")
 
-    # Where the val is a list, check each item in the list
+    # Is the val a list?
     if isinstance(val, list):
+
+        # Go through each item in the list
         for i in range(len(val)):
-            if val[i] not in shared_state_keys_and_vals[key]:
+
+            # Is the val a list of lists?
+            if isinstance(val[i], list):
+                for j in range(len(val[i])):
+                    if val[i][j] not in shared_state_keys_and_vals[key]:
+                        raise NameError(f"Invalid shared state value '{val[i]}' for key '{key}', it must be one of: "
+                                        f"{shared_state_keys_and_vals[key]}")
+
+            # Else check the value with the allowed values
+            elif val[i] not in shared_state_keys_and_vals[key]:
                 raise NameError(f"Invalid shared state value '{val[i]}' for key '{key}', it must be one of: "
                                 f"{shared_state_keys_and_vals[key]}")
         return

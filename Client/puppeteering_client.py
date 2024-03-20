@@ -1,4 +1,6 @@
 from narupa.app import NarupaImdClient
+
+import task_trials
 from task_nanotube import NanotubeTask
 from task_knot_tying import KnotTyingTask
 from task_sandbox import SandboxTask
@@ -34,14 +36,20 @@ def get_order_of_tasks(run_short_game: bool):
     if run_short_game:
         return [task_nanotube, task_nanotube]
     else:
-        tasks = [task_knot_tying, task_trials]
+        tasks = [task_nanotube,
+                 task_trials,
+                 task_knot_tying,
+                 task_nanotube,
+                 task_trials,
+                 task_knot_tying]
 
     order_of_tasks = []
 
     for n in range(2):
-        t = random.sample(tasks, len(tasks))
-        t.insert(0, task_nanotube)
-        order_of_tasks.extend(t)
+        # t = random.sample(tasks, len(tasks))
+        #t = tasks
+        #t.insert(0, task_nanotube)
+        order_of_tasks.append(tasks)
 
     return order_of_tasks
 
@@ -73,7 +81,6 @@ class PuppeteeringClient:
         self.trials_sims = None
         self.num_of_trial_repeats = number_of_trial_repeats
         self.trials_sim_names = None
-        self.first_practice_sim = True
 
     def run_game(self):
 
@@ -83,40 +90,41 @@ class PuppeteeringClient:
         self._wait_for_vr_client_to_connect_to_server()
         self._player_in_main_menu()
 
-        # Loop through the tasks
-        for task in self.order_of_tasks:
+        # Loop through the two sections of the game
+        for n in range(2):
 
-            simulation_counter = self.narupa_client._current_frame.values["system.simulation.counter"]
+            # Are we are in the second section?
+            if n == 1:
+                # Increment interaction modality
+                self.current_modality = self.order_of_interaction_modality[n]
+                write_to_shared_state(client=self.narupa_client, key=key_modality, value=self.current_modality)
 
-            if task == task_nanotube:
+            # Loop through the tasks
+            for task in self.order_of_tasks[n]:
 
-                # Check if we are in the second section
-                if not self.first_practice_sim:
-                    # If yes, increment interaction modality
-                    self.current_modality = self.order_of_interaction_modality[1]
-                    write_to_shared_state(client=self.narupa_client, key=key_modality, value=self.current_modality)
+                simulation_counter = self.narupa_client._current_frame.values["system.simulation.counter"]
 
-                current_task = NanotubeTask(client=self.narupa_client, simulations=self.nanotube_sim,
-                                            simulation_counter=simulation_counter)
-                self.first_practice_sim = False
+                if task == task_nanotube:
+                    current_task = NanotubeTask(client=self.narupa_client, simulations=self.nanotube_sim,
+                                                simulation_counter=simulation_counter)
 
-            elif task == task_knot_tying:
-                current_task = KnotTyingTask(client=self.narupa_client, simulations=self.alanine_sim,
-                                             simulation_counter=simulation_counter)
+                elif task == task_knot_tying:
+                    current_task = KnotTyingTask(client=self.narupa_client, simulations=self.alanine_sim,
+                                                 simulation_counter=simulation_counter)
 
-            elif task == task_trials:
-                current_task = TrialsTask(client=self.narupa_client, simulations=self.trials_sims,
-                                          simulation_counter=simulation_counter,
-                                          number_of_repeats=self.num_of_trial_repeats)
+                elif task == task_trials:
+                    current_task = TrialsTask(client=self.narupa_client, simulations=self.trials_sims,
+                                              simulation_counter=simulation_counter,
+                                              number_of_repeats=self.num_of_trial_repeats)
 
-            else:
-                print("Current task not recognised, closing the puppeteering client.")
-                break
+                else:
+                    print("Current task not recognised, closing the puppeteering client.")
+                    break
 
-            # Run the task
-            print('\n- Running ' + task + ' task')
-            current_task.run_task()
-            print('Finished ' + task + ' task\n')
+                # Run the task
+                print('\n- Running ' + task + ' task')
+                current_task.run_task()
+                print('Finished ' + task + ' task\n')
 
         self._finish_game()
 
@@ -130,11 +138,13 @@ class PuppeteeringClient:
         self.alanine_sim = self.get_name_and_server_index_of_simulations_for_task(sim_name_knot_tying)
         self.trials_sims = self.get_name_and_server_index_of_simulations_for_task(sim_name_trials)
 
+        merged_order_of_tasks = [item for sublist in self.order_of_tasks for item in sublist]
+
         # update the shared state
         write_to_shared_state(client=self.narupa_client, key=key_username, value=self.username)
         write_to_shared_state(client=self.narupa_client, key=key_game_status, value=waiting)
         write_to_shared_state(client=self.narupa_client, key=key_modality, value=self.current_modality)
-        write_to_shared_state(client=self.narupa_client, key=key_order_of_tasks, value=self.order_of_tasks)
+        write_to_shared_state(client=self.narupa_client, key=key_order_of_tasks, value=merged_order_of_tasks)
 
         # Print game setup to the terminal
         print('\nGame initialised:')
