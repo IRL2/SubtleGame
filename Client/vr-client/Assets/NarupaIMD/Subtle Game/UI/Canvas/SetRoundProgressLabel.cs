@@ -9,8 +9,9 @@ namespace NarupaIMD.Subtle_Game.Canvas
         
         void Update()
         {
-            var text = PlayerPrefs.GetFloat(TrialManager.CurrentRound);
-            textMeshPro.text = "Round " + text + " of 5";
+            var currentRound = PlayerPrefs.GetFloat(TrialManager.CurrentRound);
+            var numberOfRounds = PlayerPrefs.GetInt(SubtleGameManager.NumberOfTrialRounds).ToString();
+            textMeshPro.text = "Round " + currentRound + " of " + numberOfRounds;
         }
     }
 }
