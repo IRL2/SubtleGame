@@ -1,5 +1,8 @@
 using Nanover.Core.Math;
+using Nanover.Frame;
+using Nanover.Frame.Event;
 using Nanover.Visualisation;
+using NarupaImd;
 using NarupaIMD.Subtle_Game.UI.Simulation;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -8,12 +11,9 @@ namespace NarupaIMD.Subtle_Game.Visuals
 {
     public class CenteringSimulationInFrontOfPlayer : MonoBehaviour
     {
-        /// <summary>
-        /// The simulation box.
-        /// </summary>
         [SerializeField]
-        private BoxVisualiser simulationBox;
-        
+        private SynchronisedFrameSource frameSource;
+
         /// <summary>
         /// The NarupaIMD simulation.
         /// </summary>
@@ -49,12 +49,44 @@ namespace NarupaIMD.Subtle_Game.Visuals
 
         private void OnEnable()
         {
-            simulationBox.SimulationBoxUpdated += UpdateSimulationBox;
+            frameSource.FrameChanged += OnFrameChanged;
         }
 
         private void OnDisable()
         {
-            simulationBox.SimulationBoxUpdated -= UpdateSimulationBox;
+            frameSource.FrameChanged += OnFrameChanged;
+        }
+
+        private void OnFrameChanged(IFrame frame, FrameChanges changes)
+        {
+            if (changes.HasChanged(StandardFrameProperties.BoxTransformation.Key))
+            {
+                var box = (frame as Frame)?.BoxVectors;
+                if (box == null)
+                {
+                    nextXMagnitude = 0;
+                }
+                else
+                {
+                    nextXMagnitude = box.Value.axesMagnitudes.x;
+                }
+            }
+        }
+
+        private void Update()
+        {
+            CheckBoxChange();
+        }
+
+        private float prevXMagnitude;
+        private float nextXMagnitude;
+
+        private void CheckBoxChange()
+        {
+            if (Mathf.Abs(nextXMagnitude - prevXMagnitude) > 0.1f)
+                UpdateSimulationBox();
+
+            prevXMagnitude = nextXMagnitude;
         }
 
         /// <summary>
@@ -104,30 +136,30 @@ namespace NarupaIMD.Subtle_Game.Visuals
         private void PutSimulationInFrontOfPlayer()
         {
             // Set default values: centering the player on the xy plane of the simulation box facing the +z direction
-            float xComponent = -simulationBox.xMagnitude * 0.5f;
-            float yComponent = -simulationBox.xMagnitude * 0.5f;
+            float xComponent = -nextXMagnitude * 0.5f;
+            float yComponent = -nextXMagnitude * 0.5f;
             float zComponent = 0f;
-            
+
             // Alter values for knot-tying and trials tasks
             switch (subtleGameManager.CurrentTaskType)
             {
                 case SubtleGameManager.TaskTypeVal.KnotTying:
-                    yComponent = -simulationBox.xMagnitude * 0.6f;
-                    zComponent = -simulationBox.xMagnitude * 0.25f;
+                    yComponent = -nextXMagnitude * 0.6f;
+                    zComponent = -nextXMagnitude * 0.25f;
                     break;
                 case SubtleGameManager.TaskTypeVal.Trials:
-                    yComponent = -simulationBox.xMagnitude * 0.7f;
-                    zComponent = -simulationBox.xMagnitude * 0.15f;
+                    yComponent = -nextXMagnitude * 0.7f;
+                    zComponent = -nextXMagnitude * 0.15f;
                     break;
             }
 
             // Calculate translation vector
             var desiredTranslation = transform;
             desiredTranslation.localPosition = new Vector3(xComponent, yComponent, zComponent);
-            
+
             // Place the origin of the sim box at position of the center eye anchor
             simulation.position = centreEyeAnchor.position;
-            
+
             // Translate the simulation so that the center eye anchor is in the center of the xy plane of the sim box
             simulation.Translate(desiredTranslation.position - simulation.position);
         }

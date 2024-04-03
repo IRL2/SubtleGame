@@ -5,10 +5,8 @@ namespace NarupaIMD.Subtle_Game.UI.Simulation
 {
     public class CenterRigthFace : MonoBehaviour
     {
-        /// <summary>
-        /// The simulation box.
-        /// </summary>
-        [SerializeField] private BoxVisualiser simulationBox;
+        [SerializeField]
+        private SynchronisedFrameSource frameSource;
 
         /// <summary>
         /// Sets the position of this game object to the center of the xy plane of the simulation box and shows the
@@ -17,10 +15,12 @@ namespace NarupaIMD.Subtle_Game.UI.Simulation
         public void Update()
         {
             // Update position of current game object
-            transform.localPosition = new Vector3(
-                simulationBox.xMagnitude * 0f, 
-                simulationBox.xMagnitude * 0.5f, 
-                simulationBox.xMagnitude * 0.5f);
+            if (frameSource.CurrentFrame is { } frame
+             && frame.BoxVectors is { } box)
+                transform.localPosition = new Vector3(
+                    box.axesMagnitudes.x * 0.5f,
+                    box.axesMagnitudes.x * 0.5f,
+                    box.axesMagnitudes.x * 0.5f);
         }
     }
 }

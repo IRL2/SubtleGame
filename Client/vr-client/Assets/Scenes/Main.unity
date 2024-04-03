@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a79a2e67ebce3f46ab02ff7bf8d25e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simulationBox: {fileID: 543794535019733083}
+  frameSource: {fileID: 1265723032}
   simulation: {fileID: 1265723034}
   centreEyeAnchor: {fileID: 4948775120161647665}
   centerXYPlane: {fileID: 1692057923}
@@ -2747,9 +2747,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3338347691508911078, guid: b4150353d52807043b217abe87a111e4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 181386365}
-    - targetCorrespondingSourceObject: {fileID: 2075125420025657282, guid: b4150353d52807043b217abe87a111e4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: b4150353d52807043b217abe87a111e4, type: 3}
 --- !u!224 &181386359 stripped
 RectTransform:
@@ -5742,10 +5739,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 656991192480398139, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6406907961171276735, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
 --- !u!4 &408854593 stripped
 Transform:
@@ -7173,10 +7167,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 656991192480398139, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6406907961171276735, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
 --- !u!4 &521888427 stripped
 Transform:
@@ -7876,7 +7867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a308a4f62e04e38a4c4fa069d601730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simulationBox: {fileID: 543794535019733083}
+  frameSource: {fileID: 1265723032}
   simulation: {fileID: 1265723033}
 --- !u!23 &627743195
 MeshRenderer:
@@ -9412,7 +9403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbaae79152bc8fe4a83ec5c45926acef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simulationBox: {fileID: 543794535019733083}
+  frameSource: {fileID: 1265723032}
 --- !u!23 &746467491
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23848,10 +23839,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 656991192480398139, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6406907961171276735, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
 --- !u!4 &1564060301 stripped
 Transform:
@@ -25325,7 +25313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505349cabccdfbd4c99d9e8a915c5fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simulationBox: {fileID: 543794535019733083}
+  frameSource: {fileID: 1265723032}
 --- !u!23 &1692057924
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -29105,10 +29093,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6406907961171276735, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
 --- !u!4 &1974341685 stripped
 Transform:
@@ -32802,8 +32787,6 @@ MonoBehaviour:
     yAxis: {x: 0, y: 1, z: 0}
     zAxis: {x: 0, y: 0, z: 1}
     origin: {x: 0, y: 0, z: 0}
-  xMagnitude: 1
-  previousXMag: 1
   width: 0.02
   mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   material: {fileID: 2100000, guid: cceac67cd55e64d43b334053e949f786, type: 2}
