@@ -19,7 +19,7 @@ namespace NarupaIMD.Subtle_Game.UI.Simulation
                 transform.localPosition = new Vector3(
                     box.axesMagnitudes.x * 0.5f,
                     box.axesMagnitudes.x * 0.5f,
-                    box.axesMagnitudes.x * 0.5f);
+                    box.axesMagnitudes.x * 1.0f);
         }
     }
 }
