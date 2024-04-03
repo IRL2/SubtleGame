@@ -1,6 +1,6 @@
 from datetime import datetime
 from Client.task import Task
-from narupa.app import NarupaImdClient
+from nanover.app import NanoverImdClient
 from Client.knot_pull_client import KnotPullClient
 import time
 from standardised_values import *
@@ -9,7 +9,7 @@ from standardised_values import *
 class KnotTyingTask(Task):
     task_type = task_knot_tying
 
-    def __init__(self, client: NarupaImdClient, simulations: list, simulation_counter: int):
+    def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int):
 
         super().__init__(client, simulations, sim_counter=simulation_counter)
 

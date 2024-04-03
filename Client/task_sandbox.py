@@ -1,5 +1,5 @@
 from Client.task import Task
-from narupa.app import NarupaImdClient
+from nanover.app import NanoverImdClient
 import time
 
 from additional_functions import write_to_shared_state, remove_puppeteer_key_from_shared_state
@@ -10,7 +10,7 @@ class SandboxTask(Task):
 
     task_type = task_sandbox
 
-    def __init__(self, client: NarupaImdClient, simulations: list, simulation_counter: int):
+    def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int):
 
         super().__init__(client, simulations, sim_counter=simulation_counter)
 
