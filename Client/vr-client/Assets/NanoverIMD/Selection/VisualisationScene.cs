@@ -106,6 +106,12 @@ namespace NanoverImd.Selection
             rootSelection = ParticleSelection.CreateRootSelection();
             var baseRenderableSelection = baseLayer.AddSelection(rootSelection);
             baseRenderableSelection.UpdateVisualiser();
+
+            // update from existing keys
+            foreach (var (key, value) in simulation.Multiplayer.SharedStateDictionary)
+            {
+                MultiplayerOnSharedStateDictionaryKeyChanged(key, value);
+            }
         }
 
         private void OnDisable()
