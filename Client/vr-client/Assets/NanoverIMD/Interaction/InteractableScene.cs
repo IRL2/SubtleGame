@@ -157,7 +157,7 @@ namespace NanoverImd.Interaction
 
             var frame = frameSource.CurrentFrame;
 
-            if (frame == null)
+            if (frame?.ParticlePositions == null)
                 return null;
 
             var bestSqrDistance = cutoff * cutoff;
@@ -166,7 +166,8 @@ namespace NanoverImd.Interaction
             for (var i = 0; i < frame.ParticlePositions.Length; ++i)
             {
                 // If particle is a hydrogen, ignore it
-                if (simulation.Trajectory.CurrentFrame.ParticleElements[i] == _hydrogenElement){continue;}
+                if (frame.ParticleElements[i] == _hydrogenElement)
+                    continue;
                 
                 var particlePosition = frame.ParticlePositions[i];
                 var sqrDistance = Vector3.SqrMagnitude(position - particlePosition);
