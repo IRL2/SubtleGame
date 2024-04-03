@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Narupa.Core;
-using Narupa.Core.Science;
-using Narupa.Visualisation.Components;
-using Narupa.Visualisation.Components.Adaptor;
-using Narupa.Visualisation.Components.Input;
-using Narupa.Visualisation.Node.Color;
-using Narupa.Visualisation.Node.Input;
+using Nanover.Core;
+using Nanover.Core.Science;
+using Nanover.Visualisation.Components;
+using Nanover.Visualisation.Components.Adaptor;
+using Nanover.Visualisation.Components.Input;
+using Nanover.Visualisation.Node.Color;
+using Nanover.Visualisation.Node.Input;
 using UnityEngine;
 
 namespace NarupaImd.Selection

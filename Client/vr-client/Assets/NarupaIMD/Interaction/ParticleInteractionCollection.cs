@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Narupa.Core.Serialization;
-using Narupa.Grpc.Multiplayer;
+using Nanover.Core.Serialization;
+using Nanover.Grpc.Multiplayer;
 
 namespace NarupaImd.Interaction
 {

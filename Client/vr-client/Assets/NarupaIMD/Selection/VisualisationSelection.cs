@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using Narupa.Core.Math;
-using Narupa.Visualisation.Components;
-using Narupa.Visualisation.Node.Adaptor;
-using Narupa.Visualisation.Properties;
-using Narupa.Core;
+using Nanover.Core.Math;
+using Nanover.Visualisation.Components;
+using Nanover.Visualisation.Node.Adaptor;
+using Nanover.Visualisation.Properties;
+using Nanover.Core;
 using UnityEngine;
 
 namespace NarupaImd.Selection

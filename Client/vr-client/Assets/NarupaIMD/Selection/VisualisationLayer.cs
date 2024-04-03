@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Narupa.Core.Math;
-using Narupa.Visualisation.Property;
+using Nanover.Core.Math;
+using Nanover.Visualisation.Property;
 using UnityEngine;
 
 namespace NarupaImd.Selection

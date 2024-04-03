@@ -2,7 +2,7 @@
 // Licensed under the GPL. See License.txt in the project root for license information.
 
 using System.Collections.Generic;
-using Narupa.Frontend.Utility;
+using Nanover.Frontend.Utility;
 using UnityEngine;
 
 namespace NarupaImd.Interaction

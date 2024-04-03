@@ -1,11 +1,11 @@
 ﻿// Copyright (c) 2019 Intangible Realities Lab. All rights reserved.
 // Licensed under the GPL. See License.txt in the project root for license information.
 
-using Narupa.Core.Async;
-using Narupa.Core.Math;
-using Narupa.Frontend.Manipulation;
-using Narupa.Frontend.XR;
-using Narupa.Grpc.Multiplayer;
+using Nanover.Core.Async;
+using Nanover.Core.Math;
+using Nanover.Frontend.Manipulation;
+using Nanover.Frontend.XR;
+using Nanover.Grpc.Multiplayer;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

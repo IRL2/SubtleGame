@@ -3,9 +3,9 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Narupa.Frame;
-using Narupa.Visualisation;
-using Narupa.Visualisation.Utility;
+using Nanover.Frame;
+using Nanover.Visualisation;
+using Nanover.Visualisation.Utility;
 using UnityEngine;
 
 namespace NarupaImd.Examples

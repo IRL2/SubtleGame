@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using Narupa.Core.Math;
-using Narupa.Core.Science;
-using Narupa.Frontend.Manipulation;
-using Narupa.Visualisation;
-using Narupa.Visualisation.Properties;
-using Narupa.Visualisation.Property;
+using Nanover.Core.Math;
+using Nanover.Core.Science;
+using Nanover.Frontend.Manipulation;
+using Nanover.Visualisation;
+using Nanover.Visualisation.Properties;
+using Nanover.Visualisation.Property;
 using NarupaImd;
 using NarupaImd.Selection;
 using UnityEngine;

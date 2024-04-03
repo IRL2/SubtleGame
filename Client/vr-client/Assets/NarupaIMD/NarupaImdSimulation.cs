@@ -2,12 +2,12 @@
 // Licensed under the GPL. See License.txt in the project root for license information.
 
 using Essd;
-using Narupa.Frontend.Manipulation;
-using Narupa.Core.Math;
-using Narupa.Grpc;
-using Narupa.Grpc.Multiplayer;
-using Narupa.Grpc.Trajectory;
-using Narupa.Visualisation;
+using Nanover.Frontend.Manipulation;
+using Nanover.Core.Math;
+using Nanover.Grpc;
+using Nanover.Grpc.Multiplayer;
+using Nanover.Grpc.Trajectory;
+using Nanover.Visualisation;
 using NarupaImd.Interaction;
 using Newtonsoft.Json.Linq;
 using System;

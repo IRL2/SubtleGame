@@ -4,9 +4,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Narupa.Core.Math;
-using Narupa.Frontend.Input;
-using Narupa.Frontend.Manipulation;
+using Nanover.Core.Math;
+using Nanover.Frontend.Input;
+using Nanover.Frontend.Manipulation;
 using NarupaImd;
 using UnityEngine;
 using Random = UnityEngine.Random;

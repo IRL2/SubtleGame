@@ -1,5 +1,5 @@
-using Narupa.Core.Math;
-using Narupa.Frontend.Manipulation;
+using Nanover.Core.Math;
+using Nanover.Frontend.Manipulation;
 using NarupaImd;
 using NarupaImd.Interaction;
 using UnityEngine;
