@@ -1,0 +1,3 @@
+[submodule "Client/vr-client/Assets/Plugins/Nanover"]
+	path = Client/vr-client/Assets/Plugins/Nanover
+	url = git@github.com:IRL2/NanoverUnityPlugin.git
