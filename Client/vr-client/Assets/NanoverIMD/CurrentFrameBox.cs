@@ -1,4 +1,4 @@
-﻿using Nanover.Frame;
+using Nanover.Frame;
 using Nanover.Frame.Event;
 using Nanover.Visualisation;
 using UnityEngine;

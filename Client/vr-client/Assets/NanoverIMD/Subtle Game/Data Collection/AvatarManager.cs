@@ -10,7 +10,7 @@ namespace NanoverImd.Subtle_Game.Data_Collection
         [SerializeField] private Transform rightHandAnchor;
         [SerializeField] private Transform leftHandAnchor;
         
-        [SerializeField] private NarupaImdSimulation simulation;
+        [SerializeField] private NanoverImdSimulation simulation;
         private Transformation _leftHand;
         private Transformation _rightHand;
         private Transformation _headset;

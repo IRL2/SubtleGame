@@ -1,6 +1,3 @@
-﻿// Copyright (c) 2019 Intangible Realities Lab. All rights reserved.
-// Licensed under the GPL. See License.txt in the project root for license information.
-
 using System.Collections.Generic;
 using Nanover.Frontend.Utility;
 using UnityEngine;
@@ -10,13 +7,13 @@ namespace NanoverImd.Interaction
     /// <summary>
     /// Manage instances of InteractionWaveRenderer so that all known 
     /// interactions are rendered using Mike's pretty sine wave method from 
-    /// Narupa 1
+    /// Nanover 1
     /// </summary>
     public class InteractionWaveTestRenderer : MonoBehaviour
     {
 #pragma warning disable 0649
         [SerializeField]
-        private NarupaImdSimulation simulation;
+        private NanoverImdSimulation simulation;
         [SerializeField]
         private SineConnectorRenderer waveTemplate;
 

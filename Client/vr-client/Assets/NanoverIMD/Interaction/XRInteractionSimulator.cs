@@ -1,6 +1,3 @@
-﻿// Copyright (c) 2019 Intangible Realities Lab. All rights reserved.
-// Licensed under the GPL. See License.txt in the project root for license information.
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,7 +18,7 @@ namespace NanoverImd.Interaction
     {
 #pragma warning disable 0649
         [SerializeField]
-        private NarupaImdSimulation simulation;
+        private NanoverImdSimulation simulation;
 #pragma warning restore 0649
 
         private List<Manipulator> manipulators = new List<Manipulator>();

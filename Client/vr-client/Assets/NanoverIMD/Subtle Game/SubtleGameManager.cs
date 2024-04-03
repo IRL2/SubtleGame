@@ -20,7 +20,7 @@ namespace NanoverImd.Subtle_Game
     {
         #region Scene References
         
-            public NarupaImdSimulation simulation;
+            public NanoverImdSimulation simulation;
             public GameObject userInteraction;
             private CanvasManager _canvasManager;
 

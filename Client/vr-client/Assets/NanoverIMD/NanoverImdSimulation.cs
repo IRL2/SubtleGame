@@ -1,9 +1,6 @@
-// Copyright (c) 2019 Intangible Realities Lab. All rights reserved.
-// Licensed under the GPL. See License.txt in the project root for license information.
-
 using Essd;
-using Nanover.Frontend.Manipulation;
 using Nanover.Core.Math;
+using Nanover.Frontend.Manipulation;
 using Nanover.Grpc;
 using Nanover.Grpc.Multiplayer;
 using Nanover.Grpc.Trajectory;
@@ -18,7 +15,7 @@ using UnityEngine;
 
 namespace NanoverImd
 {
-    public class NarupaImdSimulation : MonoBehaviour
+    public class NanoverImdSimulation : MonoBehaviour
     {
         private const string TrajectoryServiceName = "trajectory";
         private const string ImdServiceName = "imd";
@@ -42,7 +39,7 @@ namespace NanoverImd
         private InteractableScene interactableScene;
 
         //[SerializeField]
-        //private NarupaImdApplication application;
+        //private NanoverImdApplication application;
 
         public TrajectorySession Trajectory { get; } = new TrajectorySession();
         public MultiplayerSession Multiplayer { get; } = new MultiplayerSession();
@@ -103,9 +100,9 @@ namespace NanoverImd
         {
             Interactions = new ParticleInteractionCollection(Multiplayer);
             
-            // ManipulableSimulationSpace = new ManipulableScenePose(simulationSpaceTransform,
-            //                                                       Multiplayer,
-            //                                                       application.CalibratedSpace);
+            //ManipulableSimulationSpace = new ManipulableScenePose(simulationSpaceTransform,
+            //                                                      Multiplayer,
+            //                                                      application.CalibratedSpace);
 
             ManipulableParticles = new ManipulableParticles(rightHandedSimulationSpace,
                                                             Interactions,
@@ -167,6 +164,9 @@ namespace NanoverImd
         /// </summary>
         public async Task CloseAsync()
         {
+            ManipulableParticles.ClearAllGrabs();
+            Multiplayer.SimulationPose.ReleaseLock();
+
             Trajectory.CloseClient();
             Multiplayer.CloseClient();
 
@@ -225,9 +225,9 @@ namespace NanoverImd
         /// </summary>
         public void ResetBox()
         {
-            // var calibPose = application.CalibratedSpace
-            //                            .TransformPoseWorldToCalibrated(Transformation.Identity);
-            // Multiplayer.SimulationPose.UpdateValueWithLock(calibPose);
+            //var calibPose = application.CalibratedSpace
+            //                           .TransformPoseWorldToCalibrated(Transformation.Identity);
+            //Multiplayer.SimulationPose.UpdateValueWithLock(calibPose);
         }
 
         /// <summary>

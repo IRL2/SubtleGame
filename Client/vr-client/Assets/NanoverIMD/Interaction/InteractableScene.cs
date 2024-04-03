@@ -26,7 +26,7 @@ namespace NanoverImd.Interaction
         private VisualisationScene visualisationScene;
 
         [SerializeField]
-        private NarupaImdSimulation simulation;
+        private NanoverImdSimulation simulation;
 
         public enum InteractionTarget
         {
@@ -154,7 +154,11 @@ namespace NanoverImd.Interaction
         private int? GetClosestParticleToWorldPosition(Vector3 worldPosition, float cutoff = Mathf.Infinity)
         {
             var position = transform.InverseTransformPoint(worldPosition);
+
             var frame = frameSource.CurrentFrame;
+
+            if (frame == null)
+                return null;
 
             var bestSqrDistance = cutoff * cutoff;
             int? bestParticleIndex = null;

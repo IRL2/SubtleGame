@@ -36,7 +36,7 @@ namespace NanoverImd.Subtle_Game.Interaction
         #region Script References
         public ActiveParticleGrab Grab { get; private set; }
         public InteractableScene InteractableScene { get; set; }
-        public NarupaImdSimulation Simulation { get; set; }
+        public NanoverImdSimulation Simulation { get; set; }
         #endregion
 
         #region Pinch
@@ -66,7 +66,7 @@ namespace NanoverImd.Subtle_Game.Interaction
         /// These parameters include transforms for the thumb and index fingers, distances to trigger pinches and marker display, and references to various other components
         /// like the interactable scene, the simulation, and blueprints for LineRenderers and AtomMarkers.
         /// </summary>
-        public PinchGrabber(Transform thumbTip, Transform indexTrigger, float pinchTriggerDistance, float markerTriggerDistance, InteractableScene interactableScene, NarupaImdSimulation simulation, LineRenderer lineRendererBlueprint, Transform atomMarkerBlueprint, AudioClip grabNewAtomSound, bool useController, bool primaryController, Transform pokePosition)
+        public PinchGrabber(Transform thumbTip, Transform indexTrigger, float pinchTriggerDistance, float markerTriggerDistance, InteractableScene interactableScene, NanoverImdSimulation simulation, LineRenderer lineRendererBlueprint, Transform atomMarkerBlueprint, AudioClip grabNewAtomSound, bool useController, bool primaryController, Transform pokePosition)
         {
             #region Controllers
             UseControllers = useController;

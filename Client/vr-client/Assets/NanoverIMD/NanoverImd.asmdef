@@ -1,5 +1,5 @@
 {
-    "name": "NarupaImd",
+    "name": "NanoverImd",
     "rootNamespace": "",
     "references": [
         "Nanover.Frontend",

@@ -1,6 +1,3 @@
-﻿// Copyright (c) 2019 Intangible Realities Lab. All rights reserved.
-// Licensed under the GPL. See License.txt in the project root for license information.
-
 using Nanover.Core.Math;
 using Nanover.Frontend.Controllers;
 using Nanover.Frontend.Input;
@@ -8,25 +5,24 @@ using Nanover.Frontend.Manipulation;
 using Nanover.Frontend.XR;
 using UnityEngine;
 using UnityEngine.Assertions;
-//using Valve.VR;
+using UnityEngine.XR;
 
 namespace NanoverImd.Interaction
 {
     /// <summary>
-    /// Translates XR input into interactions with particles in NarupaIMD.
+    /// Translates XR input into interactions with particles in NanoverIMD.
     /// </summary>
     public class XRParticleInteractionManager : MonoBehaviour
     {
 #pragma warning disable 0649
         [SerializeField]
-        private NarupaImdSimulation simulation;
-
-        //[Header("Controller Actions")]
-        //[SerializeField]
-        //private SteamVR_Action_Boolean grabObjectAction;
+        private NanoverImdSimulation simulation;
 
         [SerializeField]
         private ControllerManager controllerManager;
+
+        [SerializeField]
+        private ControllerInputMode targetMode;
 #pragma warning restore 0649
 
         private AttemptableManipulator leftManipulator;
@@ -37,17 +33,14 @@ namespace NanoverImd.Interaction
         
         private void OnEnable()
         {
-            /*
             Assert.IsNotNull(simulation);
             Assert.IsNotNull(controllerManager);
-            Assert.IsNotNull(grabObjectAction);
 
             controllerManager.LeftController.ControllerReset += SetupLeftManipulator;
             controllerManager.RightController.ControllerReset += SetupRightManipulator;
             
             SetupLeftManipulator();
             SetupRightManipulator();
-            */
         }
         
         
@@ -59,25 +52,24 @@ namespace NanoverImd.Interaction
 
         private void SetupLeftManipulator()
         {
-            // CreateManipulator(ref leftManipulator, 
-            //                   ref leftButton,
-            //                   controllerManager.LeftController,
-            //                   SteamVR_Input_Sources.LeftHand);
+            CreateManipulator(ref leftManipulator, 
+                              ref leftButton,
+                              controllerManager.LeftController,
+                              InputDeviceCharacteristics.Left);
         }
 
         private void SetupRightManipulator()
         {
-            // CreateManipulator(ref rightManipulator, 
-            //                   ref rightButton,
-            //                   controllerManager.RightController,
-            //                   SteamVR_Input_Sources.RightHand);
+            CreateManipulator(ref rightManipulator, 
+                              ref rightButton,
+                              controllerManager.RightController,
+                              InputDeviceCharacteristics.Right);
         }
         
-        /*
         private void CreateManipulator(ref AttemptableManipulator manipulator,
                                        ref IButton button,
                                        VrController controller,
-                                       SteamVR_Input_Sources source)
+                                       InputDeviceCharacteristics characteristics)
         {
             // End manipulations if controller has been removed/replaced
             if (manipulator != null)
@@ -90,15 +82,14 @@ namespace NanoverImd.Interaction
 
             if (!controller.IsControllerActive)
                 return;
-            
+
             var toolPoser = controller.CursorPose;
             manipulator = new AttemptableManipulator(toolPoser, AttemptGrabObject);
 
-            button = grabObjectAction.WrapAsButton(source);
+            button = characteristics.WrapUsageAsButton(CommonUsages.triggerButton, () => controllerManager.CurrentInputMode == targetMode);
             button.Pressed += manipulator.AttemptManipulation;
             button.Released += manipulator.EndActiveManipulation;
         }
-        */
 
         private IActiveManipulation AttemptGrabObject(UnitScaleTransformation grabberPose)
         {

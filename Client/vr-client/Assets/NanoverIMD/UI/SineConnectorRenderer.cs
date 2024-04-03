@@ -10,8 +10,10 @@ public class SineConnectorRenderer : MonoBehaviour
     [SerializeField]
     private Vector3 endPoint;
 
+#pragma warning disable 0109
     [SerializeField]
     private new LineRenderer renderer;
+#pragma warning restore 0109
 
     [SerializeField]
     private float segmentsPerMeter;

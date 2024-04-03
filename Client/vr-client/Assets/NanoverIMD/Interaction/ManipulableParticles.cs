@@ -1,6 +1,3 @@
-﻿// Copyright (c) 2019 Intangible Realities Lab. All rights reserved.
-// Licensed under the GPL. See License.txt in the project root for license information.
-
 using System.Collections.Generic;
 using System.Linq;
 using Nanover.Core.Math;
@@ -35,6 +32,14 @@ namespace Nanover.Frontend.Manipulation
             this.transform = transform;
             this.interactions = interactions;
             this.InteractableParticles = interactableParticles;
+        }
+
+        public void ClearAllGrabs()
+        {
+            foreach (var grab in activeGrabs.ToList())
+            {
+                EndParticleGrab(grab);
+            }
         }
 
         /// <summary>

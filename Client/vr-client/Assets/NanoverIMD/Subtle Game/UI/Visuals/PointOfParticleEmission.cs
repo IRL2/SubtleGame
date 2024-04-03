@@ -11,7 +11,7 @@ namespace NanoverImd.Subtle_Game.Visuals
         private SynchronisedFrameSource frameSource;
 
         [SerializeField]
-        private NarupaImdSimulation simulation;
+        private NanoverImdSimulation simulation;
 
         public void UpdatePosition()
         {
