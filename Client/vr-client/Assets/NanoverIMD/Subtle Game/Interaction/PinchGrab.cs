@@ -16,6 +16,8 @@ namespace NanoverImd.Subtle_Game.Interaction
     /// </summary>
     public class PinchGrab : MonoBehaviour
     {
+        public bool FrameReady => FrameSourceScript?.CurrentFrame?.ParticlePositions != null;
+
         #region Variables
 
         #region Controllers
@@ -255,7 +257,7 @@ namespace NanoverImd.Subtle_Game.Interaction
         /// </summary>
         private void Update()
         {
-            if (!NarupaImdSimulationScript.ServerConnected || !firstFrameReceived)
+            if (!NarupaImdSimulationScript.ServerConnected || !FrameReady)
             {
                 return;  // Exit if server is not connected
             }
