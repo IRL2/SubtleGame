@@ -294,6 +294,9 @@ namespace NanoverImd.Subtle_Game.Interaction
                 // If the grabber is pinching and stable, we want to apply a force to the atom it has grabbed. If it is not pinching, we still need to send an interaction but with ForceScale 0
                 UpdateGrab(grabber);
 
+                if (grabber.Grab == null)
+                    continue;
+
                 // Create a new particle interaction
                 ParticleInteraction interaction = new ParticleInteraction
                 {
