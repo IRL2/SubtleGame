@@ -1,6 +1,6 @@
 from datetime import datetime
 from Client.task import Task
-from narupa.app import NarupaImdClient
+from nanover.app import NanoverImdClient
 import numpy as np
 from scipy.spatial import Delaunay
 import time
@@ -11,7 +11,7 @@ class NanotubeTask(Task):
 
     task_type = task_nanotube
 
-    def __init__(self, client: NarupaImdClient, simulations: list, simulation_counter: int):
+    def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int):
 
         super().__init__(client, simulations, sim_counter=simulation_counter)
 

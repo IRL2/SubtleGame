@@ -1,4 +1,4 @@
-from narupa.app import NarupaImdClient
+from nanover.app import NanoverImdClient
 from task_nanotube import NanotubeTask
 from task_knot_tying import KnotTyingTask
 from task_sandbox import SandboxTask
@@ -55,10 +55,10 @@ class PuppeteeringClient:
         self.username = generate_username_for_player()
 
         # Connect to a local Nanover server
-        self.narupa_client = NarupaImdClient.autoconnect(name=server_name)
-        self.narupa_client.subscribe_multiplayer()
-        self.narupa_client.subscribe_to_frames()
-        self.narupa_client.update_available_commands()
+        self.nanover_client = NanoverImdClient.autoconnect(name=server_name)
+        self.nanover_client.subscribe_multiplayer()
+        self.nanover_client.subscribe_to_frames()
+        self.nanover_client.update_available_commands()
 
         # Get orders of randomised variables
         self.order_of_tasks = get_order_of_tasks(run_short_game=short_game)
@@ -66,7 +66,7 @@ class PuppeteeringClient:
         self.current_modality = self.order_of_interaction_modality[0]
 
         # Declare variables
-        self.simulations = self.narupa_client.run_command('playback/list')
+        self.simulations = self.nanover_client.run_command('playback/list')
         self.sandbox_sim = None
         self.nanotube_sim = None
         self.alanine_sim = None
@@ -86,7 +86,7 @@ class PuppeteeringClient:
         # Loop through the tasks
         for task in self.order_of_tasks:
 
-            simulation_counter = self.narupa_client._current_frame.values["system.simulation.counter"]
+            simulation_counter = self.nanover_client._current_frame.values["system.simulation.counter"]
 
             if task == task_nanotube:
 
@@ -94,18 +94,18 @@ class PuppeteeringClient:
                 if not self.first_practice_sim:
                     # If yes, increment interaction modality
                     self.current_modality = self.order_of_interaction_modality[1]
-                    write_to_shared_state(client=self.narupa_client, key=key_modality, value=self.current_modality)
+                    write_to_shared_state(client=self.nanover_client, key=key_modality, value=self.current_modality)
 
-                current_task = NanotubeTask(client=self.narupa_client, simulations=self.nanotube_sim,
+                current_task = NanotubeTask(client=self.nanover_client, simulations=self.nanotube_sim,
                                             simulation_counter=simulation_counter)
                 self.first_practice_sim = False
 
             elif task == task_knot_tying:
-                current_task = KnotTyingTask(client=self.narupa_client, simulations=self.alanine_sim,
+                current_task = KnotTyingTask(client=self.nanover_client, simulations=self.alanine_sim,
                                              simulation_counter=simulation_counter)
 
             elif task == task_trials:
-                current_task = TrialsTask(client=self.narupa_client, simulations=self.trials_sims,
+                current_task = TrialsTask(client=self.nanover_client, simulations=self.trials_sims,
                                           simulation_counter=simulation_counter,
                                           number_of_repeats=self.num_of_trial_repeats)
 
@@ -131,10 +131,10 @@ class PuppeteeringClient:
         self.trials_sims = self.get_name_and_server_index_of_simulations_for_task(sim_name_trials)
 
         # update the shared state
-        write_to_shared_state(client=self.narupa_client, key=key_username, value=self.username)
-        write_to_shared_state(client=self.narupa_client, key=key_game_status, value=waiting)
-        write_to_shared_state(client=self.narupa_client, key=key_modality, value=self.current_modality)
-        write_to_shared_state(client=self.narupa_client, key=key_order_of_tasks, value=self.order_of_tasks)
+        write_to_shared_state(client=self.nanover_client, key=key_username, value=self.username)
+        write_to_shared_state(client=self.nanover_client, key=key_game_status, value=waiting)
+        write_to_shared_state(client=self.nanover_client, key=key_modality, value=self.current_modality)
+        write_to_shared_state(client=self.nanover_client, key=key_order_of_tasks, value=self.order_of_tasks)
 
         # Print game setup to the terminal
         print('\nGame initialised:')
@@ -147,10 +147,10 @@ class PuppeteeringClient:
         # Wait for player to choose between sandbox and main game
         while True:
             try:
-                value = self.narupa_client.latest_multiplayer_values[key_player_task_type]
+                value = self.nanover_client.latest_multiplayer_values[key_player_task_type]
                 if value == player_sandbox:
-                    simulation_counter = self.narupa_client._current_frame.values["system.simulation.counter"]
-                    current_task = SandboxTask(client=self.narupa_client, simulations=self.sandbox_sim,
+                    simulation_counter = self.nanover_client._current_frame.values["system.simulation.counter"]
+                    current_task = SandboxTask(client=self.nanover_client, simulations=self.sandbox_sim,
                                                simulation_counter=simulation_counter)
                     current_task.run_task()
                     continue
@@ -179,12 +179,12 @@ class PuppeteeringClient:
         """ Waits for the player to be connected."""
         print("Waiting for player to connect...")
         self._wait_for_key_values(key_player_connected, true)
-        write_to_shared_state(client=self.narupa_client, key=key_game_status, value=in_progress)
+        write_to_shared_state(client=self.nanover_client, key=key_game_status, value=in_progress)
 
     def _wait_for_key_values(self, key, *values):
         while True:
             try:
-                value = self.narupa_client.latest_multiplayer_values[key]
+                value = self.nanover_client.latest_multiplayer_values[key]
                 if value in values:
                     break
 
@@ -196,9 +196,9 @@ class PuppeteeringClient:
 
     def _finish_game(self):
         """ Update the shared state and close the client at the end of the game. """
-        print("Closing the narupa client and ending game.")
-        write_to_shared_state(client=self.narupa_client, key=key_game_status, value=finished)
-        self.narupa_client.close()
+        print("Closing the nanover client and ending game.")
+        write_to_shared_state(client=self.nanover_client, key=key_game_status, value=finished)
+        self.nanover_client.close()
         print('Game finished')
 
 

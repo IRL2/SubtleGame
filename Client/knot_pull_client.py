@@ -1,5 +1,5 @@
 import json
-from narupa.app import NarupaImdClient
+from nanover.app import NanoverImdClient
 from numpy import array as np_array
 from knot_pull.config import NUMBER_PRECISION_FUNCTION
 from knot_pull.kpclasses import Bead
@@ -44,7 +44,7 @@ class KnotPullClient:
     def check_if_chain_is_knotted(self, atom_positions, first_check=False):
         """ Uses knot_pull to check if chain is currently knotted. """
 
-        # Update atom positions to those in the current narupa frame.
+        # Update atom positions to those in the current nanover frame.
         self.atom_positions = atom_positions
 
         # Update positions of alpha carbons.

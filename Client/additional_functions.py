@@ -1,11 +1,11 @@
-from narupa.app import NarupaImdClient
+from nanover.app import NanoverImdClient
 from standardised_values import *
 import random
 
 puppeteer_namespace = 'puppeteer.'
 
 
-def write_to_shared_state(client: NarupaImdClient, key: str, value):
+def write_to_shared_state(client: NanoverImdClient, key: str, value):
     """ Writes a valid key-value pair to the shared state with the puppeteer client namespace. """
 
     check_that_key_val_pair_is_valid(key=key, val=value)
@@ -14,7 +14,7 @@ def write_to_shared_state(client: NarupaImdClient, key: str, value):
     client.set_shared_value(formatted_key, value)
 
 
-def remove_puppeteer_key_from_shared_state(client: NarupaImdClient, key: str):
+def remove_puppeteer_key_from_shared_state(client: NanoverImdClient, key: str):
     """ Remove a key from the shared state with the puppeteer client namespace. """
     formatted_key = puppeteer_namespace + key
     client.remove_shared_value(formatted_key)
