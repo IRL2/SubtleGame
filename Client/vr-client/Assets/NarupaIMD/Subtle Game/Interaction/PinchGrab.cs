@@ -19,7 +19,7 @@ namespace NarupaIMD.Subtle_Game.Interaction
         #region Variables
 
         #region Controllers
-        [NonSerialized] public bool UseControllers = false;
+        public bool UseControllers = false;
         public List<Transform> PokePositions;
         #endregion
 
@@ -100,9 +100,9 @@ namespace NarupaIMD.Subtle_Game.Interaction
         // A list of grabbers that handle the pinching functionality, one for each index-thumb pair in IndexAndThumbTransforms.
         private List<PinchGrabber> pinchGrabbers;
         [Tooltip("Specifies the type of interaction (e.g., 'spring', 'gaussian') that will be sent to Narupa when a grab occurs.")]
-        [NonSerialized] public string InteractionType = "gaussian";
+        public string InteractionType = "spring";
         [Tooltip("Defines the magnitude of the interaction force sent to Narupa during a grab.")]
-        [NonSerialized] public float InteractionForceScale = 200f;
+        public float InteractionForceScale = 175f;
         [Tooltip("Time interval for updating the closest atom to a grabber when not pinching. Note: This operation can be computationally expensive.")]
         [Range(.0139f, .1f)]
         public float FetchClosestAtomUpdateInterval = .1f;

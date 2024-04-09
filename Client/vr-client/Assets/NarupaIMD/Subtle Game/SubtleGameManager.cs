@@ -157,8 +157,8 @@ namespace NarupaIMD.Subtle_Game
                         case TaskTypeVal.Sphere:
                         case TaskTypeVal.GameFinished:
                         default:
-                            _pinchGrab.InteractionType = "gaussian";
-                            _pinchGrab.InteractionForceScale = 200f;
+                            _pinchGrab.InteractionType = "spring";
+                            _pinchGrab.InteractionForceScale = 175f;
                             break;
                     }
                     Debug.Log($"Setting user interaction type: {_pinchGrab.InteractionType}");
@@ -247,13 +247,14 @@ namespace NarupaIMD.Subtle_Game
             if (_timer == null){
                 Debug.LogError("TrialsTimer object not found!");
             }
+            PrepareGame();
 
-
+            /*
             // Request Canvas Manager to setup the game
             _canvasManager.StartGame();
             
             // Subscribe to updates in the shared state dictionary
-            simulation.Multiplayer.SharedStateDictionaryKeyUpdated += OnSharedStateKeyUpdated;
+            simulation.Multiplayer.SharedStateDictionaryKeyUpdated += OnSharedStateKeyUpdated;*/
         }
         
         /// <summary>
@@ -274,6 +275,7 @@ namespace NarupaIMD.Subtle_Game
             // Let the Puppeteer Manager know that the player has connected
             PlayerStatus = true;
             
+            /*
             // Hide the simulation
             ShowSimulation = false;
             
@@ -281,7 +283,7 @@ namespace NarupaIMD.Subtle_Game
             EnableInteractions = false;
             
             // Log type of VR headset
-            HmdType = OVRPlugin.GetSystemHeadsetType().ToString();
+            HmdType = OVRPlugin.GetSystemHeadsetType().ToString();*/
         }
         
         /// <summary>
