@@ -63,7 +63,7 @@ class Task:
         while True:
 
             try:
-                current_val = self.client._current_frame.values["system.simulation.counter"]
+                current_val = self.client.current_frame.values["system.simulation.counter"]
                 if current_val == self.simulation_counter + 1:
                     print(f"Sim counter = {self.simulation_counter} and current val = {current_val}")
                     break

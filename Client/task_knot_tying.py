@@ -21,8 +21,8 @@ class KnotTyingTask(Task):
 
         super()._run_task_logic()
 
-        self.particle_names = self.client._current_frame.particle_names
-        self.residue_ids = self.client._current_frame.residue_ids
+        self.particle_names = self.client.current_frame.particle_names
+        self.residue_ids = self.client.current_frame.residue_ids
 
         self.timestamp_start = datetime.now()
 

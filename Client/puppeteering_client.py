@@ -86,7 +86,7 @@ class PuppeteeringClient:
         # Loop through the tasks
         for task in self.order_of_tasks:
 
-            simulation_counter = self.nanover_client._current_frame.values["system.simulation.counter"]
+            simulation_counter = self.nanover_client.current_frame.values["system.simulation.counter"]
 
             if task == task_nanotube:
 
@@ -149,7 +149,7 @@ class PuppeteeringClient:
             try:
                 value = self.nanover_client.latest_multiplayer_values[key_player_task_type]
                 if value == player_sandbox:
-                    simulation_counter = self.nanover_client._current_frame.values["system.simulation.counter"]
+                    simulation_counter = self.nanover_client.current_frame.values["system.simulation.counter"]
                     current_task = SandboxTask(client=self.nanover_client, simulations=self.sandbox_sim,
                                                simulation_counter=simulation_counter)
                     current_task.run_task()
