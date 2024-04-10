@@ -46,7 +46,6 @@ namespace NanoverImd.Subtle_Game.Visuals
         /// </summary>
         public SubtleGameManager subtleGameManager;
         
-
         private void OnEnable()
         {
             frameSource.FrameChanged += OnFrameChanged;
@@ -80,11 +79,24 @@ namespace NanoverImd.Subtle_Game.Visuals
 
         private float prevXMagnitude;
         private float nextXMagnitude;
+        private SubtleGameManager.TaskTypeVal _previousTask = SubtleGameManager.TaskTypeVal.None;
+        private SubtleGameManager.TaskTypeVal _currentTask;
 
         private void CheckBoxChange()
         {
+            // Has the simulation box size changed?
             if (Mathf.Abs(nextXMagnitude - prevXMagnitude) > 0.1f)
-                UpdateSimulationBox();
+                
+                _currentTask = subtleGameManager.CurrentTaskType;
+            
+                // Center the simulation box if the player has switched tasks
+                if (_previousTask != subtleGameManager.CurrentTaskType)
+                {
+                    UpdateSimulationBox();
+                    _previousTask = _currentTask;
+                }
+                    
+                
 
             prevXMagnitude = nextXMagnitude;
         }
@@ -95,6 +107,7 @@ namespace NanoverImd.Subtle_Game.Visuals
         /// </summary>
         private void UpdateSimulationBox()
         {
+            Debug.LogWarning("Updating position of simulation box");
             // Move simulation box
             SetSimulationScale();
             PutSimulationInFrontOfPlayer();
