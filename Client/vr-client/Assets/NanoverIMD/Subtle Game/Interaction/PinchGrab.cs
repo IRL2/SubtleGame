@@ -329,10 +329,18 @@ namespace NanoverImd.Subtle_Game.Interaction
                 if (grabber == null) {return;}
             
                 // Disable interaction atom marker
-                grabber.AtomMarkerInstance.GetComponent<MeshRenderer>().enabled = false;
-            
+                var atomMarker = grabber.AtomMarkerInstance;
+                if (atomMarker != null)
+                {
+                    atomMarker.GetComponent<MeshRenderer>().enabled = false;
+                }
+                
                 // Disable interaction line renderer
-                grabber.LineRenderer.enabled = false;
+                var interactionLine = grabber.LineRenderer;
+                if (interactionLine != null)
+                {
+                    interactionLine.enabled = false;
+                }
             }
             
             // Wipe interactions
