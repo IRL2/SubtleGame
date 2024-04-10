@@ -2,12 +2,13 @@ using Nanover.Core.Math;
 using Nanover.Frame;
 using Nanover.Frame.Event;
 using Nanover.Visualisation;
-using NanoverImd;
+using NanoverImd.Subtle_Game;
 using NanoverImd.Subtle_Game.UI.Simulation;
+using NanoverImd.Subtle_Game.Visuals;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace NanoverImd.Subtle_Game.Visuals
+namespace NanoverIMD.Subtle_Game.UI.Visuals
 {
     public class CenteringSimulationInFrontOfPlayer : MonoBehaviour
     {
@@ -46,7 +47,6 @@ namespace NanoverImd.Subtle_Game.Visuals
         /// </summary>
         public SubtleGameManager subtleGameManager;
         
-
         private void OnEnable()
         {
             frameSource.FrameChanged += OnFrameChanged;
@@ -64,11 +64,11 @@ namespace NanoverImd.Subtle_Game.Visuals
                 var box = (frame as Frame)?.BoxVectors;
                 if (box == null)
                 {
-                    nextXMagnitude = 0;
+                    _nextXMagnitude = 0;
                 }
                 else
                 {
-                    nextXMagnitude = box.Value.axesMagnitudes.x;
+                    _nextXMagnitude = box.Value.axesMagnitudes.x;
                 }
             }
         }
@@ -78,15 +78,28 @@ namespace NanoverImd.Subtle_Game.Visuals
             CheckBoxChange();
         }
 
-        private float prevXMagnitude;
-        private float nextXMagnitude;
+        private float _previousXMagnitude;
+        private float _nextXMagnitude;
+        private SubtleGameManager.TaskTypeVal _previousTask = SubtleGameManager.TaskTypeVal.None;
+        private SubtleGameManager.TaskTypeVal _currentTask;
 
         private void CheckBoxChange()
         {
-            if (Mathf.Abs(nextXMagnitude - prevXMagnitude) > 0.1f)
-                UpdateSimulationBox();
+            // Has the simulation box size changed?
+            if (Mathf.Abs(_nextXMagnitude - _previousXMagnitude) > 0.1f)
+                
+                _currentTask = subtleGameManager.CurrentTaskType;
+            
+                // Center the simulation box if the player has switched tasks
+                if (_previousTask != subtleGameManager.CurrentTaskType)
+                {
+                    UpdateSimulationBox();
+                    _previousTask = _currentTask;
+                }
+                    
+                
 
-            prevXMagnitude = nextXMagnitude;
+            _previousXMagnitude = _nextXMagnitude;
         }
 
         /// <summary>
@@ -136,20 +149,20 @@ namespace NanoverImd.Subtle_Game.Visuals
         private void PutSimulationInFrontOfPlayer()
         {
             // Set default values: centering the player on the xy plane of the simulation box facing the +z direction
-            float xComponent = -nextXMagnitude * 0.5f;
-            float yComponent = -nextXMagnitude * 0.5f;
+            float xComponent = -_nextXMagnitude * 0.5f;
+            float yComponent = -_nextXMagnitude * 0.5f;
             float zComponent = 0f;
 
             // Alter values for knot-tying and trials tasks
             switch (subtleGameManager.CurrentTaskType)
             {
                 case SubtleGameManager.TaskTypeVal.KnotTying:
-                    yComponent = -nextXMagnitude * 0.6f;
-                    zComponent = -nextXMagnitude * 0.25f;
+                    yComponent = -_nextXMagnitude * 0.6f;
+                    zComponent = -_nextXMagnitude * 0.25f;
                     break;
                 case SubtleGameManager.TaskTypeVal.Trials:
-                    yComponent = -nextXMagnitude * 0.7f;
-                    zComponent = -nextXMagnitude * 0.15f;
+                    yComponent = -_nextXMagnitude * 0.7f;
+                    zComponent = -_nextXMagnitude * 0.15f;
                     break;
             }
 
