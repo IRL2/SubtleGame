@@ -1,11 +1,8 @@
-import json
-from nanover.app import NanoverImdClient
 from numpy import array as np_array
 from knot_pull.config import NUMBER_PRECISION_FUNCTION
 from knot_pull.kpclasses import Bead
 from knot_pull.bipuller import pull as bipull
 from knot_pull.unentangler import unentangle
-import time
 
 
 class KnotPullClient:
