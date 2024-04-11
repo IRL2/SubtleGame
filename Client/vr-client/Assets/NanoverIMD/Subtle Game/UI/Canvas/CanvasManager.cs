@@ -25,6 +25,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
     /// </summary>
     public class CanvasManager : MonoBehaviour
     {
+        public List<GameObject> switchingInteractionModeMenus;
+
         private SubtleGameManager _subtleGameManager;
         private List<CanvasController> _canvasControllerList;
 
@@ -163,9 +165,11 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             // Hide current canvas
             HideCanvas();
             
+            // Check here if the interaction mode has switched and, if it has, add it to the front of the list of menus
+            
             // Find next canvas
             CanvasController nextCanvas = _canvasControllerList.Find(x => x.canvasType == _currentCanvasType);
-            
+
             if (nextCanvas != null)
             {
                 // Enable next canvas
