@@ -13442,6 +13442,7 @@ GameObject:
   - component: {fileID: 1149148772}
   - component: {fileID: 1149148774}
   - component: {fileID: 1149148773}
+  - component: {fileID: 1149148775}
   m_Layer: 0
   m_Name: Menu 1
   m_TagString: Untagged
@@ -13502,6 +13503,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   passthroughLayer: {fileID: 7660847348239094321}
+--- !u!114 &1149148775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1149148771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58cd64cebc9c41c09a19019379b82f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orderText: {fileID: 2122675498}
+  modalityText: {fileID: 1781242168}
+  nextButton: {fileID: 1393927259}
 --- !u!1 &1152867537
 GameObject:
   m_ObjectHideFlags: 0
@@ -26341,7 +26357,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1781242167}
   - component: {fileID: 1781242170}
-  - component: {fileID: 1781242169}
   - component: {fileID: 1781242168}
   m_Layer: 0
   m_Name: Modality
@@ -26458,19 +26473,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1781242169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1781242166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdefb4918b5d49c4c8796c000c874eb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bodyText: {fileID: 1781242168}
 --- !u!222 &1781242170
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -31301,7 +31303,6 @@ GameObject:
   - component: {fileID: 2122675496}
   - component: {fileID: 2122675499}
   - component: {fileID: 2122675498}
-  - component: {fileID: 2122675497}
   m_Layer: 0
   m_Name: Order
   m_TagString: Untagged
@@ -31328,20 +31329,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -226}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2122675497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122675495}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58cd64cebc9c41c09a19019379b82f99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bodyText: {fileID: 2122675498}
-  nextButton: {fileID: 1393927259}
 --- !u!114 &2122675498
 MonoBehaviour:
   m_ObjectHideFlags: 0
