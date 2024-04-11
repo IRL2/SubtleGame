@@ -79,7 +79,7 @@ namespace NanoverImd.Subtle_Game.Interaction
         private Transform InteractableSceneTransform; // Transformation data from InteractableScene script.
         [Tooltip("Reference to the SynchronisedFrameSource script, which supplies the real-time positions of atoms during interactions.")]
         private SynchronisedFrameSource FrameSourceScript;
-        [FormerlySerializedAs("NarupaImdSimulationScript")] [Tooltip("Reference to the NanoverImdSimulation script, responsible for sending and updating interaction data to the Nanover simulation.")]
+        [Tooltip("Reference to the NanoverImdSimulation script, responsible for sending and updating interaction data to the Nanover simulation.")]
         public NanoverImdSimulation nanoverSimulation;
         #endregion
 
