@@ -152,6 +152,11 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         /// </summary>
         private void SwitchToCanvasForNextTask()
         {
+            // Remove added menus from current canvas, ready to be used again
+            if (LastActiveCanvas != null)
+            {
+                LastActiveCanvas.WipeCanvas();
+            }
             // Hide current canvas
             HideCanvas();
 

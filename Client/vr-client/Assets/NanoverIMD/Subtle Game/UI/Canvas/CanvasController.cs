@@ -13,6 +13,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         public List<GameObject> orderedListOfMenus;
         
         private List<GameObject> _addedMenus;
+
+        private Transform _backgroundTransform;
         
         /// <summary>
         /// Add menus to the canvas and put at the front of the list of menus.
@@ -23,14 +25,14 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             // Save as list
             _addedMenus = menusToAdd;
             
-            var backgroundTransform = transform.Find("Background");
-            if (backgroundTransform != null)
+            _backgroundTransform = transform.Find("Background");
+            if (_backgroundTransform != null)
             {
                 // Add interaction modality menus as children of the "Background" object
                 foreach (var obj in _addedMenus)
                 {
                     // Add game object in hierarchy
-                    obj.transform.SetParent(backgroundTransform);
+                    obj.transform.SetParent(_backgroundTransform);
                     
                     // Reset local position, anchored position, and rotation to zero
                     RectTransform rectTransform = obj.GetComponent<RectTransform>();
@@ -58,18 +60,24 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         /// <summary>
         /// Remove menus for switching interaction mode if these were added.
         /// </summary>
-        private void OnDisable()
+        public void WipeCanvas()
         {
-            Debug.LogWarning("Removing menus");
             // Return if no menus were added
             if (_addedMenus == null) return;
+            Debug.LogWarning("Removing menus");
+            // Remove menus from list
+            Debug.LogWarning($"Number of items in list = {orderedListOfMenus.Count}");
+            var countToRemove = _addedMenus.Count;
             
+            Debug.LogWarning($"Number of items to remove = {countToRemove}");
+            orderedListOfMenus.RemoveRange(0, countToRemove);
+
             // Remove menus from the canvas
             foreach (var obj in _addedMenus)
             {
                 obj.transform.SetParent(null);
             }
-            
+
             // Wipe variable
             _addedMenus = null;
         }
