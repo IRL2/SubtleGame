@@ -123,16 +123,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 LastActiveCanvas.gameObject.SetActive(false);
             }
         }
-        
-        /// <summary>
-        /// Modifies the current canvas by enabling the game objects specified by the Canvas Modifier.
-        /// </summary>
-        public void RequestModifyCanvas(CanvasModifier canvasModifier)
-        {
-            if (canvasModifier == null) return;
-            canvasModifier.ModifyCanvas();
-        }
-        
+
         /// <summary>
         /// Get next canvas from the current task type. Called when the player clicks a button to start the next task.
         /// </summary>
