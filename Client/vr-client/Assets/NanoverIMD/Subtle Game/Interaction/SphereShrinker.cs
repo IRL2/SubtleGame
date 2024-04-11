@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using NanoverImd.Subtle_Game.Canvas;
 using NanoverImd.Subtle_Game.UI;
 using NanoverImd.Subtle_Game.UI.Canvas;
+using NanoverIMD.Subtle_Game.UI.Canvas;
 using UnityEngine;
 
 namespace NanoverImd.Subtle_Game.Visuals

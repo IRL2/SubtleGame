@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using NanoverImd.Subtle_Game;
+using NanoverImd.Subtle_Game.Canvas;
 using UnityEngine;
 
-namespace NanoverImd.Subtle_Game.Canvas
+namespace NanoverIMD.Subtle_Game.UI.Canvas
 {
     // Name of possible task canvases
     public enum CanvasType

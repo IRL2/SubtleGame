@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using NanoverIMD.Subtle_Game.UI.Canvas;
 using UnityEngine;
 
 namespace NanoverImd.Subtle_Game.Canvas
