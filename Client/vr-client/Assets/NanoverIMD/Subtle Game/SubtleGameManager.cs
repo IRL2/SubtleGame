@@ -183,6 +183,7 @@ namespace NanoverImd.Subtle_Game
         #region Interaction modality
             public bool isIntroToSection;
             public Modality CurrentInteractionModality { get; private set; }
+            public bool interactionModalityHasChanged;
         #endregion
         
         #region Player Status
@@ -300,10 +301,6 @@ namespace NanoverImd.Subtle_Game
                 // Append each task to internal list
                 switch (task)
                 {
-                    case "sphere":
-                        _orderOfTasks.Add(TaskTypeVal.Sphere);
-                        break;
-                    
                     case "nanotube":
                         _orderOfTasks.Add(TaskTypeVal.Nanotube);
                         break;
@@ -470,6 +467,9 @@ namespace NanoverImd.Subtle_Game
             switch (key)
             {
                 case "puppeteer.modality":
+
+                    var previousInteractionModality = CurrentInteractionModality;
+                    
                     CurrentInteractionModality = val.ToString() switch
                     {
                         "hands" => Modality.Hands,
@@ -477,6 +477,12 @@ namespace NanoverImd.Subtle_Game
                         _ => Modality.None
                     };
                     isIntroToSection = true;
+
+                    if (previousInteractionModality != CurrentInteractionModality)
+                    {
+                        interactionModalityHasChanged = true;
+                    }
+                    
                     break;
 
                 case "puppeteer.order-of-tasks":
