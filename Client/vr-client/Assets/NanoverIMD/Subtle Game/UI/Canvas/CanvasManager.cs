@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using NanoverImd.Subtle_Game;
-using NanoverImd.Subtle_Game.Canvas;
 using UnityEngine;
 
 namespace NanoverIMD.Subtle_Game.UI.Canvas
@@ -155,9 +154,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         {
             // Hide current canvas
             HideCanvas();
-            
-            // Check here if the interaction mode has switched and, if it has, add it to the front of the list of menus
-            
+
             // Find next canvas
             CanvasController nextCanvas = _canvasControllerList.Find(x => x.canvasType == _currentCanvasType);
 
@@ -175,8 +172,24 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 return;
             }
             
+            // Check if player is starting a main task
+            if (_subtleGameManager.CurrentTaskType is SubtleGameManager.TaskTypeVal.Nanotube
+                or SubtleGameManager.TaskTypeVal.KnotTying or SubtleGameManager.TaskTypeVal.Trials)
+            {
+                // Check if the interaction mode has switched
+                if (_subtleGameManager.interactionModalityHasChanged)
+                {
+                    Debug.LogWarning("Requesting adding of menus");
+                    // Add interaction modality menus to current canvas
+                    LastActiveCanvas.AddMenus(switchingInteractionModeMenus);
+
+                    // Interaction modality is now set
+                    _subtleGameManager.interactionModalityHasChanged = false;
+                }
+            }
+
             // Start with the first menu
-            foreach (GameObject obj in LastActiveCanvas.orderedListOfMenus)
+            foreach (var obj in LastActiveCanvas.orderedListOfMenus)
             {
                 obj.SetActive(false);
             }
