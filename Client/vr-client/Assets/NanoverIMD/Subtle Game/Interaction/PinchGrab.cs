@@ -123,7 +123,6 @@ namespace NanoverImd.Subtle_Game.Interaction
         /// <summary>
         /// Flags to monitor the status of the server connection and the receipt of the first frame.
         /// </summary>
-        private bool serverConnected = false; // Flag indicating if the server is connected.
         private bool firstFrameReceived = false; // Flag indicating if the first frame of data has been received.
         private SubtleGameManager _subtleGameManager;
         #endregion
