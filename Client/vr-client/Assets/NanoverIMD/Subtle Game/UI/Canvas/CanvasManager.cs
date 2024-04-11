@@ -2,16 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using NanoverImd.Subtle_Game;
 using UnityEngine;
 
-namespace NanoverImd.Subtle_Game.Canvas
+namespace NanoverIMD.Subtle_Game.UI.Canvas
 {
     // Name of possible task canvases
     public enum CanvasType
     {
         None,
         Intro,
-        Sphere,
         Nanotube,
         Outro,
         KnotTying,
@@ -24,6 +24,8 @@ namespace NanoverImd.Subtle_Game.Canvas
     /// </summary>
     public class CanvasManager : MonoBehaviour
     {
+        public List<GameObject> switchingInteractionModeMenus;
+
         private SubtleGameManager _subtleGameManager;
         private List<CanvasController> _canvasControllerList;
 
@@ -120,16 +122,7 @@ namespace NanoverImd.Subtle_Game.Canvas
                 LastActiveCanvas.gameObject.SetActive(false);
             }
         }
-        
-        /// <summary>
-        /// Modifies the current canvas by enabling the game objects specified by the Canvas Modifier.
-        /// </summary>
-        public void RequestModifyCanvas(CanvasModifier canvasModifier)
-        {
-            if (canvasModifier == null) return;
-            canvasModifier.ModifyCanvas();
-        }
-        
+
         /// <summary>
         /// Get next canvas from the current task type. Called when the player clicks a button to start the next task.
         /// </summary>
@@ -145,7 +138,6 @@ namespace NanoverImd.Subtle_Game.Canvas
             
             CurrentCanvasType = _subtleGameManager.CurrentTaskType switch
             {
-                SubtleGameManager.TaskTypeVal.Sphere => CanvasType.Sphere,
                 SubtleGameManager.TaskTypeVal.Nanotube => CanvasType.Nanotube,
                 SubtleGameManager.TaskTypeVal.GameFinished => CanvasType.Outro,
                 SubtleGameManager.TaskTypeVal.KnotTying => CanvasType.KnotTying,
@@ -160,12 +152,17 @@ namespace NanoverImd.Subtle_Game.Canvas
         /// </summary>
         private void SwitchToCanvasForNextTask()
         {
+            // Remove added menus from current canvas, ready to be used again
+            if (LastActiveCanvas != null)
+            {
+                LastActiveCanvas.WipeCanvas();
+            }
             // Hide current canvas
             HideCanvas();
-            
+
             // Find next canvas
             CanvasController nextCanvas = _canvasControllerList.Find(x => x.canvasType == _currentCanvasType);
-            
+
             if (nextCanvas != null)
             {
                 // Enable next canvas
@@ -180,8 +177,23 @@ namespace NanoverImd.Subtle_Game.Canvas
                 return;
             }
             
+            // Check if player is starting a main task
+            if (_subtleGameManager.CurrentTaskType is SubtleGameManager.TaskTypeVal.Nanotube
+                or SubtleGameManager.TaskTypeVal.KnotTying or SubtleGameManager.TaskTypeVal.Trials)
+            {
+                // Check if the interaction mode has switched
+                if (_subtleGameManager.interactionModalityHasChanged)
+                {
+                    // Add interaction modality menus to current canvas
+                    LastActiveCanvas.AddMenus(switchingInteractionModeMenus);
+
+                    // Interaction modality is now set
+                    _subtleGameManager.interactionModalityHasChanged = false;
+                }
+            }
+
             // Start with the first menu
-            foreach (GameObject obj in LastActiveCanvas.orderedListOfMenus)
+            foreach (var obj in LastActiveCanvas.orderedListOfMenus)
             {
                 obj.SetActive(false);
             }

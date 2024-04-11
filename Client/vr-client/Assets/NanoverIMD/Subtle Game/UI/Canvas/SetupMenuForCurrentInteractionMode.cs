@@ -1,13 +1,17 @@
-﻿using TMPro;
+﻿using System;
+using NanoverImd.Subtle_Game;
+using TMPro;
 using UnityEngine;
 
-namespace NanoverImd.Subtle_Game.Canvas
+namespace NanoverIMD.Subtle_Game.UI.Canvas
 {
     public class SetupMenuForCurrentInteractionMode : MonoBehaviour
     {
-        public TMP_Text bodyText;
+        public TMP_Text orderText;
+        public TMP_Text modalityText;
         private SubtleGameManager _subtleGameManager;
-        private string _text;
+        private string _menuBodyText;
+        private string _modality;
 
         [SerializeField] private GameObject nextButton;
 
@@ -16,6 +20,7 @@ namespace NanoverImd.Subtle_Game.Canvas
         private void OnEnable()
         {
             _subtleGameManager = FindObjectOfType<SubtleGameManager>();
+            SetModalityText();
             SetBodyText();
             _subtleGameManager.isIntroToSection = false;
         }
@@ -61,7 +66,7 @@ namespace NanoverImd.Subtle_Game.Canvas
         /// </summary>
         private void SetBodyText()
         {
-            _text = _subtleGameManager.CurrentInteractionModality switch
+            _menuBodyText = _subtleGameManager.CurrentInteractionModality switch
             {
                 SubtleGameManager.Modality.Controllers when _handsAreTracked =>
                     "Pick up both controllers to continue",
@@ -70,7 +75,24 @@ namespace NanoverImd.Subtle_Game.Canvas
                 _ => "You are ready to press the button!"
             };
 
-            bodyText.SetText(_text);
+            orderText.SetText(_menuBodyText);
+        }
+        
+        /// <summary>
+        /// Sets the body text of the current menu telling the player which interaction modality they will be using for
+        /// the next section.
+        /// </summary>
+        private void SetModalityText()
+        {
+            _modality = _subtleGameManager.CurrentInteractionModality switch
+            {
+                SubtleGameManager.Modality.Controllers => "controllers",
+                SubtleGameManager.Modality.Hands => "your hands",
+                SubtleGameManager.Modality.None => "hands or controllers",
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            modalityText.SetText(_modality);
         }
     }
 }
