@@ -158,7 +158,7 @@ namespace NanoverImd.Subtle_Game.Interaction
         /// </summary>
         private IEnumerator CheckServerConnection()
         {
-            // Doesn't work for Connect, only for AutoConnect.
+            // TODO: Doesn't work for Connect, only for AutoConnect.
             /*// Subscribe to the ConnectionEstablished event
             NarupaImdSimulationScript.ConnectionEstablished += OnServerConnected;*/
             
@@ -169,16 +169,6 @@ namespace NanoverImd.Subtle_Game.Interaction
             
             // After the server is connected, start checking for the first frame
             StartCoroutine(CheckFirstFrameReceived());
-        }
-
-        /// <summary>
-        /// This method serves as the callback function for the `ConnectionEstablished` event from the NarupaImdSimulation script.
-        /// It sets the `serverConnected` flag to true, indicating that a server connection has been successfully established.
-        /// </summary>
-        private void OnServerConnected()
-        {
-            // This method will be called when the server connection is established
-            serverConnected = true;
         }
 
         /// <summary>
