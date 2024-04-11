@@ -184,7 +184,6 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 // Check if the interaction mode has switched
                 if (_subtleGameManager.interactionModalityHasChanged)
                 {
-                    Debug.LogWarning("Requesting adding of menus");
                     // Add interaction modality menus to current canvas
                     LastActiveCanvas.AddMenus(switchingInteractionModeMenus);
 

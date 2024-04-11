@@ -21,7 +21,6 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         /// </summary>
         public void AddMenus(List<GameObject> menusToAdd)
         {
-            Debug.LogWarning("Adding menus");
             // Save as list
             _addedMenus = menusToAdd;
             
@@ -64,12 +63,10 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         {
             // Return if no menus were added
             if (_addedMenus == null) return;
-            Debug.LogWarning("Removing menus");
+            
             // Remove menus from list
-            Debug.LogWarning($"Number of items in list = {orderedListOfMenus.Count}");
             var countToRemove = _addedMenus.Count;
             
-            Debug.LogWarning($"Number of items to remove = {countToRemove}");
             orderedListOfMenus.RemoveRange(0, countToRemove);
 
             // Remove menus from the canvas
