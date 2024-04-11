@@ -13,7 +13,6 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
     {
         None,
         Intro,
-        Sphere,
         Nanotube,
         Outro,
         KnotTying,
@@ -147,7 +146,6 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             
             CurrentCanvasType = _subtleGameManager.CurrentTaskType switch
             {
-                SubtleGameManager.TaskTypeVal.Sphere => CanvasType.Sphere,
                 SubtleGameManager.TaskTypeVal.Nanotube => CanvasType.Nanotube,
                 SubtleGameManager.TaskTypeVal.GameFinished => CanvasType.Outro,
                 SubtleGameManager.TaskTypeVal.KnotTying => CanvasType.KnotTying,
