@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Nanover.Visualisation;
 using NanoverImd.Interaction;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NanoverImd.Subtle_Game.Interaction
 {
@@ -78,8 +79,8 @@ namespace NanoverImd.Subtle_Game.Interaction
         private Transform InteractableSceneTransform; // Transformation data from InteractableScene script.
         [Tooltip("Reference to the SynchronisedFrameSource script, which supplies the real-time positions of atoms during interactions.")]
         private SynchronisedFrameSource FrameSourceScript;
-        [Tooltip("Reference to the NanoverImdSimulation script, responsible for sending and updating interaction data to the Narupa simulation.")]
-        public NanoverImdSimulation NarupaImdSimulationScript;
+        [FormerlySerializedAs("NarupaImdSimulationScript")] [Tooltip("Reference to the NanoverImdSimulation script, responsible for sending and updating interaction data to the Nanover simulation.")]
+        public NanoverImdSimulation nanoverSimulation;
         #endregion
 
         #region Pinch
@@ -95,14 +96,14 @@ namespace NanoverImd.Subtle_Game.Interaction
 
         #region Grab
         /// <summary>
-        /// Manages active grabbers, their types, and force scales, especially in the context of interaction with Narupa.
+        /// Manages active grabbers, their types, and force scales, especially in the context of interaction with Nanover.
         /// </summary>
         [Header("Grab")]
         // A list of grabbers that handle the pinching functionality, one for each index-thumb pair in IndexAndThumbTransforms.
         private List<PinchGrabber> pinchGrabbers;
-        [Tooltip("Specifies the type of interaction (e.g., 'spring', 'gaussian') that will be sent to Narupa when a grab occurs.")]
+        [Tooltip("Specifies the type of interaction (e.g., 'spring', 'gaussian') that will be sent to Nanover when a grab occurs.")]
         [NonSerialized] public string InteractionType = "gaussian";
-        [Tooltip("Defines the magnitude of the interaction force sent to Narupa during a grab.")]
+        [Tooltip("Defines the magnitude of the interaction force sent to Nanover during a grab.")]
         [NonSerialized] public float InteractionForceScale = 200f;
         [Tooltip("Time interval for updating the closest atom to a grabber when not pinching. Note: This operation can be computationally expensive.")]
         [Range(.0139f, .1f)]
@@ -153,16 +154,16 @@ namespace NanoverImd.Subtle_Game.Interaction
         #region Ensure Connection to Server is Established
         /// <summary>
         /// This Coroutine ensures that the application has a stable server connection before enabling interactions.
-        /// It subscribes to the `ConnectionEstablished` event from the NarupaImdSimulation script and repeatedly checks the server connection status.
+        /// It subscribes to the `ConnectionEstablished` event from the NanoverImdSimulation script and repeatedly checks the server connection status.
         /// If the server is not connected, it waits for 1 second before checking again.
         /// </summary>
         private IEnumerator CheckServerConnection()
         {
             // TODO: Doesn't work for Connect, only for AutoConnect.
             /*// Subscribe to the ConnectionEstablished event
-            NarupaImdSimulationScript.ConnectionEstablished += OnServerConnected;*/
+            nanoverSimulation.ConnectionEstablished += OnServerConnected;*/
             
-            while (!NarupaImdSimulationScript.ServerConnected)
+            while (!nanoverSimulation.ServerConnected)
             {
                 yield return new WaitForSeconds(1);  // Wait for 1 second before checking again
             }
@@ -223,7 +224,7 @@ namespace NanoverImd.Subtle_Game.Interaction
                 bool primaryController = i == 0;
                 Transform pokePosition = i == 0 ? PokePositions[0] : PokePositions[1];
                 PinchGrabber grabber = new PinchGrabber(IndexAndThumbTransforms[i], IndexAndThumbTransforms[i + 1], PinchTriggerDistance, MarkerTriggerDistance, 
-                    InteractableSceneScript, NarupaImdSimulationScript, InteractionLineRendererBlueprint, AtomMarkerBlueprint,
+                    InteractableSceneScript, nanoverSimulation, InteractionLineRendererBlueprint, AtomMarkerBlueprint,
                     GrabNewAtomSound, UseControllers, primaryController, pokePosition);
                 pinchGrabbers.Add(grabber);
             }
@@ -239,7 +240,7 @@ namespace NanoverImd.Subtle_Game.Interaction
         /// </summary>
         private void Update()
         {
-            if (!NarupaImdSimulationScript.ServerConnected || !FrameReady)
+            if (!nanoverSimulation.ServerConnected || !FrameReady)
             {
                 return;  // Exit if server is not connected
             }
@@ -283,8 +284,8 @@ namespace NanoverImd.Subtle_Game.Interaction
                     ResetVelocities = false
                 };
 
-                // Update the interaction in the NarupaImdSimulationScript
-                NarupaImdSimulationScript.Interactions.UpdateValue(grabber.Grab.Id, interaction);
+                // Update the interaction in the Nanover simulation
+                nanoverSimulation.Interactions.UpdateValue(grabber.Grab.Id, interaction);
 
                 // Update the LineRenderer and Atom marker such that both highlight the atom this grabber is currently interacting with or would interact with if pinched.
                 UpdateAtomMarkerAndLineRenderer(grabber, interaction);
@@ -317,13 +318,13 @@ namespace NanoverImd.Subtle_Game.Interaction
             }
             
             // Wipe interactions
-            var keys = NarupaImdSimulationScript.Interactions.Keys;
+            var keys = nanoverSimulation.Interactions.Keys;
             
             foreach (var key in keys)
             {
                 if (key.Contains("interaction."))
                 {
-                    NarupaImdSimulationScript.Interactions.RemoveValue(key);
+                    nanoverSimulation.Interactions.RemoveValue(key);
                 }
             }
 
