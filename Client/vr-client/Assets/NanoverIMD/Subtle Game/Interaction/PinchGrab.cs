@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Nanover.Visualisation;
-using NanoverImd;
 using NanoverImd.Interaction;
 using UnityEngine;
 
@@ -108,13 +107,6 @@ namespace NanoverImd.Subtle_Game.Interaction
         [Tooltip("Time interval for updating the closest atom to a grabber when not pinching. Note: This operation can be computationally expensive.")]
         [Range(.0139f, .1f)]
         public float FetchClosestAtomUpdateInterval = .1f;
-        #endregion
-
-        #region Pinch Stability
-        
-        private Dictionary<PinchGrabber, Vector3[]> _previousPositionsDict = new Dictionary<PinchGrabber, Vector3[]>();
-        private int _numFramesToCheck = 15;
-
         #endregion
 
         #region Audio Effects
@@ -283,16 +275,7 @@ namespace NanoverImd.Subtle_Game.Interaction
 
                 // Update PinchTransform position and rotation
                 UpdateGrabberPinchPosition(grabber);
-                
-                // Add safety check to see if the grabber is still being tracked
-                if (!_previousPositionsDict.ContainsKey(grabber))
-                {
-                    // Initialize the previous positions array for the grabber if not initialized yet
-                    InitializePreviousPositions(grabber, _numFramesToCheck); // Stability check is performed over last few frames
-                }
-                UpdatePreviousPositions(grabber);
-                HasGrabberMovedInLastFewFrames(grabber);
-                
+
                 // If the grabber is pinching and stable, we want to apply a force to the atom it has grabbed. If it is not pinching, we still need to send an interaction but with ForceScale 0
                 UpdateGrab(grabber);
 
@@ -373,42 +356,6 @@ namespace NanoverImd.Subtle_Game.Interaction
                 Vector3 PinchTransformPosition = (grabber.ThumbTip.position + grabber.IndexTip.position) / 2;
                 grabber.PinchPositionTransform.position = PinchTransformPosition;
                 grabber.PinchPositionTransform.rotation = grabber.ThumbTip.rotation;
-            }
-        }
-        
-        /// <summary>
-        /// Initialise dictionary for the grabber positions over the last few frames.
-        /// </summary>
-        private void InitializePreviousPositions(PinchGrabber grabber, int arraySize)
-        {
-            _previousPositionsDict[grabber] = new Vector3[arraySize];
-        }
-        
-        /// <summary>
-        /// Add the current position of the grabber to the dictionary of the grabber positions over the last few frames.
-        /// </summary>
-        private void UpdatePreviousPositions(PinchGrabber grabber)
-        {
-            var previousPositions = _previousPositionsDict[grabber];
-            for (var i = 0; i < previousPositions.Length - 1; i++)
-            {
-                previousPositions[i] = previousPositions[i + 1];
-            }
-            previousPositions[^1] = grabber.PinchPositionTransform.position;
-        }
-
-        /// <summary>
-        /// Check if the position of the grabber has changed in the last few frames. If not, set the
-        /// pinchDetectionStable boolean to false.
-        /// </summary>
-        private void HasGrabberMovedInLastFewFrames(PinchGrabber grabber)
-        {
-            var previousPositions = _previousPositionsDict[grabber]; // Get previous positions for this grabber
-            
-            var previousPosition = previousPositions[0]; // The oldest recorded position
-            for (var i = 1; i < previousPositions.Length; i++)
-            {
-                if (previousPositions[i] != previousPosition) break;
             }
         }
 
