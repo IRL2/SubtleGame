@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NanoverImd.Subtle_Game.Canvas;
 using NanoverImd.Subtle_Game.Data_Collection;
 using NanoverImd.Subtle_Game.Interaction;
+using NanoverIMD.Subtle_Game.UI.Canvas;
 using NanoverImd.Subtle_Game.Visuals;
 using UnityEngine;
 using UnityEngine.Serialization;

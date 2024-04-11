@@ -2,16 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using NanoverImd.Subtle_Game;
+using NanoverImd.Subtle_Game.Canvas;
 using UnityEngine;
 
-namespace NanoverImd.Subtle_Game.Canvas
+namespace NanoverIMD.Subtle_Game.UI.Canvas
 {
     // Name of possible task canvases
     public enum CanvasType
     {
         None,
         Intro,
-        Sphere,
         Nanotube,
         Outro,
         KnotTying,
@@ -145,7 +146,6 @@ namespace NanoverImd.Subtle_Game.Canvas
             
             CurrentCanvasType = _subtleGameManager.CurrentTaskType switch
             {
-                SubtleGameManager.TaskTypeVal.Sphere => CanvasType.Sphere,
                 SubtleGameManager.TaskTypeVal.Nanotube => CanvasType.Nanotube,
                 SubtleGameManager.TaskTypeVal.GameFinished => CanvasType.Outro,
                 SubtleGameManager.TaskTypeVal.KnotTying => CanvasType.KnotTying,
