@@ -17,6 +17,9 @@ sim_name_trials = 'buckyball'
 # Frequency
 standard_frequency = 30
 standard_rate = 1 / standard_frequency
+# Colours
+IRL_orange = [1, 0.39, 0.016]
+IRL_blue = [0, 0, 0.8]
 
 # ---------------- #
 # KEYS

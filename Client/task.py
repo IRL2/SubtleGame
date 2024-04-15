@@ -137,6 +137,10 @@ class Task:
         # Update task status and completion time in the shared state
         write_to_shared_state(client=self.client, key=key_task_status, value=finished)
 
+        # Change colour of simulation to signal that the task has been completed
+        self._change_simulation_colour_when_task_finishes()
+
+        # Save completion time
         if self.timestamp_start and self.timestamp_end:
             self.task_completion_time = self.timestamp_end - self.timestamp_start
             write_to_shared_state(client=self.client,
@@ -146,6 +150,10 @@ class Task:
         # Wait for player to register that the task has finished
         print('Waiting for player to confirm end of task')
         self._wait_for_key_values(key_player_task_status, player_finished)
+
+    def _change_simulation_colour_when_task_finishes(self):
+        """ Container for changing the visualisation of the simulation at the end of the task. """
+        pass
 
     def _wipe_shared_state_values_from_previous_task(self):
         """Remove necessary keys leftover from previous tasks."""
