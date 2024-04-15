@@ -426,14 +426,20 @@ namespace NanoverImd.Subtle_Game
         /// Starts celebrations and calls the function to perform everything that is needed to be done to finish the
         /// task. This is called when the puppeteering client sets the task status to finished.
         /// </summary>
-        private void FinishTask()
+        private IEnumerator FinishTask()
         {
             confetti.gameObject.SetActive(true);
             confetti.StartCelebrations();
+
+            // Delay hiding simulation for a bit for the nanotube and knot-tying tasks
+            if (CurrentTaskType is TaskTypeVal.Nanotube or TaskTypeVal.KnotTying)
+            {
+                yield return new WaitForSeconds(1f);
+            }
             
             // Update task status
             TaskStatus = TaskStatusVal.Finished;
-
+            
             // Hide simulation
             ShowSimulation = false;
 
@@ -493,7 +499,7 @@ namespace NanoverImd.Subtle_Game
                     switch (val.ToString())
                     {
                         case "finished":
-                            FinishTask();
+                            StartCoroutine(FinishTask());
                             break;
                     }
                     break;

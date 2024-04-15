@@ -69,3 +69,18 @@ class KnotTyingTask(Task):
                     'darkslateblue'
                 ]}
             }
+
+    def _change_simulation_colour_when_task_finishes(self):
+        # Clear current selections
+        self.client.clear_selections()
+
+        # Create selection for all atoms
+        all_atoms = self.client.create_selection("ALL", list(range(0, 174)))
+        all_atoms.remove()
+
+        # Set colour of the selection
+        with all_atoms.modify() as selection:
+            selection.renderer = {'render': 'ball and stick',
+                                  'color': {'type': 'particle index', 'gradient': [IRL_orange, IRL_blue]}
+                                  }
+
