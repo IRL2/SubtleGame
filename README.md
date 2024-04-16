@@ -7,7 +7,7 @@
 2. Install [git](https://github.com/git-guides/install-git).
 3. Navigate to the local directory where you want the SubtleGame git repo.
 4. Clone the repo by typing: `git clone paste-repo-URL-here`.
-5. Navigate into the repo and run the following commands: `git submodule sync` and then `git submodule update --init --recursive --remote`.
+5. Navigate into the repo with `cd .\SubtleGame\`. Run the following commands: `git submodule sync` and then `git submodule update --init --recursive --remote`.
 
 ### NanoVer server
 
