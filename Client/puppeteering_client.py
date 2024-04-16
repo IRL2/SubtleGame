@@ -50,7 +50,7 @@ class PuppeteeringClient:
     """ This class interfaces between the Nanover server, VR client and any required packages to control the game 
     logic for the Subtle Game."""
 
-    def __init__(self, short_game: bool = False, number_of_trial_repeats: int = 1):
+    def __init__(self, short_game: bool = False, number_of_trial_repeats: int = 1, first_modality: str = 'random'):
 
         self.username = generate_username_for_player()
 
@@ -60,9 +60,18 @@ class PuppeteeringClient:
         self.nanover_client.subscribe_to_frames()
         self.nanover_client.update_available_commands()
 
-        # Get orders of randomised variables
+        # Set order of tasks
         self.order_of_tasks = get_order_of_tasks(run_short_game=short_game)
-        self.order_of_interaction_modality = randomise_list_order([modality_hands, modality_controllers])
+
+        # Set order of interaction modality
+        if first_modality.lower() == 'random':
+            self.order_of_interaction_modality = randomise_list_order([modality_hands, modality_controllers])
+        elif first_modality.lower() == modality_hands:
+            self.order_of_interaction_modality = [modality_hands, modality_controllers]
+        elif first_modality.lower() == modality_controllers:
+            self.order_of_interaction_modality = [modality_controllers, modality_hands]
+        else:
+            raise ValueError("Invalid interaction modality. Choose 'hands', 'controllers', or 'random'.")
         self.current_modality = self.order_of_interaction_modality[0]
 
         # Declare variables
@@ -207,7 +216,8 @@ if __name__ == '__main__':
     number_of_repeats = 3
 
     # Create puppeteering client
-    puppeteering_client = PuppeteeringClient(number_of_trial_repeats=number_of_repeats)
+    puppeteering_client = PuppeteeringClient(number_of_trial_repeats=number_of_repeats,
+                                             first_modality=modality_controllers)
 
     # Start game
     puppeteering_client.run_game()
