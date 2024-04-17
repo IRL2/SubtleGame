@@ -41,6 +41,8 @@ namespace NanoverImd.Subtle_Game
             #endregion
         
         #region Simulation and User Interaction
+
+        [SerializeField] private GameObject simulationSpace;
         
             private PinchGrab _pinchGrab;
             public bool ShowSimulation
@@ -49,7 +51,7 @@ namespace NanoverImd.Subtle_Game
                 set
                 {
                     _showSimulation = value;
-                    simulation.gameObject.SetActive(_showSimulation);
+                    simulationSpace.SetActive(_showSimulation);
                     EnableInteractions = _showSimulation;
                 }
             }

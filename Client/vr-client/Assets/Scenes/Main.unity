@@ -20872,8 +20872,10 @@ MonoBehaviour:
   simulation: {fileID: 1265723033}
   userInteraction: {fileID: 50482150}
   trialAnswerPopup: {fileID: 1381040379}
+  simulationSpace: {fileID: 1152867537}
   confetti: {fileID: 1233017830}
   isIntroToSection: 1
+  interactionModalityHasChanged: 0
   trialManager: {fileID: 1245036777}
   trialAnswerSubmission: {fileID: 1364228087}
   currentTrialNumber: 0
