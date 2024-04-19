@@ -1,3 +1,4 @@
+using System;
 using Nanover.Core.Math;
 using Nanover.Frame;
 using Nanover.Frame.Event;
@@ -46,6 +47,9 @@ namespace NanoverIMD.Subtle_Game.UI.Visuals
         /// Manager of the Subtle Game.
         /// </summary>
         public SubtleGameManager subtleGameManager;
+
+        private float _previousBoxSize;
+        private float _currentBoxSize;
         
         private void OnEnable()
         {
@@ -75,7 +79,7 @@ namespace NanoverIMD.Subtle_Game.UI.Visuals
 
         private void Update()
         {
-            CheckTaskChange();
+            CheckBoxSizeChange();
         }
 
         private float _xMagnitude;
@@ -94,6 +98,22 @@ namespace NanoverIMD.Subtle_Game.UI.Visuals
             }
 
             _previousTask = _currentTask;
+        }
+
+        private void CheckBoxSizeChange()
+        {
+            _previousBoxSize = _currentBoxSize;
+
+            if (frameSource.CurrentFrame is { BoxVectors: { } box })
+            {
+                _currentBoxSize = box.axesMagnitudes.x;
+            }
+
+            if (Math.Abs(_currentBoxSize - _previousBoxSize) > 0.01)
+            {
+                Debug.LogWarning("Updating sim box");
+                UpdateSimulationBox();
+            }
         }
 
         /// <summary>
