@@ -20829,6 +20829,7 @@ GameObject:
   - component: {fileID: 1364228086}
   - component: {fileID: 1364228087}
   - component: {fileID: 1364228089}
+  - component: {fileID: 1364228090}
   m_Layer: 0
   m_Name: GAME
   m_TagString: Untagged
@@ -20874,6 +20875,7 @@ MonoBehaviour:
   trialAnswerPopup: {fileID: 1381040379}
   confetti: {fileID: 1233017830}
   isIntroToSection: 1
+  interactionModalityHasChanged: 0
   trialManager: {fileID: 1245036777}
   trialAnswerSubmission: {fileID: 1364228087}
   currentTrialNumber: 0
@@ -20913,6 +20915,21 @@ MonoBehaviour:
   rightHandAnchor: {fileID: 8677729729140572697}
   leftHandAnchor: {fileID: 8895552804684926773}
   simulation: {fileID: 1265723033}
+--- !u!114 &1364228090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364228083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20a44630c38b9049a030b60c5b3e9ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayMudraGlovesTexture: 0
+  mudraMaterial: {fileID: 2100000, guid: e194f5330f10e7044979fbdda081207f, type: 2}
+  oculusHandMaterial: {fileID: 2100000, guid: d641a50c4fe4ee3489a64cf52b76ae79, type: 2}
 --- !u!1 &1371801897
 GameObject:
   m_ObjectHideFlags: 0
