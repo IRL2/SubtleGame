@@ -133,7 +133,7 @@ namespace NanoverIMD.Subtle_Game.UI.Visuals
             _simulationScale = subtleGameManager.CurrentTaskType switch
             {
                 SubtleGameManager.TaskTypeVal.Nanotube => 1f,
-                SubtleGameManager.TaskTypeVal.KnotTying => 0.75f,
+                SubtleGameManager.TaskTypeVal.KnotTying => 0.5f,
                 SubtleGameManager.TaskTypeVal.Trials => 1f,
                 _ => 1f
             };

@@ -142,12 +142,12 @@ namespace NanoverImd.Subtle_Game
                             _pinchGrab.InteractionForceScale = 300f;
                             break;
                         case TaskTypeVal.Nanotube:
-                            _pinchGrab.InteractionType = "gaussian";
-                            _pinchGrab.InteractionForceScale = 300f;
+                            _pinchGrab.InteractionType = "spring";
+                            _pinchGrab.InteractionForceScale = 200;
                             break;
                         case TaskTypeVal.KnotTying:
-                            _pinchGrab.InteractionType = "gaussian";
-                            _pinchGrab.InteractionForceScale = 525f;
+                            _pinchGrab.InteractionType = "spring";
+                            _pinchGrab.InteractionForceScale = 250;
                             break;
                         case TaskTypeVal.Trials:
                             _pinchGrab.InteractionType = "spring";
