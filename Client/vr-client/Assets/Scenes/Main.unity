@@ -205,6 +205,7 @@ GameObject:
   - component: {fileID: 21014619}
   - component: {fileID: 21014618}
   - component: {fileID: 21014621}
+  - component: {fileID: 21014622}
   m_Layer: 0
   m_Name: Centering Simulation Box
   m_TagString: Untagged
@@ -305,7 +306,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 21014615}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a79a2e67ebce3f46ab02ff7bf8d25e1, type: 3}
   m_Name: 
@@ -316,6 +317,22 @@ MonoBehaviour:
   centerXYPlane: {fileID: 1692057923}
   pointOfParticleEmission: {fileID: 627743194}
   subtleGameManager: {fileID: 1364228086}
+--- !u!114 &21014622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21014615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a08d3946ae584beaad9675a795875f59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simulation: {fileID: 1265723034}
+  subtleGameManager: {fileID: 1364228086}
+  centreEyeAnchor: {fileID: 4948775120161647665}
+  frameSource: {fileID: 1265723032}
 --- !u!1 &23693883
 GameObject:
   m_ObjectHideFlags: 0

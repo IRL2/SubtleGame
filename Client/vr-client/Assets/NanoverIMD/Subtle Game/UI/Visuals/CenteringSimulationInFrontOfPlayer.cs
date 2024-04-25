@@ -50,15 +50,20 @@ namespace NanoverIMD.Subtle_Game.UI.Visuals
 
         private float _previousBoxSize;
         private float _currentBoxSize;
+        private bool _boxSizeChanged;
+        private float _xMagnitude;
+        private SubtleGameManager.TaskTypeVal _previousTask = SubtleGameManager.TaskTypeVal.None;
+        private SubtleGameManager.TaskTypeVal _currentTask;
+        private bool _taskChanged;
         
-        private void OnEnable()
+        /*private void OnEnable()
         {
             frameSource.FrameChanged += OnFrameChanged;
         }
 
         private void OnDisable()
         {
-            frameSource.FrameChanged += OnFrameChanged;
+            frameSource.FrameChanged -= OnFrameChanged;
         }
 
         private void OnFrameChanged(IFrame frame, FrameChanges changes)
@@ -75,32 +80,32 @@ namespace NanoverIMD.Subtle_Game.UI.Visuals
                     _xMagnitude = box.Value.axesMagnitudes.x;
                 }
             }
-        }
+        }*/
 
         private void Update()
         {
-            CheckBoxSizeChange();
+            CheckBoxSizeChanged();
+            CheckTaskChanged();
+
+            if (_boxSizeChanged && _taskChanged) return;
+
+            if (_xMagnitude == 0) return;
+            
+            Debug.LogWarning($"x-mag of box: {_xMagnitude}");
+            
+            UpdateSimulationBox();
+            _boxSizeChanged = false;
+            _taskChanged = false;
         }
 
-        private float _xMagnitude;
-        private SubtleGameManager.TaskTypeVal _previousTask = SubtleGameManager.TaskTypeVal.None;
-        private SubtleGameManager.TaskTypeVal _currentTask;
-
-        private void CheckTaskChange()
+        private void CheckTaskChanged()
         {
             _currentTask = subtleGameManager.CurrentTaskType;
-
-            var taskChangedThisFrame = _currentTask != _previousTask;
-
-            if (taskChangedThisFrame)
-            {
-                UpdateSimulationBox();
-            }
-
+            _taskChanged = _currentTask != _previousTask;
             _previousTask = _currentTask;
         }
 
-        private void CheckBoxSizeChange()
+        private void CheckBoxSizeChanged()
         {
             _previousBoxSize = _currentBoxSize;
 
@@ -111,8 +116,7 @@ namespace NanoverIMD.Subtle_Game.UI.Visuals
 
             if (Math.Abs(_currentBoxSize - _previousBoxSize) > 0.01)
             {
-                Debug.LogWarning("Updating sim box");
-                UpdateSimulationBox();
+                _boxSizeChanged = true;
             }
         }
 
