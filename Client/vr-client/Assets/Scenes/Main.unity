@@ -1725,7 +1725,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2879180694161153714, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: m_text
-      value: start task
+      value: empieza!
       objectReference: {fileID: 0}
     - target: {fileID: 2879180694161153714, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: m_fontAsset
@@ -26276,7 +26276,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 62}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1777496837
@@ -26299,7 +26299,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Task complete, well done!
+  m_text: "Muy bien!!\n\nPor favor qu\xEDtate las gafas"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 44df6751171cc92499028b7603d8b151, type: 2}
   m_sharedMaterial: {fileID: -7717410991123242693, guid: 44df6751171cc92499028b7603d8b151, type: 2}
