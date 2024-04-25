@@ -34,15 +34,18 @@ def get_order_of_tasks(run_short_game: bool):
     if run_short_game:
         return [task_nanotube, task_nanotube]
     else:
-        tasks = [task_nanotube, task_nanotube, task_nanotube, task_nanotube, task_nanotube, task_nanotube,
-                 task_nanotube, task_nanotube, task_nanotube, task_nanotube, task_nanotube, task_nanotube,
-                 task_nanotube, task_nanotube]
+        # tasks = [task_nanotube, task_nanotube, task_nanotube, task_nanotube, task_nanotube, task_nanotube,
+        #          task_nanotube, task_nanotube, task_nanotube, task_nanotube, task_nanotube, task_nanotube,
+        #          task_nanotube, task_nanotube]
+        tasks = [task_knot_tying, task_knot_tying, task_knot_tying, task_knot_tying, task_knot_tying, task_knot_tying,
+                 task_knot_tying, task_knot_tying, task_knot_tying, task_knot_tying, task_knot_tying, task_knot_tying,
+                 task_knot_tying, task_knot_tying, task_knot_tying, task_knot_tying, task_knot_tying, task_knot_tying]
 
     order_of_tasks = []
 
     for n in range(2):
         t = random.sample(tasks, len(tasks))
-        t.insert(0, task_nanotube)
+        # t.insert(0, task_nanotube)
         order_of_tasks.extend(t)
 
     return order_of_tasks
