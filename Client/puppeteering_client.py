@@ -34,7 +34,9 @@ def get_order_of_tasks(run_short_game: bool):
     if run_short_game:
         return [task_nanotube, task_nanotube]
     else:
-        tasks = [task_knot_tying, task_trials]
+        tasks = [task_nanotube, task_nanotube, task_nanotube, task_nanotube, task_nanotube, task_nanotube,
+                 task_nanotube, task_nanotube, task_nanotube, task_nanotube, task_nanotube, task_nanotube,
+                 task_nanotube, task_nanotube]
 
     order_of_tasks = []
 
@@ -99,11 +101,11 @@ class PuppeteeringClient:
 
             if task == task_nanotube:
 
-                # Check if we are in the second section
-                if not self.first_practice_sim:
-                    # If yes, increment interaction modality
-                    self.current_modality = self.order_of_interaction_modality[1]
-                    write_to_shared_state(client=self.nanover_client, key=key_modality, value=self.current_modality)
+                # # Check if we are in the second section
+                # if not self.first_practice_sim:
+                #     # If yes, increment interaction modality
+                #     self.current_modality = self.order_of_interaction_modality[1]
+                #     write_to_shared_state(client=self.nanover_client, key=key_modality, value=self.current_modality)
 
                 current_task = NanotubeTask(client=self.nanover_client, simulations=self.nanotube_sim,
                                             simulation_counter=simulation_counter)
