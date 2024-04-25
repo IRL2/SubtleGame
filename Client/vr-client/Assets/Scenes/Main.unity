@@ -6181,16 +6181,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7214045676631728308, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: orderedListOfMenus.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7214045676631728308, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: orderedListOfMenus.Array.data[0]
       value: 
-      objectReference: {fileID: 421460937}
+      objectReference: {fileID: 1016522013}
     - target: {fileID: 7214045676631728308, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: orderedListOfMenus.Array.data[1]
       value: 
-      objectReference: {fileID: 1016522013}
+      objectReference: {fileID: 1761988810}
     - target: {fileID: 7214045676631728308, guid: b4150353d52807043b217abe87a111e4, type: 3}
       propertyPath: orderedListOfMenus.Array.data[2]
       value: 
@@ -20874,6 +20874,7 @@ MonoBehaviour:
   trialAnswerPopup: {fileID: 1381040379}
   confetti: {fileID: 1233017830}
   isIntroToSection: 1
+  interactionModalityHasChanged: 0
   trialManager: {fileID: 1245036777}
   trialAnswerSubmission: {fileID: 1364228087}
   currentTrialNumber: 0
