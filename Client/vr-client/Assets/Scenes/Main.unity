@@ -8329,6 +8329,10 @@ PrefabInstance:
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 197467624302990837, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 374303654028433922, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -8369,9 +8373,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 977490881417830567, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1888835162031061807, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: m_Name
       value: Next task
+      objectReference: {fileID: 0}
+    - target: {fileID: 1888835162031061807, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2879180694161153714, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: m_text
@@ -25819,6 +25831,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1761988811}
   - component: {fileID: 1761988812}
+  - component: {fileID: 1761988813}
   m_Layer: 0
   m_Name: Outro menu
   m_TagString: Untagged
@@ -25863,8 +25876,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c505da2abab1e4a83982c4c03de697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeButtons:
-  - {fileID: 1984331893}
+  activeButtons: []
+--- !u!114 &1761988813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761988810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c52520a24d2e69469a75e39f9cdcf7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonController: {fileID: 690649815}
 --- !u!1 &1771395455
 GameObject:
   m_ObjectHideFlags: 0
@@ -29305,11 +29330,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 517628020}
   m_SourcePrefab: {fileID: 100100000, guid: 242e7b280762e984d98966c4a77c3f71, type: 3}
---- !u!1 &1984331893 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1888835162031061807, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
-  m_PrefabInstance: {fileID: 690649813}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1985308811
 GameObject:
   m_ObjectHideFlags: 0
