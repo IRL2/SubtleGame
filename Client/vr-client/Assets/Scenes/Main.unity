@@ -9131,6 +9131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 758986354}
   - component: {fileID: 758986355}
+  - component: {fileID: 758986356}
   m_Layer: 0
   m_Name: Outro menu
   m_TagString: Untagged
@@ -9176,8 +9177,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c505da2abab1e4a83982c4c03de697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeButtons:
-  - {fileID: 1374670355}
+  activeButtons: []
+--- !u!114 &758986356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758986353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c52520a24d2e69469a75e39f9cdcf7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonController: {fileID: 1597692836}
 --- !u!1 &769530582
 GameObject:
   m_ObjectHideFlags: 0
@@ -21071,11 +21084,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809ffb143fed47258cb9bbd013b1928b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1374670355 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1888835162031061807, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
-  m_PrefabInstance: {fileID: 1597692834}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1381040377
 GameObject:
   m_ObjectHideFlags: 0
@@ -23470,7 +23478,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 62}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1512224363
@@ -23493,7 +23501,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Task complete, well done!
+  m_text: "Muy bien!!\n\nPor favor qu\xEDtate las gafas"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 44df6751171cc92499028b7603d8b151, type: 2}
   m_sharedMaterial: {fileID: -7717410991123242693, guid: 44df6751171cc92499028b7603d8b151, type: 2}
@@ -24414,6 +24422,10 @@ PrefabInstance:
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 197467624302990837, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 374303654028433922, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -24452,6 +24464,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 374303654028433922, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 977490881417830567, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1888835162031061807, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
@@ -24875,7 +24891,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2879180694161153714, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: m_text
-      value: start task
+      value: empieza!
       objectReference: {fileID: 0}
     - target: {fileID: 2879180694161153714, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: m_fontAsset
@@ -24981,7 +24997,10 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 656991192480398139, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6406907961171276735, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
 --- !u!4 &1643232732 stripped
 Transform:
