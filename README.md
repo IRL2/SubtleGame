@@ -18,7 +18,7 @@ A NanoVer server is used to run the molecular simulations and stream data betwee
 - A buckyball simulation: e.g., `buckyballs_angle_A_0.5.xml` [NOTE: you can load as many buckyball simulations as you want]
 
 #### Using the command line:
-1. Open "Anaconda Powershell Prompt" and navigate to the `./Client/rust-server-2023-10-19` directory.
+1. Open "Anaconda Powershell Prompt" and navigate to the `./Server/nanover-rs-windows-2024-04-08` directory.
 2. Run the following line `nanover-cli.exe --name "SubtleGame" "..\..\Inputs\17-ala.xml" "..\..\Inputs\nanotube_langevin.xml" "..\..\Inputs\sandbox_2_C10_alkanes.xml" "..\..\Inputs\ANGLE\buckyball_angle_A_0.5.xml"` [NOTE: you can modify this line by adding as many simulations as you want].
 
 #### Using the GUI:
