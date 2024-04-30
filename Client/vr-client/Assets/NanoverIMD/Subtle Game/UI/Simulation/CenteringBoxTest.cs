@@ -27,17 +27,7 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
         [SerializeField]
         private SynchronisedFrameSource frameSource;
         
-        [SerializeField]
-        private Vector3 _playerWorldForward;
-
-        private Vector3 _playerWorldRight;
-        [SerializeField]
-        private Vector3 _playerWorldPosition;
-        [SerializeField]
-        private SubtleGameManager.TaskTypeVal _taskType;
-        [SerializeField]
-        private float _xMagnitude;
-
+        // track changes
         private float _previousBoxSize;
         private float _currentBoxSize;
         private bool _boxSizeChanged;
@@ -45,73 +35,79 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
         private SubtleGameManager.TaskTypeVal _currentTask;
         private bool _taskChanged;
 
-        private Transformation remotePose;
+        [Header("Config")]
+        public Vector3 offsetAbsolute;
+        public Vector3 offsetPercent;
+        private Transform playerReference;
+
+        private float Scale => subtleGameManager.CurrentTaskType switch
+        {
+            SubtleGameManager.TaskTypeVal.Nanotube => 1f * .3f,
+            SubtleGameManager.TaskTypeVal.KnotTying => 0.5f * .3f,
+            SubtleGameManager.TaskTypeVal.Trials => 1f * .3f,
+            _ => 1f * .3f,
+        };
+
+    private void Start()
+        {
+            var obj = new GameObject("REFERENCE");
+            playerReference = obj.transform;
+            playerReference.SetParent(transform);
+            playerReference.position = Vector3.zero;
+            playerReference.rotation = Quaternion.identity;
+        }
 
         private void Update()
         {
-            UpdateValues();
-            
+            CheckTaskChanged();
+            CheckBoxSizeChanged();
+
             if (_boxSizeChanged && _taskChanged)
             {
                 UpdatePlayerPosition();
+                _boxSizeChanged = _taskChanged = false;
             }
             
-            PutSimulationInFrontOfPlayer();
-            SetSimulationScale();
-            subtleGameManager.simulation.Multiplayer.SimulationPose.UpdateValueWithLock(remotePose);
-
             UpdatePose();
         }
 
         private void UpdatePose()
         {
-            remotePose = subtleGameManager.simulation.Multiplayer.SimulationPose.Value;
+            // box scale
+            var scale = Scale;
 
-            if (remotePose.Scale.x <= 0.001f)
-            {
-                remotePose = new Transformation(Vector3.zero, Quaternion.identity, Vector3.one);
-            }
+            // half box size in world coordinates
+            var half = Vector3.one * _currentBoxSize * .5f * scale;
+            half.x *= -1; // because of reversed x
 
-            remotePose.CopyToTransformRelativeToParent(simulation);
+            // move box to reference, rotate to face player, scale
+            simulation.position = playerReference.position;
+            simulation.rotation = Quaternion.LookRotation(-playerReference.forward);
+            simulation.localScale = Vector3.one * scale;
+
+            // offset from the perspective of the box
+            var offset = offsetAbsolute + offsetPercent * _currentBoxSize * scale;
+            simulation.Translate(-half + offset, Space.Self);
+
+            // copy box transform to multiplayer scene key
+            var t = Transformation.FromTransformRelativeToParent(simulation);
+            t.CopyToTransformRelativeToParent(simulation);
+            subtleGameManager.simulation.Multiplayer.SimulationPose.UpdateValueWithLock(t);
         }
 
-        [ContextMenu("SET PLAYER POSITION")]
         private void UpdatePlayerPosition()
         {
-            Debug.LogWarning($"SET POSITION: {_xMagnitude}");
-            _playerWorldPosition = centreEyeAnchor.position;
-            _playerWorldForward = centreEyeAnchor.forward;
-            _playerWorldForward.y = 0;
-            _playerWorldForward.Normalize();
-            
-            _playerWorldRight = Vector3.Cross(Vector3.up, _playerWorldForward);
-            _playerWorldRight.Normalize();
-            
-            _boxSizeChanged = false;
-            _taskChanged = false;
-        }
-        
-        private void UpdateValues()
-        {
-            _taskType = subtleGameManager.CurrentTaskType;
-            
-            if (frameSource.CurrentFrame is { BoxVectors: { } box })
-            {
-                _xMagnitude = box.axesMagnitudes.x;
-            }
-            
-            CheckTaskChanged();
-            CheckBoxSizeChanged();
+            var forward = centreEyeAnchor.forward;
+            forward.y = 0;
+            forward.Normalize();
+            playerReference.position = centreEyeAnchor.position;
+            playerReference.rotation = Quaternion.LookRotation(forward);
         }
         
         private void CheckTaskChanged()
         {
             _currentTask = subtleGameManager.CurrentTaskType;
             _taskChanged = _currentTask != _previousTask;
-            
-            if( _currentTask != _previousTask)
-                Debug.LogWarning($"TASK CHANGED {_previousTask} -> {_currentTask}");
-            
             _previousTask = _currentTask;
         }
 
@@ -127,97 +123,7 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
             if (Mathf.Abs(_currentBoxSize - _previousBoxSize) > 0.01)
             {
                 _boxSizeChanged = true;
-                Debug.LogWarning($"BOX SIZE CHANGED {_previousBoxSize} -> {_currentBoxSize}");
             }
-        }
-        
-        private Vector3 GetComponents()
-        {
-            // Set default values: centering the player on the xy plane of the simulation box facing the +z direction
-            float xComponent = -_xMagnitude * 0.5f;
-            float yComponent = -_xMagnitude * 0.5f;
-            float zComponent = 0f;
-
-            // Alter values for knot-tying and trials tasks
-            switch (_taskType)
-            {
-                case SubtleGameManager.TaskTypeVal.KnotTying:
-                    yComponent = -_xMagnitude * 0.6f;
-                    zComponent = -_xMagnitude * 0.25f;
-                    break;
-                case SubtleGameManager.TaskTypeVal.Trials:
-                    yComponent = -_xMagnitude * 0.7f;
-                    zComponent = -_xMagnitude * 0.15f;
-                    break;
-            }
-
-            return new Vector3(xComponent, yComponent, zComponent);
-        }
-
-        private Vector3 GetOffset()
-        {
-            var components = GetComponents();
-
-            // Calculate translation vector
-            //var offset = _playerWorldRotation * new Vector3(xComponent, yComponent, zComponent);
-            var offset = _playerWorldForward * components.z - _playerWorldRight * components.x;
-            offset.y = components.y;
-
-            return offset;
-        }
-
-        private void PutSimulationInFrontOfPlayer()
-        {
-            var offset = GetOffset();
-            var scale = simulation.transform.localScale.x * .3f;
-           // simulation.position = _playerWorldPosition + (offset * scale);
-
-            var components = GetComponents() * transform.lossyScale.z;
-            var x = components.x * _playerWorldRight;
-            var y = components.y * Vector3.up;
-            var z = components.z * _playerWorldForward;
-            remotePose.Position = _playerWorldPosition + x + y + z;
-        }
-        
-        /// <summary>
-        /// Sets the scale of the simulation. Default value is 1 (nanotube and trials tasks), with a smaller scale of
-        /// 0.75 for the knot-tying task.
-        /// </summary>
-        private void SetSimulationScale()
-        {
-            // Get simulation scale value for each task
-            var _simulationScale = subtleGameManager.CurrentTaskType switch
-            {
-                SubtleGameManager.TaskTypeVal.Nanotube => 1f,
-                SubtleGameManager.TaskTypeVal.KnotTying => 0.5f,
-                SubtleGameManager.TaskTypeVal.Trials => 1f,
-                _ => 1f
-            };
-
-            _simulationScale *= .3f;
-
-            remotePose.Scale = new Vector3(_simulationScale, _simulationScale, _simulationScale);
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.DrawSphere(_playerWorldPosition, .1f);
-            Gizmos.DrawRay(_playerWorldPosition, _playerWorldForward);
-            Gizmos.DrawRay(_playerWorldPosition, _playerWorldRight);
-            Gizmos.DrawRay(_playerWorldPosition, Vector3.up);
-
-
-            var offset = GetOffset();
-            var scale = simulation.transform.localScale.x * .3f;
-            simulation.position = _playerWorldPosition + (offset * scale);
-
-            var components = GetComponents(); //* transform.lossyScale.z;
-            var x = components.x * _playerWorldRight;
-            var y = components.y * Vector3.up;
-            var z = components.z * _playerWorldForward;
-            Gizmos.DrawLine(_playerWorldPosition, _playerWorldPosition + y);
-            Gizmos.DrawLine(_playerWorldPosition + y, _playerWorldPosition + x + y);
-            Gizmos.DrawLine(_playerWorldPosition + x + y, _playerWorldPosition + x + y + z);
         }
     }
 }

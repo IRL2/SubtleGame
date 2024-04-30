@@ -30439,10 +30439,8 @@ MonoBehaviour:
   subtleGameManager: {fileID: 1364228086}
   centreEyeAnchor: {fileID: 4948775120161647665}
   frameSource: {fileID: 1265723032}
-  _playerWorldForward: {x: 0, y: 0, z: 0}
-  _playerWorldPosition: {x: 0, y: 0, z: 0}
-  _taskType: 0
-  _xMagnitude: 0
+  offsetAbsolute: {x: 0, y: -0.1, z: 0}
+  offsetPercent: {x: 0, y: 0, z: -0.25}
 --- !u!1 &2066849734
 GameObject:
   m_ObjectHideFlags: 0
