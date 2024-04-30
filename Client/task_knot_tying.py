@@ -31,7 +31,8 @@ class KnotTyingTask(Task):
                                                resids=self.residue_ids,
                                                atom_positions=self.client.latest_frame.particle_positions)
 
-        # Keeping checking if chain is knotted
+        # Keeping checking if the chain is knotted
+        consecutive_knotted_frames = 0
         while True:
 
             # Check that the particle positions exist in the latest frame
@@ -39,10 +40,15 @@ class KnotTyingTask(Task):
                 print("No particle positions found, waiting for 1/30 seconds before trying again.")
                 time.sleep(standard_rate)
 
-            self.knot_pull_client.check_if_chain_is_knotted(
-                atom_positions=self.client.latest_frame.particle_positions)
+            self.knot_pull_client.check_if_chain_is_knotted(atom_positions=self.client.latest_frame.particle_positions)
 
             if self.knot_pull_client.is_currently_knotted:
+                consecutive_knotted_frames += 1  # Increment the counter
+            else:
+                consecutive_knotted_frames = 0  # Reset the counter
+
+            # Check if the condition has been true for 30 consecutive iterations
+            if consecutive_knotted_frames >= 30:
                 self.timestamp_end = datetime.now()
                 break
 
