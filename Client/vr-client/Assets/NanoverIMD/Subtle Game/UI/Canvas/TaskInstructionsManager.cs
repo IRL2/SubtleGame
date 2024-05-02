@@ -237,12 +237,8 @@ namespace NanoverImd.Subtle_Game.Canvas
         /// </summary>
         private void SetupPanelPosition()
         {
-            gameObject.transform.localPosition = new Vector3(
-                simulationBox.transform.position.x,
-                simulationBox.transform.position.y,
-                simulationBox.transform.position.z);
-
-            gameObject.transform.localEulerAngles = new(0f, 90f, 0f);
+            gameObject.transform.position = simulationBox.transform.position;
+            gameObject.transform.rotation = simulationBox.transform.rotation;
         }
         
         
