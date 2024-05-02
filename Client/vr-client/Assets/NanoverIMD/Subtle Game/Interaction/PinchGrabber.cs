@@ -22,9 +22,10 @@ namespace NanoverImd.Subtle_Game.Interaction
         public Transform PokePosition {  get; private set; }
         #endregion
 
-        #region Index and Thumb Transforms
+        #region Index, Middle and Thumb Transforms
         public Transform ThumbTip { get; private set; }
         public Transform IndexTip { get; private set; }
+        public Transform MiddleTip { get; private set; }
         #endregion
 
         #region Marker
@@ -43,6 +44,11 @@ namespace NanoverImd.Subtle_Game.Interaction
         public float PinchTriggerDistance { get; set; }
         public bool Pinched { get; private set; }
         public Transform PinchPositionTransform { get; private set; }
+
+        private int sustainedPinchFramesRequired = 10; // Number of frames a pinch must be detected to activate
+        private int sustainedReleaseFramesRequired = 10; // Number of frames a non-pinch must be detected to deactivate
+        private int currentPinchFrameCount = 0;
+        private int currentReleaseFrameCount = 0;
         #endregion
 
         #region Audio
@@ -66,7 +72,7 @@ namespace NanoverImd.Subtle_Game.Interaction
         /// These parameters include transforms for the thumb and index fingers, distances to trigger pinches and marker display, and references to various other components
         /// like the interactable scene, the simulation, and blueprints for LineRenderers and AtomMarkers.
         /// </summary>
-        public PinchGrabber(Transform thumbTip, Transform indexTrigger, float pinchTriggerDistance, float markerTriggerDistance, InteractableScene interactableScene, NanoverImdSimulation simulation, LineRenderer lineRendererBlueprint, Transform atomMarkerBlueprint, AudioClip grabNewAtomSound, bool useController, bool primaryController, Transform pokePosition)
+        public PinchGrabber(Transform thumbTip, Transform indexTrigger, Transform middleTip, float pinchTriggerDistance, float markerTriggerDistance, InteractableScene interactableScene, NanoverImdSimulation simulation, LineRenderer lineRendererBlueprint, Transform atomMarkerBlueprint, AudioClip grabNewAtomSound, bool useController, bool primaryController, Transform pokePosition)
         {
             #region Controllers
             UseControllers = useController;
@@ -149,6 +155,7 @@ namespace NanoverImd.Subtle_Game.Interaction
             #region Pinch
             ThumbTip = thumbTip;
             IndexTip = indexTrigger;
+            MiddleTip = middleTip;
             PinchTriggerDistance = pinchTriggerDistance;
             PinchPositionTransform = new GameObject("PinchPositionTransform").transform;
             #endregion
@@ -177,65 +184,61 @@ namespace NanoverImd.Subtle_Game.Interaction
         }
 
         /// <summary>
-        /// The CheckForPinch method evaluates whether a pinch action is currently happening based on the spatial distance between the thumb and index finger transforms.
-        /// It sets the 'Marking' and 'Pinched' boolean flags according to whether the distance between the thumb and index finger is below the configured 'PinchTriggerDistance' and 'MarkerTriggerDistance'.
+        /// The CheckForPinch method evaluates whether a pinch or marking action is currently happening based on the spatial distance between the thumb tip and either the index or middle finger tips.
+        /// For non-controller inputs, it sets the 'Marking' and 'Pinched' boolean flags according to whether the distance between these points is below the configured 'PinchTriggerDistance' and 'MarkerTriggerDistance', sustained over a specified number of frames to enhance interaction stability.
         /// </summary>
-        public virtual void CheckForPinch()
+        public void CheckForPinch()
         {
-            WasPinchingLastFrame = Pinched;
             if (UseControllers)
             {
-                float triggerValue = 0f;
-                if (PrimaryController)
-                {
-                    triggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger);
-                }
-                else
-                {
-                    triggerValue = OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
-                }
-                if (triggerValue > 0f)
-                {
-                    Marking = true;
-                }
-                else
-                {
-                    Marking = false;
-                }
-                if (triggerValue > .5f)
-                {
-                    Pinched = true;
-                }
-                else
-                {
-                    Pinched = false;
-                }
+                float triggerValue = PrimaryController ? OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) : OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
+                Marking = triggerValue > 0f;
+                Pinched = triggerValue > .5f;
             }
             else
             {
-                float currentDistance = Vector3.Distance(ThumbTip.position, IndexTip.position);
+                float distanceToIndex = Vector3.Distance(ThumbTip.position, IndexTip.position);
+                float distanceToMiddle = Vector3.Distance(ThumbTip.position, MiddleTip.position);
+                float minDistance = Mathf.Min(distanceToIndex, distanceToMiddle);
 
-                if (currentDistance >= MarkerTriggerDistance)
+                // Evaluate current pinch status based on minimal distance
+                bool currentlyPinching = minDistance < PinchTriggerDistance;
+                bool currentlyMarking = minDistance < MarkerTriggerDistance;
+
+                if (currentlyPinching)
                 {
-                    Marking = false;
+                    currentReleaseFrameCount = 0;
+                    if (!Pinched && ++currentPinchFrameCount >= sustainedPinchFramesRequired)
+                    {
+                        Pinched = true;
+                        AudioSource.Play(); // Play sound only when pinch is officially detected
+                    }
                 }
                 else
                 {
-                    Marking = true;
+                    currentPinchFrameCount = 0;
+                    if (Pinched && ++currentReleaseFrameCount >= sustainedReleaseFramesRequired)
+                    {
+                        Pinched = false;
+                    }
                 }
 
-                if (currentDistance >= PinchTriggerDistance)
+                if (currentlyMarking)
                 {
-                    Pinched = false;
+                    currentReleaseFrameCount = 0;
+                    if (!Marking && ++currentPinchFrameCount >= sustainedPinchFramesRequired)
+                    {
+                        Marking = true;
+                    }
                 }
                 else
                 {
-                    Pinched = true;
+                    currentPinchFrameCount = 0;
+                    if (Marking && ++currentReleaseFrameCount >= sustainedReleaseFramesRequired)
+                    {
+                        Marking = false;
+                    }
                 }
-            }
-            if (!WasPinchingLastFrame && Pinched)
-            {
-                AudioSource.Play();
             }
         }
 
