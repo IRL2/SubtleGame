@@ -1,7 +1,11 @@
 # SubtleGame
 
 These instructions contain:
-1. [Setting up the Subtle Game](#Setting-up)
+1. [Setting up](#Setting-up)
+	- [Cloning the repo](#Cloning-the-repo)
+	- [NanoVer server](#NanoVer-server)
+	- [Python client](#Python-client)
+	- [VR client](#VR-client)
 3. [Running a game](#Running-a-game)
 
 ## Setting up
