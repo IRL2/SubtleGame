@@ -8,6 +8,8 @@ These instructions contain:
 	- [VR client](#VR-client)
 3. [Running a game](#Running-a-game)
 
+-----
+
 ## Setting up
 ### Cloning the repo
 
@@ -67,6 +69,8 @@ The game can be played on a Quest 2 or 3 headset using Quest Link or AirLink.
 Hand tracking must be enabled on your VR headset to play the game. To do this:
 1. Navigate to Settings from inside your headset and select `Movement tracking`. 
 2. Toggle on the `Hand and body tracking` option and click `Enable`.
+
+-----
 
 ## Running a game
 
