@@ -1,5 +1,9 @@
 # SubtleGame
 
+These instructions contain:
+1. [Setting up the Subtle Game](#Setting-up)
+3. [Running a game](#Running-a-game)
+
 ## Setting up
 ### Cloning the repo
 
