@@ -33,11 +33,11 @@ The game is handled by a Python client that is referred to as the 'puppeteering 
 2. Open "Anaconda Powershell Prompt" and type the following commands.
     - `conda create -n subtle-game "python>3.9"` to create a Conda environment called `subtle-game`.
     - `conda activate subtle-game` to activate the environment you have just created.
-3. Navigate to the Subtle Game repo directory and install the following packages with `pip install -r .\requirements.txt`.
+3. Navigate to the Subtle Game repo directory and install the required packages using pip by running `pip install -r .\requirements.txt`. This will install the following packages in your conda environment:
     - [Numpy](https://anaconda.org/anaconda/numpy)
     - [Random-Username](https://pypi.org/project/random-username/)
     - [Knot-Pull](https://github.com/dzarmola/knot_pull)
-4. Install [Nanover Protocol](https://github.com/IRL2/nanover-protocol) with `conda install -c irl -c omnia -c conda-forge nanover-server`.
+4. Install [Nanover Protocol](https://github.com/IRL2/nanover-protocol) using conda by running `conda install -c irl -c omnia -c conda-forge nanover-server`.
 5. Open the `SubtleGame` directory in your favourite Python IDE. Select the `subtle-game` conda environment as your python interpreter and set the `SubtleGame` directory to be the root. Note that if you are running the puppeteering-client script from the terminal, ensure that you have activated the subtle-game environment by typing `conda activate subtle-game`.
 
 ### VR client
