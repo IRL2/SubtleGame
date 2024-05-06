@@ -1,6 +1,4 @@
 # SubtleGame
-
-These instructions contain:
 1. [Setting up](#Setting-up)
 	- [Cloning the repo](#Cloning-the-repo)
 	- [NanoVer server](#NanoVer-server)
