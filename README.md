@@ -1,9 +1,9 @@
 # SubtleGame
 1. [Setting up](#Setting-up)
 	- [Cloning the repo](#Cloning-the-repo)
-	- [NanoVer server](#NanoVer-server)
-	- [Python client](#Python-client)
-	- [VR client](#VR-client)
+	- [Running a NanoVer server](#Running-a-NanoVer-server)
+	- [Running the game manager](#Running-the-game-manager)
+	- [Runnign the VR client](#Running-the-VR-client)
 3. [Running a game](#Running-a-game)
 
 -----
@@ -17,7 +17,7 @@
 4. Clone the repo by typing: `git clone paste-repo-URL-here`.
 5. Navigate into the repo with `cd .\SubtleGame\`. Run the following commands: `git submodule sync` and then `git submodule update --init --recursive --remote`.
 
-### NanoVer server
+### Running a NanoVer server
 
 A NanoVer server is used to run the molecular simulations and stream data between clients. Each instance of a game needs it's own server. To run a server, you can use either the command line or the GUI. You will need to load a minimum of four simulations:
 - The nanotube + methane: `nanotube_langevin.xml`
@@ -34,7 +34,7 @@ A NanoVer server is used to run the molecular simulations and stream data betwee
 2. Open the Network tab and change the Server name to `SubtleGame`.
 3. To load the simulations, click `+OpenMM` and then `Select files` to choose one of the files located in the `\Inputs` directory. Repeat this until you have all the required simulations, then click `Run the selected file!`.
 
-### Python client
+### Running the game manager
 
 The game is handled by a Python client that is referred to as the 'puppeteering client' and can be found here: `./Client/puppeteering-client.py`.
 1. Install Anaconda.
@@ -48,21 +48,21 @@ The game is handled by a Python client that is referred to as the 'puppeteering 
 4. Install [Nanover Protocol](https://github.com/IRL2/nanover-protocol) using conda by running `conda install -c irl -c omnia -c conda-forge nanover-server`.
 5. Open the `SubtleGame` directory in your favourite Python IDE. Select the `subtle-game` conda environment as your python interpreter and set the `SubtleGame` directory to be the root. Note that if you are running the puppeteering-client script from the terminal, ensure that you have activated the subtle-game environment by typing `conda activate subtle-game`.
 
-### VR client
+### Running the VR client
 
 1. Install and open Unity Hub.
 2. Click the `Add` button and select the `./Client/vr-client` directory.
 3. If not already installed, you should get a prompt to install the required version of Unity (2022.3.8f1). Install this along with the Android Build Support with OpenJDK and Android SDK & NDK Tools.
 4. Open the game using this version of Unity and open the `Main` scene, which is found in the `./Assets/Scenes` directory.
 
-#### Oculus PC App Settings
+#### Configuring the Oculus PC App Settings
 
 The game can be played on a Quest 2 or 3 headset using Quest Link or AirLink.
 1. Install the Oculus PC app for Meta Quest Link.
 2. Open the app and ensure that OpenXR Runtime is active by going to `Settings` -> `General` and selecting `Set Oculus as active` for the OpenXR Runtime option. If this option is not selected then you will receive the warning `unable to start Oculus XR plugin` in the Unity console when you click play.
 3. Enable passthrough by going to `Settings` -> `Beta`. Toggle the button to enable `Developer runtime features` and then toggle the option for `Pass-through over oculus link`. This allows the game to use passthrough, where you can see your physical surroundings through the cameras on the VR headset. 
 
-#### Oculus settings inside the headset
+#### Configuring the Oculus settings inside the headset
 
 Hand tracking must be enabled on your VR headset to play the game. To do this:
 1. Navigate to Settings from inside your headset and select `Movement tracking`. 
