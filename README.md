@@ -3,7 +3,7 @@
 	- [Cloning the repo](#Cloning-the-repo)
 	- [Running a NanoVer server](#Running-a-NanoVer-server)
 	- [Running the game manager](#Running-the-game-manager)
-	- [Runnign the VR client](#Running-the-VR-client)
+	- [Running the VR client](#Running-the-VR-client)
 3. [Running a game](#Running-a-game)
 
 -----
