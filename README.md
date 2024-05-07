@@ -15,7 +15,11 @@
 2. Install [git](https://github.com/git-guides/install-git).
 3. Navigate to the local directory where you want the SubtleGame git repo.
 4. Clone the repo by typing: `git clone paste-repo-URL-here`.
-5. Navigate into the repo with `cd .\SubtleGame\`. Run the following commands: `git submodule sync` and then `git submodule update --init --recursive --remote`.
+5. Navigate into the repo with `cd .\SubtleGame\`. Run the following commands:
+```
+git submodule sync
+git submodule update --init --recursive --remote
+```
 
 ### Running a NanoVer server
 
@@ -27,7 +31,10 @@ A NanoVer server is used to run the molecular simulations and stream data betwee
 
 #### Using the command line:
 1. Open "Anaconda Powershell Prompt" and navigate to the `./Server/nanover-rs-windows-2024-04-08` directory.
-2. Run the following line `nanover-cli.exe --name "SubtleGame" "..\..\Inputs\17-ala.xml" "..\..\Inputs\nanotube_langevin.xml" "..\..\Inputs\sandbox_2_C10_alkanes.xml" "..\..\Inputs\ANGLE\buckyball_angle_A_0.5.xml"` [NOTE: you can modify this line by adding as many simulations as you want].
+2. Run the following line (NOTE: you can add more simulations to the end of this line as you want).
+```
+nanover-cli.exe --name "SubtleGame" "..\..\Inputs\17-ala.xml" "..\..\Inputs\nanotube_langevin.xml" "..\..\Inputs\sandbox_2_C10_alkanes.xml" "..\..\Inputs\ANGLE\buckyball_angle_A_0.5.xml"
+``` 
 
 #### Using the GUI:
 1. Navigate to the `./Client/rust-server-2023-10-19` directory and click on `nanover-gui.exe`.
@@ -37,16 +44,23 @@ A NanoVer server is used to run the molecular simulations and stream data betwee
 ### Running the game manager
 
 The game is handled by a Python client that is referred to as the 'puppeteering client' and can be found here: `./Client/puppeteering-client.py`.
-1. Install Anaconda.
-2. Open "Anaconda Powershell Prompt" and type the following commands.
-    - `conda create -n subtle-game "python>3.11"` to create a Conda environment called `subtle-game`.
-    - `conda activate subtle-game` to activate the environment you have just created.
-3. Navigate to the Subtle Game repo directory and install the required packages using pip by running `pip install -r .\requirements.txt`. This will install the following packages in your conda environment:
-    - [Numpy](https://anaconda.org/anaconda/numpy)
-    - [Random-Username](https://pypi.org/project/random-username/)
-    - [Knot-Pull](https://github.com/dzarmola/knot_pull)
-4. Install [Nanover Protocol](https://github.com/IRL2/nanover-protocol) using conda by running `conda install -c irl -c omnia -c conda-forge nanover-server`.
-5. Open the `SubtleGame` directory in your favourite Python IDE. Select the `subtle-game` conda environment as your python interpreter and set the `SubtleGame` directory to be the root. Note that if you are running the puppeteering-client script from the terminal, ensure that you have activated the subtle-game environment by typing `conda activate subtle-game`.
+1. Install Conda through whichever program you prefer, e.g., [Miniforge](https://github.com/conda-forge/miniforge).
+2. Open a terminal and run the following commands to create a Conda environment called `subtle-game` and activate that environment:
+```
+conda create -n subtle-game "python>3.11"
+conda activate subtle-game
+```
+4. Navigate to the Subtle Game repo directory and install the required packages using pip by running
+```
+pip install -r .\requirements.txt
+```
+This will install the following packages in your conda environment: [Numpy](https://anaconda.org/anaconda/numpy), [Random-Username](https://pypi.org/project/random-username/), and [Knot-Pull](https://github.com/dzarmola/knot_pull).
+ 
+6. Install [Nanover Protocol](https://github.com/IRL2/nanover-protocol) using conda by running:
+```
+conda install -c irl -c omnia -c conda-forge nanover-server
+```
+7. Open the `SubtleGame` directory in your favourite Python IDE. Select the `subtle-game` conda environment as your python interpreter and set the `SubtleGame` directory to be the root. Note that if you are running the puppeteering-client script from the terminal, ensure that you have activated the subtle-game environment.
 
 ### Running the VR client
 
@@ -74,9 +88,12 @@ Hand tracking must be enabled on your VR headset to play the game. To do this:
 
 1. Run a NanoVer server:
     - Navigate to the server directory inside a terminal.
-    - Run `nanover-cli.exe --name "SubtleGame" "..\..\Inputs\17-ala.xml" "..\..\Inputs\nanotube_langevin.xml" "..\..\Inputs\sandbox_2_C10_alkanes.xml" "..\..\Inputs\ANGLE\buckyball_angle_A_0.5.xml"`
-    - NOTE: see more detailed instructions above.
-1. Run the Python puppeteering client:
+    - Run:
+```
+nanover-cli.exe --name "SubtleGame" "..\..\Inputs\17-ala.xml" "..\..\Inputs\nanotube_langevin.xml" "..\..\Inputs\sandbox_2_C10_alkanes.xml" "..\..\Inputs\ANGLE\buckyball_angle_A_0.5.xml"
+```
+
+2. Run the Python puppeteering client:
     - Navigate to `./Client/puppeteering-client.py` from inside your `subtle-game` conda environment (either using the terminal or your Python IDE, as detailed above)
     - Run the script.
     - A randomly-generated username will appear on the terminal. Type `y` and press `Enter` on your keyboard to accept this username and continue, or alternatively press `Enter` to generate a new username.
