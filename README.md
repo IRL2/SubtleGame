@@ -39,7 +39,7 @@ A NanoVer server is used to run the molecular simulations and stream data betwee
 The game is handled by a Python client that is referred to as the 'puppeteering client' and can be found here: `./Client/puppeteering-client.py`.
 1. Install Anaconda.
 2. Open "Anaconda Powershell Prompt" and type the following commands.
-    - `conda create -n subtle-game "python>3.9"` to create a Conda environment called `subtle-game`.
+    - `conda create -n subtle-game "python>3.11"` to create a Conda environment called `subtle-game`.
     - `conda activate subtle-game` to activate the environment you have just created.
 3. Navigate to the Subtle Game repo directory and install the required packages using pip by running `pip install -r .\requirements.txt`. This will install the following packages in your conda environment:
     - [Numpy](https://anaconda.org/anaconda/numpy)
