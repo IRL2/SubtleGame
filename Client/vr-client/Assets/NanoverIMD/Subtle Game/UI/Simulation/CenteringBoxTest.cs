@@ -92,7 +92,11 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
             // copy box transform to multiplayer scene key
             var t = Transformation.FromTransformRelativeToParent(simulation);
             t.CopyToTransformRelativeToParent(simulation);
-            subtleGameManager.simulation.Multiplayer.SimulationPose.UpdateValueWithLock(t);
+
+            if (subtleGameManager.simulation.Multiplayer.IsOpen)
+            {
+                subtleGameManager.simulation.Multiplayer.SimulationPose.UpdateValueWithLock(t);
+            }
         }
 
         private void UpdatePlayerPosition()
