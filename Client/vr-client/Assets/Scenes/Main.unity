@@ -20910,8 +20910,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerEyeAnchor: {fileID: 4948775120161647665}
-  rightHandAnchor: {fileID: 8677729729140572697}
-  leftHandAnchor: {fileID: 8895552804684926773}
+  leftHand: {fileID: 716911152845657032}
+  rightHand: {fileID: 6693760772930067047}
+  leftController: {fileID: 7782402911361238551}
+  rightController: {fileID: 4468034851178459339}
   simulation: {fileID: 1265723033}
 --- !u!1 &1371801897
 GameObject:
