@@ -207,7 +207,16 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         {
             CurrentMenuIndex++;
         }
-        
+
+        /// <summary>
+        /// Increments to the previous menu on the currently active canvas.
+        /// </summary>
+        public void RequestPreviousMenu()
+        {
+            CurrentMenuIndex--;
+            if (CurrentMenuIndex<=0) CurrentMenuIndex=0;
+        }
+
         /// <summary>
         /// Enables the desired menu. If called for the first menu of a new task, disables all other menus on the canvas
         /// so that only one is enabled. Called when the menu changes, which occurs when switching tasks or switching
