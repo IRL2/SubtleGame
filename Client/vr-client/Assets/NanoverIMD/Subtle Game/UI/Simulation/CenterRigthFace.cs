@@ -17,10 +17,13 @@ namespace NanoverImd.Subtle_Game.UI.Simulation
             // Update position of current game object
             if (frameSource.CurrentFrame is { } frame
              && frame.BoxVectors is { } box)
+            {
                 transform.localPosition = new Vector3(
-                    box.axesMagnitudes.x * 0.0f,
+                    box.axesMagnitudes.x * 1.0f,
                     box.axesMagnitudes.x * 0.5f,
                     box.axesMagnitudes.x * 0.5f);
+                transform.localRotation = Quaternion.LookRotation(Vector3.right);
+            }  
         }
     }
 }
