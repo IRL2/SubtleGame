@@ -12363,8 +12363,10 @@ MonoBehaviour:
   IndexAndThumbTransforms:
   - {fileID: 4595471348484302799}
   - {fileID: 4682591776209724542}
+  - {fileID: 3675295410859812432}
   - {fileID: 4887313454428485390}
   - {fileID: 4591869718317071806}
+  - {fileID: 359393469706056710}
   FetchClosestAtomUpdateInterval: 0.1
   GrabNewAtomSound: {fileID: 8300000, guid: a05d082cd207b4b12a47c089be8b7a62, type: 3}
 --- !u!1 &1055116513

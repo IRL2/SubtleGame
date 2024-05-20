@@ -217,7 +217,7 @@ if __name__ == '__main__':
 
     # Create puppeteering client
     puppeteering_client = PuppeteeringClient(number_of_trial_repeats=number_of_repeats,
-                                             first_modality=modality_controllers)
+                                             first_modality=modality_hands)
 
     # Start game
     puppeteering_client.run_game()

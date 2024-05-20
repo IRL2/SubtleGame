@@ -217,12 +217,12 @@ namespace NanoverImd.Subtle_Game.Interaction
         /// </summary>
         private void CreateGrabbers()
         {
-            for (int i = 0; i < IndexAndThumbTransforms.Count; i += 2)
+            for (int i = 0; i < IndexAndThumbTransforms.Count; i += 3)
             {
                 if (i + 1 >= IndexAndThumbTransforms.Count) continue;
                 bool primaryController = i == 0;
                 Transform pokePosition = i == 0 ? PokePositions[0] : PokePositions[1];
-                PinchGrabber grabber = new PinchGrabber(IndexAndThumbTransforms[i], IndexAndThumbTransforms[i + 1], PinchTriggerDistance, MarkerTriggerDistance, 
+                PinchGrabber grabber = new PinchGrabber(IndexAndThumbTransforms[i], IndexAndThumbTransforms[i + 1], IndexAndThumbTransforms[i + 2], PinchTriggerDistance, MarkerTriggerDistance, 
                     InteractableSceneScript, nanoverSimulation, InteractionLineRendererBlueprint, AtomMarkerBlueprint,
                     GrabNewAtomSound, UseControllers, primaryController, pokePosition);
                 pinchGrabbers.Add(grabber);
