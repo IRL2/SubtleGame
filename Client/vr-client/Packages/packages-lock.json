@@ -1,11 +1,11 @@
 {
   "dependencies": {
     "com.cysharp.yetanotherhttphandler": {
-      "version": "0.1.0",
+      "version": "https://github.com/Cysharp/YetAnotherHttpHandler.git?path=/src/YetAnotherHttpHandler#1.2.0",
       "depth": 0,
-      "source": "registry",
+      "source": "git",
       "dependencies": {},
-      "url": "https://package.openupm.com"
+      "hash": "37998fea906aa83ec6adb1a0b24c48eebdcf0da6"
     },
     "com.unity.collab-proxy": {
       "version": "2.0.7",
