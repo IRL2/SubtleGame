@@ -8,7 +8,7 @@ from standardised_values import *
 
 class SandboxTask(Task):
 
-    task_type = TASK_SANDBOX
+    task_type = task_sandbox
 
     def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int):
 
@@ -35,7 +35,7 @@ class SandboxTask(Task):
                 value = self.client.latest_multiplayer_values[key_player_task_type]
 
                 if value == player_sandbox:
-                    time.sleep(STANDARD_RATE)
+                    time.sleep(standard_rate)
                     continue
                 else:
                     break

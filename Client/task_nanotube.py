@@ -8,7 +8,7 @@ from standardised_values import *
 
 
 class NanotubeTask(Task):
-    task_type = TASK_NANOTUBE
+    task_type = task_nanotube
 
     def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int):
 
@@ -59,7 +59,7 @@ class NanotubeTask(Task):
                 self.methane_end_of_entry = None
 
             self._check_if_sim_has_blown_up()
-            time.sleep(STANDARD_RATE)
+            time.sleep(standard_rate)
 
     def _update_visualisations(self):
 
@@ -100,7 +100,7 @@ class NanotubeTask(Task):
         # Set colour of the selection
         with all_atoms.modify() as selection:
             selection.renderer = {'render': 'ball and stick',
-                                  'color': {'type': 'particle index', 'gradient': [IRL_ORANGE, IRL_BLUE]}
+                                  'color': {'type': 'particle index', 'gradient': [IRL_orange, IRL_blue]}
                                   }
 
 

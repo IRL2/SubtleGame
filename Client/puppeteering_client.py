@@ -32,15 +32,15 @@ def get_order_of_tasks(run_short_game: bool):
     @param: test_run If true then each section will only contain the nanotube task """
 
     if run_short_game:
-        return [TASK_NANOTUBE, TASK_NANOTUBE]
+        return [task_nanotube, task_nanotube]
     else:
-        tasks = [TASK_KNOT_TYING, TASK_TRIALS]
+        tasks = [task_knot_tying, task_trials]
 
     order_of_tasks = []
 
     for n in range(2):
         t = random.sample(tasks, len(tasks))
-        t.insert(0, TASK_NANOTUBE)
+        t.insert(0, task_nanotube)
         order_of_tasks.extend(t)
 
     return order_of_tasks
@@ -55,7 +55,7 @@ class PuppeteeringClient:
         self.username = generate_username_for_player()
 
         # Connect to a local Nanover server
-        self.nanover_client = NanoverImdClient.autoconnect(name=SERVER_NAME)
+        self.nanover_client = NanoverImdClient.autoconnect(name=server_name)
         self.nanover_client.subscribe_multiplayer()
         self.nanover_client.subscribe_to_frames()
         self.nanover_client.update_available_commands()
@@ -65,11 +65,11 @@ class PuppeteeringClient:
 
         # Set order of interaction modality
         if first_modality.lower() == 'random':
-            self.order_of_interaction_modality = randomise_list_order([MODALITY_HANDS, MODALITY_CONTROLLERS])
-        elif first_modality.lower() == MODALITY_HANDS:
-            self.order_of_interaction_modality = [MODALITY_HANDS, MODALITY_CONTROLLERS]
-        elif first_modality.lower() == MODALITY_CONTROLLERS:
-            self.order_of_interaction_modality = [MODALITY_CONTROLLERS, MODALITY_HANDS]
+            self.order_of_interaction_modality = randomise_list_order([modality_hands, modality_controllers])
+        elif first_modality.lower() == modality_hands:
+            self.order_of_interaction_modality = [modality_hands, modality_controllers]
+        elif first_modality.lower() == modality_controllers:
+            self.order_of_interaction_modality = [modality_controllers, modality_hands]
         else:
             raise ValueError("Invalid interaction modality. Choose 'hands', 'controllers', or 'random'.")
         self.current_modality = self.order_of_interaction_modality[0]
@@ -97,23 +97,23 @@ class PuppeteeringClient:
 
             simulation_counter = self.nanover_client.current_frame.values["system.simulation.counter"]
 
-            if task == TASK_NANOTUBE:
+            if task == task_nanotube:
 
                 # Check if we are in the second section
                 if not self.first_practice_sim:
                     # If yes, increment interaction modality
                     self.current_modality = self.order_of_interaction_modality[1]
-                    write_to_shared_state(client=self.nanover_client, key=KEY_MODALITY, value=self.current_modality)
+                    write_to_shared_state(client=self.nanover_client, key=key_modality, value=self.current_modality)
 
                 current_task = NanotubeTask(client=self.nanover_client, simulations=self.nanotube_sim,
                                             simulation_counter=simulation_counter)
                 self.first_practice_sim = False
 
-            elif task == TASK_KNOT_TYING:
+            elif task == task_knot_tying:
                 current_task = KnotTyingTask(client=self.nanover_client, simulations=self.alanine_sim,
                                              simulation_counter=simulation_counter)
 
-            elif task == TASK_TRIALS:
+            elif task == task_trials:
                 current_task = TrialsTask(client=self.nanover_client, simulations=self.trials_sims,
                                           simulation_counter=simulation_counter,
                                           number_of_repeats=self.num_of_trial_repeats)
@@ -134,16 +134,16 @@ class PuppeteeringClient:
         the shared state for initialising the game. """
 
         # Get simulation indices for loading onto the server
-        self.sandbox_sim = self.get_name_and_server_index_of_simulations_for_task(SIM_NAME_SANDBOX)
-        self.nanotube_sim = self.get_name_and_server_index_of_simulations_for_task(SIM_NAME_NANOTUBE)
-        self.alanine_sim = self.get_name_and_server_index_of_simulations_for_task(SIM_NAME_KNOT_TYING)
-        self.trials_sims = self.get_name_and_server_index_of_simulations_for_task(SIM_NAME_TRIALS)
+        self.sandbox_sim = self.get_name_and_server_index_of_simulations_for_task(sim_name_sandbox)
+        self.nanotube_sim = self.get_name_and_server_index_of_simulations_for_task(sim_name_nanotube)
+        self.alanine_sim = self.get_name_and_server_index_of_simulations_for_task(sim_name_knot_tying)
+        self.trials_sims = self.get_name_and_server_index_of_simulations_for_task(sim_name_trials)
 
         # update the shared state
-        write_to_shared_state(client=self.nanover_client, key=KEY_USERNAME, value=self.username)
-        write_to_shared_state(client=self.nanover_client, key=KEY_GAME_STATUS, value=WAITING)
-        write_to_shared_state(client=self.nanover_client, key=KEY_MODALITY, value=self.current_modality)
-        write_to_shared_state(client=self.nanover_client, key=KEY_ORDER_OF_TASKS, value=self.order_of_tasks)
+        write_to_shared_state(client=self.nanover_client, key=key_username, value=self.username)
+        write_to_shared_state(client=self.nanover_client, key=key_game_status, value=waiting)
+        write_to_shared_state(client=self.nanover_client, key=key_modality, value=self.current_modality)
+        write_to_shared_state(client=self.nanover_client, key=key_order_of_tasks, value=self.order_of_tasks)
 
         # Print game setup to the terminal
         print('\nGame initialised:')
@@ -156,20 +156,20 @@ class PuppeteeringClient:
         # Wait for player to choose between sandbox and main game
         while True:
             try:
-                value = self.nanover_client.latest_multiplayer_values[KEY_PLAYER_TASK_TYPE]
-                if value == PLAYER_SANDBOX:
+                value = self.nanover_client.latest_multiplayer_values[key_player_task_type]
+                if value == player_sandbox:
                     simulation_counter = self.nanover_client.current_frame.values["system.simulation.counter"]
                     current_task = SandboxTask(client=self.nanover_client, simulations=self.sandbox_sim,
                                                simulation_counter=simulation_counter)
                     current_task.run_task()
                     continue
-                elif value in [PLAYER_NANOTUBE, PLAYER_KNOT_TYING, PLAYER_TRIALS]:
+                elif value in [player_nanotube, player_knot_tying, player_trials]:
                     break
 
             except KeyError:
                 pass
 
-            time.sleep(STANDARD_RATE)
+            time.sleep(standard_rate)
 
     def get_name_and_server_index_of_simulations_for_task(self, name: str):
         """ Returns a dictionary of the name(s) of the simulation(s) with their corresponding index for loading onto
@@ -187,8 +187,8 @@ class PuppeteeringClient:
     def _wait_for_vr_client_to_connect_to_server(self):
         """ Waits for the player to be connected."""
         print("Waiting for player to connect...")
-        self._wait_for_key_values(KEY_PLAYER_CONNECTED, TRUE)
-        write_to_shared_state(client=self.nanover_client, key=KEY_GAME_STATUS, value=IN_PROGRESS)
+        self._wait_for_key_values(key_player_connected, true)
+        write_to_shared_state(client=self.nanover_client, key=key_game_status, value=in_progress)
 
     def _wait_for_key_values(self, key, *values):
         while True:
@@ -201,12 +201,12 @@ class PuppeteeringClient:
                 pass
 
             # If the desired key-value pair is not in shared state yet, wait a bit before trying again
-            time.sleep(STANDARD_RATE)
+            time.sleep(standard_rate)
 
     def _finish_game(self):
         """ Update the shared state and close the client at the end of the game. """
         print("Closing the nanover client and ending game.")
-        write_to_shared_state(client=self.nanover_client, key=KEY_GAME_STATUS, value=FINISHED)
+        write_to_shared_state(client=self.nanover_client, key=key_game_status, value=finished)
         self.nanover_client.close()
         print('Game finished')
 
@@ -217,7 +217,7 @@ if __name__ == '__main__':
 
     # Create puppeteering client
     puppeteering_client = PuppeteeringClient(number_of_trial_repeats=number_of_repeats,
-                                             first_modality=MODALITY_HANDS)
+                                             first_modality=modality_hands)
 
     # Start game
     puppeteering_client.run_game()

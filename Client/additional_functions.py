@@ -24,25 +24,25 @@ def check_that_key_val_pair_is_valid(key: str, val):
     """ Checks if the key-value pair is permitted for writing to the shared state. """
 
     # Only check values of keys that require specific values
-    if key in KEYS_WITH_UNRESTRICTED_VALS:
+    if key in keys_with_unrestricted_vals:
         return
 
     # Check if key is permitted
-    if key not in SHARED_STATE_KEYS_AND_VALS:
-        raise NameError(f"Invalid shared state key '{key}', it must be one of "f"{SHARED_STATE_KEYS_AND_VALS.keys()}")
+    if key not in shared_state_keys_and_vals:
+        raise NameError(f"Invalid shared state key '{key}', it must be one of "f"{shared_state_keys_and_vals.keys()}")
 
     # Where the val is a list, check each item in the list
     if isinstance(val, list):
         for i in range(len(val)):
-            if val[i] not in SHARED_STATE_KEYS_AND_VALS[key]:
+            if val[i] not in shared_state_keys_and_vals[key]:
                 raise NameError(f"Invalid shared state value '{val[i]}' for key '{key}', it must be one of: "
-                                f"{SHARED_STATE_KEYS_AND_VALS[key]}")
+                                f"{shared_state_keys_and_vals[key]}")
         return
 
     # Otherwise, check the value directly
-    if val not in SHARED_STATE_KEYS_AND_VALS[key]:
+    if val not in shared_state_keys_and_vals[key]:
         raise NameError(f"Invalid shared state value '{val}' for key '{key}', it must be one of: "
-                        f"{SHARED_STATE_KEYS_AND_VALS[key]}")
+                        f"{shared_state_keys_and_vals[key]}")
 
 
 def randomise_list_order(lst: list):
