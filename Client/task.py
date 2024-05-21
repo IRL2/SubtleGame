@@ -69,7 +69,7 @@ class Task:
                     break
 
             except KeyError:
-                time.sleep(STANDARD_RATE)
+                time.sleep(standard_rate)
 
         self.simulation_counter += 1
 
@@ -97,7 +97,7 @@ class Task:
                 pass
 
             # If the desired key-value pair is not in shared state yet, wait a bit before trying again
-            time.sleep(STANDARD_RATE)
+            time.sleep(standard_rate)
 
     def _update_visualisations(self):
         """ Container for changing the task-specific visualisation the simulation. """
@@ -118,7 +118,7 @@ class Task:
                 break
             except KeyError:
                 print("No particle positions found, waiting for 1/30 seconds before trying again.")
-                time.sleep(STANDARD_RATE)
+                time.sleep(standard_rate)
 
         # Update shared state
         write_to_shared_state(client=self.client, key=key_task_status, value=in_progress)

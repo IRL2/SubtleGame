@@ -18,7 +18,7 @@ class TestRandomiseListOrder(unittest.TestCase):
 
 class TestCheckThatKeyValPairIsValid(unittest.TestCase):
     def test_valid_key_val_pair(self):
-        key = KEY_MODALITY
+        key = key_modality
         val = modality_controllers
         self.assertIsNone(check_that_key_val_pair_is_valid(key, val))
 
@@ -30,21 +30,21 @@ class TestCheckThatKeyValPairIsValid(unittest.TestCase):
         self.assertIn("Invalid shared state key", str(context.exception))
 
     def test_invalid_value_for_key(self):
-        key = KEY_GAME_STATUS
+        key = key_game_status
         val = "invalid_val"
         with self.assertRaises(NameError) as context:
             check_that_key_val_pair_is_valid(key, val)
         self.assertIn("Invalid shared state value", str(context.exception))
 
     def test_valid_list_value_for_key(self):
-        key = KEY_ORDER_OF_TASKS
-        val = [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS,
-               TASK_NANOTUBE, TASK_TRIALS, TASK_KNOT_TYING]
+        key = key_order_of_tasks
+        val = [task_nanotube, task_knot_tying, task_trials,
+               task_nanotube, task_trials, task_knot_tying]
         self.assertIsNone(check_that_key_val_pair_is_valid(key, val))
 
     def test_invalid_list_value_for_key(self):
-        key = KEY_ORDER_OF_TASKS
-        val = [TASK_NANOTUBE, "invalid_val"]
+        key = key_order_of_tasks
+        val = [task_nanotube, "invalid_val"]
         with self.assertRaises(NameError) as context:
             check_that_key_val_pair_is_valid(key, val)
         self.assertIn("Invalid shared state value", str(context.exception))

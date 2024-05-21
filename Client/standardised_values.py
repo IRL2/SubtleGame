@@ -2,88 +2,89 @@
 # GENERAL
 # ---------------- #
 # Server
-SERVER_NAME = 'SubtleGame'
+server_name = 'SubtleGame'
 # Task
-TASK_SANDBOX = 'sandbox'
-TASK_NANOTUBE = 'nanotube'
-TASK_KNOT_TYING = 'knot-tying'
-TASK_TRIALS = 'trials'
+task_sandbox = 'sandbox'
+task_nanotube = 'nanotube'
+task_knot_tying = 'knot-tying'
+task_trials = 'trials'
+task_order = 'order-of-tasks'
 # Simulation
-SIM_NAME_SANDBOX = 'sandbox'
-SIM_NAME_NANOTUBE = 'nanotube'
-SIM_NAME_KNOT_TYING = '17-ala'
-SIM_NAME_TRIALS = 'buckyball'
+sim_name_sandbox = 'sandbox'
+sim_name_nanotube = 'nanotube'
+sim_name_knot_tying = '17-ala'
+sim_name_trials = 'buckyball'
 # Frequency
-STANDARD_FREQUENCY = 30
-STANDARD_RATE = 1 / STANDARD_FREQUENCY
+standard_frequency = 30
+standard_rate = 1 / standard_frequency
 # Colours
-IRL_ORANGE = [1, 0.39, 0.016]
-IRL_BLUE = [0, 0, 0.8]
+IRL_orange = [1, 0.39, 0.016]
+IRL_blue = [0, 0, 0.8]
 
 # ---------------- #
 # KEYS
 # ---------------- #
-KEY_USERNAME = 'participant-username'
-KEY_MODALITY = 'modality'
-KEY_GAME_STATUS = 'game-status'
-KEY_ORDER_OF_TASKS = 'order-of-tasks'
-KEY_SIM_COUNTER = 'system-simulation-counter'
-KEY_CURRENT_TASK = 'current-task'
-KEY_TASK_STATUS = 'task-status'
-KEY_TRIALS_SIMS = 'trials-simulations'
-KEY_NUMBER_OF_TRIALS = 'number-of-trials'
-KEY_NUMBER_OF_TRIAL_REPEATS = 'number-of-trial-repeats'
-KEY_TRIALS_TIMER = 'trials-timer'
-KEY_TRIALS_ANSWER = 'trials-answer'
-KEY_TASK_COMPLETION_TIME = 'task-completion-time'
-KEY_SIMULATION_NAME = 'simulation-name'
-KEY_SIMULATION_SERVER_INDEX = 'simulation-server-index'
+key_username = 'participant-username'
+key_modality = 'modality'
+key_game_status = 'game-status'
+key_order_of_tasks = 'order-of-tasks'
+key_sim_counter = 'system-simulation-counter'
+key_current_task = 'current-task'
+key_task_status = 'task-status'
+key_trials_sims = 'trials-simulations'
+key_number_of_trials = 'number-of-trials'
+key_number_of_trial_repeats = 'number-of-trial-repeats'
+key_trials_timer = 'trials-timer'
+key_trials_answer = 'trials-answer'
+key_task_completion_time = 'task-completion-time'
+key_simulation_name = 'simulation-name'
+key_simulation_server_index = 'simulation-server-index'
 
 # ---------------- #
 # VALUES
 # ---------------- #
 # Status
-READY = 'ready'
-WAITING = 'waiting'
-STARTED = 'started'
-IN_PROGRESS = 'in-progress'
-FINISHED = 'finished'
-AMBIVALENT = 'Ambivalent'
-TRUE = 'True'
-FALSE = 'False'
+ready = 'ready'
+waiting = 'waiting'
+started = 'started'
+in_progress = 'in-progress'
+finished = 'finished'
+ambivalent = 'Ambivalent'
+true = 'True'
+false = 'False'
 # Interaction modality
-MODALITY_HANDS = 'hands'
-MODALITY_CONTROLLERS = 'controllers'
+modality_hands = 'hands'
+modality_controllers = 'controllers'
 
 # ---------------- #
 # PLAYER
 # ---------------- #
-KEY_PLAYER_CONNECTED = 'Player.Connected'
-KEY_PLAYER_TASK_TYPE = 'Player.TaskType'
-KEY_PLAYER_TASK_STATUS = 'Player.TaskStatus'
-KEY_PLAYER_TRIAL_NUMBER = 'Player.TrialNumber'
-KEY_PLAYER_TRIAL_ANSWER = 'Player.TrialAnswer'
-PLAYER_INTRO = 'Intro'
-PLAYER_SANDBOX = 'Sandbox'
-PLAYER_NANOTUBE = 'Nanotube'
-PLAYER_KNOT_TYING = 'KnotTying'
-PLAYER_TRIALS = 'Trials'
-PLAYER_IN_PROGRESS = 'InProgress'
-PLAYER_FINISHED = 'Finished'
+key_player_connected = 'Player.Connected'
+key_player_task_type = 'Player.TaskType'
+key_player_task_status = 'Player.TaskStatus'
+key_player_trial_number = 'Player.TrialNumber'
+key_player_trial_answer = 'Player.TrialAnswer'
+player_intro = 'Intro'
+player_sandbox = 'Sandbox'
+player_nanotube = 'Nanotube'
+player_knot_tying = 'KnotTying'
+player_trials = 'Trials'
+player_in_progress = 'InProgress'
+player_finished = 'Finished'
 
 # ---------------- #
 # SHARED STATE
 # ---------------- #
-SHARED_STATE_KEYS_AND_VALS = {
-    KEY_MODALITY: [MODALITY_HANDS, MODALITY_CONTROLLERS],
-    KEY_GAME_STATUS: [WAITING, IN_PROGRESS, FINISHED],
-    KEY_ORDER_OF_TASKS: [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS],
-    KEY_CURRENT_TASK: [TASK_SANDBOX, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS],
-    KEY_TASK_STATUS: [READY, IN_PROGRESS, FINISHED],
-    KEY_TRIALS_TIMER: [STARTED, FINISHED],
-    KEY_TRIALS_ANSWER: [AMBIVALENT, TRUE, FALSE]
+shared_state_keys_and_vals = {
+    key_modality: [modality_hands, modality_controllers],
+    key_game_status: [waiting, in_progress, finished],
+    key_order_of_tasks: [task_nanotube, task_knot_tying, task_trials],
+    key_current_task: [task_sandbox, task_nanotube, task_knot_tying, task_trials],
+    key_task_status: [ready, in_progress, finished],
+    key_trials_timer: [started, finished],
+    key_trials_answer: [ambivalent, true, false]
 }
 
-KEYS_WITH_UNRESTRICTED_VALS = [KEY_TASK_COMPLETION_TIME, KEY_SIMULATION_NAME, KEY_SIMULATION_SERVER_INDEX,
-                               KEY_TRIALS_SIMS, KEY_NUMBER_OF_TRIALS, KEY_NUMBER_OF_TRIAL_REPEATS, KEY_USERNAME,
-                               KEY_SIM_COUNTER]
+keys_with_unrestricted_vals = [key_task_completion_time, key_simulation_name, key_simulation_server_index,
+                               key_trials_sims, key_number_of_trials, key_number_of_trial_repeats, key_username,
+                               key_sim_counter]
