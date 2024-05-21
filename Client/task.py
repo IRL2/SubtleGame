@@ -49,11 +49,11 @@ class Task:
         self.client.run_command("playback/pause")
 
         # Update shared state
-        write_to_shared_state(client=self.client, key=key_simulation_name, value=self.sim_name)
-        write_to_shared_state(client=self.client, key=key_simulation_server_index, value=self.sim_index)
-        write_to_shared_state(client=self.client, key=key_sim_counter, value=self.simulation_counter)
-        write_to_shared_state(client=self.client, key=key_current_task, value=self.task_type)
-        write_to_shared_state(client=self.client, key=key_task_status, value=ready)
+        write_to_shared_state(client=self.client, key=KEY_SIMULATION_NAME, value=self.sim_name)
+        write_to_shared_state(client=self.client, key=KEY_SIMULATION_SERVER_INDEX, value=self.sim_index)
+        write_to_shared_state(client=self.client, key=KEY_SIM_COUNTER, value=self.simulation_counter)
+        write_to_shared_state(client=self.client, key=KEY_CURRENT_TASK, value=self.task_type)
+        write_to_shared_state(client=self.client, key=KEY_TASK_STATUS, value=READY)
 
         print("Task prepared")
 
@@ -69,7 +69,7 @@ class Task:
                     break
 
             except KeyError:
-                time.sleep(standard_rate)
+                time.sleep(STANDARD_RATE)
 
         self.simulation_counter += 1
 
@@ -80,11 +80,11 @@ class Task:
     def _wait_for_task_intro(self):
 
         print("Waiting for player to start intro to task")
-        self._wait_for_key_values(key_player_task_status, player_intro)
+        self._wait_for_key_values(KEY_PLAYER_TASK_STATUS, PLAYER_INTRO)
 
     def _wait_for_task_in_progress(self):
         print("Waiting for player to start task")
-        self._wait_for_key_values(key_player_task_status, player_in_progress)
+        self._wait_for_key_values(KEY_PLAYER_TASK_STATUS, PLAYER_IN_PROGRESS)
 
     def _wait_for_key_values(self, key, *values):
         while True:
@@ -97,7 +97,7 @@ class Task:
                 pass
 
             # If the desired key-value pair is not in shared state yet, wait a bit before trying again
-            time.sleep(standard_rate)
+            time.sleep(STANDARD_RATE)
 
     def _update_visualisations(self):
         """ Container for changing the task-specific visualisation the simulation. """
@@ -118,10 +118,10 @@ class Task:
                 break
             except KeyError:
                 print("No particle positions found, waiting for 1/30 seconds before trying again.")
-                time.sleep(standard_rate)
+                time.sleep(STANDARD_RATE)
 
         # Update shared state
-        write_to_shared_state(client=self.client, key=key_task_status, value=in_progress)
+        write_to_shared_state(client=self.client, key=KEY_TASK_STATUS, value=IN_PROGRESS)
 
     def _check_if_sim_has_blown_up(self):
         """ Resets the simulation if the kinetic energy goes above a threshold value. """
@@ -135,7 +135,7 @@ class Task:
         """Handles the finishing of the task."""
 
         # Update task status and completion time in the shared state
-        write_to_shared_state(client=self.client, key=key_task_status, value=finished)
+        write_to_shared_state(client=self.client, key=KEY_TASK_STATUS, value=FINISHED)
 
         # Change colour of simulation to signal that the task has been completed
         self._change_simulation_colour_when_task_finishes()
@@ -144,12 +144,12 @@ class Task:
         if self.timestamp_start and self.timestamp_end:
             self.task_completion_time = self.timestamp_end - self.timestamp_start
             write_to_shared_state(client=self.client,
-                                  key=key_task_completion_time,
+                                  key=KEY_TASK_COMPLETION_TIME,
                                   value=str(self.task_completion_time))
 
         # Wait for player to register that the task has finished
         print('Waiting for player to confirm end of task')
-        self._wait_for_key_values(key_player_task_status, player_finished)
+        self._wait_for_key_values(KEY_PLAYER_TASK_STATUS, PLAYER_FINISHED)
 
     def _change_simulation_colour_when_task_finishes(self):
         """ Container for changing the visualisation of the simulation at the end of the task. """
@@ -159,7 +159,7 @@ class Task:
         """Remove necessary keys leftover from previous tasks."""
 
         try:
-            remove_puppeteer_key_from_shared_state(client=self.client, key=key_task_completion_time)
+            remove_puppeteer_key_from_shared_state(client=self.client, key=KEY_TASK_COMPLETION_TIME)
 
         except KeyError:
             return

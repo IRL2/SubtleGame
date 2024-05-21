@@ -8,7 +8,7 @@ from standardised_values import *
 
 class SandboxTask(Task):
 
-    task_type = task_sandbox
+    task_type = TASK_SANDBOX
 
     def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int):
 
@@ -21,7 +21,7 @@ class SandboxTask(Task):
 
     def _run_task_logic(self):
 
-        write_to_shared_state(client=self.client, key=key_task_status, value=in_progress)
+        write_to_shared_state(client=self.client, key=KEY_TASK_STATUS, value=IN_PROGRESS)
 
         print('Starting sandbox')
         self.client.run_play()
@@ -32,10 +32,10 @@ class SandboxTask(Task):
     def _wait_for_player_to_exit_sandbox(self):
         while True:
             try:
-                value = self.client.latest_multiplayer_values[key_player_task_type]
+                value = self.client.latest_multiplayer_values[KEY_PLAYER_TASK_TYPE]
 
-                if value == player_sandbox:
-                    time.sleep(standard_rate)
+                if value == PLAYER_SANDBOX:
+                    time.sleep(STANDARD_RATE)
                     continue
                 else:
                     break
@@ -45,5 +45,5 @@ class SandboxTask(Task):
 
     def _finish_task(self):
         """Handles the finishing of the task."""
-        remove_puppeteer_key_from_shared_state(client=self.client, key=key_task_status)
-        remove_puppeteer_key_from_shared_state(client=self.client, key=key_current_task)
+        remove_puppeteer_key_from_shared_state(client=self.client, key=KEY_TASK_STATUS)
+        remove_puppeteer_key_from_shared_state(client=self.client, key=KEY_CURRENT_TASK)
