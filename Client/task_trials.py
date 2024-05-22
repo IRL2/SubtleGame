@@ -20,7 +20,7 @@ def calculate_correct_answer(sim_file_name: str):
 
     # Molecules are identical, there is no correct answer
     if multiplier == 1:
-        return ambivalent
+        return AMBIVALENT
 
     # Get residue id of modified molecule
     modified_molecule = get_residue_id_of_modified_molecule(sim_file_name=sim_file_name)
@@ -107,7 +107,7 @@ def get_order_of_simulations(simulations, num_repeats):
 
 
 class TrialsTask(Task):
-    task_type = task_trials
+    task_type = TASK_TRIALS
 
     def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int, number_of_repeats):
 
@@ -130,12 +130,12 @@ class TrialsTask(Task):
 
         self.practice_sims, self.main_sims = get_order_of_simulations(self.simulations, num_repeats=self.num_of_repeats)
 
-        write_to_shared_state(client=self.client, key=key_trials_sims, value=str(self.main_sims))
+        write_to_shared_state(client=self.client, key=KEY_TRIALS_SIMS, value=str(self.main_sims))
 
         self.number_of_trials = len(self.main_sims)
 
-        write_to_shared_state(client=self.client, key=key_number_of_trials, value=self.number_of_trials)
-        write_to_shared_state(client=self.client, key=key_number_of_trial_repeats, value=self.num_of_repeats)
+        write_to_shared_state(client=self.client, key=KEY_NUMBER_OF_TRIALS, value=self.number_of_trials)
+        write_to_shared_state(client=self.client, key=KEY_NUMBER_OF_TRIAL_REPEATS, value=self.num_of_repeats)
 
     def run_task(self):
         """ Runs through the psychophysics trials. """
@@ -148,9 +148,9 @@ class TrialsTask(Task):
                                 correct_answer=self.main_sims[trial_num][2])
 
             if trial_num == 0:
-                write_to_shared_state(client=self.client, key=key_task_status, value=in_progress)
+                write_to_shared_state(client=self.client, key=KEY_TASK_STATUS, value=IN_PROGRESS)
 
-            write_to_shared_state(client=self.client, key=key_trials_timer, value=started)
+            write_to_shared_state(client=self.client, key=KEY_TRIALS_TIMER, value=STARTED)
             self._wait_for_player_to_answer(current_trial_number=trial_num)
 
         # End trials
@@ -178,26 +178,26 @@ class TrialsTask(Task):
         print(f"Waiting for player to answer trial number: {current_trial_number}")
 
         # Remove puppeteer's previous answer
-        remove_puppeteer_key_from_shared_state(client=self.client, key=key_trials_answer)
+        remove_puppeteer_key_from_shared_state(client=self.client, key=KEY_TRIALS_ANSWER)
 
         # Wait for player's answer
-        super()._wait_for_key_values(key_player_trial_number, str(current_trial_number))
-        answer = self.client.latest_multiplayer_values[key_player_trial_answer]
+        super()._wait_for_key_values(KEY_PLAYER_TRIAL_NUMBER, str(current_trial_number))
+        answer = self.client.latest_multiplayer_values[KEY_PLAYER_TRIAL_ANSWER]
 
         # Check answer is valid
         if answer not in list_of_valid_answers:
             raise ValueError("Invalid answer provided. Answer must be 'A' or 'B'.")
 
         # Sort answer and update the shared state
-        if self.correct_answer == ambivalent:
-            self.was_answer_correct = ambivalent
+        if self.correct_answer == AMBIVALENT:
+            self.was_answer_correct = AMBIVALENT
         elif answer == self.correct_answer:
-            self.was_answer_correct = true
+            self.was_answer_correct = TRUE
         elif answer != self.correct_answer and self.correct_answer in list_of_valid_answers:
-            self.was_answer_correct = false
+            self.was_answer_correct = FALSE
         else:
             raise ValueError("An unexpected error occurred.")
-        write_to_shared_state(client=self.client, key=key_trials_answer, value=self.was_answer_correct)
+        write_to_shared_state(client=self.client, key=KEY_TRIALS_ANSWER, value=self.was_answer_correct)
 
     def _update_visualisations(self):
 

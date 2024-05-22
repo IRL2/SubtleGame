@@ -7,7 +7,7 @@ from standardised_values import *
 
 
 class KnotTyingTask(Task):
-    task_type = task_knot_tying
+    task_type = TASK_KNOT_TYING
 
     def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int):
 
@@ -38,7 +38,7 @@ class KnotTyingTask(Task):
             # Check that the particle positions exist in the latest frame
             while not hasattr(self.client.latest_frame, 'particle_positions'):
                 print("No particle positions found, waiting for 1/30 seconds before trying again.")
-                time.sleep(standard_rate)
+                time.sleep(STANDARD_RATE)
 
             self.knot_pull_client.check_if_chain_is_knotted(atom_positions=self.client.latest_frame.particle_positions)
 
@@ -53,7 +53,7 @@ class KnotTyingTask(Task):
                 break
 
             self._check_if_sim_has_blown_up()
-            time.sleep(standard_rate)
+            time.sleep(STANDARD_RATE)
 
     def _update_visualisations(self):
         """ Applies rainbow gradient visualisation. """
@@ -87,6 +87,6 @@ class KnotTyingTask(Task):
         # Set colour of the selection
         with all_atoms.modify() as selection:
             selection.renderer = {'render': 'ball and stick',
-                                  'color': {'type': 'particle index', 'gradient': [IRL_orange, IRL_blue]}
+                                  'color': {'type': 'particle index', 'gradient': [IRL_ORANGE, IRL_BLUE]}
                                   }
 
