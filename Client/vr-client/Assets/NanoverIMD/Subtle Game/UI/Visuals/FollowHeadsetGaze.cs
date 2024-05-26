@@ -9,7 +9,7 @@ namespace NanoverImd.Subtle_Game.Visuals
     {
         public Transform vrCentreEyeAnchor; 
         private float followSpeed = 1.75f;
-        private bool following = false;
+        private bool following = true;
 
         [SerializeField]
         private float followThresholdAngle = 25f; // angle difference from the gaze to the current panel position to start following
@@ -22,6 +22,7 @@ namespace NanoverImd.Subtle_Game.Visuals
 
         private void Start()
         {
+            following=true;
             // Set initial position to be in front of the headset.
             transform.position = vrCentreEyeAnchor.position + vrCentreEyeAnchor.forward * forwardOffset;
             transform.rotation = vrCentreEyeAnchor.rotation;
