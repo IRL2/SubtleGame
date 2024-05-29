@@ -6,11 +6,11 @@ from nanover.openmm import serializer
 
 # region Original buckyball simulation parameters
 
-buckyball_bond_force_constant = 451725
-buckyball_r_eq = .1332
+BUCKYBALL_BOND_FORCE_CONSTANT = 451725
+BUCKYBALL_R_EQ = .1332
 
-buckyball_angle_force_constant = 457.672
-buckyball_theta_eq = 2.129301687433082
+BUCKYBALL_ANGLE_FORCE_CONSTANT = 457.672
+BUCKYBALL_THETA_EQ = 2.129301687433082
 
 
 # endregion
@@ -134,8 +134,8 @@ class CustomisableOpenMMSystem:
             raise TypeError("No angle atom ids found.")
 
         # Set the molecule parameters from the global parameters.
-        self.angle_k = buckyball_angle_force_constant
-        self.theta_eq = buckyball_theta_eq
+        self.angle_k = BUCKYBALL_ANGLE_FORCE_CONSTANT
+        self.theta_eq = BUCKYBALL_THETA_EQ
 
         # Loop through atoms that require the angle force.
         for ids in self.angle_atom_ids:
@@ -158,8 +158,8 @@ class CustomisableOpenMMSystem:
         :return: None
         """
 
-        self.bond_k = buckyball_bond_force_constant
-        self.r_eq = buckyball_r_eq
+        self.bond_k = BUCKYBALL_BOND_FORCE_CONSTANT
+        self.r_eq = BUCKYBALL_R_EQ
 
         custom_force = mm.CustomBondForce(
             'k*0.5*(r-r_eq)*(r-r_eq)*(1.0+cs*(r-r_eq) + (7.0/12.0)*cs*cs*(r-r_eq)*(r-r_eq))')
@@ -176,12 +176,12 @@ class CustomisableOpenMMSystem:
             if id_min <= bond.atom1.index < id_max:
                 # Alter the force constant
                 custom_force.addBond(bond.atom1.index, bond.atom2.index,
-                                     [buckyball_bond_force_constant * self.current_multiplier, buckyball_r_eq])
+                                     [BUCKYBALL_BOND_FORCE_CONSTANT * self.current_multiplier, BUCKYBALL_R_EQ])
 
             else:
                 # Keep original force constants
                 custom_force.addBond(bond.atom1.index, bond.atom2.index,
-                                     [buckyball_bond_force_constant, buckyball_r_eq])
+                                     [BUCKYBALL_BOND_FORCE_CONSTANT, BUCKYBALL_R_EQ])
 
         return custom_force
 
