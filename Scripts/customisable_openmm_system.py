@@ -2,7 +2,7 @@ import openmm.app as app
 import openmm as mm
 from read_and_write_config_files import read_yaml
 import os
-from narupa.openmm import serializer
+from nanover.openmm import serializer
 
 # region Original buckyball simulation parameters
 
