@@ -138,13 +138,13 @@ END
 		<PeriodicBoxVectors>
 
 
-			<A x="3" y="0" z="0"/>
+			<A x="4" y="0" z="0"/>
 
 
-			<B x="0" y="3" z="0"/>
+			<B x="0" y="4" z="0"/>
 
 
-			<C x="0" y="0" z="3"/>
+			<C x="0" y="0" z="4"/>
 
 
 		</PeriodicBoxVectors>
@@ -1674,7 +1674,7 @@ END
 			</Force>
 
 
-			<Force energy="fx + fy + fz; fx=(c12 / rx6^2) - (c6 / rx6); fy=(c12 / ry6^2) - (c6 / ry6); fz=(c12 / rz6^2) - (c6 / rz6); rx6=rx^6; ry6=ry^6; rz6=rz^6; rx=min(x, mx-x); ry=min(y, my-y); rz=min(z, mz-z); " forceGroup="0" type="CustomExternalForce" version="1">
+			<Force energy="fx + fy + fz; fx=(c12 / rx6^2) - (c6 / rx6); fy=(c12 / ry6^2) - (c6 / ry6); fz=(c12 / rz6^2) - (c6 / rz6); rx6=rx^6; ry6=ry^6; rz6=rz^6; rx=min(x+1, mx-x); ry=min(y+1, my-y); rz=min(z+1, mz-z); " forceGroup="0" type="CustomExternalForce" version="1">
 
 
 				<PerParticleParameters/>
@@ -1683,13 +1683,13 @@ END
 				<GlobalParameters>
 
 
-					<Parameter default="4" name="mx"/>
+					<Parameter default="5" name="mx"/>
 
 
-					<Parameter default="4" name="my"/>
+					<Parameter default="5" name="my"/>
 
 
-					<Parameter default="4" name="mz"/>
+					<Parameter default="5" name="mz"/>
 
 
 					<Parameter default="0" name="c6"/>
