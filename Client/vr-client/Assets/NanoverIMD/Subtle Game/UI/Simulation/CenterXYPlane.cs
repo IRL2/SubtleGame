@@ -1,28 +1,25 @@
-﻿using Nanover.Frame;
 using Nanover.Visualisation;
-using NanoverImd;
 using UnityEngine;
 
-namespace NanoverImd.Subtle_Game.Visuals
+namespace NanoverImd.Subtle_Game.UI.Simulation
 {
-    public class PointOfParticleEmission : MonoBehaviour
+    public class CenterXYPlane : MonoBehaviour
     {
         [SerializeField]
         private SynchronisedFrameSource frameSource;
 
-        [SerializeField]
-        private NanoverImdSimulation simulation;
-
-        public void UpdatePosition()
+        /// <summary>
+        /// Sets the position of this game object to the center of the xy plane of the simulation box and shows the
+        /// in-task instructions canvas.
+        /// </summary>
+        public void PositionCenterOfXYPlane()
         {
-            //Get position of methane if nanotube and middle of 17-ala if knot-tying
-
             if (frameSource.CurrentFrame is { } frame
              && frame.BoxVectors is { } box)
                 transform.localPosition = new Vector3(
                     box.axesMagnitudes.x * 0.5f,
                     box.axesMagnitudes.x * 0.5f,
-                    box.axesMagnitudes.x * 0.5f);
+                    box.axesMagnitudes.x * 1.0f);
         }
     }
 }
