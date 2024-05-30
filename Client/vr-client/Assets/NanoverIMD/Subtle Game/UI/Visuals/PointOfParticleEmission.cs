@@ -1,24 +1,16 @@
-﻿using Nanover.Frame;
-using Nanover.Visualisation;
-using NanoverImd;
+﻿using Nanover.Visualisation;
 using UnityEngine;
 
-namespace NanoverImd.Subtle_Game.Visuals
+namespace NanoverIMD.Subtle_Game.UI.Visuals
 {
     public class PointOfParticleEmission : MonoBehaviour
     {
         [SerializeField]
         private SynchronisedFrameSource frameSource;
 
-        [SerializeField]
-        private NanoverImdSimulation simulation;
-
-        public void UpdatePosition()
+        public void Update()
         {
-            //Get position of methane if nanotube and middle of 17-ala if knot-tying
-
-            if (frameSource.CurrentFrame is { } frame
-             && frame.BoxVectors is { } box)
+            if (frameSource.CurrentFrame is { BoxVectors: { } box })
                 transform.localPosition = new Vector3(
                     box.axesMagnitudes.x * 0.5f,
                     box.axesMagnitudes.x * 0.5f,

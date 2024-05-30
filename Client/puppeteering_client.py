@@ -34,13 +34,13 @@ def get_order_of_tasks(run_short_game: bool):
     if run_short_game:
         return [TASK_NANOTUBE, TASK_NANOTUBE]
     else:
-        tasks = [TASK_KNOT_TYING, TASK_TRIALS]
+        tasks = [TASK_TRIALS]
 
     order_of_tasks = []
 
     for n in range(2):
         t = random.sample(tasks, len(tasks))
-        t.insert(0, TASK_NANOTUBE)
+        #t.insert(0, TASK_NANOTUBE)
         order_of_tasks.extend(t)
 
     return order_of_tasks
