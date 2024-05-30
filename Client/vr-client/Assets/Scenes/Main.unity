@@ -21718,7 +21718,7 @@ MonoBehaviour:
   taskTrialsInstructions: {fileID: 916951214}
   exitInstructions: {fileID: 1484478698}
   pinchGrab: {fileID: 1039910427}
-  centerRightFace: {fileID: 746467488}
+  centerRightFace: {fileID: 746467490}
   trialProgressManager: {fileID: 1245036777}
   trialsProgressGroup: {fileID: 1839179447}
   trialAnswerSubmission: {fileID: 1364228087}

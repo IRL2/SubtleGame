@@ -1,5 +1,6 @@
 ﻿using NanoverImd.Subtle_Game.Interaction;
 using NanoverImd.Subtle_Game.Data_Collection;
+using NanoverImd.Subtle_Game.UI.Simulation;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -61,7 +62,7 @@ namespace NanoverImd.Subtle_Game.Canvas
         /// <summary>
         /// The game object representing the center of the XY plane of the simulation box.
         /// </summary>
-        [SerializeField] private GameObject centerRightFace;
+        [SerializeField] private CenterRightFace centerRightFace;
         
         /// <summary>
         /// The Trial Icon Manager.
