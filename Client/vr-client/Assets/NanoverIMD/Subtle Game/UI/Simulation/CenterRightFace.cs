@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace NanoverImd.Subtle_Game.UI.Simulation
 {
-    public class CenterRigthFace : MonoBehaviour
+    public class CenterRightFace : MonoBehaviour
     {
         [SerializeField]
         private SynchronisedFrameSource frameSource;

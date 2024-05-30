@@ -61,7 +61,7 @@ namespace NanoverImd.Subtle_Game.Canvas
         /// <summary>
         /// The game object representing the center of the XY plane of the simulation box.
         /// </summary>
-        [SerializeField] private GameObject simulationBox;
+        [SerializeField] private GameObject centerRightFace;
         
         /// <summary>
         /// The Trial Icon Manager.
@@ -237,8 +237,8 @@ namespace NanoverImd.Subtle_Game.Canvas
         /// </summary>
         private void SetupPanelPosition()
         {
-            gameObject.transform.position = simulationBox.transform.position;
-            gameObject.transform.rotation = simulationBox.transform.rotation;
+            gameObject.transform.position = centerRightFace.transform.position;
+            gameObject.transform.rotation = centerRightFace.transform.rotation;
         }
         
         
