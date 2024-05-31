@@ -40,7 +40,7 @@ def get_order_of_tasks(run_short_game: bool):
 
     for n in range(2):
         t = random.sample(tasks, len(tasks))
-        #t.insert(0, TASK_NANOTUBE)
+        t.insert(0, TASK_NANOTUBE)
         order_of_tasks.extend(t)
 
     return order_of_tasks
