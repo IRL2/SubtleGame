@@ -10389,7 +10389,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5858c36c1c72fe549900c7c9d4e55da6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a9df57534de2f574182c75e296359c49, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -21856,7 +21856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2309956861390697408, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ButtonSwitchTask
+      value: ButtonQuitApplication
       objectReference: {fileID: 0}
     - target: {fileID: 2309956861390697408, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -26983,7 +26983,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5858c36c1c72fe549900c7c9d4e55da6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a9df57534de2f574182c75e296359c49, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

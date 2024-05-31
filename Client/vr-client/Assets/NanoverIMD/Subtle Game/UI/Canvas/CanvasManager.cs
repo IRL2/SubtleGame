@@ -78,7 +78,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             
             // Set all canvases inactive
             _canvasControllerList.ForEach(x => x.gameObject.SetActive(false));
-            // _canvasControllerList.ForEach(x => x.gameObject.SendMessage("Dissapear"));
+            // _canvasControllerList.ForEach(x => x.gameObject.SendMessage("Disappear"));
         }
 
         /// <summary>
@@ -116,8 +116,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             // Hide current menu
             if (_currentMenu)
             {
-                // _currentMenu.SetActive(false);
-                _currentMenu.SendMessage("Dissapear");
+                _currentMenu.SetActive(false);
+                // _currentMenu.SendMessage("Disappear");
             }
             
             
@@ -125,7 +125,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             if (LastActiveCanvas != null)
             {
                 LastActiveCanvas.gameObject.SetActive(false);
-                // LastActiveCanvas.gameObject.SendMessage("Dissapear");
+                // LastActiveCanvas.gameObject.SendMessage("Disappear");
             }
         }
 
@@ -203,7 +203,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             foreach (var obj in LastActiveCanvas.orderedListOfMenus)
             {
                 obj.SetActive(false);
-                // obj.SendMessage("Dissapear");
+                // obj.SendMessage("Disappear");
             }
             CurrentMenuIndex = 0;
         }
@@ -238,7 +238,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             // Else just hide current menu
             else {
                 _currentMenu.SetActive(false);
-                // _currentMenu.SendMessage("Dissapear");
+                // _currentMenu.SendMessage("Disappear");
             }
 
             // Update current menu
@@ -257,7 +257,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             foreach (GameObject obj in LastActiveCanvas.orderedListOfMenus)
             {
                 obj.SetActive(false);
-                // obj.SendMessage("Dissapear");
+                // obj.SendMessage("Disappear");
             }
         }
         
