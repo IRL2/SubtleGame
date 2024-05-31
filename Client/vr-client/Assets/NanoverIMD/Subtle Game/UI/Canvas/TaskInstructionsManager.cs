@@ -1,5 +1,6 @@
 ﻿using NanoverImd.Subtle_Game.Interaction;
 using NanoverImd.Subtle_Game.Data_Collection;
+using NanoverImd.Subtle_Game.UI.Simulation;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -61,7 +62,7 @@ namespace NanoverImd.Subtle_Game.Canvas
         /// <summary>
         /// The game object representing the center of the XY plane of the simulation box.
         /// </summary>
-        [SerializeField] private GameObject simulationBox;
+        [SerializeField] private CenterRightFace centerRightFace;
         
         /// <summary>
         /// The Trial Icon Manager.
@@ -237,12 +238,8 @@ namespace NanoverImd.Subtle_Game.Canvas
         /// </summary>
         private void SetupPanelPosition()
         {
-            gameObject.transform.localPosition = new Vector3(
-                simulationBox.transform.position.x,
-                simulationBox.transform.position.y,
-                simulationBox.transform.position.z);
-
-            gameObject.transform.localEulerAngles = new(0f, 90f, 0f);
+            gameObject.transform.position = centerRightFace.transform.position;
+            gameObject.transform.rotation = centerRightFace.transform.rotation;
         }
         
         
