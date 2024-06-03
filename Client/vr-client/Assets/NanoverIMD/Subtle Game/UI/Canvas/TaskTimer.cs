@@ -86,6 +86,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             timerImage.fillAmount = 0;
 
             // Hide timer game objects to begin with
+            _showingTimer = false;
             foreach (Transform child in transform)
             {
                 child.gameObject.SetActive(false);
