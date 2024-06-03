@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace NanoverIMD.Subtle_Game.UI.Simulation
 {
-    public class CenteringBoxTest : MonoBehaviour
+    public class PositioningSimBox : MonoBehaviour
     {
         /// <summary>
         /// The NarupaIMD simulation.
@@ -137,7 +137,7 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
             switch (_currentTask)
             {
                 case SubtleGameManager.TaskTypeVal.Nanotube:
-                    offsetAbsolute = new Vector3(0, -0.1f, -0.2f);
+                    offsetAbsolute = new Vector3(0, -0.22f, -0.15f);
                     offsetPercent = new Vector3(0, 0, -0.25f);
                     break;
                 case SubtleGameManager.TaskTypeVal.KnotTying:
