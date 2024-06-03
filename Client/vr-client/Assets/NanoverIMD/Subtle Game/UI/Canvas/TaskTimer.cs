@@ -18,7 +18,9 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         private const float NanotubeTimeLimit = 10f; // 90f;
         private const float KnotTyingTimeLimit = 10f; // 180f;
 
-        private float _duration;
+        private const float ShowTimerDuration = 5f;
+
+        private float _fullDuration;
 
         private void Start()
         {
@@ -30,6 +32,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         
         private bool _timerIsRunning;
         private float _timeElapsed;
+        private bool _showingTimer;
+        private float _countdownElapsed;
         
         // <summary>
         // Run logic for the timer.
@@ -38,9 +42,9 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         {
             // Check if timer is running
             if (!_timerIsRunning) return;
-            
+
             // Check if timer is up
-            if (_timeElapsed >= _duration)
+            if (_timeElapsed >= _fullDuration)
             {
                 FinishTimer(_timeElapsed.ToString());
                 return;
@@ -48,6 +52,13 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
 
             // Increment timer and update UI
             _timeElapsed += Time.deltaTime;
+            _countdownElapsed += Time.deltaTime;
+            
+            // Check if we need to show the timer
+            if (!_showingTimer && _timeElapsed >= _fullDuration - ShowTimerDuration) ShowTimer();
+            
+            // Update timer visuals if the timer is visible
+            if (!_showingTimer) return;
             UpdateTimerVisuals();
         }
         
@@ -60,17 +71,23 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             if (_subtleGameManager.CurrentTaskType is not (SubtleGameManager.TaskTypeVal.Nanotube or SubtleGameManager.TaskTypeVal.KnotTying)) return;
             
             // Get timer duration
-            _duration = _subtleGameManager.CurrentTaskType switch
+            _fullDuration = _subtleGameManager.CurrentTaskType switch
             {
                 SubtleGameManager.TaskTypeVal.Nanotube => NanotubeTimeLimit,
                 SubtleGameManager.TaskTypeVal.KnotTying => KnotTyingTimeLimit,
-                _ => _duration
+                _ => _fullDuration
             };
             
             // Initialise values
             _timerIsRunning = true;
             _timeElapsed = 0;
             timerImage.fillAmount = 0;
+            
+            // Hide timer game objects to begin with
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(false);
+            }
         }
         
         // <summary>
@@ -85,16 +102,32 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         }
         
         // <summary>
+        // Show the timer for the countdown.
+        // </summary>
+        private void ShowTimer()
+        {
+            // Update variables
+            _showingTimer = true;
+            _countdownElapsed = 0;
+            
+            // Enable timer game objects
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
+        
+        // <summary>
         // Refresh the number label and the circular graph base on the global _timeElapsed value
         // </summary>
         private void UpdateTimerVisuals()
         {
-            timerImage.fillAmount = (_duration - _timeElapsed) / _duration ;
+            timerImage.fillAmount = (ShowTimerDuration - _countdownElapsed) / ShowTimerDuration ;
 
-            int label = Mathf.CeilToInt ( _duration - _timeElapsed );
+            int label = Mathf.CeilToInt ( ShowTimerDuration - _countdownElapsed );
             timerLabel.text = label.ToString();
 
-            if (_duration - _timeElapsed < 0.1) {
+            if (ShowTimerDuration - _countdownElapsed < 0.1) {
                 timerLabel.text = "0";
             }
         }
