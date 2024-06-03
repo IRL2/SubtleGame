@@ -46,7 +46,9 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             // Check if timer is up
             if (_timeElapsed >= _fullDuration)
             {
-                FinishTimer(_timeElapsed.ToString());
+                // If player has reached the end of the countdown, they did not complete the task
+                _subtleGameManager.RegisterTaskNotCompletedSuccessfully();
+                FinishTimer();
                 return;
             }
 
@@ -82,7 +84,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             _timerIsRunning = true;
             _timeElapsed = 0;
             timerImage.fillAmount = 0;
-            
+
             // Hide timer game objects to begin with
             foreach (Transform child in transform)
             {
@@ -93,11 +95,9 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         // <summary>
         // Finish the timer.
         // </summary>
-        private void FinishTimer(string timeElapsed)
+        private void FinishTimer()
         {
-            _subtleGameManager.DurationOfTrial = timeElapsed;
             _timerIsRunning = false;
-
             StartCoroutine(AnimateTimerToZero());
         }
         

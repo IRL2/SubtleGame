@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using NanoverImd.Subtle_Game.Canvas;
 using NanoverImd.Subtle_Game.Data_Collection;
 using NanoverImd.Subtle_Game.Interaction;
@@ -81,13 +82,15 @@ namespace NanoverImd.Subtle_Game
                 TrialAnswer,
                 HeadsetType,
                 TrialNumber,
-                TrialDuration
+                TrialDuration,
+                TaskCountdownFinished
             }
             public enum TaskStatusVal
             {
                 None,
                 Intro,
                 Finished,
+                Unfinished,
                 InProgress,
             }
             public enum TaskTypeVal
@@ -107,7 +110,7 @@ namespace NanoverImd.Subtle_Game
                 Hands,
                 Controllers
             }
-        #endregion
+            #endregion
 
         #region Data to Collect
             private string _hmdType;
@@ -177,11 +180,16 @@ namespace NanoverImd.Subtle_Game
                     WriteToSharedState(SharedStateKey.TaskStatus, value.ToString());
                 }
             }
+
+            private bool _taskFinishedSuccessfully;
+
             private TaskStatusVal _taskStatus;
 
             [SerializeField] private Confetti confetti;
 
             [FormerlySerializedAs("taskProgressManager")] [SerializeField] private TaskTimer taskTimer;
+            
+            [NonSerialized] public string outroMessage = "Outro Message";
             
         #endregion
 
@@ -334,6 +342,9 @@ namespace NanoverImd.Subtle_Game
         /// </summary>
         public void PrepareNextTask()
         {
+            // Ensure TaskCompletionStatus key is removed from the shared state
+            RemoveKeyFromSharedState(SharedStateKey.TaskCountdownFinished);
+
             // Check if this is the first time this function has been called
             if (_startOfGame)
             {
@@ -373,6 +384,8 @@ namespace NanoverImd.Subtle_Game
         /// </summary>
         public void StartTask()
         {
+            _taskFinishedSuccessfully = true; // initially assume the player will finish successfully
+            
             if (confetti.isActiveAndEnabled)
             {
                 confetti.StopConfetti();
@@ -380,7 +393,7 @@ namespace NanoverImd.Subtle_Game
             }
 
             TaskStatus = TaskStatusVal.InProgress;
-            
+
             _canvasManager.HideCanvas();
             if (CurrentTaskType == TaskTypeVal.Trials) return;
 
@@ -435,8 +448,16 @@ namespace NanoverImd.Subtle_Game
         /// </summary>
         private IEnumerator FinishTask()
         {
-            confetti.gameObject.SetActive(true);
-            confetti.StartCelebrations();
+            if (_taskFinishedSuccessfully)
+            {
+                confetti.gameObject.SetActive(true);
+                confetti.StartCelebrations();
+                PlayerPrefs.SetString(outroMessage, "Task complete, well done!");
+            }
+            else
+            {
+                PlayerPrefs.SetString(outroMessage, "Unlucky, better luck next time!");
+            }
 
             // Delay hiding simulation for a bit for the nanotube and knot-tying tasks
             if (CurrentTaskType is TaskTypeVal.Nanotube or TaskTypeVal.KnotTying)
@@ -445,7 +466,7 @@ namespace NanoverImd.Subtle_Game
             }
             
             // Update task status
-            TaskStatus = TaskStatusVal.Finished;
+            TaskStatus = _taskFinishedSuccessfully ? TaskStatusVal.Finished : TaskStatusVal.Unfinished;
             
             // Hide simulation
             ShowSimulation = false;
@@ -460,6 +481,15 @@ namespace NanoverImd.Subtle_Game
         public void FinishTrialEarly()
         {
             trialsTimer.finishTrialEarly = true;
+        }
+
+        /// <summary>
+        /// Called when the countdown timer for a task ends before the task is completed by the player.
+        /// </summary>
+        public void RegisterTaskNotCompletedSuccessfully()
+        {
+            _taskFinishedSuccessfully = false;
+            WriteToSharedState(SharedStateKey.TaskCountdownFinished, true.ToString());
         }
         
         /// <summary>
@@ -580,7 +610,7 @@ namespace NanoverImd.Subtle_Game
             simulation.Disconnect();
             
             // Update share state
-            TaskStatus = TaskStatusVal.Finished;
+            TaskStatus = TaskStatusVal.Unfinished;
             PlayerStatus = false;
 #if UNITY_EDITOR
             // Quit the game if in the Unity Editor

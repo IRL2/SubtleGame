@@ -50,9 +50,14 @@ class KnotTyingTask(Task):
             # Check if the condition has been true for 30 consecutive iterations
             if consecutive_knotted_frames >= 30:
                 self.timestamp_end = datetime.now()
+                self.task_completed_successfully = True
                 break
 
             self._check_if_sim_has_blown_up()
+            if self._check_if_task_countdown_is_up():
+                self.timestamp_end = datetime.now()
+                self.task_completed_successfully = False
+                break
             time.sleep(STANDARD_RATE)
 
     def _update_visualisations(self):

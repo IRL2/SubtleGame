@@ -154,6 +154,7 @@ class TrialsTask(Task):
             self._wait_for_player_to_answer(current_trial_number=trial_num)
 
         # End trials
+        self.task_completed_successfully = True
         self._finish_task()
 
     def _prepare_trial(self, name, server_index, correct_answer):

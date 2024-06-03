@@ -16,6 +16,8 @@ class Task:
         self.simulations = simulations
         self.simulation_counter = sim_counter
 
+        self.task_completed_successfully = None
+
         for sim in self.simulations[0]:
             self.sim_index = self.simulations[0][sim]
             self.sim_name = sim
@@ -131,6 +133,14 @@ class Task:
         except KeyError:
             pass
 
+    def _check_if_task_countdown_is_up(self):
+        try:
+            value = self.client.latest_multiplayer_values[KEY_PLAYER_TASK_COUNTDOWN_UP]
+            if value == TRUE:
+                return True
+        except KeyError:
+            return False
+
     def _finish_task(self):
         """Handles the finishing of the task."""
 
@@ -149,7 +159,10 @@ class Task:
 
         # Wait for player to register that the task has finished
         print('Waiting for player to confirm end of task')
-        self._wait_for_key_values(KEY_PLAYER_TASK_STATUS, PLAYER_FINISHED)
+        if self.task_completed_successfully:
+            self._wait_for_key_values(KEY_PLAYER_TASK_STATUS, PLAYER_FINISHED)
+        else:
+            self._wait_for_key_values(KEY_PLAYER_TASK_STATUS, PLAYER_UNFINISHED)
 
     def _change_simulation_colour_when_task_finishes(self):
         """ Container for changing the visualisation of the simulation at the end of the task. """
