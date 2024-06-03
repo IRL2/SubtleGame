@@ -180,6 +180,9 @@ namespace NanoverImd.Subtle_Game
             private TaskStatusVal _taskStatus;
 
             [SerializeField] private Confetti confetti;
+
+            [FormerlySerializedAs("taskProgressManager")] [SerializeField] private TaskTimer taskTimer;
+            
         #endregion
 
         #region Interaction modality
@@ -380,6 +383,8 @@ namespace NanoverImd.Subtle_Game
             
             _canvasManager.HideCanvas();
             if (CurrentTaskType == TaskTypeVal.Trials) return;
+
+            taskTimer.StartTimer();
             ShowSimulation = true;
         }
 

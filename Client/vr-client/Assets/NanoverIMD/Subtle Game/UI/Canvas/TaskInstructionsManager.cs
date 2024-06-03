@@ -1,5 +1,6 @@
 ﻿using NanoverImd.Subtle_Game.Interaction;
 using NanoverImd.Subtle_Game.Data_Collection;
+using NanoverIMD.Subtle_Game.UI.Canvas;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -26,8 +27,7 @@ namespace NanoverImd.Subtle_Game.Canvas
         /// Game object with the instructions on how interact with molecules using controllers.
         /// </summary>
         [SerializeField] private GameObject inputBothInputsInstructions;
-
-
+        
         /// <summary>
         /// Game object with the instructions on knot tie instructions.
         /// </summary>
@@ -52,6 +52,11 @@ namespace NanoverImd.Subtle_Game.Canvas
         /// Game object with the instructions on how to exit the simulation (sandbox mode).
         /// </summary>
         [SerializeField] private GameObject exitInstructions;
+        
+        /// <summary>
+        /// Game object with the timer for the nanotube and knot-tying tasks.
+        /// </summary>
+        [SerializeField] private TaskTimer taskTimer;
 
         /// <summary>
         /// The pinch grab script.
@@ -181,10 +186,12 @@ namespace NanoverImd.Subtle_Game.Canvas
 
                 case SubtleGameManager.TaskTypeVal.KnotTying:
                     taskKnotInstructions.SetActive(true);
+                    taskTimer.gameObject.SetActive(true);
                     break;
 
                 case SubtleGameManager.TaskTypeVal.Nanotube:
                     taskNanotubeInstructions.SetActive(true);
+                    taskTimer.gameObject.SetActive(true);
                     break;
 
                 case SubtleGameManager.TaskTypeVal.Sandbox:
