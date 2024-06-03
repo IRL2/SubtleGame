@@ -28,7 +28,7 @@ class Task:
         self._wipe_shared_state_values_from_previous_task()
         self._wait_for_task_in_progress()
 
-        self._run_task_logic()
+        self.run_task_loop()
 
         self._finish_task()
 
@@ -103,7 +103,7 @@ class Task:
         """ Container for changing the task-specific visualisation the simulation. """
         pass
 
-    def _run_task_logic(self):
+    def run_task_loop(self):
         """Container for the logic specific to each task."""
 
         print('Starting task')

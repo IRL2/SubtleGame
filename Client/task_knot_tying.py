@@ -15,11 +15,11 @@ class KnotTyingTask(Task):
 
         self.knot_pull_client = None
 
-    def _run_task_logic(self):
+    def run_task_loop(self):
         """ Checks for a knot approx. 30 times per second. Uses the Knot Pull program, which is available on GitHub (
         https://github.com/dzarmola/knot_pull)."""
 
-        super()._run_task_logic()
+        super().run_task_loop()
 
         self.particle_names = self.client.current_frame.particle_names
         self.residue_ids = self.client.current_frame.residue_ids

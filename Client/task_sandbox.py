@@ -16,10 +16,10 @@ class SandboxTask(Task):
 
     def run_task(self):
         self._prepare_task()
-        self._run_task_logic()
+        self.run_task_loop()
         self._finish_task()
 
-    def _run_task_logic(self):
+    def run_task_loop(self):
 
         write_to_shared_state(client=self.client, key=KEY_TASK_STATUS, value=IN_PROGRESS)
 

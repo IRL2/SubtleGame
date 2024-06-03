@@ -18,9 +18,9 @@ class NanotubeTask(Task):
         self.is_methane_in_nanotube = False
         self.methane_end_of_entry = None
 
-    def _run_task_logic(self):
+    def run_task_loop(self):
 
-        super()._run_task_logic()
+        super().run_task_loop()
 
         self.timestamp_start = datetime.now()
 
