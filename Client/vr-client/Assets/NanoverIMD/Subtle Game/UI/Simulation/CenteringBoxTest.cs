@@ -1,5 +1,4 @@
-﻿using System;
-using Nanover.Core.Math;
+﻿using Nanover.Core.Math;
 using Nanover.Visualisation;
 using NanoverImd.Subtle_Game;
 using UnityEngine;
