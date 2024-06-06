@@ -24,7 +24,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             // Save as list
             _addedMenus = menusToAdd;
             
-            _backgroundTransform = transform.Find("Background");
+            // _backgroundTransform = transform.Find("Background");
+            _backgroundTransform = transform;
             if (_backgroundTransform != null)
             {
                 // Add interaction modality menus as children of the "Background" object

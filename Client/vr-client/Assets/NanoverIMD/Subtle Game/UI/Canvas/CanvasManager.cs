@@ -70,6 +70,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             foreach (Transform child in transform)
             {
                 child.gameObject.SetActive(true);
+                // child.gameObject.SendMessage("Appear");
             }
 
             // Get list of canvases
@@ -77,6 +78,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             
             // Set all canvases inactive
             _canvasControllerList.ForEach(x => x.gameObject.SetActive(false));
+            // _canvasControllerList.ForEach(x => x.gameObject.SendMessage("Disappear"));
         }
 
         /// <summary>
@@ -95,12 +97,14 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             if (LastActiveCanvas != null)
             {
                 LastActiveCanvas.gameObject.SetActive(true);
+                // LastActiveCanvas.gameObject.SendMessage("Appear");
             }
             
             // Show current menu
             if (_currentMenu)
             {
                 _currentMenu.SetActive(true);
+                // _currentMenu.SendMessage("Appear");
             }
         }
         
@@ -113,6 +117,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             if (_currentMenu)
             {
                 _currentMenu.SetActive(false);
+                // _currentMenu.SendMessage("Disappear");
             }
             
             
@@ -120,6 +125,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             if (LastActiveCanvas != null)
             {
                 LastActiveCanvas.gameObject.SetActive(false);
+                // LastActiveCanvas.gameObject.SendMessage("Disappear");
             }
         }
 
@@ -167,6 +173,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             {
                 // Enable next canvas
                 nextCanvas.gameObject.SetActive(true);
+                // nextCanvas.gameObject.SendMessage("Appear");
                 
                 // Update last active canvas
                 LastActiveCanvas = nextCanvas;
@@ -196,6 +203,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             foreach (var obj in LastActiveCanvas.orderedListOfMenus)
             {
                 obj.SetActive(false);
+                // obj.SendMessage("Disappear");
             }
             CurrentMenuIndex = 0;
         }
@@ -207,7 +215,16 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         {
             CurrentMenuIndex++;
         }
-        
+
+        /// <summary>
+        /// Increments to the previous menu on the currently active canvas.
+        /// </summary>
+        public void RequestPreviousMenu()
+        {
+            CurrentMenuIndex--;
+            if (CurrentMenuIndex<=0) CurrentMenuIndex=0;
+        }
+
         /// <summary>
         /// Enables the desired menu. If called for the first menu of a new task, disables all other menus on the canvas
         /// so that only one is enabled. Called when the menu changes, which occurs when switching tasks or switching
@@ -219,13 +236,17 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             if (_isFirstMenu) {DisableAllMenus();}
 
             // Else just hide current menu
-            else{_currentMenu.SetActive(false);}
+            else {
+                _currentMenu.SetActive(false);
+                // _currentMenu.SendMessage("Disappear");
+            }
 
             // Update current menu
             _currentMenu = LastActiveCanvas.orderedListOfMenus[CurrentMenuIndex];
             
             // Show new menu
             _currentMenu.SetActive(true);
+            // _currentMenu.SendMessage("Appear");
         }
         
         /// <summary>
@@ -233,10 +254,11 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         /// </summary>
         private void DisableAllMenus()
         {
-            foreach (GameObject obj in LastActiveCanvas.orderedListOfMenus) 
-            {                                                               
-                obj.SetActive(false);                                       
-            }                                                                   
+            foreach (GameObject obj in LastActiveCanvas.orderedListOfMenus)
+            {
+                obj.SetActive(false);
+                // obj.SendMessage("Disappear");
+            }
         }
         
         /// <summary>
