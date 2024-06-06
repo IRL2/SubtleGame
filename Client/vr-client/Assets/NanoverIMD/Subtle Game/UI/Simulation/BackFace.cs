@@ -9,7 +9,7 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
         private SynchronisedFrameSource frameSource;
 
         /// <summary>
-        /// Sets the position of this game object to the center of the back of the simulation box.
+        /// Sets the position of this game object to the back of the simulation box.
         /// </summary>
         public void Update()
         {
