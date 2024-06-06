@@ -34,7 +34,7 @@ def get_order_of_tasks(run_short_game: bool):
     if run_short_game:
         return [TASK_NANOTUBE, TASK_NANOTUBE]
     else:
-        tasks = [TASK_TRIALS]
+        tasks = [TASK_KNOT_TYING, TASK_TRIALS]
 
     order_of_tasks = []
 
