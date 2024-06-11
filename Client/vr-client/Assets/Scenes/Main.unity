@@ -15755,6 +15755,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1335832272}
     m_Modifications:
+    - target: {fileID: 448483730103763150, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_text
+      value: QUIT
+      objectReference: {fileID: 0}
     - target: {fileID: 1623505689175459417, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -15838,6 +15842,10 @@ PrefabInstance:
     - target: {fileID: 3574150924084795309, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4322276515709658451, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_Name
+      value: Quit Game Button
       objectReference: {fileID: 0}
     - target: {fileID: 5604431612938369361, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_text
@@ -19421,8 +19429,6 @@ MonoBehaviour:
   subtleGameManager: {fileID: 1364228086}
   centreEyeAnchor: {fileID: 4948775120161647665}
   frameSource: {fileID: 1265723032}
-  offsetAbsolute: {x: 0, y: -0.1, z: 0}
-  offsetPercent: {x: 0, y: 0, z: -0.25}
 --- !u!1 &2067010102
 GameObject:
   m_ObjectHideFlags: 0
