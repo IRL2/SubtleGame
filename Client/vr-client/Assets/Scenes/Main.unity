@@ -20927,9 +20927,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20a44630c38b9049a030b60c5b3e9ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayMudraGlovesTexture: 0
-  mudraMaterial: {fileID: 2100000, guid: e194f5330f10e7044979fbdda081207f, type: 2}
-  oculusHandMaterial: {fileID: 2100000, guid: d641a50c4fe4ee3489a64cf52b76ae79, type: 2}
+  materials:
+  - textureType: 0
+    texture: {fileID: 2100000, guid: d641a50c4fe4ee3489a64cf52b76ae79, type: 2}
+  - textureType: 1
+    texture: {fileID: 2100000, guid: e194f5330f10e7044979fbdda081207f, type: 2}
+  - textureType: 2
+    texture: {fileID: 2100000, guid: a23312fd4dea7654c8af92cee0008327, type: 2}
+  activeMaterial: 0
 --- !u!1 &1371801897
 GameObject:
   m_ObjectHideFlags: 0

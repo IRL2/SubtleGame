@@ -1,21 +1,32 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.SearchService;
 using UnityEngine;
+using System.Runtime.Serialization.Formatters.Binary;
+using Nanover.Core.Collections;
+using System.Linq;
+using Oculus.Interaction.Input;
+
 
 public class MudraGlovesController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    // private GameObject rightHand;
-    // private GameObject leftHand;
+    [System.Serializable]
+    public enum HandMaterialType {
+        defaultHand,
+        mudraGloves2Fingers,
+        mudraGloves3Fingers
+    }
 
-    public bool displayMudraGlovesTexture = true;    
-    public Material mudraMaterial;
-    public Material oculusHandMaterial; // the standard one
+    [System.Serializable]
+    public class HandMaterialMapping {
+        public HandMaterialType textureType;
+        public Material texture;
+    }
 
-    private bool pDisplayMudraGlovesTexture = true;
+    [SerializeField]
+    private List<HandMaterialMapping> materials;
+
+    [SerializeField] private HandMaterialType activeMaterial = HandMaterialType.defaultHand;
+    private HandMaterialType pActiveMaterial = HandMaterialType.defaultHand;
 
     private SkinnedMeshRenderer rightHandMeshRenderer;
     private SkinnedMeshRenderer leftHandMeshRenderer;
@@ -30,40 +41,59 @@ public class MudraGlovesController : MonoBehaviour
         leftHandMeshRenderer  = leftHand.GetComponent<SkinnedMeshRenderer>();
     }
 
+    // works for debugging, use SetMaterial method
     void Update()
     {
-        if (displayMudraGlovesTexture != pDisplayMudraGlovesTexture) {
-            pDisplayMudraGlovesTexture = displayMudraGlovesTexture;
+        if (activeMaterial != pActiveMaterial)
+        {
+            pActiveMaterial = activeMaterial;
             UpdateTexture();
         }
     }
 
-    // Update is called once per frame
     public void UpdateTexture()
     {
-        Debug.Log("MudraGlovesController::Update UpdatingTexture");
-        
-        if (displayMudraGlovesTexture) {
-            AddMudraMaterial();
-        } else {
-            RemoveMudraMaterial();
+        Debug.Log($"MudraGlovesController::UpdatingTexture show:{activeMaterial.ToString()}");
+
+        List<Material> newMaterials = new List<Material>();
+
+        Material normalMat = GetMaterial(materials, HandMaterialType.defaultHand);
+        newMaterials.Add( normalMat );
+
+        if (activeMaterial != HandMaterialType.defaultHand) {
+            Material otherMat = GetMaterial(materials, activeMaterial);
+            newMaterials.Add( otherMat );
         }
-    }
 
-    public void AddMudraMaterial()
-    {
-        List<Material> newMaterials = new List<Material>{oculusHandMaterial, mudraMaterial};
         rightHandMeshRenderer.materials = newMaterials.ToArray();
         leftHandMeshRenderer.materials = newMaterials.ToArray();
     }
 
-    public void RemoveMudraMaterial()
+    public void ResetMudraMaterial()
     {
-        List<Material> newMaterials = new List<Material>{oculusHandMaterial};
+        List<Material> newMaterials = new List<Material>{ 
+            GetMaterial(materials, HandMaterialType.defaultHand)
+        };
+
         rightHandMeshRenderer.materials = newMaterials.ToArray();
         leftHandMeshRenderer.materials = newMaterials.ToArray();
     }
 
+    public void SetHandMaterial(HandMaterialType newType)
+    {
+        activeMaterial = newType;
+        UpdateTexture();
+    }
+
+    private Material GetMaterial(List<HandMaterialMapping> map, HandMaterialType type)
+    {
+        foreach(HandMaterialMapping m in map) {
+            if (m.textureType == type) {
+                return m.texture;
+            }
+        }
+        return null;
+    }
 }
 
 
