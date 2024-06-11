@@ -125,9 +125,25 @@ namespace NanoverImd.Subtle_Game.Canvas
             _subtleGameManager.FinishTrialEarly();
             Disable();
         }
+        
+        /// <summary>
+        /// Attach to a button for exiting the sandbox.
+        /// </summary>
+        public void ButtonExitSandbox()
+        {
+            Invoke(nameof(InvokeExitSandbox), TimeDelay);
+        }
+        
+        /// <summary>
+        /// Exit the sandbox via the Subtle Game Manager.
+        /// </summary>
+        private void InvokeExitSandbox()
+        {
+            _subtleGameManager.ExitSandbox();
+        }
 
         // <summary>
-        // Disable the button thorugh the PokeInteractable component state
+        // Disable the button through the PokeInteractable component state
         // </summary>
         public void Disable()
         {
@@ -136,7 +152,7 @@ namespace NanoverImd.Subtle_Game.Canvas
         }
 
         // <summary>
-        // Enable the button thorugh the PokeInteractable component state
+        // Enable the button through the PokeInteractable component state
         // </summary>
         public void Enable()
         {
