@@ -15454,6 +15454,7 @@ MonoBehaviour:
   animationDurationIn: 0.4
   animationDurationStay: 0.2
   animationDurationOut: 0.2
+  vrHeadset: {fileID: 4948775120161647665}
 --- !u!212 &1381040380
 SpriteRenderer:
   m_ObjectHideFlags: 0
