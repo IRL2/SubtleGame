@@ -142,7 +142,7 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
                     break;
                 case SubtleGameManager.TaskTypeVal.KnotTying:
                     offsetAbsolute = new Vector3(0, -0.28f, 0);
-                    offsetPercent = new Vector3(0, 0, -0.25f);
+                    offsetPercent = new Vector3(0, 0, -0.42f);
                     break;
                 case SubtleGameManager.TaskTypeVal.Trials:
                     offsetAbsolute = new Vector3(0, -0.2f, 0);
