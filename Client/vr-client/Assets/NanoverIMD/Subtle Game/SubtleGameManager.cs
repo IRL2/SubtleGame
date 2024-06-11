@@ -179,6 +179,8 @@ namespace NanoverImd.Subtle_Game
             }
             private TaskStatusVal _taskStatus;
 
+            private bool _exitSandboxRequested;
+
             [SerializeField] private Confetti confetti;
         #endregion
 
@@ -366,7 +368,8 @@ namespace NanoverImd.Subtle_Game
         
         /// <summary>
         /// Starts the current task by hiding the menu, showing the simulation and enabling interactions. This is called
-        /// once the player has finished the intro menu for the task. If the task trial is being started, start the trial.
+        /// once the player has finished the intro menu for the task. If the task trial is being started, start the
+        /// trial.
         /// </summary>
         public void StartTask()
         {
@@ -384,10 +387,8 @@ namespace NanoverImd.Subtle_Game
         }
 
         /// <summary>
-        /// Checks if the hands are tracking and communicates this to the pinch grab script. This allows the player to
-        /// switch between hands and controllers when in the sandbox. Player can exit by clicking the 'start' menu
-        /// button, which is the burger menu on the left touch controller and the left finger pinch when looking at
-        /// your palm whilst hands are tracking.
+        /// Checks if the hands are tracking to allow the pinch grab script to update the current interaction mode,
+        /// allowing the player to switch between hands and controllers when in the sandbox.
         /// </summary>
         private IEnumerator PlayerInSandbox()
         {
@@ -396,19 +397,28 @@ namespace NanoverImd.Subtle_Game
                 // Check whether controllers or hands are tracking
                 _pinchGrab.UseControllers = !OVRPlugin.GetHandTrackingEnabled();
                 
-                // Exit if player clicks start button
-                if (OVRInput.GetDown(OVRInput.Button.Start, OVRInput.Controller.LTouch))
+                // Exit
+                if (_exitSandboxRequested)
                 {
-                    StopCoroutine(_sandboxCoroutine);
-                    RemoveKeyFromSharedState(SharedStateKey.TaskType);
-                    RemoveKeyFromSharedState(SharedStateKey.TaskStatus);
-                    ShowSimulation = false;
-                    _canvasManager.ShowCanvas();
+                    _exitSandboxRequested = false;
                     yield break;
                 }
                 
+                // Continue
                 yield return null;
             }
+        }
+        
+        /// <summary>
+        /// Exits the sandbox back to the main menu.
+        /// </summary>
+        public void ExitSandbox()
+        {
+            _exitSandboxRequested = true;
+            RemoveKeyFromSharedState(SharedStateKey.TaskType);
+            RemoveKeyFromSharedState(SharedStateKey.TaskStatus);
+            ShowSimulation = false;
+            _canvasManager.ShowCanvas();
         }
         
         IEnumerator StartTrialWithDelay()
