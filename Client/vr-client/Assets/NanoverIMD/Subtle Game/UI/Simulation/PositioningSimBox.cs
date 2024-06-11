@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace NanoverIMD.Subtle_Game.UI.Simulation
 {
-    public class CenteringBoxTest : MonoBehaviour
+    public class PositioningSimBox : MonoBehaviour
     {
         /// <summary>
         /// The NarupaIMD simulation.
@@ -36,8 +36,8 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
         private bool _taskChanged;
 
         [Header("Config")]
-        public Vector3 offsetAbsolute;
-        public Vector3 offsetPercent;
+        private Vector3 offsetAbsolute;
+        private Vector3 offsetPercent;
         private Transform playerReference;
 
         private float Scale => subtleGameManager.CurrentTaskType switch
@@ -62,12 +62,14 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
             CheckTaskChanged();
             CheckBoxSizeChanged();
 
+            if (_taskChanged) UpdateOffsets();
+            
             if (_boxSizeChanged && _taskChanged)
             {
                 UpdatePlayerPosition();
                 _boxSizeChanged = _taskChanged = false;
             }
-            
+
             UpdatePose();
         }
 
@@ -127,6 +129,29 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
             if (Mathf.Abs(_currentBoxSize - _previousBoxSize) > 0.01)
             {
                 _boxSizeChanged = true;
+            }
+        }
+
+        private void UpdateOffsets()
+        {
+            switch (_currentTask)
+            {
+                case SubtleGameManager.TaskTypeVal.Nanotube:
+                    offsetAbsolute = new Vector3(0, -0.22f, -0.15f);
+                    offsetPercent = new Vector3(0, 0, -0.25f);
+                    break;
+                case SubtleGameManager.TaskTypeVal.KnotTying:
+                    offsetAbsolute = new Vector3(0, -0.28f, 0);
+                    offsetPercent = new Vector3(0, 0, -0.42f);
+                    break;
+                case SubtleGameManager.TaskTypeVal.Trials:
+                    offsetAbsolute = new Vector3(0, -0.2f, 0);
+                    offsetPercent = new Vector3(0, 0, -0.25f);
+                    break;
+                default:
+                    offsetAbsolute = new Vector3(0, -0.15f, 0);
+                    offsetPercent = new Vector3(0, 0, -0.25f);
+                    break;
             }
         }
     }
