@@ -1372,10 +1372,7 @@ PrefabInstance:
     - {fileID: 656991192480398139, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
     - {fileID: 3246337340863214673, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6406907961171276735, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
 --- !u!4 &67149927 stripped
 Transform:
@@ -15457,6 +15454,7 @@ MonoBehaviour:
   animationDurationIn: 0.4
   animationDurationStay: 0.2
   animationDurationOut: 0.2
+  vrHeadset: {fileID: 4948775120161647665}
 --- !u!212 &1381040380
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16594,10 +16592,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1490121851}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a4cf7eefff14154b9111fca6c42fd24, type: 3}
+  m_Script: {fileID: 11500000, guid: 3644143fcb4450b41b82bb139ef030b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameSource: {fileID: 1265723032}
+  gameObjectWithDesiredPosition: {fileID: 829249466}
 --- !u!1001 &1491398896
 PrefabInstance:
   m_ObjectHideFlags: 0
