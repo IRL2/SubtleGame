@@ -206,7 +206,30 @@ namespace NanoverImd.Subtle_Game.Canvas
         {
             _canvasManager.RequestNextMenu();
         }
-        
+
+        /// <summary>
+        /// Attach to a button for switching task.
+        /// </summary>
+        public void ButtonPreviousMenu()
+        {
+            if (!CanButtonBePressed())
+            {
+             Debug.LogWarning("You are trying to press the button with the wrong interaction mode or only one controller is tracking.");   
+                return;
+            }
+            
+            // Invoke button press.
+            Invoke(nameof(InvokePrevioustMenu), TimeDelay);
+        }
+
+        /// <summary>
+        /// Request switch of canvas via the Canvas Manager.
+        /// </summary>
+        private void InvokePrevioustMenu()
+        {
+            _canvasManager.RequestPreviousMenu();
+        }
+
         /// <summary>
         /// Checks whether the button can be pressed. If the interaction mode is set in the Puppeteer Manager, then
         /// this will check that the correct modality is being tracked. If it is, then the button can be pressed.
