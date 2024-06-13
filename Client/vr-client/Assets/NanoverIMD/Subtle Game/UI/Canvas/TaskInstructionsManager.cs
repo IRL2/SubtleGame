@@ -1,4 +1,5 @@
-﻿using NanoverImd.Subtle_Game.Interaction;
+﻿using System.Collections;
+using NanoverImd.Subtle_Game.Interaction;
 using NanoverImd.Subtle_Game.Data_Collection;
 using NanoverImd.Subtle_Game.UI.Simulation;
 using UnityEngine;
@@ -99,7 +100,7 @@ namespace NanoverImd.Subtle_Game.Canvas
         {
             _subtleGameManager = FindObjectOfType<SubtleGameManager>();
 
-            _panel = this.gameObject.transform.GetChild(0).gameObject;
+            _panel = gameObject.transform.GetChild(0).gameObject;
 
             _panel.SetActive(false);
         }
@@ -116,34 +117,38 @@ namespace NanoverImd.Subtle_Game.Canvas
         /// <summary>
         /// Updates the in-task instructions based on the current interaction modality set in the Pinch Grab script.
         /// </summary>
-        private void OnGUI()
+        private void LateUpdate()
         {
             if (_subtleGameManager is null) return;
 
             // to overcome race conditions, we position and setup the input instructions constantly
             SetupPanelPosition();
             SetupInputInstructions();
-
+            
+            IEnumerator DelayedSetActive(GameObject obj, bool value, float seconds)
+            {
+                yield return new WaitForSeconds(seconds);
+                obj.SetActive(value);
+            }
+            
             // activate the instructions panel when the simulation starts (and the panel is not active)
             if (_subtleGameManager.ShowSimulation && _panel.activeSelf==false)
             {
-                _panel.SetActive(true);
+                // It takes a few frames for the box to be correctly positioned, so don't flash the panel up until
+                // it's where it should be
+                StartCoroutine(DelayedSetActive(_panel, true, 0.1f));
                 SetupLayout();
             }
 
             var playerInTrials = _subtleGameManager.CurrentTaskType == SubtleGameManager.TaskTypeVal.Trials;
 
-            // deactivate the panel when the simulation ends (and the panel is active)
-            // except when the player is not in trials
-            if (_subtleGameManager.ShowSimulation==false && _panel.activeSelf)
-            {
-                if (playerInTrials) {
-                    return;
-                } else {
-                    trialProgressManager.ResetTrialsTask();
-                    _panel.SetActive(false);
-                }
-            }
+            // Do nothing if the simulation is still showing or the panel is active or the player is not currently in
+            // the trials task
+            if (_subtleGameManager.ShowSimulation || !_panel.activeSelf || playerInTrials) return;
+            
+            // HERE: The simulation is not showing, the panel is active and the player is not in the trials...
+            trialProgressManager.ResetTrialsTask(); // reset trials
+            _panel.SetActive(false); // hide the instructions panel
         }
 
         /// <summary>
@@ -177,7 +182,6 @@ namespace NanoverImd.Subtle_Game.Canvas
                     timer.SetActive(true);
                     trialProgressManager.gameObject.SetActive(true);
                     trialsProgressGroup.SetActive(true);
-                    // trialProgressmanager.ResetTrialsTask(); // <-- this is going to be called when the whole panel is deactivates 
                     break;
 
                 case SubtleGameManager.TaskTypeVal.KnotTying:
@@ -198,7 +202,7 @@ namespace NanoverImd.Subtle_Game.Canvas
         }
 
         // <summary>
-        // Activate the correspondant controllers for each test type and input method
+        // Activate the corresponding interaction instructions for the given task and input method
         // </summary>
         private void SetupInputInstructions()
         {
@@ -212,7 +216,6 @@ namespace NanoverImd.Subtle_Game.Canvas
                 inputControllerInstructions.SetActive( pinchGrab.UseControllers );
            }
         }
-
         
         /// <summary>
         /// Enables the correct instructions based on the current interaction mode.
@@ -231,18 +234,16 @@ namespace NanoverImd.Subtle_Game.Canvas
             }
         }
 
-
         /// <summary>
         /// Place the in-task instructions at right face of the simulation box
-        /// depends on the simulationbox
+        /// depends on the simulation box
         /// </summary>
         private void SetupPanelPosition()
         {
             gameObject.transform.position = centerRightFace.transform.position;
             gameObject.transform.rotation = centerRightFace.transform.rotation;
         }
-        
-        
+
         /// <summary>
         /// Enables the relevant task-related elements on the instructions canvas.
         /// </summary>
