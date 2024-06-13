@@ -1,11 +1,13 @@
 ﻿using System.Collections;
-using NanoverImd.Subtle_Game.Interaction;
+using NanoverImd.Subtle_Game;
+using NanoverImd.Subtle_Game.Canvas;
 using NanoverImd.Subtle_Game.Data_Collection;
+using NanoverImd.Subtle_Game.Interaction;
 using NanoverImd.Subtle_Game.UI.Simulation;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace NanoverImd.Subtle_Game.Canvas
+namespace NanoverIMD.Subtle_Game.UI.Canvas
 {
     public class TaskInstructionsManager : MonoBehaviour
     {
@@ -28,8 +30,7 @@ namespace NanoverImd.Subtle_Game.Canvas
         /// Game object with the instructions on how interact with molecules using controllers.
         /// </summary>
         [SerializeField] private GameObject inputBothInputsInstructions;
-
-
+        
         /// <summary>
         /// Game object with the instructions on knot tie instructions.
         /// </summary>
@@ -86,10 +87,6 @@ namespace NanoverImd.Subtle_Game.Canvas
         // Panel game object containing all of the instructions elements
         // </summary>
         private GameObject _panel;
-
-        private bool _playerWasInTrials;
-
-        private SubtleGameManager.TaskTypeVal _previousTask;
 
         [SerializeField] private GameObject selectingAnswerForTrialsInstructions;
 
