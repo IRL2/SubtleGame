@@ -218,23 +218,6 @@ namespace NanoverImd.Subtle_Game.Canvas
         }
         
         /// <summary>
-        /// Enables the correct instructions based on the current interaction mode.
-        /// </summary>
-        private void UpdateInteractionInstructions()
-        {
-            if (pinchGrab.UseControllers)
-            {
-                inputHandInstructions.SetActive(false);
-                inputControllerInstructions.SetActive(true);
-            }
-            else
-            {
-                inputHandInstructions.SetActive(true);
-                inputControllerInstructions.SetActive(false); 
-            }
-        }
-
-        /// <summary>
         /// Place the in-task instructions at right face of the simulation box
         /// depends on the simulation box
         /// </summary>
@@ -242,28 +225,6 @@ namespace NanoverImd.Subtle_Game.Canvas
         {
             gameObject.transform.position = centerRightFace.transform.position;
             gameObject.transform.rotation = centerRightFace.transform.rotation;
-        }
-
-        /// <summary>
-        /// Enables the relevant task-related elements on the instructions canvas.
-        /// </summary>
-        private void EnableTrialsRelatedGameObjects(bool isTrials)
-        {
-            timer.SetActive(isTrials);
-            trialProgressManager.gameObject.SetActive(isTrials);
-            trialProgressManager.ResetTrialsTask();
-        }
-
-        // <summary>
-        //  Activate or deactivate all childs
-        //  True: activate them. False: deactivate them
-        // </summary>
-        private void ShowOrHideInstructionsCanvas(bool showCanvas)
-        {
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(showCanvas);
-            }
         }
 
         private void HandlePlayerIsSelectingAnswer(bool playerIsSelectingAnswer)
