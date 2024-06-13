@@ -3,6 +3,8 @@ from nanover.app import NanoverImdClient
 from additional_functions import write_to_shared_state, remove_puppeteer_key_from_shared_state
 from standardised_values import *
 import random
+import re
+
 
 molecule_A = 'A'
 molecule_B = 'B'
@@ -49,7 +51,12 @@ def get_unique_multipliers(simulations: list):
 
 def get_multiplier_of_simulation(sim_file_name: str):
     """ Returns the multiplier of the simulation, which is stored in the simulation name. """
-    return float(sim_file_name.removesuffix(".xml").split("_")[3].strip())
+
+    if 'recording' in sim_file_name:
+        substring = sim_file_name.removesuffix(".xml").split("_")[3].strip()
+        return float(re.match(r"(.*\d+)", substring).group())
+    else:
+        return float(sim_file_name.removesuffix(".xml").split("_")[3].strip())
 
 
 def get_residue_id_of_modified_molecule(sim_file_name: str):
