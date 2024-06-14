@@ -5,7 +5,6 @@ using NanoverImd.Subtle_Game.Data_Collection;
 using NanoverImd.Subtle_Game.Interaction;
 using NanoverImd.Subtle_Game.UI.Simulation;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace NanoverIMD.Subtle_Game.UI.Canvas
 {
@@ -69,10 +68,10 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         /// <summary>
         /// The Trial Icon Manager.
         /// </summary>
-        [FormerlySerializedAs("trialIconManager")] [SerializeField] private TrialManager trialProgressManager;
+        [SerializeField] private TrialManager trialProgressManager;
 
         // <summary>
-        // The gameobject group to set the visibility of the progress
+        // The game object group to set the visibility of the progress
         // <summary>
         [SerializeField] private GameObject trialsProgressGroup;
 
@@ -118,50 +117,51 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         {
             if (_subtleGameManager is null) return;
 
-            // to overcome race conditions, we position and setup the input instructions constantly
-            SetupPanelPosition();
+            // To overcome race conditions, we position and setup the input instructions constantly
+            PlacePanelOnRightFaceOfSimBox();
             SetupInputInstructions();
-            
-            IEnumerator DelayedSetActive(GameObject obj, bool value, float seconds)
-            {
-                yield return new WaitForSeconds(seconds);
-                obj.SetActive(value);
-            }
-            
-            // activate the instructions panel when the simulation starts (and the panel is not active)
+
+            // Check the following: the sim is showing, the panel is not already active, and the task has changed
             if (_subtleGameManager.ShowSimulation && _panel.activeSelf==false)
             {
-                // It takes a few frames for the box to be correctly positioned, so don't flash the panel up until
-                // it's where it should be
-                StartCoroutine(DelayedSetActive(_panel, true, 0.1f));
+                // Position panel
+                PlacePanelOnRightFaceOfSimBox();
                 SetupLayout();
+                
+                // It takes a few frames for the box to be correctly positioned, so enable panel with slight delay
+                StartCoroutine(DelayedSetActive(_panel, true, 0.1f));
             }
 
             var playerInTrials = _subtleGameManager.CurrentTaskType == SubtleGameManager.TaskTypeVal.Trials;
 
-            // Do nothing if the simulation is still showing or the panel is active or the player is not currently in
-            // the trials task
+            // Do nothing if: the simulation is still showing // the panel is active // the player is in the trials
             if (_subtleGameManager.ShowSimulation || !_panel.activeSelf || playerInTrials) return;
             
-            // HERE: The simulation is not showing, the panel is active and the player is not in the trials...
-            trialProgressManager.ResetTrialsTask(); // reset trials
-            _panel.SetActive(false); // hide the instructions panel
+            // Reset trials and hide the instructions panel
+            trialProgressManager.ResetTrialsTask();
+            _panel.SetActive(false);
         }
-
+        
         /// <summary>
-        /// Positions the panel and activate the proper elements
+        /// Enable a game object with a slight delay.
+        /// </summary>
+        private IEnumerator DelayedSetActive(GameObject obj, bool value, float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+            obj.SetActive(value);
+        }
+        
+        /// <summary>
+        /// Call the functions to position the panel and activate the required elements.
         /// </summary>
         private void SetupLayout()
         {
-            SetupPanelPosition();
-
             SetupTaskElements();
-
             SetupInputInstructions();
         }
 
         // <summary>
-        //  Activate the proper elements for each task
+        //  Activate the required elements for the given task.
         // </summary>
         private void SetupTaskElements()
         {
@@ -199,7 +199,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         }
 
         // <summary>
-        // Activate the corresponding interaction instructions for the given task and input method
+        // Activate the corresponding interaction instructions for the given task and interaction mode.
         // </summary>
         private void SetupInputInstructions()
         {
@@ -215,10 +215,9 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         }
         
         /// <summary>
-        /// Place the in-task instructions at right face of the simulation box
-        /// depends on the simulation box
+        /// Place the in-task instructions at right face of the simulation box.
         /// </summary>
-        private void SetupPanelPosition()
+        private void PlacePanelOnRightFaceOfSimBox()
         {
             gameObject.transform.position = centerRightFace.transform.position;
             gameObject.transform.rotation = centerRightFace.transform.rotation;
