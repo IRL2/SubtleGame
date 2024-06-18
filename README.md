@@ -30,20 +30,20 @@ A NanoVer server is used to run the molecular simulations and stream data betwee
 - A buckyball simulation: e.g., `buckyballs_angle_A_0.5.xml` [NOTE: you can load as many buckyball simulations as you want]
 
 #### Using the command line:
-1. Open "Anaconda Powershell Prompt" and navigate to the `./Server/nanover-rs-windows-2024-04-08` directory.
-2. Run the following line (NOTE: you can add more simulations to the end of this line as you want).
+1. Open "Anaconda Powershell Prompt" and navigate to the [Server directory](Server) with `cd ./Server`.
+2. Run the following line to start a server for the game (NOTE: you can add more simulations to the end of this line as you want).
 ```
-nanover-cli.exe --name "SubtleGame" "..\..\Inputs\17-ala.xml" "..\..\Inputs\nanotube_langevin.xml" "..\..\Inputs\sandbox_2_C10_alkanes.xml" "..\..\Inputs\ANGLE\buckyball_angle_A_0.5.xml"
+.\nanover-cli.exe --name "SubtleGame" "..\Inputs\17-ala.xml" "..\Inputs\nanotube_langevin.xml" "..\Inputs\sandbox_2_C10_alkanes.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.5.xml"
 ``` 
 
 #### Using the GUI:
-1. Navigate to the `./Client/rust-server-2023-10-19` directory and click on `nanover-gui.exe`.
+1. Navigate to the [Server directory](Server) and click on `nanover-gui.exe`.
 2. Open the Network tab and change the Server name to `SubtleGame`.
-3. To load the simulations, click `+OpenMM` and then `Select files` to choose one of the files located in the `\Inputs` directory. Repeat this until you have all the required simulations, then click `Run the selected file!`.
+3. To load the simulations, click `+OpenMM` and then `Select files` to choose one of the files located in the [Inputs directory](Inputs). Repeat this until you have all the required simulations, then click `Run the selected file!`.
 
 ### Running the game manager
 
-The game is handled by a Python client that is referred to as the 'puppeteering client' and can be found here: `./Client/puppeteering-client.py`.
+The game is handled by a Python client that is referred to as the 'puppeteering client' and can be found here: [Client/puppeteering_client.py](Client/puppeteering_client.py).
 1. Install Conda through whichever program you prefer, e.g., [Miniforge](https://github.com/conda-forge/miniforge).
 2. Open a terminal and run the following commands to create a Conda environment called `subtle-game` and activate that environment:
     ```
@@ -65,9 +65,9 @@ The game is handled by a Python client that is referred to as the 'puppeteering 
 ### Running the VR client
 
 1. Install and open Unity Hub.
-2. Click the `Add` button and select the `./Client/vr-client` directory within the git repo.
+2. Click the `Add` button and select the [Client/vr-client](Client/vr-client) directory.
 3. If not already installed, you should get a prompt to install the required version of Unity (2022.3.32f1). Install this along with the Android Build Support with OpenJDK and Android SDK & NDK Tools.
-4. Open the game using this version of Unity and open the `Main` scene, which is found in the `./Assets/Scenes` directory.
+4. Open the game using this version of Unity and open the `Main` scene, which is found in [Client/vr-client/Assets/Scenes](Client/vr-client/Assets/Scenes).
 
 #### Configuring the Oculus PC App Settings
 
@@ -94,11 +94,11 @@ Hand tracking must be enabled on your VR headset to play the game. To do this:
     ```
 
 2. Run the Python puppeteering client:
-    - Navigate to `./Client/puppeteering-client.py` from inside your `subtle-game` conda environment (either using the terminal or your Python IDE, as detailed above)
+    - Navigate to [Client/puppeteering_client.py](Client/puppeteering_client.py) from inside your `subtle-game` conda environment (either using the terminal or your Python IDE, as detailed above)
     - Run the script.
     - A randomly-generated username will appear on the terminal. Type `y` and press `Enter` on your keyboard to accept this username and continue, or alternatively press `Enter` to generate a new username.
 3. Open `Oculus Link` or `Air Link` from inside your Oculus headset.
 4. Open Unity and click play to start the game.
 
-IMPORTANT NOTE: both the VR client and python client are hardcoded to connect to a locally-running server called "SubtleGame". This will cause issues if you are on the same network as another person who is also running the game. If you want to change the server name, you need to change this in the VR client (`./Client/vr-client/Assets/NarupaIMD/Subtle Game/SubtleGameManager.cs`) and the puppeteering client (`./Client/puppeteering_client.py"`), and then type this server name into the server before you start.
+IMPORTANT NOTE: both the VR client and python client are hardcoded to connect to a locally-running server called "SubtleGame". This will cause issues if you are on the same network as another person who is also running the game. If you want to change the server name, you need to change this in the [VR client](Client/vr-client/Assets/NanoverIMD/Subtle%20Game/SubtleGameManager.cs) and the [puppeteering client](Client/puppeteering_client.py), and then type this server name into the server before you start.
 
