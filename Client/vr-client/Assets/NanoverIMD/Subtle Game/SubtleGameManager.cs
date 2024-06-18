@@ -44,8 +44,8 @@ namespace NanoverImd.Subtle_Game
         #region Simulation and User Interaction
 
         [SerializeField] private GameObject simulationSpace;
-        
-            private PinchGrab _pinchGrab;
+
+        private PinchGrab _pinchGrab;
             public bool ShowSimulation
             {
                 get => _showSimulation;
@@ -82,7 +82,8 @@ namespace NanoverImd.Subtle_Game
                 TrialAnswer,
                 HeadsetType,
                 TrialNumber,
-                TrialDuration
+                TrialDuration,
+                CurrentInteractionMode
             }
             public enum TaskStatusVal
             {
@@ -121,6 +122,9 @@ namespace NanoverImd.Subtle_Game
                     WriteToSharedState(SharedStateKey.HeadsetType, _hmdType);
                 }
             }
+            // Logging the input mode of the player
+            private bool _previousInputModeWasControllers;
+            private bool _initialized;
         #endregion
         
         #region Task-related
@@ -254,12 +258,54 @@ namespace NanoverImd.Subtle_Game
                 Debug.LogError("TrialsTimer object not found!");
             }
 
-
             // Request Canvas Manager to setup the game
             _canvasManager.StartGame();
             
             // Subscribe to updates in the shared state dictionary
             simulation.Multiplayer.SharedStateDictionaryKeyUpdated += OnSharedStateKeyUpdated;
+            
+            // Current input mode
+            _previousInputModeWasControllers = AreControllersBeingTracked();
+        }
+        
+        /// <summary>
+        /// Check which interaction mode the player is using and update the shared state.
+        /// </summary>
+        private void Update()
+        {
+            // Check that we are connected to the server
+            if (!simulation.ServerConnected) return;
+            
+            // Check if the controllers are currently being tracked
+            var currentInputModeIsControllers = AreControllersBeingTracked();
+            
+            // Write to shared state the first time we connect to the server
+            if (!_initialized)
+            {
+                _initialized = true;
+                WriteToSharedState(SharedStateKey.CurrentInteractionMode,
+                    AreControllersBeingTracked() ? Modality.Controllers.ToString() : Modality.Hands.ToString());
+                _previousInputModeWasControllers = AreControllersBeingTracked();
+                return;
+            }
+
+            // Check if the interaction mode has changed
+            if (currentInputModeIsControllers == _previousInputModeWasControllers) return;
+            
+            // If changed, update the shared state
+            WriteToSharedState(SharedStateKey.CurrentInteractionMode,
+                currentInputModeIsControllers ? Modality.Controllers.ToString() : Modality.Hands.ToString());
+            
+            _previousInputModeWasControllers = currentInputModeIsControllers;
+        }
+        
+        /// <summary>
+        /// Returns a boolean for whether the controllers are being tracked.
+        /// </summary>
+        private static bool AreControllersBeingTracked()
+        {
+            return OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch) ||
+                   OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch);
         }
         
         /// <summary>
