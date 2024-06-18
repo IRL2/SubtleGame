@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace NanoverIMD.Subtle_Game.UI.Canvas
 {
-    public class SetupMenuForCurrentInteractionMode : MonoBehaviour
+    public class SetupInteractionModeInstructions : MonoBehaviour
     {
         public TMP_Text orderText;
-        public TMP_Text modalityText;
+        public TMP_Text menuBodyText;
         private SubtleGameManager _subtleGameManager;
-        private string _menuBodyText;
+        private string _menuBodyTextString;
         private string _modality;
 
         [SerializeField] private GameObject nextButton;
@@ -21,14 +21,14 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         {
             _subtleGameManager = FindObjectOfType<SubtleGameManager>();
             SetModalityText();
-            SetBodyText();
+            SetOrderText();
             _subtleGameManager.isIntroToSection = false;
         }
 
         private void Update()
         {
             GetCurrentlyTrackedInteractionMode();
-            SetBodyText();
+            SetOrderText();
             EnableOrDisableButton();
         }
         
@@ -61,12 +61,12 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         }
         
         /// <summary>
-        /// Sets the body text of the current menu telling the player which interaction modality they will be using for
-        /// the next section.
+        /// Sets the 'order' text for the player, i.e. whether they are currently using the correct interaction mode
+        /// (-> they can press the button) or not (-> they must pick up or put down the controllers).
         /// </summary>
-        private void SetBodyText()
+        private void SetOrderText()
         {
-            _menuBodyText = _subtleGameManager.CurrentInteractionModality switch
+            _menuBodyTextString = _subtleGameManager.CurrentInteractionModality switch
             {
                 SubtleGameManager.Modality.Controllers when _handsAreTracked =>
                     "Pick up both controllers to continue",
@@ -74,8 +74,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                     "Put down both controllers to continue",
                 _ => "You are ready to press the button!"
             };
-
-            orderText.SetText(_menuBodyText);
+            orderText.SetText(_menuBodyTextString);
         }
         
         /// <summary>
@@ -84,15 +83,16 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         /// </summary>
         private void SetModalityText()
         {
+            var subString = new string("You will now be using ");
             _modality = _subtleGameManager.CurrentInteractionModality switch
             {
-                SubtleGameManager.Modality.Controllers => "controllers",
-                SubtleGameManager.Modality.Hands => "your hands",
+                SubtleGameManager.Modality.Controllers => "controllers!",
+                SubtleGameManager.Modality.Hands => "your hands!",
                 SubtleGameManager.Modality.None => "hands or controllers",
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            modalityText.SetText(_modality);
+            menuBodyText.SetText(subString + _modality);
         }
     }
 }
