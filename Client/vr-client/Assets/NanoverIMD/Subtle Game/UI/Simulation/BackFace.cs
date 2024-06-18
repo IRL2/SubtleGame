@@ -1,4 +1,5 @@
-﻿using Nanover.Visualisation;
+﻿using System;
+using Nanover.Visualisation;
 using UnityEngine;
 
 namespace NanoverIMD.Subtle_Game.UI.Simulation
@@ -15,6 +16,10 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
         {
             // Update position of current game object
             if (frameSource.CurrentFrame is not { BoxVectors: { } box }) return;
+            
+            // Don't reposition if the box lengths are zero
+            if (Math.Abs(box.axesMagnitudes.x) <= 0.001f) return;
+            
             transform.localPosition = new Vector3(
                 box.axesMagnitudes.x * 0.5f,
                 box.axesMagnitudes.x * 0.25f,

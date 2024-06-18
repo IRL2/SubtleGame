@@ -1,10 +1,12 @@
-﻿using NanoverImd.Subtle_Game.Interaction;
+﻿using System.Collections;
+using NanoverImd.Subtle_Game;
+using NanoverImd.Subtle_Game.Canvas;
 using NanoverImd.Subtle_Game.Data_Collection;
+using NanoverImd.Subtle_Game.Interaction;
 using NanoverImd.Subtle_Game.UI.Simulation;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace NanoverImd.Subtle_Game.Canvas
+namespace NanoverIMD.Subtle_Game.UI.Canvas
 {
     public class TaskInstructionsManager : MonoBehaviour
     {
@@ -27,8 +29,7 @@ namespace NanoverImd.Subtle_Game.Canvas
         /// Game object with the instructions on how interact with molecules using controllers.
         /// </summary>
         [SerializeField] private GameObject inputBothInputsInstructions;
-
-
+        
         /// <summary>
         /// Game object with the instructions on knot tie instructions.
         /// </summary>
@@ -67,10 +68,10 @@ namespace NanoverImd.Subtle_Game.Canvas
         /// <summary>
         /// The Trial Icon Manager.
         /// </summary>
-        [FormerlySerializedAs("trialIconManager")] [SerializeField] private TrialManager trialProgressManager;
+        [SerializeField] private TrialManager trialProgressManager;
 
         // <summary>
-        // The gameobject group to set the visibility of the progress
+        // The game object group to set the visibility of the progress
         // <summary>
         [SerializeField] private GameObject trialsProgressGroup;
 
@@ -86,10 +87,6 @@ namespace NanoverImd.Subtle_Game.Canvas
         // </summary>
         private GameObject _panel;
 
-        private bool _playerWasInTrials;
-
-        private SubtleGameManager.TaskTypeVal _previousTask;
-
         [SerializeField] private GameObject selectingAnswerForTrialsInstructions;
 
         /// <summary>
@@ -99,7 +96,7 @@ namespace NanoverImd.Subtle_Game.Canvas
         {
             _subtleGameManager = FindObjectOfType<SubtleGameManager>();
 
-            _panel = this.gameObject.transform.GetChild(0).gameObject;
+            _panel = gameObject.transform.GetChild(0).gameObject;
 
             _panel.SetActive(false);
         }
@@ -116,50 +113,55 @@ namespace NanoverImd.Subtle_Game.Canvas
         /// <summary>
         /// Updates the in-task instructions based on the current interaction modality set in the Pinch Grab script.
         /// </summary>
-        private void OnGUI()
+        private void LateUpdate()
         {
             if (_subtleGameManager is null) return;
 
-            // to overcome race conditions, we position and setup the input instructions constantly
-            SetupPanelPosition();
+            // To overcome race conditions, we position and setup the input instructions constantly
+            PlacePanelOnRightFaceOfSimBox();
             SetupInputInstructions();
 
-            // activate the instructions panel when the simulation starts (and the panel is not active)
+            // Check the following: the sim is showing, the panel is not already active, and the task has changed
             if (_subtleGameManager.ShowSimulation && _panel.activeSelf==false)
             {
-                _panel.SetActive(true);
+                // Position panel
+                PlacePanelOnRightFaceOfSimBox();
                 SetupLayout();
+                
+                // It takes a few frames for the box to be correctly positioned, so enable panel with slight delay
+                StartCoroutine(DelayedSetActive(_panel, true, 0.1f));
             }
 
             var playerInTrials = _subtleGameManager.CurrentTaskType == SubtleGameManager.TaskTypeVal.Trials;
 
-            // deactivate the panel when the simulation ends (and the panel is active)
-            // except when the player is not in trials
-            if (_subtleGameManager.ShowSimulation==false && _panel.activeSelf)
-            {
-                if (playerInTrials) {
-                    return;
-                } else {
-                    trialProgressManager.ResetTrialsTask();
-                    _panel.SetActive(false);
-                }
-            }
+            // Do nothing if: the simulation is still showing // the panel is active // the player is in the trials
+            if (_subtleGameManager.ShowSimulation || !_panel.activeSelf || playerInTrials) return;
+            
+            // Reset trials and hide the instructions panel
+            trialProgressManager.ResetTrialsTask();
+            _panel.SetActive(false);
         }
-
+        
         /// <summary>
-        /// Positions the panel and activate the proper elements
+        /// Enable a game object with a slight delay.
+        /// </summary>
+        private IEnumerator DelayedSetActive(GameObject obj, bool value, float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+            obj.SetActive(value);
+        }
+        
+        /// <summary>
+        /// Call the functions to position the panel and activate the required elements.
         /// </summary>
         private void SetupLayout()
         {
-            SetupPanelPosition();
-
             SetupTaskElements();
-
             SetupInputInstructions();
         }
 
         // <summary>
-        //  Activate the proper elements for each task
+        //  Activate the required elements for the given task.
         // </summary>
         private void SetupTaskElements()
         {
@@ -177,7 +179,6 @@ namespace NanoverImd.Subtle_Game.Canvas
                     timer.SetActive(true);
                     trialProgressManager.gameObject.SetActive(true);
                     trialsProgressGroup.SetActive(true);
-                    // trialProgressmanager.ResetTrialsTask(); // <-- this is going to be called when the whole panel is deactivates 
                     break;
 
                 case SubtleGameManager.TaskTypeVal.KnotTying:
@@ -198,7 +199,7 @@ namespace NanoverImd.Subtle_Game.Canvas
         }
 
         // <summary>
-        // Activate the correspondant controllers for each test type and input method
+        // Activate the corresponding interaction instructions for the given task and interaction mode.
         // </summary>
         private void SetupInputInstructions()
         {
@@ -212,57 +213,14 @@ namespace NanoverImd.Subtle_Game.Canvas
                 inputControllerInstructions.SetActive( pinchGrab.UseControllers );
            }
         }
-
         
         /// <summary>
-        /// Enables the correct instructions based on the current interaction mode.
+        /// Place the in-task instructions at right face of the simulation box.
         /// </summary>
-        private void UpdateInteractionInstructions()
-        {
-            if (pinchGrab.UseControllers)
-            {
-                inputHandInstructions.SetActive(false);
-                inputControllerInstructions.SetActive(true);
-            }
-            else
-            {
-                inputHandInstructions.SetActive(true);
-                inputControllerInstructions.SetActive(false); 
-            }
-        }
-
-
-        /// <summary>
-        /// Place the in-task instructions at right face of the simulation box
-        /// depends on the simulationbox
-        /// </summary>
-        private void SetupPanelPosition()
+        private void PlacePanelOnRightFaceOfSimBox()
         {
             gameObject.transform.position = centerRightFace.transform.position;
             gameObject.transform.rotation = centerRightFace.transform.rotation;
-        }
-        
-        
-        /// <summary>
-        /// Enables the relevant task-related elements on the instructions canvas.
-        /// </summary>
-        private void EnableTrialsRelatedGameObjects(bool isTrials)
-        {
-            timer.SetActive(isTrials);
-            trialProgressManager.gameObject.SetActive(isTrials);
-            trialProgressManager.ResetTrialsTask();
-        }
-
-        // <summary>
-        //  Activate or deactivate all childs
-        //  True: activate them. False: deactivate them
-        // </summary>
-        private void ShowOrHideInstructionsCanvas(bool showCanvas)
-        {
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(showCanvas);
-            }
         }
 
         private void HandlePlayerIsSelectingAnswer(bool playerIsSelectingAnswer)
