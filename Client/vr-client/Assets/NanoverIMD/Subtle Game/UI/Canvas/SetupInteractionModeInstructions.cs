@@ -83,11 +83,11 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         /// </summary>
         private void SetModalityText()
         {
-            var subString = new string("For this section you will be using ");
+            var subString = new string("You will now be using ");
             _modality = _subtleGameManager.CurrentInteractionModality switch
             {
-                SubtleGameManager.Modality.Controllers => "controllers",
-                SubtleGameManager.Modality.Hands => "your hands",
+                SubtleGameManager.Modality.Controllers => "controllers!",
+                SubtleGameManager.Modality.Hands => "your hands!",
                 SubtleGameManager.Modality.None => "hands or controllers",
                 _ => throw new ArgumentOutOfRangeException()
             };
