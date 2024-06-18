@@ -3775,7 +3775,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: a9df57534de2f574182c75e296359c49, type: 3}
     - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_text
-      value: 
+      value: You will now be using your hands!
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_margin.x
@@ -29674,7 +29674,7 @@ MonoBehaviour:
   serializedSurfaceGeometry: []
   textureOpacity_: 1
   edgeRenderingEnabled_: 1
-  edgeColor_: {r: 1, g: 1, b: 1, a: 1}
+  edgeColor_: {r: 0, g: 0, b: 0, a: 1}
   colorMapType: 0
 --- !u!95 &7690757213782282705
 Animator:
