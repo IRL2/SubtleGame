@@ -8766,7 +8766,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5178922036521567778, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5723141132105327143, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       propertyPath: m_SortingLayer
@@ -15260,6 +15260,7 @@ GameObject:
   - component: {fileID: 1364228086}
   - component: {fileID: 1364228087}
   - component: {fileID: 1364228089}
+  - component: {fileID: 1364228090}
   m_Layer: 0
   m_Name: GAME
   m_TagString: Untagged
@@ -15348,6 +15349,26 @@ MonoBehaviour:
   leftController: {fileID: 7782402911361238551}
   rightController: {fileID: 4468034851178459339}
   simulation: {fileID: 1265723033}
+--- !u!114 &1364228090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364228083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20a44630c38b9049a030b60c5b3e9ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materials:
+  - textureType: 0
+    texture: {fileID: 2100000, guid: d641a50c4fe4ee3489a64cf52b76ae79, type: 2}
+  - textureType: 1
+    texture: {fileID: 2100000, guid: e194f5330f10e7044979fbdda081207f, type: 2}
+  - textureType: 2
+    texture: {fileID: 2100000, guid: a23312fd4dea7654c8af92cee0008327, type: 2}
+  activeMaterial: 2
 --- !u!1001 &1380009020
 PrefabInstance:
   m_ObjectHideFlags: 0
