@@ -65,8 +65,8 @@ The game is handled by a Python client that is referred to as the 'puppeteering 
 ### Running the VR client
 
 1. Install and open Unity Hub.
-2. Click the `Add` button and select the `./Client/vr-client` directory.
-3. If not already installed, you should get a prompt to install the required version of Unity (2022.3.8f1). Install this along with the Android Build Support with OpenJDK and Android SDK & NDK Tools.
+2. Click the `Add` button and select the `./Client/vr-client` directory within the git repo.
+3. If not already installed, you should get a prompt to install the required version of Unity (2022.3.32f1). Install this along with the Android Build Support with OpenJDK and Android SDK & NDK Tools.
 4. Open the game using this version of Unity and open the `Main` scene, which is found in the `./Assets/Scenes` directory.
 
 #### Configuring the Oculus PC App Settings
