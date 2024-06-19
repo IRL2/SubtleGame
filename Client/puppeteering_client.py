@@ -1,6 +1,7 @@
 from nanover.app import NanoverImdClient
 from task_nanotube import NanotubeTask
 from task_knot_tying import KnotTyingTask
+from task_trials_training import TrialsTrainingTask
 from task_sandbox import SandboxTask
 from task_trials import TrialsTask
 from additional_functions import write_to_shared_state, randomise_list_order
@@ -118,6 +119,11 @@ class PuppeteeringClient:
                                           simulation_counter=simulation_counter,
                                           number_of_repeats=self.num_of_trial_repeats)
 
+            elif task == TASK_TRIALS_TRAINING:
+                current_task = TrialsTrainingTask(client=self.nanover_client, simulations=self.trials_sims,
+                                                  simulation_counter=simulation_counter,
+                                                  number_of_repeats=self.num_of_trial_repeats)
+
             else:
                 print("Current task not recognised, closing the puppeteering client.")
                 break
@@ -212,7 +218,6 @@ class PuppeteeringClient:
 
 
 if __name__ == '__main__':
-
     number_of_repeats = 3
 
     # Create puppeteering client
