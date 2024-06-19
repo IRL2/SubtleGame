@@ -6332,6 +6332,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_text
+      value: 'There will be several trials per round
+
+
+        Remember, now you
+        will only have 15 seconds to interact!'
+      objectReference: {fileID: 0}
     - target: {fileID: 4269171732357299513, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       propertyPath: m_Name
       value: Prev
@@ -6343,6 +6351,10 @@ PrefabInstance:
     - target: {fileID: 6778980502975004498, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7846966433404695310, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -117
       objectReference: {fileID: 0}
     - target: {fileID: 8782213168435246505, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       propertyPath: m_IsActive
@@ -17782,7 +17794,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4281772883302951342, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_text
-      value: Sensing molecules
+      value: Sensing molecules [recap]
       objectReference: {fileID: 0}
     - target: {fileID: 4679742550491202744, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19226,6 +19238,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3189794824772028959, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3570951672335572307, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_SizeDelta.x
       value: 142
@@ -19268,7 +19284,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5604431612938369361, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_text
-      value: This task involves detecting the softest of two molecules
+      value: 'Now that you have finished the training, you will start the full task
+
+
+        This
+        is identical to before, but you only have 15 seconds per trial and you will
+        do more trials'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604431612938369361, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_margin.z
+      value: -627.04083
       objectReference: {fileID: 0}
     - target: {fileID: 5698340354324879298, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_text
@@ -19449,12 +19474,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8058119997532801804, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1772514197}
+    - targetCorrespondingSourceObject: {fileID: 2120020009729026702, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 9098190041061289825, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1916655562}
-    - targetCorrespondingSourceObject: {fileID: 8729201886575439299, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
 --- !u!224 &1772514191 stripped
 RectTransform:
