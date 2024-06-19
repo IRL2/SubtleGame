@@ -95,12 +95,12 @@ namespace NanoverImd.Subtle_Game
             public enum TaskTypeVal
             {
                 None,
-                Sphere,
                 Nanotube,
                 GameFinished,
                 KnotTying,
                 Trials,
-                Sandbox
+                Sandbox,
+                TrialsTraining
             }
 
             public enum Modality
@@ -131,7 +131,21 @@ namespace NanoverImd.Subtle_Game
             private List<string> OrderOfTasks { get; set; }
             private readonly List<TaskTypeVal> _orderOfTasks = new();
             private int NumberOfTasks { get; set; }
-            private int CurrentTaskNum { get; set; }
+            private int _currentTaskNum;
+            private int CurrentTaskNum 
+            { 
+                get => _currentTaskNum;
+                set
+                {
+                    if (value == _currentTaskNum) return;
+                    
+                    // Reset trials if the task number has incremented
+                    // Note that this is not always necessary (we might not need to reset the trials), but it's the
+                    // easiest way to ensure the trials are always reset at the correct time
+                    trialManager.ResetTrialsTask();
+                    _currentTaskNum = value;
+                }
+            }
 
             public TaskTypeVal CurrentTaskType
             {
@@ -156,12 +170,11 @@ namespace NanoverImd.Subtle_Game
                             _pinchGrab.InteractionType = "gaussian";
                             _pinchGrab.InteractionForceScale = 525f;
                             break;
-                        case TaskTypeVal.Trials:
+                        case TaskTypeVal.Trials or TaskTypeVal.TrialsTraining:
                             _pinchGrab.InteractionType = "spring";
                             _pinchGrab.InteractionForceScale = 175f;
                             break;
                         case TaskTypeVal.None:
-                        case TaskTypeVal.Sphere:
                         case TaskTypeVal.GameFinished:
                         default:
                             _pinchGrab.InteractionType = "gaussian";
@@ -364,6 +377,10 @@ namespace NanoverImd.Subtle_Game
                         _orderOfTasks.Add(TaskTypeVal.Trials);
                         break;
                     
+                    case "trials-training":
+                        _orderOfTasks.Add(TaskTypeVal.TrialsTraining);
+                        break;
+                    
                     default:
                         Debug.LogWarning("One of the tasks in the order of tasks in the shared state was not recognised.");
                         break;
@@ -429,7 +446,7 @@ namespace NanoverImd.Subtle_Game
             TaskStatus = TaskStatusVal.InProgress;
             
             _canvasManager.HideCanvas();
-            if (CurrentTaskType == TaskTypeVal.Trials) return;
+            if (CurrentTaskType is TaskTypeVal.Trials or TaskTypeVal.TrialsTraining) return;
             ShowSimulation = true;
         }
 
@@ -590,7 +607,7 @@ namespace NanoverImd.Subtle_Game
                             trialManager.LogTrialAnswer(state: TrialIcon.State.Ambivalent);
                             break;
                     }
-                    // call the answer pop up to show (must be called after positioned by the trialanswersubmission)
+                    // call the answer pop up to show (must be called after positioned by the trialAnswerSubmission)
                     trialAnswerPopup.Pop(val.ToString());
                     break;
                 

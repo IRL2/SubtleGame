@@ -22,8 +22,10 @@ namespace NanoverImd.Subtle_Game.Canvas
 
         private bool _timerIsRunning;
         private float _timeElapsed;
-        
-        private float _duration = 15f;
+
+        private const float DurationTrials = 15f;
+        private const float DurationTrialsTraining = 60f;
+        private float _duration;
         
         public bool finishTrialEarly;
         
@@ -53,6 +55,19 @@ namespace NanoverImd.Subtle_Game.Canvas
         
         public void StartTimer()
         {
+            switch (subtleGameManager.CurrentTaskType)
+            {
+                case SubtleGameManager.TaskTypeVal.Trials:
+                    _duration = DurationTrials;
+                    break;
+                case SubtleGameManager.TaskTypeVal.TrialsTraining:
+                    _duration = DurationTrialsTraining;
+                    break;
+                default:
+                    Debug.LogWarning("Probably shouldn't reach here, why have we started the timer when we are " +
+                                     "not in one of the trials tasks?");
+                    break;
+            }
             finishTrialEarly = false;
             subtleGameManager.simulation.PlayTrajectory();
             _timerIsRunning = true;

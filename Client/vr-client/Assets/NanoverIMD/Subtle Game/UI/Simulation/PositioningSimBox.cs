@@ -44,7 +44,7 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
         {
             SubtleGameManager.TaskTypeVal.Nanotube => 1f * .3f,
             SubtleGameManager.TaskTypeVal.KnotTying => 0.5f * .3f,
-            SubtleGameManager.TaskTypeVal.Trials => 1f * .3f,
+            SubtleGameManager.TaskTypeVal.Trials or SubtleGameManager.TaskTypeVal.TrialsTraining => 1f * .3f,
             _ => 1f * .3f,
         };
 
@@ -144,7 +144,7 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
                     offsetAbsolute = new Vector3(0, -0.28f, 0);
                     offsetPercent = new Vector3(0, 0, -0.42f);
                     break;
-                case SubtleGameManager.TaskTypeVal.Trials:
+                case SubtleGameManager.TaskTypeVal.Trials or SubtleGameManager.TaskTypeVal.TrialsTraining:
                     offsetAbsolute = new Vector3(0, -0.2f, 0);
                     offsetPercent = new Vector3(0, 0, -0.25f);
                     break;

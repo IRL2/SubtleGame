@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using NanoverImd.Subtle_Game;
+using NanoverImd.Subtle_Game.Canvas;
 using UnityEngine;
 
-namespace NanoverImd.Subtle_Game.Canvas
+namespace NanoverIMD.Subtle_Game.UI.Canvas
 {
     
     public class TrialManager : MonoBehaviour
@@ -57,9 +59,10 @@ namespace NanoverImd.Subtle_Game.Canvas
         private void Start()
         {
             _subtleGameManager = FindObjectOfType<SubtleGameManager>();
+            ResetTrialsTask();
             gameObject.SetActive(false);
         }
-        
+
         /// <summary>
         /// Resets variables and game objects ready to start a new trials task.
         /// </summary>
