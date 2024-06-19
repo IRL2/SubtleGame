@@ -95,7 +95,6 @@ namespace NanoverImd.Subtle_Game
             public enum TaskTypeVal
             {
                 None,
-                Sphere,
                 Nanotube,
                 GameFinished,
                 KnotTying,
@@ -176,7 +175,6 @@ namespace NanoverImd.Subtle_Game
                             _pinchGrab.InteractionForceScale = 175f;
                             break;
                         case TaskTypeVal.None:
-                        case TaskTypeVal.Sphere:
                         case TaskTypeVal.GameFinished:
                         default:
                             _pinchGrab.InteractionType = "gaussian";
