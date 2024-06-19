@@ -24,9 +24,6 @@ class TrialsTask(Task):
         self.answer_correct = False
         self.was_answer_correct = False
 
-        self.sims_max_multiplier = []
-        self.sims_min_multiplier = []
-
         self.practice_sims, self.main_sims = get_order_of_simulations(self.simulations, num_repeats=self.num_of_repeats)
 
         write_to_shared_state(client=self.client, key=KEY_TRIALS_SIMS, value=str(self.main_sims))
