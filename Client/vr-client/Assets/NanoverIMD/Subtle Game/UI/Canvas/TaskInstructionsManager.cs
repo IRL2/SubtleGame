@@ -132,15 +132,10 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 StartCoroutine(DelayedSetActive(_panel, true, 0.1f));
             }
 
-            var playerInTrials = _subtleGameManager.CurrentTaskType is 
-                SubtleGameManager.TaskTypeVal.Trials 
-                or SubtleGameManager.TaskTypeVal.TrialsTraining;
+            // Do nothing if the simulation is still showing or the panel is not active
+            if (_subtleGameManager.ShowSimulation || !_panel.activeSelf) return;
 
-            // Do nothing if: the simulation is still showing // the panel is active // the player is in the trials
-            if (_subtleGameManager.ShowSimulation || !_panel.activeSelf || playerInTrials) return;
-            
-            // Reset trials and hide the instructions panel
-            trialProgressManager.ResetTrialsTask();
+            // Hide instructions panel
             _panel.SetActive(false);
         }
         

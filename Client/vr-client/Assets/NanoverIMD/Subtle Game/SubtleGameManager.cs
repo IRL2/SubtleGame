@@ -132,7 +132,21 @@ namespace NanoverImd.Subtle_Game
             private List<string> OrderOfTasks { get; set; }
             private readonly List<TaskTypeVal> _orderOfTasks = new();
             private int NumberOfTasks { get; set; }
-            private int CurrentTaskNum { get; set; }
+            private int _currentTaskNum;
+            private int CurrentTaskNum 
+            { 
+                get => _currentTaskNum;
+                set
+                {
+                    if (value == _currentTaskNum) return;
+                    
+                    // Reset trials if the task number has incremented
+                    // Note that this is not always necessary (we might not need to reset the trials), but it's the
+                    // easiest way to ensure the trials are always reset at the correct time
+                    trialManager.ResetTrialsTask();
+                    _currentTaskNum = value;
+                }
+            }
 
             public TaskTypeVal CurrentTaskType
             {
@@ -595,7 +609,7 @@ namespace NanoverImd.Subtle_Game
                             trialManager.LogTrialAnswer(state: TrialIcon.State.Ambivalent);
                             break;
                     }
-                    // call the answer pop up to show (must be called after positioned by the trialanswersubmission)
+                    // call the answer pop up to show (must be called after positioned by the trialAnswerSubmission)
                     trialAnswerPopup.Pop(val.ToString());
                     break;
                 
