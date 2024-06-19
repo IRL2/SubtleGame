@@ -100,7 +100,8 @@ namespace NanoverImd.Subtle_Game
                 GameFinished,
                 KnotTying,
                 Trials,
-                Sandbox
+                Sandbox,
+                TrialsTraining
             }
 
             public enum Modality
@@ -156,7 +157,7 @@ namespace NanoverImd.Subtle_Game
                             _pinchGrab.InteractionType = "gaussian";
                             _pinchGrab.InteractionForceScale = 525f;
                             break;
-                        case TaskTypeVal.Trials:
+                        case TaskTypeVal.Trials or TaskTypeVal.TrialsTraining:
                             _pinchGrab.InteractionType = "spring";
                             _pinchGrab.InteractionForceScale = 175f;
                             break;
@@ -364,6 +365,10 @@ namespace NanoverImd.Subtle_Game
                         _orderOfTasks.Add(TaskTypeVal.Trials);
                         break;
                     
+                    case "trials-training":
+                        _orderOfTasks.Add(TaskTypeVal.TrialsTraining);
+                        break;
+                    
                     default:
                         Debug.LogWarning("One of the tasks in the order of tasks in the shared state was not recognised.");
                         break;
@@ -429,7 +434,7 @@ namespace NanoverImd.Subtle_Game
             TaskStatus = TaskStatusVal.InProgress;
             
             _canvasManager.HideCanvas();
-            if (CurrentTaskType == TaskTypeVal.Trials) return;
+            if (CurrentTaskType is TaskTypeVal.Trials or TaskTypeVal.TrialsTraining) return;
             ShowSimulation = true;
         }
 

@@ -132,7 +132,9 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 StartCoroutine(DelayedSetActive(_panel, true, 0.1f));
             }
 
-            var playerInTrials = _subtleGameManager.CurrentTaskType == SubtleGameManager.TaskTypeVal.Trials;
+            var playerInTrials = _subtleGameManager.CurrentTaskType is 
+                SubtleGameManager.TaskTypeVal.Trials 
+                or SubtleGameManager.TaskTypeVal.TrialsTraining;
 
             // Do nothing if: the simulation is still showing // the panel is active // the player is in the trials
             if (_subtleGameManager.ShowSimulation || !_panel.activeSelf || playerInTrials) return;
@@ -174,7 +176,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             // activate the instruction objects required for each task type
             switch (_subtleGameManager.CurrentTaskType)
             {
-                case SubtleGameManager.TaskTypeVal.Trials:
+                case SubtleGameManager.TaskTypeVal.Trials or SubtleGameManager.TaskTypeVal.TrialsTraining:
                     taskTrialsInstructions.SetActive(true);
                     timer.SetActive(true);
                     trialProgressManager.gameObject.SetActive(true);

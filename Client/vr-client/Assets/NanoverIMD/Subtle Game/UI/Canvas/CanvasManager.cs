@@ -16,7 +16,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         Outro,
         KnotTying,
         Trials,
-        Instructions
+        Instructions,
+        TrialsTraining
     }
 
     /// <summary>
@@ -148,6 +149,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 SubtleGameManager.TaskTypeVal.GameFinished => CanvasType.Outro,
                 SubtleGameManager.TaskTypeVal.KnotTying => CanvasType.KnotTying,
                 SubtleGameManager.TaskTypeVal.Trials => CanvasType.Trials,
+                SubtleGameManager.TaskTypeVal.TrialsTraining => CanvasType.TrialsTraining,
                 SubtleGameManager.TaskTypeVal.Sandbox => CanvasType.Instructions,
                 _ => CurrentCanvasType
             };
@@ -186,7 +188,9 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             
             // Check if player is starting a main task
             if (_subtleGameManager.CurrentTaskType is SubtleGameManager.TaskTypeVal.Nanotube
-                or SubtleGameManager.TaskTypeVal.KnotTying or SubtleGameManager.TaskTypeVal.Trials)
+                or SubtleGameManager.TaskTypeVal.KnotTying 
+                or SubtleGameManager.TaskTypeVal.Trials 
+                or SubtleGameManager.TaskTypeVal.TrialsTraining)
             {
                 // Check if the interaction mode has switched
                 if (_subtleGameManager.interactionModalityHasChanged)
