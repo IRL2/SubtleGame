@@ -1,3 +1,4 @@
+using NanoverIMD.Subtle_Game.UI.Canvas;
 using TMPro;
 using UnityEngine;
 
