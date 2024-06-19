@@ -37,12 +37,21 @@ def get_order_of_tasks(run_short_game: bool):
     else:
         tasks = [TASK_KNOT_TYING, TASK_TRIALS]
 
-    order_of_tasks = []
+    tasks_without_training = []
 
+    # Randomise the order of the tasks, with the nanotube always as the first task
     for n in range(2):
         t = random.sample(tasks, len(tasks))
         t.insert(0, TASK_NANOTUBE)
-        order_of_tasks.extend(t)
+        tasks_without_training.extend(t)
+
+    order_of_tasks = []
+
+    # Add the trials training task before each Trials task
+    for task in tasks_without_training:
+        if task == TASK_TRIALS:
+            order_of_tasks.append(TASK_TRIALS_TRAINING)
+        order_of_tasks.append(task)
 
     return order_of_tasks
 
