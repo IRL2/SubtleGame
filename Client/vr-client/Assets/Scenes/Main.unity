@@ -765,7 +765,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5698340354324879298, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_text
-      value: Sensing molecules
+      value: Sensing molecules [training]
       objectReference: {fileID: 0}
     - target: {fileID: 5710668292602544981, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_IsActive
@@ -927,6 +927,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8058119997532801804, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 47583288}
+    - targetCorrespondingSourceObject: {fileID: 2120020009729026702, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
 --- !u!224 &47583277 stripped
 RectTransform:
@@ -3168,10 +3171,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_text
-      value: '1. Interact with the molecules for 15 seconds
+      value: '1. Interact with the molecules until the timer is up
 
-        2. Select the
-        softest one, by placing your hand or controller inside'
+        2. Select
+        the softest by placing your hand or controller inside the molecule'
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_fontSize
@@ -3189,13 +3192,17 @@ PrefabInstance:
       propertyPath: m_paragraphSpacing
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4269171732357299513, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_Name
       value: Prev
       objectReference: {fileID: 0}
     - target: {fileID: 4281772883302951342, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_text
-      value: Sensing molecules
+      value: Sensing molecules [training]
       objectReference: {fileID: 0}
     - target: {fileID: 4679742550491202744, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3361,6 +3368,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1993769644905264480, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       insertIndex: -1
       addedObject: {fileID: 961383875}
+    - targetCorrespondingSourceObject: {fileID: 8782213168435246505, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 7571863152665335010, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0f44c030a807a9942967612c05be2392, type: 3}
 --- !u!224 &257718814 stripped
 RectTransform:
@@ -30167,6 +30180,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 47583277}
     m_Modifications:
+    - target: {fileID: 134800100351737464, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -58.99994
+      objectReference: {fileID: 0}
+    - target: {fileID: 134800100351737464, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -189
+      objectReference: {fileID: 0}
     - target: {fileID: 312665611235844728, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       propertyPath: activeButtons.Array.size
       value: 2
@@ -30179,6 +30200,14 @@ PrefabInstance:
       propertyPath: activeButtons.Array.data[1]
       value: 
       objectReference: {fileID: 7401802646654478565}
+    - target: {fileID: 423516505954382466, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -59
+      objectReference: {fileID: 0}
+    - target: {fileID: 423516505954382466, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -352
+      objectReference: {fileID: 0}
     - target: {fileID: 865841339208020551, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -30259,9 +30288,53 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_text
+      value: 'During this training phase, you will get 1 minute per task
+
+
+        You
+        will do two tasks before moving on from the training
+
+
+        To your right,
+        there will be a timer and an orange button (press to answer early)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_fontSize
+      value: 51
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_margin.w
+      value: -91.999435
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_margin.x
+      value: 33.51889
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_margin.z
+      value: -1.6881102
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 51
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4269171732357299513, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       propertyPath: m_Name
       value: Prev
+      objectReference: {fileID: 0}
+    - target: {fileID: 4281772883302951342, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_text
+      value: Sensing molecules [training]
       objectReference: {fileID: 0}
     - target: {fileID: 4679742550491202744, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       propertyPath: m_LocalPosition.x
@@ -30270,6 +30343,14 @@ PrefabInstance:
     - target: {fileID: 6778980502975004498, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7846966433404695310, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 248
+      objectReference: {fileID: 0}
+    - target: {fileID: 7846966433404695310, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -23
       objectReference: {fileID: 0}
     - target: {fileID: 8782213168435246505, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       propertyPath: m_IsActive
@@ -30355,6 +30436,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9020445591788786812, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -58.99994
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6778980502975004498, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
@@ -30367,6 +30452,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1993769644905264480, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7401802646654478571}
+    - targetCorrespondingSourceObject: {fileID: 8782213168435246505, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 7571863152665335010, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
 --- !u!224 &7401802646654478561 stripped
 RectTransform:
