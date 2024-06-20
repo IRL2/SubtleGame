@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 992682786934777464}
   - component: {fileID: 8841822735772687423}
   m_Layer: 0
-  m_Name: knot
+  m_Name: Knot tying icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 9097556064456364182}
   - component: {fileID: 8591486843161565591}
   m_Layer: 0
-  m_Name: tube
+  m_Name: Nanotube icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,7 +241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ef57b743660dd14fa4a7c71d084ed85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTask: 1
 --- !u!1 &6141018371047695997
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +253,7 @@ GameObject:
   - component: {fileID: 2632555034723560953}
   - component: {fileID: 6848365045289540840}
   m_Layer: 0
-  m_Name: trials
+  m_Name: Trials icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -294,13 +294,18 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             {
                 // Move progress chips to new menu
                 progressChips.transform.SetParent(LastActiveCanvas.transform);
+                // Update icons
+                var progressChipHandler = progressChips.GetComponent<ProgressChipHandler>();
+                if (progressChipHandler != null)
+                {
+                    progressChipHandler.UpdateProgressIcons();
+                }
             }
             else
             {
                 Debug.LogWarning("Cannot move progress chips to new menu, either the progress chips object or " +
                                  "the previousCanvas is null.");
             }
-            
         }
 
         /// <summary>

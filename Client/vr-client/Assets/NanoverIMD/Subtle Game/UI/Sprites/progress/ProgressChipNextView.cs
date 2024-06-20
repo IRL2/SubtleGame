@@ -1,15 +1,17 @@
+using System;
+using NanoverImd.Subtle_Game;
 using UnityEngine;
 
 namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
 {
     public class ProgressChipNextView : MonoBehaviour
     {
-        [System.Serializable]
+        [Serializable]
         public enum DisplayTasks {
             Nanotube, Knot, Trials
         }
 
-        [SerializeField] private DisplayTasks currentTask;
+        private DisplayTasks _currentTask;
         
         private DisplayTasks _displayedTask;
 
@@ -30,11 +32,11 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
         /// </summary>
         private void Update()
         {
-            if (currentTask == _displayedTask) return;
+            if (_currentTask == _displayedTask) return;
             
             // Update if the current task has changed
-            _displayedTask = currentTask;
-            ShowTask(currentTask);
+            _displayedTask = _currentTask;
+            ShowTask(_currentTask);
         }
         
         /// <summary>
@@ -42,10 +44,24 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
         /// </summary>
         private void ShowTask(DisplayTasks task)
         {
-            currentTask = task;
-            _knotImage.SetActive(currentTask == DisplayTasks.Knot);
-            _tubeImage.SetActive(currentTask == DisplayTasks.Nanotube);
-            _trialsImage.SetActive(currentTask == DisplayTasks.Trials);
+            _currentTask = task;
+            _knotImage.SetActive(_currentTask == DisplayTasks.Knot);
+            _tubeImage.SetActive(_currentTask == DisplayTasks.Nanotube);
+            _trialsImage.SetActive(_currentTask == DisplayTasks.Trials);
+        }
+        
+        /// <summary>
+        /// Updates the current task on this game object.
+        /// </summary>
+        public void UpdateCurrentTask(SubtleGameManager.TaskTypeVal newTask)
+        {
+            _currentTask = newTask switch
+            {
+                SubtleGameManager.TaskTypeVal.Nanotube => ProgressChipNextView.DisplayTasks.Nanotube,
+                SubtleGameManager.TaskTypeVal.KnotTying => ProgressChipNextView.DisplayTasks.Knot,
+                SubtleGameManager.TaskTypeVal.TrialsTraining => ProgressChipNextView.DisplayTasks.Trials,
+                _ => _currentTask
+            };
         }
     }
 }

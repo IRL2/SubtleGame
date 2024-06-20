@@ -1,3 +1,5 @@
+using System;
+using NanoverImd.Subtle_Game;
 using TMPro;
 using UnityEngine;
 
@@ -5,18 +7,18 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
 {
     public class ProgressChipCurrentView : MonoBehaviour
     {
-        [System.Serializable]
+        [Serializable]
         public enum TaskTypes {
             Knot, Nanotube, Trials
         }
 
-        [System.Serializable]
+        [Serializable]
         public enum InputTypes {
             Hand, ControllerQ2, ControllerQ3
         }
 
-        [SerializeField] private TaskTypes currentTask = TaskTypes.Knot;
-        private TaskTypes _previousTask = TaskTypes.Knot;
+        private TaskTypes _currentTask;
+        private TaskTypes _previousTask;
 
         [SerializeField] private InputTypes currentInput = InputTypes.Hand;
         private InputTypes _previousInput = InputTypes.Hand;
@@ -45,9 +47,9 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
         private void Update()
         {
             // If the task has changed, update the task icon
-            if (currentTask != _previousTask) {
-                _previousTask = currentTask;
-                ShowTask(currentTask);
+            if (_currentTask != _previousTask) {
+                _previousTask = _currentTask;
+                ShowTask(_currentTask);
             }
             
             // If the interaction mode has changed, update the task icon
@@ -62,10 +64,10 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
         /// </summary>
         private void ShowTask(TaskTypes task)
         {
-            currentTask = task;
-            _knotImage.SetActive(currentTask == TaskTypes.Knot);
-            _tubeImage.SetActive(currentTask == TaskTypes.Nanotube);
-            _trialsImage.SetActive(currentTask == TaskTypes.Trials);
+            _currentTask = task;
+            _knotImage.SetActive(_currentTask == TaskTypes.Knot);
+            _tubeImage.SetActive(_currentTask == TaskTypes.Nanotube);
+            _trialsImage.SetActive(_currentTask == TaskTypes.Trials);
         }
         
         /// <summary>
@@ -85,6 +87,20 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
         private void SetDuration(string duration)
         {
             _durationLabel.text = $"~{duration} min";
+        }
+        
+        /// <summary>
+        /// Updates the current task on this game object.
+        /// </summary>
+        public void UpdateCurrentTask(SubtleGameManager.TaskTypeVal newTask)
+        {
+            _currentTask = newTask switch
+            {
+                SubtleGameManager.TaskTypeVal.Nanotube => TaskTypes.Nanotube,
+                SubtleGameManager.TaskTypeVal.KnotTying => TaskTypes.Knot,
+                SubtleGameManager.TaskTypeVal.TrialsTraining => TaskTypes.Trials,
+                _ => _currentTask
+            };
         }
     }
 }
