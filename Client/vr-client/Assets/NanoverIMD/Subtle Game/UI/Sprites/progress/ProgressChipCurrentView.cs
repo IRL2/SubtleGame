@@ -9,19 +9,19 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
     {
         [Serializable]
         public enum TaskTypes {
-            Knot, Nanotube, Trials
+            None, Knot, Nanotube, Trials
         }
 
         [Serializable]
         public enum InputTypes {
-            Hand, ControllerQ2, ControllerQ3
+            None, Hand, ControllerQ2, ControllerQ3
         }
 
         private TaskTypes _currentTask;
         private TaskTypes _previousTask;
 
-        [SerializeField] private InputTypes currentInput = InputTypes.Hand;
-        private InputTypes _previousInput = InputTypes.Hand;
+        private InputTypes _currentInput;
+        private InputTypes _previousInput;
 
         private GameObject _knotImage, _tubeImage, _trialsImage;
         private GameObject _handImage, _quest2Image, _quest3Image;
@@ -51,11 +51,11 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
                 _previousTask = _currentTask;
                 ShowTask(_currentTask);
             }
-            
+
             // If the interaction mode has changed, update the task icon
-            if (currentInput != _previousInput) {
-                _previousInput = currentInput;
-                ShowInput(currentInput);
+            if (_currentInput != _previousInput) {
+                _previousInput = _currentInput;
+                ShowInput(_currentInput);
             }
         }
         
@@ -75,10 +75,10 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
         /// </summary>
         private void ShowInput(InputTypes input)
         {
-            currentInput = input;
-            _handImage.SetActive(currentInput == InputTypes.Hand);
-            _quest2Image.SetActive(currentInput == InputTypes.ControllerQ2);
-            _quest3Image.SetActive(currentInput == InputTypes.ControllerQ3);
+            _currentInput = input;
+            _handImage.SetActive(_currentInput == InputTypes.Hand);
+            _quest2Image.SetActive(_currentInput == InputTypes.ControllerQ2);
+            _quest3Image.SetActive(_currentInput == InputTypes.ControllerQ3);
         }
         
         /// <summary>
@@ -100,6 +100,21 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
                 SubtleGameManager.TaskTypeVal.KnotTying => TaskTypes.Knot,
                 SubtleGameManager.TaskTypeVal.TrialsTraining => TaskTypes.Trials,
                 _ => _currentTask
+            };
+        }
+        
+        /// <summary>
+        /// Updates the current interaction mode on this game object.
+        /// </summary>
+        public void UpdateCurrentInteractionMode(SubtleGameManager.Modality currentModality, string headsetType)
+        {
+            _currentInput = currentModality switch
+            {
+                SubtleGameManager.Modality.Hands => InputTypes.Hand,
+                SubtleGameManager.Modality.Controllers => headsetType.Contains("3")
+                    ? InputTypes.ControllerQ3
+                    : InputTypes.ControllerQ2,
+                _ => _currentInput
             };
         }
     }

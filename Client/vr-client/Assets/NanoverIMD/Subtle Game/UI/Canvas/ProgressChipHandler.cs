@@ -41,6 +41,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 _currentTaskIconObject = Instantiate(currentIconPrefab, iconsParent);
                 var currentIconChip = _currentTaskIconObject.GetComponent<ProgressChipCurrentView>();
                 currentIconChip.UpdateCurrentTask(_subtleGameManager.CurrentTaskType);
+                currentIconChip.UpdateCurrentInteractionMode(_subtleGameManager.CurrentInteractionModality, 
+                    _subtleGameManager.HmdType);
 
                 // Create a next up task icon
                 _nextTaskIconObject = Instantiate(nextIconPrefab, iconsParent);
@@ -58,12 +60,14 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 _currentTaskIconObject = Instantiate(currentIconPrefab, iconsParent);
                 var currentIconChip = _currentTaskIconObject.GetComponent<ProgressChipCurrentView>();
                 currentIconChip.UpdateCurrentTask(_subtleGameManager.CurrentTaskType);
+                currentIconChip.UpdateCurrentInteractionMode(_subtleGameManager.CurrentInteractionModality, 
+                    _subtleGameManager.HmdType);
                 UpdateTransform(_currentTaskIconObject, _nextTaskIconObject.transform);
                 Destroy(_nextTaskIconObject);
                 
                 // Add a next up icon
                 _nextTaskIconObject = Instantiate(nextIconPrefab, iconsParent);
-                var nextUpIconChip = _currentTaskIconObject.GetComponent<ProgressChipNextView>();
+                var nextUpIconChip = _nextTaskIconObject.GetComponent<ProgressChipNextView>();
                 nextUpIconChip.UpdateCurrentTask(_subtleGameManager.NextTaskType);
             }
         }
