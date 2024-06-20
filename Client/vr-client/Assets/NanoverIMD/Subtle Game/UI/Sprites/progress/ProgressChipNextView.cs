@@ -1,40 +1,51 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
-public class ProgressChipNextView : MonoBehaviour
+namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
 {
-    [System.Serializable]
-    public enum DisplayTasks {
-        Knot, Nanotube, Trials
-    }
-
-    [SerializeField] private DisplayTasks currentTask = DisplayTasks.Knot;
-    private DisplayTasks pCurrentTask = DisplayTasks.Knot;
-
-    private GameObject knotImage, tubeImage, trialsImage;
-
-    void Start()
+    public class ProgressChipNextView : MonoBehaviour
     {
-        knotImage   = transform.Find("knot").gameObject;
-        tubeImage   = transform.Find("tube").gameObject;
-        trialsImage = transform.Find("trials").gameObject;
-    }
+        [System.Serializable]
+        public enum DisplayTasks {
+            Nanotube, Knot, Trials
+        }
 
-    void Update()
-    {
-        if (currentTask != pCurrentTask) {
-            pCurrentTask = currentTask;
+        [SerializeField] private DisplayTasks currentTask;
+        
+        private DisplayTasks _displayedTask;
+
+        private GameObject _knotImage, _tubeImage, _trialsImage;
+        
+        /// <summary>
+        /// Retrieve the icon game objects for each type of task.
+        /// </summary>
+        private void Start()
+        {
+            _knotImage   = transform.Find("Knot tying icon").gameObject;
+            _tubeImage   = transform.Find("Nanotube icon").gameObject;
+            _trialsImage = transform.Find("Trials icon").gameObject;
+        }
+        
+        /// <summary>
+        /// Check if the current task has changed and update the icon if it has.
+        /// </summary>
+        private void Update()
+        {
+            if (currentTask == _displayedTask) return;
+            
+            // Update if the current task has changed
+            _displayedTask = currentTask;
             ShowTask(currentTask);
-        }        
-    }
-
-    void ShowTask(DisplayTasks task)
-    {
-        currentTask = task;
-        knotImage.SetActive(currentTask == DisplayTasks.Knot);
-        tubeImage.SetActive(currentTask == DisplayTasks.Nanotube);
-        trialsImage.SetActive(currentTask == DisplayTasks.Trials);
+        }
+        
+        /// <summary>
+        /// Enable the icon for the current task, disable the rest.
+        /// </summary>
+        private void ShowTask(DisplayTasks task)
+        {
+            currentTask = task;
+            _knotImage.SetActive(currentTask == DisplayTasks.Knot);
+            _tubeImage.SetActive(currentTask == DisplayTasks.Nanotube);
+            _trialsImage.SetActive(currentTask == DisplayTasks.Trials);
+        }
     }
 }

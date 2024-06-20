@@ -1,71 +1,90 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class ProgressChipCurrentView : MonoBehaviour
+namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
 {
-    [System.Serializable]
-    public enum TaskTypes {
-        Knot, Nanotube, Trials
-    }
-
-    [System.Serializable]
-    public enum InputTypes {
-        hand, controllerQ2, controllerQ3
-    }
-
-
-    [SerializeField] private TaskTypes currentTask = TaskTypes.Knot;
-    private TaskTypes prevTask = TaskTypes.Knot;
-
-    [SerializeField] private InputTypes currentInput = InputTypes.hand;
-    private InputTypes prevInput = InputTypes.hand;
-
-    private GameObject knotImage, tubeImage, trialsImage;
-    private GameObject handImage, quest2Image, quest3Image;
-    private TextMeshProUGUI durationLabel;
-
-    void Start()
+    public class ProgressChipCurrentView : MonoBehaviour
     {
-        knotImage   = transform.Find("task knot").gameObject;
-        tubeImage   = transform.Find("task tube").gameObject;
-        trialsImage = transform.Find("task trials").gameObject;
-        handImage   = transform.Find("input hand").gameObject;
-        quest2Image = transform.Find("input controller q2").gameObject;
-        quest3Image = transform.Find("input controller q3").gameObject;
-    }
-
-    void Update()
-    {
-        if (currentTask != prevTask) {
-            prevTask = currentTask;
-            ShowTask(currentTask);
+        [System.Serializable]
+        public enum TaskTypes {
+            Knot, Nanotube, Trials
         }
-        if (currentInput != prevInput) {
-            prevInput = currentInput;
-            ShowInput(currentInput);
+
+        [System.Serializable]
+        public enum InputTypes {
+            Hand, ControllerQ2, ControllerQ3
         }
-    }
 
-    void ShowTask(TaskTypes task)
-    {
-        currentTask = task;
-        knotImage.SetActive(currentTask == TaskTypes.Knot);
-        tubeImage.SetActive(currentTask == TaskTypes.Nanotube);
-        trialsImage.SetActive(currentTask == TaskTypes.Trials);
-    }
+        [SerializeField] private TaskTypes currentTask = TaskTypes.Knot;
+        private TaskTypes _previousTask = TaskTypes.Knot;
 
-    void ShowInput(InputTypes input)
-    {
-        currentInput = input;
-        handImage.SetActive(currentInput == InputTypes.hand);
-        quest2Image.SetActive(currentInput == InputTypes.controllerQ2);
-        quest3Image.SetActive(currentInput == InputTypes.controllerQ3);
-    }
+        [SerializeField] private InputTypes currentInput = InputTypes.Hand;
+        private InputTypes _previousInput = InputTypes.Hand;
 
-    void SetDuration(string duration)
-    {
-        durationLabel.text = $"~{duration} min";
+        private GameObject _knotImage, _tubeImage, _trialsImage;
+        private GameObject _handImage, _quest2Image, _quest3Image;
+        
+        private TextMeshProUGUI _durationLabel;
+        
+        /// <summary>
+        /// Retrieve the icon game objects for each type of task and interaction mode.
+        /// </summary>
+        private void Start()
+        {
+            _knotImage   = transform.Find("Knot tying icon").gameObject;
+            _tubeImage   = transform.Find("Nanotube icon").gameObject;
+            _trialsImage = transform.Find("Trials icon").gameObject;
+            _handImage   = transform.Find("Hand icon").gameObject;
+            _quest2Image = transform.Find("Controller q2 icon").gameObject;
+            _quest3Image = transform.Find("Controller q3 icon").gameObject;
+        }
+        
+        /// <summary>
+        /// Check if the interaction mode or task has changed.
+        /// </summary>
+        private void Update()
+        {
+            // If the task has changed, update the task icon
+            if (currentTask != _previousTask) {
+                _previousTask = currentTask;
+                ShowTask(currentTask);
+            }
+            
+            // If the interaction mode has changed, update the task icon
+            if (currentInput != _previousInput) {
+                _previousInput = currentInput;
+                ShowInput(currentInput);
+            }
+        }
+        
+        /// <summary>
+        /// Enable the icon for the current task, disable the rest.
+        /// </summary>
+        private void ShowTask(TaskTypes task)
+        {
+            currentTask = task;
+            _knotImage.SetActive(currentTask == TaskTypes.Knot);
+            _tubeImage.SetActive(currentTask == TaskTypes.Nanotube);
+            _trialsImage.SetActive(currentTask == TaskTypes.Trials);
+        }
+        
+        /// <summary>
+        /// Enable the icon for the current interaction mode, disable the rest.
+        /// </summary>
+        private void ShowInput(InputTypes input)
+        {
+            currentInput = input;
+            _handImage.SetActive(currentInput == InputTypes.Hand);
+            _quest2Image.SetActive(currentInput == InputTypes.ControllerQ2);
+            _quest3Image.SetActive(currentInput == InputTypes.ControllerQ3);
+        }
+        
+        /// <summary>
+        /// TODO: add the logic for setting the duration
+        /// </summary>
+        private void SetDuration(string duration)
+        {
+            _durationLabel.text = $"~{duration} min";
+        }
     }
 }
