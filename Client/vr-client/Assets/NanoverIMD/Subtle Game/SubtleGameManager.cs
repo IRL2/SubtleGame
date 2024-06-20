@@ -186,6 +186,8 @@ namespace NanoverImd.Subtle_Game
                 }
             }
             private TaskTypeVal _currentTaskType;
+
+            [NonSerialized] public TaskTypeVal NextTaskType;
             public TaskStatusVal TaskStatus
             {
                 get => _taskStatus;
@@ -415,9 +417,10 @@ namespace NanoverImd.Subtle_Game
                 CurrentTaskType = TaskTypeVal.GameFinished; // game finished
                 return;
             }
-            
-            CurrentTaskType = _orderOfTasks[CurrentTaskNum]; // update current task
-            TaskStatus = TaskStatusVal.Intro; // update task status
+            // Update current task, next task, and task status
+            CurrentTaskType = _orderOfTasks[CurrentTaskNum];
+            NextTaskType = CurrentTaskNum + 1 < _orderOfTasks.Count ? _orderOfTasks[CurrentTaskNum + 1] : TaskTypeVal.GameFinished;
+            TaskStatus = TaskStatusVal.Intro;
         }
         
         /// <summary>
