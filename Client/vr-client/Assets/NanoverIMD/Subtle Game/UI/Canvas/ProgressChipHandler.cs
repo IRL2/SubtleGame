@@ -16,6 +16,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         private GameObject _currentTaskIconObject;
         private GameObject _nextTaskIconObject;
 
+        private bool _firstPass = true;
+
         private void Start()
         {
             _subtleGameManager = FindObjectOfType<SubtleGameManager>();
@@ -35,19 +37,11 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 or SubtleGameManager.TaskTypeVal.Trials
                 or SubtleGameManager.TaskTypeVal.GameFinished) return;
             
-            if (_currentTaskIconObject == null)
+            // Instantiate game objects for icons
+            if (_firstPass)
             {
-                // Create a current task icon 
                 _currentTaskIconObject = Instantiate(currentIconPrefab, iconsParent);
-                var currentIconChip = _currentTaskIconObject.GetComponent<ProgressChipCurrentView>();
-                currentIconChip.UpdateCurrentTask(_subtleGameManager.CurrentTaskType);
-                currentIconChip.UpdateCurrentInteractionMode(_subtleGameManager.CurrentInteractionModality, 
-                    _subtleGameManager.HmdType);
-
-                // Create a next up task icon
-                _nextTaskIconObject = Instantiate(nextIconPrefab, iconsParent);
-                var nextUpIconChip = _nextTaskIconObject.GetComponent<ProgressChipNextView>();
-                nextUpIconChip.UpdateCurrentTask(_subtleGameManager.NextTaskType);
+                _firstPass = false;
             }
             else
             {
@@ -58,18 +52,57 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 
                 // Turn the next up icon into a current one
                 _currentTaskIconObject = Instantiate(currentIconPrefab, iconsParent);
-                var currentIconChip = _currentTaskIconObject.GetComponent<ProgressChipCurrentView>();
-                currentIconChip.UpdateCurrentTask(_subtleGameManager.CurrentTaskType);
-                currentIconChip.UpdateCurrentInteractionMode(_subtleGameManager.CurrentInteractionModality, 
-                    _subtleGameManager.HmdType);
+                UpdateTransform(_currentTaskIconObject, _nextTaskIconObject.transform);
+                Destroy(_nextTaskIconObject);
+            }
+            
+            _nextTaskIconObject = Instantiate(nextIconPrefab, iconsParent);
+
+            // Call functions to update the icons
+            UpdateCurrentTaskIcon();
+            UpdateNextTaskIcon();
+            
+            /*if (_currentTaskIconObject == null)
+            {
+                // Create a current task icon 
+                _currentTaskIconObject = Instantiate(currentIconPrefab, iconsParent);
+                UpdateCurrentTaskIcon();
+
+                // Create a next up task icon
+                _nextTaskIconObject = Instantiate(nextIconPrefab, iconsParent);
+                UpdateNextTaskIcon();
+            }
+            else
+            {
+                // Turn the current icon into a completed one
+                var completedTaskIconObject = Instantiate(completedIconPrefab, iconsParent);
+                UpdateTransform(completedTaskIconObject, _currentTaskIconObject.transform);
+                Destroy(_currentTaskIconObject);
+                
+                // Turn the next up icon into a current one
+                _currentTaskIconObject = Instantiate(currentIconPrefab, iconsParent);
+                UpdateCurrentTaskIcon();
                 UpdateTransform(_currentTaskIconObject, _nextTaskIconObject.transform);
                 Destroy(_nextTaskIconObject);
                 
                 // Add a next up icon
                 _nextTaskIconObject = Instantiate(nextIconPrefab, iconsParent);
-                var nextUpIconChip = _nextTaskIconObject.GetComponent<ProgressChipNextView>();
-                nextUpIconChip.UpdateCurrentTask(_subtleGameManager.NextTaskType);
-            }
+                UpdateNextTaskIcon();
+            }*/
+        }
+        
+        private void UpdateCurrentTaskIcon()
+        {
+            var currentIconChip = _currentTaskIconObject.GetComponent<ProgressChipCurrentView>();
+            currentIconChip.UpdateCurrentTask(_subtleGameManager.CurrentTaskType);
+            currentIconChip.UpdateCurrentInteractionMode(_subtleGameManager.CurrentInteractionModality, 
+                _subtleGameManager.HmdType);
+        }
+
+        private void UpdateNextTaskIcon()
+        {
+            var nextUpIconChip = _nextTaskIconObject.GetComponent<ProgressChipNextView>();
+            nextUpIconChip.UpdateCurrentTask(_subtleGameManager.NextTaskType);
         }
         
         /// <summary>
