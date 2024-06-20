@@ -59,7 +59,7 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
             {
                 SubtleGameManager.TaskTypeVal.Nanotube => ProgressChipNextView.DisplayTasks.Nanotube,
                 SubtleGameManager.TaskTypeVal.KnotTying => ProgressChipNextView.DisplayTasks.Knot,
-                SubtleGameManager.TaskTypeVal.TrialsTraining => ProgressChipNextView.DisplayTasks.Trials,
+                SubtleGameManager.TaskTypeVal.TrialsTraining or SubtleGameManager.TaskTypeVal.Trials => ProgressChipNextView.DisplayTasks.Trials,
                 _ => _currentTask
             };
         }
