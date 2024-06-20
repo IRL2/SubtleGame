@@ -32,6 +32,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             // Do not add any chips if we are not in a main task
             // NOTE: We add the trials chips at the beginning of the trials training and do nothing when we start the
             // trials, since there is one chip for both tasks together and the training always comes first
+            // TODO: NOT SURE IF THIS IS WHAT WE WANT, MAY NEED TO REMOVE TRIALS FROM HERE
             if (currentTask is SubtleGameManager.TaskTypeVal.None
                 or SubtleGameManager.TaskTypeVal.Sandbox
                 or SubtleGameManager.TaskTypeVal.Trials
@@ -61,34 +62,6 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             // Call functions to update the icons
             UpdateCurrentTaskIcon();
             UpdateNextTaskIcon();
-            
-            /*if (_currentTaskIconObject == null)
-            {
-                // Create a current task icon 
-                _currentTaskIconObject = Instantiate(currentIconPrefab, iconsParent);
-                UpdateCurrentTaskIcon();
-
-                // Create a next up task icon
-                _nextTaskIconObject = Instantiate(nextIconPrefab, iconsParent);
-                UpdateNextTaskIcon();
-            }
-            else
-            {
-                // Turn the current icon into a completed one
-                var completedTaskIconObject = Instantiate(completedIconPrefab, iconsParent);
-                UpdateTransform(completedTaskIconObject, _currentTaskIconObject.transform);
-                Destroy(_currentTaskIconObject);
-                
-                // Turn the next up icon into a current one
-                _currentTaskIconObject = Instantiate(currentIconPrefab, iconsParent);
-                UpdateCurrentTaskIcon();
-                UpdateTransform(_currentTaskIconObject, _nextTaskIconObject.transform);
-                Destroy(_nextTaskIconObject);
-                
-                // Add a next up icon
-                _nextTaskIconObject = Instantiate(nextIconPrefab, iconsParent);
-                UpdateNextTaskIcon();
-            }*/
         }
         
         private void UpdateCurrentTaskIcon()
