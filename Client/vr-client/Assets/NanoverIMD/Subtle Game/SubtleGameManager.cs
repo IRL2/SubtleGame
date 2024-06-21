@@ -128,8 +128,8 @@ namespace NanoverImd.Subtle_Game
         #endregion
         
         #region Task-related
-            private List<string> OrderOfTasks { get; set; }
-            private readonly List<TaskTypeVal> _orderOfTasks = new();
+            private List<string> OrderOfTasksStrings { get; set; }
+            public readonly List<TaskTypeVal> OrderOfTasks = new();
             private int NumberOfTasks { get; set; }
             private int _currentTaskNum;
             private int CurrentTaskNum 
@@ -357,30 +357,30 @@ namespace NanoverImd.Subtle_Game
         /// </summary>
         private void GetOrderOfTasks(List<object> tasks)
         {
-            OrderOfTasks = tasks
+            OrderOfTasksStrings = tasks
                 .Select(item => item.ToString())
                 .ToList();
 
             // Loop through the tasks in order
-            foreach (string task in OrderOfTasks)
+            foreach (string task in OrderOfTasksStrings)
             {
                 // Append each task to internal list
                 switch (task)
                 {
                     case "nanotube":
-                        _orderOfTasks.Add(TaskTypeVal.Nanotube);
+                        OrderOfTasks.Add(TaskTypeVal.Nanotube);
                         break;
                     
                     case "knot-tying":
-                        _orderOfTasks.Add(TaskTypeVal.KnotTying);
+                        OrderOfTasks.Add(TaskTypeVal.KnotTying);
 						break;
 
                     case "trials":
-                        _orderOfTasks.Add(TaskTypeVal.Trials);
+                        OrderOfTasks.Add(TaskTypeVal.Trials);
                         break;
                     
                     case "trials-training":
-                        _orderOfTasks.Add(TaskTypeVal.TrialsTraining);
+                        OrderOfTasks.Add(TaskTypeVal.TrialsTraining);
                         break;
                     
                     default:
@@ -403,7 +403,7 @@ namespace NanoverImd.Subtle_Game
             if (_startOfGame)
             {
                 CurrentTaskNum = 0; // start task number at 0
-                NumberOfTasks = _orderOfTasks.Count; // count the total number of tasks
+                NumberOfTasks = OrderOfTasks.Count; // count the total number of tasks
                 _startOfGame = false; // no longer at the start of the game, setup complete
             }
             else
@@ -418,8 +418,8 @@ namespace NanoverImd.Subtle_Game
                 return;
             }
             // Update current task, next task, and task status
-            CurrentTaskType = _orderOfTasks[CurrentTaskNum];
-            NextTaskType = CurrentTaskNum + 1 < _orderOfTasks.Count ? _orderOfTasks[CurrentTaskNum + 1] : TaskTypeVal.GameFinished;
+            CurrentTaskType = OrderOfTasks[CurrentTaskNum];
+            NextTaskType = CurrentTaskNum + 1 < OrderOfTasks.Count ? OrderOfTasks[CurrentTaskNum + 1] : TaskTypeVal.GameFinished;
             TaskStatus = TaskStatusVal.Intro;
         }
         
