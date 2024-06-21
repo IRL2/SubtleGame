@@ -14,7 +14,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         [SerializeField] private GameObject nextIconPrefab;
         [SerializeField] private Transform iconsParent;
 
-        private int _currentIndex;
+        private int _currentIndex = -1;
         private int _numberOfTasks;
         private List<GameObject> _progressChipObjects = new List<GameObject>();
 
@@ -28,26 +28,21 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             if (_subtleGameManager == null) return;
             
             var currentTask = _subtleGameManager.CurrentTaskType;
+            transform.localPosition = new Vector3(0f, 150f, 0f);
             
             // Do not add any chips if we are not in a main task
             // NOTE: We add the trials chips at the beginning of the trials training and do nothing when we start the
             // trials, since there is one chip for both tasks together and the training always comes first
-            // TODO: NOT SURE IF THIS IS WHAT WE WANT, MAY NEED TO REMOVE TRIALS FROM HERE
-            if (currentTask is SubtleGameManager.TaskTypeVal.None
-                or SubtleGameManager.TaskTypeVal.Sandbox
-                or SubtleGameManager.TaskTypeVal.Trials
-                or SubtleGameManager.TaskTypeVal.GameFinished) return;
-            
-            // Player is at the beginning of the game, setup the chips for all of the tasks
-            if (_currentIndex == 0)
+            if (currentTask is SubtleGameManager.TaskTypeVal.None or SubtleGameManager.TaskTypeVal.Sandbox) return;
+
+            if (_currentIndex == -1) // Player is at the beginning of the game, setup the chips for all of the tasks
             {
                 var isFirstTask = true;
                 _numberOfTasks = _subtleGameManager.OrderOfTasks.Count;
                 
                 foreach (var task in _subtleGameManager.OrderOfTasks)
                 {
-                    // Instantiate current task icon
-                    if (isFirstTask)
+                    if (isFirstTask) // Instantiate current task icon
                     {
                         var currentTaskIconObject = Instantiate(currentIconPrefab, iconsParent);
                         UpdateCurrentTaskIcon(currentTaskIconObject, task, 
@@ -55,55 +50,48 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                         _progressChipObjects.Add(currentTaskIconObject);
                         isFirstTask = false;
                     }
-                    // Instantiate icons for future tasks
-                    else
+                    else // Instantiate icons for future tasks
                     {
                         var nextTaskIconObject = Instantiate(nextIconPrefab, iconsParent);
                         UpdateNextTaskIcon(nextTaskIconObject, task);
                         _progressChipObjects.Add(nextTaskIconObject);
                     }
                 }
-                // Initial setup complete
-                _currentIndex++;
             }
-            // Player is in the middle of the game
-            else if (_currentIndex < _numberOfTasks)
+            else if (_currentIndex < _numberOfTasks - 1) // Player is in the middle of the game
             {
                 // Replace current task with completed
-                UpdateCurrentTaskToCompleted(_progressChipObjects[_currentIndex]);
+                UpdateCurrentTaskToCompleted(_progressChipObjects[_currentIndex], _currentIndex);
+                
                 // Replace next task with current
-                var nextTask = _progressChipObjects[_currentIndex + 1].GetComponent<ProgressChipNextView>();
-                UpdateNextTaskToCurrent(_progressChipObjects[_currentIndex+1], nextTask.GetCurrentTask());
+                var nextTaskIndex = _currentIndex + 1;
+                var nextTask = _progressChipObjects[nextTaskIndex].GetComponent<ProgressChipNextView>();
+                UpdateNextTaskToCurrent(_progressChipObjects[nextTaskIndex], nextTask.GetCurrentTask(), nextTaskIndex);
             }
-            // Player has finished all of the tasks!
-            else if (_currentIndex == _numberOfTasks)
+            else if (_currentIndex == _numberOfTasks) // Player has finished all of the tasks!
             {
-                // Replace current task with completed
-                UpdateCurrentTaskToCompleted(_progressChipObjects[_currentIndex]);
+                // Update final icon
+                UpdateCurrentTaskToCompleted(_progressChipObjects[_currentIndex], _currentIndex);
             }
-            // Place above the menu
-            transform.localPosition = new Vector3(0f, 150f, 0f);
+            _currentIndex++;
         }
         
         /// <summary>
         /// Replaces the current task icon with a completed task icon.
         /// </summary>
-        private void UpdateCurrentTaskToCompleted(GameObject currentTaskObject)
+        private void UpdateCurrentTaskToCompleted(GameObject currentTaskObject, int taskIndex)
         {
-            // TODO: WILL THIS WORK STILL WITH THE NEW GRID LAYOUT? MIGHT NEED TO DO SOMETHING MORE FANCY
             var completedTaskIconObject = Instantiate(completedIconPrefab, iconsParent);
-            UpdateTransform(completedTaskIconObject, currentTaskObject.transform);
-            Destroy(currentTaskObject);
+            ReplaceProgressChip(completedTaskIconObject, currentTaskObject, taskIndex);
         }
         
         /// <summary>
         /// Replaces the next task icon with a current task icon.
         /// </summary>
-        private void UpdateNextTaskToCurrent(GameObject nextTaskObject, SubtleGameManager.TaskTypeVal task)
+        private void UpdateNextTaskToCurrent(GameObject nextTaskObject, SubtleGameManager.TaskTypeVal task, int taskIndex)
         {
             var currentTaskIconObject = Instantiate(currentIconPrefab, iconsParent);
-            UpdateTransform(currentTaskIconObject, nextTaskObject.transform);
-            Destroy(nextTaskObject);
+            ReplaceProgressChip(currentTaskIconObject, nextTaskObject, taskIndex);
             UpdateCurrentTaskIcon(currentTaskIconObject, task, _subtleGameManager.CurrentInteractionModality);
         }
         
@@ -115,20 +103,31 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             currentIconChip.UpdateCurrentInteractionMode(modality, _subtleGameManager.HmdType);
         }
 
-        private void UpdateNextTaskIcon(GameObject nextTaskObject, SubtleGameManager.TaskTypeVal task)
+        private static void UpdateNextTaskIcon(GameObject nextTaskObject, SubtleGameManager.TaskTypeVal task)
         {
             var nextUpIconChip = nextTaskObject.GetComponent<ProgressChipNextView>();
             nextUpIconChip.UpdateCurrentTask(task);
         }
-
-        /// <summary>
-        /// Update the transform of objectToMove to be the same as desiredTransform
-        /// </summary>
-        private static void UpdateTransform(GameObject objectToMove, Transform desiredTransform)
+        
+        private void ReplaceProgressChip(GameObject gameObjectToAdd, GameObject gameObjectToRemove, int taskIndex)
         {
-            objectToMove.transform.position = desiredTransform.position;
-            objectToMove.transform.rotation = desiredTransform.rotation;
-            objectToMove.transform.localScale = desiredTransform.localScale;
+            var childIndex = GetChildIndex(iconsParent.transform, gameObjectToRemove.transform);
+            gameObjectToAdd.transform.SetParent(iconsParent.transform, false);
+            gameObjectToAdd.transform.SetSiblingIndex(childIndex);
+            _progressChipObjects[taskIndex] = gameObjectToAdd;
+            Destroy(gameObjectToRemove);
+        }
+        
+        private static int GetChildIndex(Transform parent, Object child)
+        {
+            for (var i = 0; i < parent.childCount; i++)
+            {
+                if (parent.GetChild(i) == child)
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
     }
 }
