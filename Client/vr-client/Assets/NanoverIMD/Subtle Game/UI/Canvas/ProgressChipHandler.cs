@@ -62,6 +62,9 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             // Call functions to update the icons
             UpdateCurrentTaskIcon();
             UpdateNextTaskIcon();
+            
+            // Place above the menu
+            transform.localPosition = new Vector3(0f, 150f, 0f);
         }
         
         private void UpdateCurrentTaskIcon()
