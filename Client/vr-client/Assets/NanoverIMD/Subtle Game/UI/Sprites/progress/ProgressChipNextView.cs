@@ -57,11 +57,26 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
         {
             _currentTask = newTask switch
             {
-                SubtleGameManager.TaskTypeVal.Nanotube => ProgressChipNextView.DisplayTasks.Nanotube,
-                SubtleGameManager.TaskTypeVal.KnotTying => ProgressChipNextView.DisplayTasks.Knot,
-                SubtleGameManager.TaskTypeVal.TrialsTraining or SubtleGameManager.TaskTypeVal.Trials => ProgressChipNextView.DisplayTasks.Trials,
+                SubtleGameManager.TaskTypeVal.Nanotube => DisplayTasks.Nanotube,
+                SubtleGameManager.TaskTypeVal.KnotTying => DisplayTasks.Knot,
+                SubtleGameManager.TaskTypeVal.TrialsTraining or SubtleGameManager.TaskTypeVal.Trials => DisplayTasks.Trials,
                 _ => _currentTask
             };
         }
+        
+        /// <summary>
+        /// Returns the current task specified on this game object.
+        /// </summary>
+        public SubtleGameManager.TaskTypeVal GetCurrentTask()
+        {
+            return _currentTask switch
+            {
+                DisplayTasks.Nanotube => SubtleGameManager.TaskTypeVal.Nanotube,
+                DisplayTasks.Knot => SubtleGameManager.TaskTypeVal.KnotTying,
+                DisplayTasks.Trials => SubtleGameManager.TaskTypeVal.Trials,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
+        
     }
 }
