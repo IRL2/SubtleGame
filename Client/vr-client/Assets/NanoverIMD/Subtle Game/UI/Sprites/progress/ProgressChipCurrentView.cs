@@ -27,6 +27,7 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
         private GameObject _handImage, _quest2Image, _quest3Image;
         
         private TextMeshProUGUI _durationLabel;
+        private string _duration;
         
         /// <summary>
         /// Retrieve the icon game objects for each type of task and interaction mode.
@@ -39,6 +40,9 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
             _handImage   = transform.Find("Hand icon").gameObject;
             _quest2Image = transform.Find("Controller q2 icon").gameObject;
             _quest3Image = transform.Find("Controller q3 icon").gameObject;
+
+            var durationGameObj = transform.Find("Expected duration").gameObject;
+            _durationLabel = durationGameObj.GetComponent<TextMeshProUGUI>();
         }
         
         /// <summary>
@@ -50,6 +54,7 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
             if (_currentTask != _previousTask) {
                 _previousTask = _currentTask;
                 ShowTask(_currentTask);
+                SetDuration();
             }
 
             // If the interaction mode has changed, update the task icon
@@ -84,9 +89,22 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
         /// <summary>
         /// TODO: add the logic for setting the duration
         /// </summary>
-        private void SetDuration(string duration)
+        private void SetDuration()
         {
-            _durationLabel.text = $"~{duration} min";
+            switch (_currentTask)
+            {
+                case TaskTypes.Nanotube:
+                    _duration = "1";
+                    break;
+                case TaskTypes.Knot:
+                    _duration = "3";
+                    break;
+                case TaskTypes.Trials:
+                    _duration = "12";
+                    break;
+            }
+            
+            _durationLabel.text = $"~{_duration} min";
         }
         
         /// <summary>
