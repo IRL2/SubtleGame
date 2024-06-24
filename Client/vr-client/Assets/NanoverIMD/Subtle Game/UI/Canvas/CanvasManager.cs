@@ -184,7 +184,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 LastActiveCanvas = nextCanvas;
                 
                 // Move progress chips from previous canvas to this canvas
-                MoveProgressChips();
+                if (_subtleGameManager.CurrentTaskType != SubtleGameManager.TaskTypeVal.GameFinished) MoveProgressChips();
             }
             else
             {

@@ -421,6 +421,11 @@ namespace NanoverImd.Subtle_Game
             CurrentTaskType = OrderOfTasks[CurrentTaskNum];
             NextTaskType = CurrentTaskNum + 1 < OrderOfTasks.Count ? OrderOfTasks[CurrentTaskNum + 1] : TaskTypeVal.GameFinished;
             TaskStatus = TaskStatusVal.Intro;
+
+            if (CurrentTaskType is TaskTypeVal.TrialsTraining or TaskTypeVal.Trials)
+            {
+                RemoveKeyFromSharedState(SharedStateKey.TrialAnswer);
+            }
         }
         
         /// <summary>

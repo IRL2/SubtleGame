@@ -78,6 +78,7 @@ class TrialsTask(Task):
 
         # Wait for player's answer
         super()._wait_for_key_values(KEY_PLAYER_TRIAL_NUMBER, str(current_trial_number))
+        super()._wait_for_key_values(KEY_PLAYER_TRIAL_ANSWER, MOLECULE_A, MOLECULE_B)
         answer = self.client.latest_multiplayer_values[KEY_PLAYER_TRIAL_ANSWER]
 
         # Check answer is valid

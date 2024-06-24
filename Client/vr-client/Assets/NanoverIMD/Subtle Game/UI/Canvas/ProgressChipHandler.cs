@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using NanoverImd.Subtle_Game;
 using NanoverIMD.Subtle_Game.UI.Sprites.progress;
 using UnityEngine;
@@ -16,8 +15,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         [SerializeField] private Transform iconsParent;
 
         private int _currentIndex = -1;
-        private int _numberOfTasks;
-        private List<GameObject> _progressChipObjects = new List<GameObject>();
+        private List<GameObject> _progressChipObjects = new();
 
         private bool _skippedTrials;
 
@@ -41,8 +39,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             if (_currentIndex == -1) // Player is at the beginning of the game, setup the chips for all of the tasks
             {
                 var isFirstTask = true;
-                _numberOfTasks = _subtleGameManager.OrderOfTasks.Count;
-                
+
                 foreach (var task in _subtleGameManager.OrderOfTasks)
                 {
                     // If this is a trials task, don't add another tile as the trials training + trials tasks are
@@ -65,7 +62,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                     }
                 }
             }
-            else if (_currentIndex < _numberOfTasks - 1) // Player is in the middle of the game
+            else if (_currentIndex < _progressChipObjects.Count - 1) // Player is in the middle of the game
             {
                 // Check if the player is in the trials task
                 var taskCheck = _progressChipObjects[_currentIndex].GetComponent<ProgressChipCurrentView>();
@@ -88,10 +85,11 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 var nextTask = _progressChipObjects[nextTaskIndex].GetComponent<ProgressChipNextView>();
                 UpdateNextTaskToCurrent(_progressChipObjects[nextTaskIndex], nextTask.GetCurrentTask(), nextTaskIndex);
             }
-            else if (_currentIndex == _numberOfTasks - 1) // Player has finished all of the tasks!
+            else // Player has finished all of the tasks!
             {
                 // Update final icon
                 UpdateCurrentTaskToCompleted(_progressChipObjects[_currentIndex], _currentIndex);
+                return;
             }
             _currentIndex++;
         }
