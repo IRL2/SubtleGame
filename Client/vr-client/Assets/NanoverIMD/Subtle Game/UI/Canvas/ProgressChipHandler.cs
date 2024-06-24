@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using NanoverImd.Subtle_Game;
 using NanoverIMD.Subtle_Game.UI.Sprites.progress;
 using UnityEngine;
@@ -17,6 +18,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         private int _currentIndex = -1;
         private int _numberOfTasks;
         private List<GameObject> _progressChipObjects = new List<GameObject>();
+
+        private bool _skippedTrials;
 
         private void Start()
         {
@@ -42,6 +45,10 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 
                 foreach (var task in _subtleGameManager.OrderOfTasks)
                 {
+                    // If this is a trials task, don't add another tile as the trials training + trials tasks are
+                    // considered as one task
+                    if (task == SubtleGameManager.TaskTypeVal.Trials) continue;
+                    
                     if (isFirstTask) // Instantiate current task icon
                     {
                         var currentTaskIconObject = Instantiate(currentIconPrefab, iconsParent);
@@ -60,6 +67,19 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             }
             else if (_currentIndex < _numberOfTasks - 1) // Player is in the middle of the game
             {
+                // Check if the player is in the trials task
+                var taskCheck = _progressChipObjects[_currentIndex].GetComponent<ProgressChipCurrentView>();
+                if (taskCheck.GetCurrentTask() == SubtleGameManager.TaskTypeVal.Trials)
+                {
+                    if (!_skippedTrials)
+                    {
+                        // Don't update the icons on the first time
+                        _skippedTrials = true;
+                        return;
+                    }
+                    _skippedTrials = false;
+                }
+
                 // Replace current task with completed
                 UpdateCurrentTaskToCompleted(_progressChipObjects[_currentIndex], _currentIndex);
                 
@@ -68,7 +88,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 var nextTask = _progressChipObjects[nextTaskIndex].GetComponent<ProgressChipNextView>();
                 UpdateNextTaskToCurrent(_progressChipObjects[nextTaskIndex], nextTask.GetCurrentTask(), nextTaskIndex);
             }
-            else if (_currentIndex == _numberOfTasks) // Player has finished all of the tasks!
+            else if (_currentIndex == _numberOfTasks - 1) // Player has finished all of the tasks!
             {
                 // Update final icon
                 UpdateCurrentTaskToCompleted(_progressChipObjects[_currentIndex], _currentIndex);

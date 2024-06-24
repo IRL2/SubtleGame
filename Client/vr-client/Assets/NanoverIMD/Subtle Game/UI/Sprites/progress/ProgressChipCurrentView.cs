@@ -117,5 +117,19 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
                 _ => _currentInput
             };
         }
+        
+        /// <summary>
+        /// Returns the current task specified on this game object.
+        /// </summary>
+        public SubtleGameManager.TaskTypeVal GetCurrentTask()
+        {
+            return _currentTask switch
+            {
+                TaskTypes.Nanotube => SubtleGameManager.TaskTypeVal.Nanotube,
+                TaskTypes.Knot => SubtleGameManager.TaskTypeVal.KnotTying,
+                TaskTypes.Trials => SubtleGameManager.TaskTypeVal.Trials,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
     }
 }
