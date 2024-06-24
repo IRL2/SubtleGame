@@ -1802,6 +1802,83 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &81200455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 81200456}
+  - component: {fileID: 81200457}
+  - component: {fileID: 81200458}
+  m_Layer: 0
+  m_Name: Progress chips
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &81200456
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81200455}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1847266651}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 56}
+  m_SizeDelta: {x: 1200, y: 600}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &81200457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81200455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b875bd28420b49958111b796e2a4d598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  completedIconPrefab: {fileID: 5593883463417276959, guid: 46295ed0fa6c36c459e2c2faa76ca689, type: 3}
+  currentIconPrefab: {fileID: 9106386814934900988, guid: 661acddea3e14434caf9f8d53afd6c67, type: 3}
+  nextIconPrefab: {fileID: 5598365677732094402, guid: da304855be1ebe74088537bc6a7dae45, type: 3}
+  iconsParent: {fileID: 81200456}
+--- !u!114 &81200458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81200455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 1
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 80, y: 80}
+  m_Spacing: {x: 20, y: 10}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &94677943
 GameObject:
   m_ObjectHideFlags: 0
@@ -15992,6 +16069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   switchingInteractionModeMenus:
   - {fileID: 486730392}
+  progressChips: {fileID: 81200455}
 --- !u!4 &1335832272
 Transform:
   m_ObjectHideFlags: 0
@@ -19474,9 +19552,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8058119997532801804, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1772514197}
-    - targetCorrespondingSourceObject: {fileID: 2120020009729026702, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 9098190041061289825, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1916655562}
@@ -20437,6 +20512,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8831589731342960626, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 68828469}
+    - targetCorrespondingSourceObject: {fileID: 8831589731342960626, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 81200456}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 9098190041061289825, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       insertIndex: -1

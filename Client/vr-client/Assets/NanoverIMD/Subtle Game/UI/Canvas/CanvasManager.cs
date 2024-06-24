@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NanoverImd.Subtle_Game;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NanoverIMD.Subtle_Game.UI.Canvas
 {
@@ -59,6 +60,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         private bool _isFirstMenu;
 
         private const float TimeDelay = 1f;
+
+        [SerializeField] private GameObject progressChips;
 
         /// <summary>
         /// Populates scene references.
@@ -179,6 +182,9 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 
                 // Update last active canvas
                 LastActiveCanvas = nextCanvas;
+                
+                // Move progress chips from previous canvas to this canvas
+                if (_subtleGameManager.CurrentTaskType != SubtleGameManager.TaskTypeVal.GameFinished) MoveProgressChips();
             }
             else
             {
@@ -276,6 +282,30 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             // Load next menu
             ShowCanvas();
             RequestNextMenu();
+        }
+
+        /// <summary>
+        /// Move the progress chips from the previous menu to the next menu.
+        /// </summary>
+        private void MoveProgressChips()
+        {
+            // Ensure objectToMove and previousCanvas are valid
+            if (progressChips != null && LastActiveCanvas != null)
+            {
+                // Move progress chips to new menu
+                progressChips.transform.SetParent(LastActiveCanvas.transform);
+                // Update icons
+                var progressChipHandler = progressChips.GetComponent<ProgressChipHandler>();
+                if (progressChipHandler != null)
+                {
+                    progressChipHandler.UpdateProgressIcons();
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Cannot move progress chips to new menu, either the progress chips object or " +
+                                 "the previousCanvas is null.");
+            }
         }
 
         /// <summary>
