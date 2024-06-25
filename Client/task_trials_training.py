@@ -23,6 +23,10 @@ class TrialsTrainingTask(TrialsTask):
             if len(current_simulation) == 0:
                 continue
 
+            # This is a workaround to ensure that we can switch between recorded simulations
+            if trial_num > 0:
+                self.client.run_play()
+
             self._prepare_trial(name=current_simulation[0],
                                 server_index=current_simulation[1],
                                 correct_answer=current_simulation[2])

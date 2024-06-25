@@ -39,6 +39,9 @@ class TrialsTask(Task):
         # Run trials proper
         for trial_num in range(self.number_of_trials):
 
+            # This is a workaround to ensure that we can switch between recorded simulations
+            self.client.run_play()
+
             self._prepare_trial(name=self.main_sims[trial_num][0],
                                 server_index=self.main_sims[trial_num][1],
                                 correct_answer=self.main_sims[trial_num][2])
