@@ -1,20 +1,13 @@
 - xml path: 2_buckyballs.xml
   pdb path: 2_buckyballs.pdb
   multipliers:
-  - 0.4
-  - 0.5
-  - 0.6
-  - 0.7
-  - 0.8
-  - 0.9
-  - 1
-  - 1.1
-  - 1.2
-  - 1.3
-  - 1.4
-  - 1.5
-  - 1.6
+  - 0.3
+  - 0.625
   - 0.75
+  - 0.875
+  - 1.125
   - 1.25
+  - 1.375
+  - 1.7
   type of force constant: angle
   type of molecule: buckyball
