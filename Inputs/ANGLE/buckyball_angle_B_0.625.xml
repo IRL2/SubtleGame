@@ -1,0 +1,3774 @@
+<OpenMMSimulation>
+	<pdbx>data_cell
+# Created with OpenMM 8.1.1, 2024-06-25
+#
+_cell.length_a         1.0000
+_cell.length_b         1.0000
+_cell.length_c         1.0000
+_cell.angle_alpha     90.0000
+_cell.angle_beta      90.0000
+_cell.angle_gamma     90.0000
+#
+loop_
+_struct_conn.id
+_struct_conn.conn_type_id
+_struct_conn.ptnr1_label_asym_id
+_struct_conn.ptnr1_label_comp_id
+_struct_conn.ptnr1_label_seq_id
+_struct_conn.ptnr1_label_atom_id
+_struct_conn.ptnr2_label_asym_id
+_struct_conn.ptnr2_label_comp_id
+_struct_conn.ptnr2_label_seq_id
+_struct_conn.ptnr2_label_atom_id
+bond1 covale A BUC      1 C1   A BUC      1 C2  
+bond2 covale A BUC      1 C1   A BUC      1 C13 
+bond3 covale A BUC      1 C1   A BUC      1 C14 
+bond4 covale A BUC      1 C2   A BUC      1 C15 
+bond5 covale A BUC      1 C2   A BUC      1 C16 
+bond6 covale A BUC      1 C3   A BUC      1 C4  
+bond7 covale A BUC      1 C3   A BUC      1 C17 
+bond8 covale A BUC      1 C3   A BUC      1 C18 
+bond9 covale A BUC      1 C4   A BUC      1 C19 
+bond10 covale A BUC      1 C4   A BUC      1 C20 
+bond11 covale A BUC      1 C5   A BUC      1 C6  
+bond12 covale A BUC      1 C5   A BUC      1 C21 
+bond13 covale A BUC      1 C5   A BUC      1 C22 
+bond14 covale A BUC      1 C6   A BUC      1 C23 
+bond15 covale A BUC      1 C6   A BUC      1 C24 
+bond16 covale A BUC      1 C7   A BUC      1 C8  
+bond17 covale A BUC      1 C7   A BUC      1 C25 
+bond18 covale A BUC      1 C7   A BUC      1 C26 
+bond19 covale A BUC      1 C8   A BUC      1 C27 
+bond20 covale A BUC      1 C8   A BUC      1 C28 
+bond21 covale A BUC      1 C9   A BUC      1 C10 
+bond22 covale A BUC      1 C9   A BUC      1 C29 
+bond23 covale A BUC      1 C9   A BUC      1 C30 
+bond24 covale A BUC      1 C10  A BUC      1 C31 
+bond25 covale A BUC      1 C10  A BUC      1 C32 
+bond26 covale A BUC      1 C11  A BUC      1 C12 
+bond27 covale A BUC      1 C11  A BUC      1 C33 
+bond28 covale A BUC      1 C11  A BUC      1 C34 
+bond29 covale A BUC      1 C12  A BUC      1 C35 
+bond30 covale A BUC      1 C12  A BUC      1 C36 
+bond31 covale A BUC      1 C13  A BUC      1 C37 
+bond32 covale A BUC      1 C13  A BUC      1 C53 
+bond33 covale A BUC      1 C14  A BUC      1 C38 
+bond34 covale A BUC      1 C14  A BUC      1 C55 
+bond35 covale A BUC      1 C15  A BUC      1 C39 
+bond36 covale A BUC      1 C15  A BUC      1 C57 
+bond37 covale A BUC      1 C16  A BUC      1 C40 
+bond38 covale A BUC      1 C16  A BUC      1 C59 
+bond39 covale A BUC      1 C17  A BUC      1 C41 
+bond40 covale A BUC      1 C17  A BUC      1 C54 
+bond41 covale A BUC      1 C18  A BUC      1 C42 
+bond42 covale A BUC      1 C18  A BUC      1 C56 
+bond43 covale A BUC      1 C19  A BUC      1 C43 
+bond44 covale A BUC      1 C19  A BUC      1 C58 
+bond45 covale A BUC      1 C20  A BUC      1 C44 
+bond46 covale A BUC      1 C20  A BUC      1 C60 
+bond47 covale A BUC      1 C21  A BUC      1 C37 
+bond48 covale A BUC      1 C21  A BUC      1 C45 
+bond49 covale A BUC      1 C22  A BUC      1 C39 
+bond50 covale A BUC      1 C22  A BUC      1 C46 
+bond51 covale A BUC      1 C23  A BUC      1 C41 
+bond52 covale A BUC      1 C23  A BUC      1 C47 
+bond53 covale A BUC      1 C24  A BUC      1 C43 
+bond54 covale A BUC      1 C24  A BUC      1 C48 
+bond55 covale A BUC      1 C25  A BUC      1 C38 
+bond56 covale A BUC      1 C25  A BUC      1 C49 
+bond57 covale A BUC      1 C26  A BUC      1 C40 
+bond58 covale A BUC      1 C26  A BUC      1 C50 
+bond59 covale A BUC      1 C27  A BUC      1 C42 
+bond60 covale A BUC      1 C27  A BUC      1 C51 
+bond61 covale A BUC      1 C28  A BUC      1 C44 
+bond62 covale A BUC      1 C28  A BUC      1 C52 
+bond63 covale A BUC      1 C29  A BUC      1 C45 
+bond64 covale A BUC      1 C29  A BUC      1 C53 
+bond65 covale A BUC      1 C30  A BUC      1 C47 
+bond66 covale A BUC      1 C30  A BUC      1 C54 
+bond67 covale A BUC      1 C31  A BUC      1 C49 
+bond68 covale A BUC      1 C31  A BUC      1 C55 
+bond69 covale A BUC      1 C32  A BUC      1 C51 
+bond70 covale A BUC      1 C32  A BUC      1 C56 
+bond71 covale A BUC      1 C33  A BUC      1 C46 
+bond72 covale A BUC      1 C33  A BUC      1 C57 
+bond73 covale A BUC      1 C34  A BUC      1 C48 
+bond74 covale A BUC      1 C34  A BUC      1 C58 
+bond75 covale A BUC      1 C35  A BUC      1 C50 
+bond76 covale A BUC      1 C35  A BUC      1 C59 
+bond77 covale A BUC      1 C36  A BUC      1 C52 
+bond78 covale A BUC      1 C36  A BUC      1 C60 
+bond79 covale A BUC      1 C37  A BUC      1 C39 
+bond80 covale A BUC      1 C38  A BUC      1 C40 
+bond81 covale A BUC      1 C41  A BUC      1 C43 
+bond82 covale A BUC      1 C42  A BUC      1 C44 
+bond83 covale A BUC      1 C45  A BUC      1 C47 
+bond84 covale A BUC      1 C46  A BUC      1 C48 
+bond85 covale A BUC      1 C49  A BUC      1 C51 
+bond86 covale A BUC      1 C50  A BUC      1 C52 
+bond87 covale A BUC      1 C53  A BUC      1 C55 
+bond88 covale A BUC      1 C54  A BUC      1 C56 
+bond89 covale A BUC      1 C57  A BUC      1 C59 
+bond90 covale A BUC      1 C58  A BUC      1 C60 
+bond91 covale B BUC      1 C1   B BUC      1 C2  
+bond92 covale B BUC      1 C1   B BUC      1 C13 
+bond93 covale B BUC      1 C1   B BUC      1 C14 
+bond94 covale B BUC      1 C2   B BUC      1 C15 
+bond95 covale B BUC      1 C2   B BUC      1 C16 
+bond96 covale B BUC      1 C3   B BUC      1 C4  
+bond97 covale B BUC      1 C3   B BUC      1 C17 
+bond98 covale B BUC      1 C3   B BUC      1 C18 
+bond99 covale B BUC      1 C4   B BUC      1 C19 
+bond100 covale B BUC      1 C4   B BUC      1 C20 
+bond101 covale B BUC      1 C5   B BUC      1 C6  
+bond102 covale B BUC      1 C5   B BUC      1 C21 
+bond103 covale B BUC      1 C5   B BUC      1 C22 
+bond104 covale B BUC      1 C6   B BUC      1 C23 
+bond105 covale B BUC      1 C6   B BUC      1 C24 
+bond106 covale B BUC      1 C7   B BUC      1 C8  
+bond107 covale B BUC      1 C7   B BUC      1 C25 
+bond108 covale B BUC      1 C7   B BUC      1 C26 
+bond109 covale B BUC      1 C8   B BUC      1 C27 
+bond110 covale B BUC      1 C8   B BUC      1 C28 
+bond111 covale B BUC      1 C9   B BUC      1 C10 
+bond112 covale B BUC      1 C9   B BUC      1 C29 
+bond113 covale B BUC      1 C9   B BUC      1 C30 
+bond114 covale B BUC      1 C10  B BUC      1 C31 
+bond115 covale B BUC      1 C10  B BUC      1 C32 
+bond116 covale B BUC      1 C11  B BUC      1 C12 
+bond117 covale B BUC      1 C11  B BUC      1 C33 
+bond118 covale B BUC      1 C11  B BUC      1 C34 
+bond119 covale B BUC      1 C12  B BUC      1 C35 
+bond120 covale B BUC      1 C12  B BUC      1 C36 
+bond121 covale B BUC      1 C13  B BUC      1 C37 
+bond122 covale B BUC      1 C13  B BUC      1 C53 
+bond123 covale B BUC      1 C14  B BUC      1 C38 
+bond124 covale B BUC      1 C14  B BUC      1 C55 
+bond125 covale B BUC      1 C15  B BUC      1 C39 
+bond126 covale B BUC      1 C15  B BUC      1 C57 
+bond127 covale B BUC      1 C16  B BUC      1 C40 
+bond128 covale B BUC      1 C16  B BUC      1 C59 
+bond129 covale B BUC      1 C17  B BUC      1 C41 
+bond130 covale B BUC      1 C17  B BUC      1 C54 
+bond131 covale B BUC      1 C18  B BUC      1 C42 
+bond132 covale B BUC      1 C18  B BUC      1 C56 
+bond133 covale B BUC      1 C19  B BUC      1 C43 
+bond134 covale B BUC      1 C19  B BUC      1 C58 
+bond135 covale B BUC      1 C20  B BUC      1 C44 
+bond136 covale B BUC      1 C20  B BUC      1 C60 
+bond137 covale B BUC      1 C21  B BUC      1 C37 
+bond138 covale B BUC      1 C21  B BUC      1 C45 
+bond139 covale B BUC      1 C22  B BUC      1 C39 
+bond140 covale B BUC      1 C22  B BUC      1 C46 
+bond141 covale B BUC      1 C23  B BUC      1 C41 
+bond142 covale B BUC      1 C23  B BUC      1 C47 
+bond143 covale B BUC      1 C24  B BUC      1 C43 
+bond144 covale B BUC      1 C24  B BUC      1 C48 
+bond145 covale B BUC      1 C25  B BUC      1 C38 
+bond146 covale B BUC      1 C25  B BUC      1 C49 
+bond147 covale B BUC      1 C26  B BUC      1 C40 
+bond148 covale B BUC      1 C26  B BUC      1 C50 
+bond149 covale B BUC      1 C27  B BUC      1 C42 
+bond150 covale B BUC      1 C27  B BUC      1 C51 
+bond151 covale B BUC      1 C28  B BUC      1 C44 
+bond152 covale B BUC      1 C28  B BUC      1 C52 
+bond153 covale B BUC      1 C29  B BUC      1 C45 
+bond154 covale B BUC      1 C29  B BUC      1 C53 
+bond155 covale B BUC      1 C30  B BUC      1 C47 
+bond156 covale B BUC      1 C30  B BUC      1 C54 
+bond157 covale B BUC      1 C31  B BUC      1 C49 
+bond158 covale B BUC      1 C31  B BUC      1 C55 
+bond159 covale B BUC      1 C32  B BUC      1 C51 
+bond160 covale B BUC      1 C32  B BUC      1 C56 
+bond161 covale B BUC      1 C33  B BUC      1 C46 
+bond162 covale B BUC      1 C33  B BUC      1 C57 
+bond163 covale B BUC      1 C34  B BUC      1 C48 
+bond164 covale B BUC      1 C34  B BUC      1 C58 
+bond165 covale B BUC      1 C35  B BUC      1 C50 
+bond166 covale B BUC      1 C35  B BUC      1 C59 
+bond167 covale B BUC      1 C36  B BUC      1 C52 
+bond168 covale B BUC      1 C36  B BUC      1 C60 
+bond169 covale B BUC      1 C37  B BUC      1 C39 
+bond170 covale B BUC      1 C38  B BUC      1 C40 
+bond171 covale B BUC      1 C41  B BUC      1 C43 
+bond172 covale B BUC      1 C42  B BUC      1 C44 
+bond173 covale B BUC      1 C45  B BUC      1 C47 
+bond174 covale B BUC      1 C46  B BUC      1 C48 
+bond175 covale B BUC      1 C49  B BUC      1 C51 
+bond176 covale B BUC      1 C50  B BUC      1 C52 
+bond177 covale B BUC      1 C53  B BUC      1 C55 
+bond178 covale B BUC      1 C54  B BUC      1 C56 
+bond179 covale B BUC      1 C57  B BUC      1 C59 
+bond180 covale B BUC      1 C58  B BUC      1 C60 
+#
+loop_
+_atom_site.group_PDB
+_atom_site.id
+_atom_site.type_symbol
+_atom_site.label_atom_id
+_atom_site.label_alt_id
+_atom_site.label_comp_id
+_atom_site.label_asym_id
+_atom_site.label_entity_id
+_atom_site.label_seq_id
+_atom_site.pdbx_PDB_ins_code
+_atom_site.Cartn_x
+_atom_site.Cartn_y
+_atom_site.Cartn_z
+_atom_site.occupancy
+_atom_site.B_iso_or_equiv
+_atom_site.Cartn_x_esd
+_atom_site.Cartn_y_esd
+_atom_site.Cartn_z_esd
+_atom_site.occupancy_esd
+_atom_site.B_iso_or_equiv_esd
+_atom_site.pdbx_formal_charge
+_atom_site.auth_seq_id
+_atom_site.auth_comp_id
+_atom_site.auth_asym_id
+_atom_site.auth_atom_id
+_atom_site.pdbx_PDB_model_num
+HETATM      1 C   C1   . BUC  A ?     1 .    37.5000    30.6662    33.2332  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A   C1     1
+HETATM      2 C   C2   . BUC  A ?     1 .    37.5000    29.3338    33.2332  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A   C2     1
+HETATM      3 C   C3   . BUC  A ?     1 .    37.5000    30.6662    26.7668  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A   C3     1
+HETATM      4 C   C4   . BUC  A ?     1 .    37.5000    29.3338    26.7668  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A   C4     1
+HETATM      5 C   C5   . BUC  A ?     1 .    34.2668    30.0000    30.6662  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A   C5     1
+HETATM      6 C   C6   . BUC  A ?     1 .    34.2668    30.0000    29.3338  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A   C6     1
+HETATM      7 C   C7   . BUC  A ?     1 .    40.7332    30.0000    30.6662  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A   C7     1
+HETATM      8 C   C8   . BUC  A ?     1 .    40.7332    30.0000    29.3338  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A   C8     1
+HETATM      9 C   C9   . BUC  A ?     1 .    36.8338    33.2332    30.0000  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A   C9     1
+HETATM     10 C   C10  . BUC  A ?     1 .    38.1662    33.2332    30.0000  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C10     1
+HETATM     11 C   C11  . BUC  A ?     1 .    36.8338    26.7668    30.0000  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C11     1
+HETATM     12 C   C12  . BUC  A ?     1 .    38.1662    26.7668    30.0000  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C12     1
+HETATM     13 C   C13  . BUC  A ?     1 .    36.4227    31.3324    32.8211  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C13     1
+HETATM     14 C   C14  . BUC  A ?     1 .    38.5773    31.3324    32.8211  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C14     1
+HETATM     15 C   C15  . BUC  A ?     1 .    36.4227    28.6676    32.8211  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C15     1
+HETATM     16 C   C16  . BUC  A ?     1 .    38.5773    28.6676    32.8211  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C16     1
+HETATM     17 C   C17  . BUC  A ?     1 .    36.4227    31.3324    27.1789  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C17     1
+HETATM     18 C   C18  . BUC  A ?     1 .    38.5773    31.3324    27.1789  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C18     1
+HETATM     19 C   C19  . BUC  A ?     1 .    36.4227    28.6676    27.1789  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C19     1
+HETATM     20 C   C20  . BUC  A ?     1 .    38.5773    28.6676    27.1789  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C20     1
+HETATM     21 C   C21  . BUC  A ?     1 .    34.6789    31.0773    31.3324  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C21     1
+HETATM     22 C   C22  . BUC  A ?     1 .    34.6789    28.9227    31.3324  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C22     1
+HETATM     23 C   C23  . BUC  A ?     1 .    34.6789    31.0773    28.6676  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C23     1
+HETATM     24 C   C24  . BUC  A ?     1 .    34.6789    28.9227    28.6676  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C24     1
+HETATM     25 C   C25  . BUC  A ?     1 .    40.3211    31.0773    31.3324  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C25     1
+HETATM     26 C   C26  . BUC  A ?     1 .    40.3211    28.9227    31.3324  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C26     1
+HETATM     27 C   C27  . BUC  A ?     1 .    40.3211    31.0773    28.6676  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C27     1
+HETATM     28 C   C28  . BUC  A ?     1 .    40.3211    28.9227    28.6676  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C28     1
+HETATM     29 C   C29  . BUC  A ?     1 .    36.1676    32.8211    31.0773  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C29     1
+HETATM     30 C   C30  . BUC  A ?     1 .    36.1676    32.8211    28.9227  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C30     1
+HETATM     31 C   C31  . BUC  A ?     1 .    38.8324    32.8211    31.0773  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C31     1
+HETATM     32 C   C32  . BUC  A ?     1 .    38.8324    32.8211    28.9227  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C32     1
+HETATM     33 C   C33  . BUC  A ?     1 .    36.1676    27.1789    31.0773  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C33     1
+HETATM     34 C   C34  . BUC  A ?     1 .    36.1676    27.1789    28.9227  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C34     1
+HETATM     35 C   C35  . BUC  A ?     1 .    38.8324    27.1789    31.0773  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C35     1
+HETATM     36 C   C36  . BUC  A ?     1 .    38.8324    27.1789    28.9227  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C36     1
+HETATM     37 C   C37  . BUC  A ?     1 .    35.3458    30.6659    32.4097  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C37     1
+HETATM     38 C   C38  . BUC  A ?     1 .    39.6542    30.6659    32.4097  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C38     1
+HETATM     39 C   C39  . BUC  A ?     1 .    35.3458    29.3341    32.4097  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C39     1
+HETATM     40 C   C40  . BUC  A ?     1 .    39.6542    29.3341    32.4097  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C40     1
+HETATM     41 C   C41  . BUC  A ?     1 .    35.3458    30.6659    27.5903  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C41     1
+HETATM     42 C   C42  . BUC  A ?     1 .    39.6542    30.6659    27.5903  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C42     1
+HETATM     43 C   C43  . BUC  A ?     1 .    35.3458    29.3341    27.5903  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C43     1
+HETATM     44 C   C44  . BUC  A ?     1 .    39.6542    29.3341    27.5903  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C44     1
+HETATM     45 C   C45  . BUC  A ?     1 .    35.0903    32.1542    30.6659  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C45     1
+HETATM     46 C   C46  . BUC  A ?     1 .    35.0903    27.8458    30.6659  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C46     1
+HETATM     47 C   C47  . BUC  A ?     1 .    35.0903    32.1542    29.3341  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C47     1
+HETATM     48 C   C48  . BUC  A ?     1 .    35.0903    27.8458    29.3341  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C48     1
+HETATM     49 C   C49  . BUC  A ?     1 .    39.9097    32.1542    30.6659  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C49     1
+HETATM     50 C   C50  . BUC  A ?     1 .    39.9097    27.8458    30.6659  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C50     1
+HETATM     51 C   C51  . BUC  A ?     1 .    39.9097    32.1542    29.3341  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C51     1
+HETATM     52 C   C52  . BUC  A ?     1 .    39.9097    27.8458    29.3341  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C52     1
+HETATM     53 C   C53  . BUC  A ?     1 .    36.8341    32.4097    32.1542  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C53     1
+HETATM     54 C   C54  . BUC  A ?     1 .    36.8341    32.4097    27.8458  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C54     1
+HETATM     55 C   C55  . BUC  A ?     1 .    38.1659    32.4097    32.1542  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C55     1
+HETATM     56 C   C56  . BUC  A ?     1 .    38.1659    32.4097    27.8458  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C56     1
+HETATM     57 C   C57  . BUC  A ?     1 .    36.8341    27.5903    32.1542  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C57     1
+HETATM     58 C   C58  . BUC  A ?     1 .    36.8341    27.5903    27.8458  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C58     1
+HETATM     59 C   C59  . BUC  A ?     1 .    38.1659    27.5903    32.1542  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C59     1
+HETATM     60 C   C60  . BUC  A ?     1 .    38.1659    27.5903    27.8458  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC A  C60     1
+HETATM     61 C   C1   . BUC  B ?     1 .    22.5000    30.6659    33.2324  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B   C1     1
+HETATM     62 C   C2   . BUC  B ?     1 .    22.5000    29.3341    33.2324  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B   C2     1
+HETATM     63 C   C3   . BUC  B ?     1 .    22.5000    30.6659    26.7676  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B   C3     1
+HETATM     64 C   C4   . BUC  B ?     1 .    22.5000    29.3341    26.7676  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B   C4     1
+HETATM     65 C   C5   . BUC  B ?     1 .    19.2676    30.0000    30.6659  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B   C5     1
+HETATM     66 C   C6   . BUC  B ?     1 .    19.2676    30.0000    29.3341  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B   C6     1
+HETATM     67 C   C7   . BUC  B ?     1 .    25.7324    30.0000    30.6659  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B   C7     1
+HETATM     68 C   C8   . BUC  B ?     1 .    25.7324    30.0000    29.3341  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B   C8     1
+HETATM     69 C   C9   . BUC  B ?     1 .    21.8341    33.2324    30.0000  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B   C9     1
+HETATM     70 C   C10  . BUC  B ?     1 .    23.1659    33.2324    30.0000  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C10     1
+HETATM     71 C   C11  . BUC  B ?     1 .    21.8341    26.7676    30.0000  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C11     1
+HETATM     72 C   C12  . BUC  B ?     1 .    23.1659    26.7676    30.0000  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C12     1
+HETATM     73 C   C13  . BUC  B ?     1 .    21.4226    31.3320    32.8208  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C13     1
+HETATM     74 C   C14  . BUC  B ?     1 .    23.5774    31.3320    32.8208  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C14     1
+HETATM     75 C   C15  . BUC  B ?     1 .    21.4226    28.6680    32.8208  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C15     1
+HETATM     76 C   C16  . BUC  B ?     1 .    23.5774    28.6680    32.8208  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C16     1
+HETATM     77 C   C17  . BUC  B ?     1 .    21.4226    31.3320    27.1792  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C17     1
+HETATM     78 C   C18  . BUC  B ?     1 .    23.5774    31.3320    27.1792  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C18     1
+HETATM     79 C   C19  . BUC  B ?     1 .    21.4226    28.6680    27.1792  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C19     1
+HETATM     80 C   C20  . BUC  B ?     1 .    23.5774    28.6680    27.1792  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C20     1
+HETATM     81 C   C21  . BUC  B ?     1 .    19.6792    31.0774    31.3320  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C21     1
+HETATM     82 C   C22  . BUC  B ?     1 .    19.6792    28.9226    31.3320  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C22     1
+HETATM     83 C   C23  . BUC  B ?     1 .    19.6792    31.0774    28.6680  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C23     1
+HETATM     84 C   C24  . BUC  B ?     1 .    19.6792    28.9226    28.6680  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C24     1
+HETATM     85 C   C25  . BUC  B ?     1 .    25.3208    31.0774    31.3320  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C25     1
+HETATM     86 C   C26  . BUC  B ?     1 .    25.3208    28.9226    31.3320  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C26     1
+HETATM     87 C   C27  . BUC  B ?     1 .    25.3208    31.0774    28.6680  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C27     1
+HETATM     88 C   C28  . BUC  B ?     1 .    25.3208    28.9226    28.6680  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C28     1
+HETATM     89 C   C29  . BUC  B ?     1 .    21.1680    32.8208    31.0774  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C29     1
+HETATM     90 C   C30  . BUC  B ?     1 .    21.1680    32.8208    28.9226  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C30     1
+HETATM     91 C   C31  . BUC  B ?     1 .    23.8320    32.8208    31.0774  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C31     1
+HETATM     92 C   C32  . BUC  B ?     1 .    23.8320    32.8208    28.9226  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C32     1
+HETATM     93 C   C33  . BUC  B ?     1 .    21.1680    27.1792    31.0774  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C33     1
+HETATM     94 C   C34  . BUC  B ?     1 .    21.1680    27.1792    28.9226  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C34     1
+HETATM     95 C   C35  . BUC  B ?     1 .    23.8320    27.1792    31.0774  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C35     1
+HETATM     96 C   C36  . BUC  B ?     1 .    23.8320    27.1792    28.9226  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C36     1
+HETATM     97 C   C37  . BUC  B ?     1 .    20.3454    30.6659    32.4094  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C37     1
+HETATM     98 C   C38  . BUC  B ?     1 .    24.6546    30.6659    32.4094  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C38     1
+HETATM     99 C   C39  . BUC  B ?     1 .    20.3454    29.3341    32.4094  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C39     1
+HETATM    100 C   C40  . BUC  B ?     1 .    24.6546    29.3341    32.4094  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C40     1
+HETATM    101 C   C41  . BUC  B ?     1 .    20.3454    30.6659    27.5906  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C41     1
+HETATM    102 C   C42  . BUC  B ?     1 .    24.6546    30.6659    27.5906  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C42     1
+HETATM    103 C   C43  . BUC  B ?     1 .    20.3454    29.3341    27.5906  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C43     1
+HETATM    104 C   C44  . BUC  B ?     1 .    24.6546    29.3341    27.5906  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C44     1
+HETATM    105 C   C45  . BUC  B ?     1 .    20.0906    32.1546    30.6659  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C45     1
+HETATM    106 C   C46  . BUC  B ?     1 .    20.0906    27.8454    30.6659  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C46     1
+HETATM    107 C   C47  . BUC  B ?     1 .    20.0906    32.1546    29.3341  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C47     1
+HETATM    108 C   C48  . BUC  B ?     1 .    20.0906    27.8454    29.3341  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C48     1
+HETATM    109 C   C49  . BUC  B ?     1 .    24.9094    32.1546    30.6659  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C49     1
+HETATM    110 C   C50  . BUC  B ?     1 .    24.9094    27.8454    30.6659  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C50     1
+HETATM    111 C   C51  . BUC  B ?     1 .    24.9094    32.1546    29.3341  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C51     1
+HETATM    112 C   C52  . BUC  B ?     1 .    24.9094    27.8454    29.3341  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C52     1
+HETATM    113 C   C53  . BUC  B ?     1 .    21.8341    32.4094    32.1546  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C53     1
+HETATM    114 C   C54  . BUC  B ?     1 .    21.8341    32.4094    27.8454  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C54     1
+HETATM    115 C   C55  . BUC  B ?     1 .    23.1659    32.4094    32.1546  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C55     1
+HETATM    116 C   C56  . BUC  B ?     1 .    23.1659    32.4094    27.8454  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C56     1
+HETATM    117 C   C57  . BUC  B ?     1 .    21.8341    27.5906    32.1546  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C57     1
+HETATM    118 C   C58  . BUC  B ?     1 .    21.8341    27.5906    27.8454  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C58     1
+HETATM    119 C   C59  . BUC  B ?     1 .    23.1659    27.5906    32.1546  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C59     1
+HETATM    120 C   C60  . BUC  B ?     1 .    23.1659    27.5906    27.8454  0.0  0.0  ?  ?  ?  ?  ?  .      1  BUC B  C60     1
+</pdbx>
+	<System openmmVersion="8.1.1" type="System" version="1">
+		
+	
+		<PeriodicBoxVectors>
+			
+		
+			<A x="6" y="0" z="0"/>
+			
+		
+			<B x="0" y="6" z="0"/>
+			
+		
+			<C x="0" y="0" z="6"/>
+			
+	
+		</PeriodicBoxVectors>
+		
+	
+		<Particles>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+		
+			<Particle mass="12.011"/>
+			
+	
+		</Particles>
+		
+	
+		<Constraints/>
+		
+	
+		<Forces>
+			
+		
+			<Force energy="k*0.5*(r-r_eq)*(r-r_eq)*(1.0+cs*(r-r_eq) + (7.0/12.0)*cs*cs*(r-r_eq)*(r-r_eq))" forceGroup="0" name="CustomBondForce" type="CustomBondForce" usesPeriodic="0" version="3">
+				
+			
+				<PerBondParameters>
+					
+				
+					<Parameter name="k"/>
+					
+				
+					<Parameter name="r_eq"/>
+					
+			
+				</PerBondParameters>
+				
+			
+				<GlobalParameters>
+					
+				
+					<Parameter default="-25.5" name="cs"/>
+					
+			
+				</GlobalParameters>
+				
+			
+				<EnergyParameterDerivatives/>
+				
+			
+				<Bonds>
+					
+				
+					<Bond p1="0" p2="1" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="0" p2="12" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="0" p2="13" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="1" p2="14" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="1" p2="15" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="2" p2="3" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="2" p2="16" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="2" p2="17" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="3" p2="18" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="3" p2="19" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="4" p2="5" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="4" p2="20" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="4" p2="21" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="5" p2="22" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="5" p2="23" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="6" p2="7" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="6" p2="24" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="6" p2="25" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="7" p2="26" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="7" p2="27" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="8" p2="9" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="8" p2="28" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="8" p2="29" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="9" p2="30" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="9" p2="31" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="10" p2="11" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="10" p2="32" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="10" p2="33" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="11" p2="34" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="11" p2="35" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="12" p2="36" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="12" p2="52" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="13" p2="37" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="13" p2="54" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="14" p2="38" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="14" p2="56" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="15" p2="39" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="15" p2="58" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="16" p2="40" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="16" p2="53" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="17" p2="41" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="17" p2="55" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="18" p2="42" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="18" p2="57" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="19" p2="43" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="19" p2="59" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="20" p2="36" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="20" p2="44" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="21" p2="38" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="21" p2="45" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="22" p2="40" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="22" p2="46" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="23" p2="42" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="23" p2="47" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="24" p2="37" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="24" p2="48" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="25" p2="39" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="25" p2="49" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="26" p2="41" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="26" p2="50" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="27" p2="43" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="27" p2="51" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="28" p2="44" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="28" p2="52" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="29" p2="46" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="29" p2="53" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="30" p2="48" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="30" p2="54" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="31" p2="50" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="31" p2="55" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="32" p2="45" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="32" p2="56" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="33" p2="47" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="33" p2="57" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="34" p2="49" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="34" p2="58" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="35" p2="51" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="35" p2="59" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="36" p2="38" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="37" p2="39" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="40" p2="42" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="41" p2="43" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="44" p2="46" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="45" p2="47" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="48" p2="50" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="49" p2="51" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="52" p2="54" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="53" p2="55" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="56" p2="58" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="57" p2="59" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="60" p2="61" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="60" p2="72" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="60" p2="73" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="61" p2="74" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="61" p2="75" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="62" p2="63" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="62" p2="76" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="62" p2="77" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="63" p2="78" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="63" p2="79" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="64" p2="65" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="64" p2="80" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="64" p2="81" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="65" p2="82" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="65" p2="83" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="66" p2="67" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="66" p2="84" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="66" p2="85" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="67" p2="86" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="67" p2="87" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="68" p2="69" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="68" p2="88" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="68" p2="89" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="69" p2="90" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="69" p2="91" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="70" p2="71" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="70" p2="92" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="70" p2="93" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="71" p2="94" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="71" p2="95" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="72" p2="96" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="72" p2="112" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="73" p2="97" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="73" p2="114" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="74" p2="98" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="74" p2="116" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="75" p2="99" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="75" p2="118" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="76" p2="100" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="76" p2="113" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="77" p2="101" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="77" p2="115" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="78" p2="102" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="78" p2="117" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="79" p2="103" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="79" p2="119" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="80" p2="96" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="80" p2="104" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="81" p2="98" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="81" p2="105" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="82" p2="100" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="82" p2="106" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="83" p2="102" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="83" p2="107" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="84" p2="97" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="84" p2="108" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="85" p2="99" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="85" p2="109" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="86" p2="101" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="86" p2="110" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="87" p2="103" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="87" p2="111" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="88" p2="104" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="88" p2="112" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="89" p2="106" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="89" p2="113" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="90" p2="108" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="90" p2="114" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="91" p2="110" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="91" p2="115" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="92" p2="105" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="92" p2="116" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="93" p2="107" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="93" p2="117" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="94" p2="109" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="94" p2="118" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="95" p2="111" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="95" p2="119" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="96" p2="98" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="97" p2="99" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="100" p2="102" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="101" p2="103" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="104" p2="106" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="105" p2="107" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="108" p2="110" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="109" p2="111" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="112" p2="114" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="113" p2="115" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="116" p2="118" param1="451725" param2=".1332"/>
+					
+				
+					<Bond p1="117" p2="119" param1="451725" param2=".1332"/>
+					
+			
+				</Bonds>
+				
+		
+			</Force>
+			
+		
+			<Force cutoff=".30000000000000004" energy="4.0*epsilon*(sigma^12/r^12 - sigma^6/r^6);sigma=((sig1+sig2)/2.0);epsilon=sqrt(eps1*eps2)" forceGroup="0" method="1" name="CustomNonbondedForce" switchingDistance="-1" type="CustomNonbondedForce" useLongRangeCorrection="0" useSwitchingFunction="0" version="3">
+				
+			
+				<PerParticleParameters>
+					
+				
+					<Parameter name="sig"/>
+					
+				
+					<Parameter name="eps"/>
+					
+			
+				</PerParticleParameters>
+				
+			
+				<GlobalParameters/>
+				
+			
+				<ComputedValues/>
+				
+			
+				<EnergyParameterDerivatives/>
+				
+			
+				<Particles>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+				
+					<Particle param1=".196" param2=".234304"/>
+					
+			
+				</Particles>
+				
+			
+				<Exclusions>
+					
+				
+					<Exclusion p1="0" p2="1"/>
+					
+				
+					<Exclusion p1="0" p2="12"/>
+					
+				
+					<Exclusion p1="0" p2="13"/>
+					
+				
+					<Exclusion p1="1" p2="14"/>
+					
+				
+					<Exclusion p1="1" p2="15"/>
+					
+				
+					<Exclusion p1="2" p2="3"/>
+					
+				
+					<Exclusion p1="2" p2="16"/>
+					
+				
+					<Exclusion p1="2" p2="17"/>
+					
+				
+					<Exclusion p1="3" p2="18"/>
+					
+				
+					<Exclusion p1="3" p2="19"/>
+					
+				
+					<Exclusion p1="4" p2="5"/>
+					
+				
+					<Exclusion p1="4" p2="20"/>
+					
+				
+					<Exclusion p1="4" p2="21"/>
+					
+				
+					<Exclusion p1="5" p2="22"/>
+					
+				
+					<Exclusion p1="5" p2="23"/>
+					
+				
+					<Exclusion p1="6" p2="7"/>
+					
+				
+					<Exclusion p1="6" p2="24"/>
+					
+				
+					<Exclusion p1="6" p2="25"/>
+					
+				
+					<Exclusion p1="7" p2="26"/>
+					
+				
+					<Exclusion p1="7" p2="27"/>
+					
+				
+					<Exclusion p1="8" p2="9"/>
+					
+				
+					<Exclusion p1="8" p2="28"/>
+					
+				
+					<Exclusion p1="8" p2="29"/>
+					
+				
+					<Exclusion p1="9" p2="30"/>
+					
+				
+					<Exclusion p1="9" p2="31"/>
+					
+				
+					<Exclusion p1="10" p2="11"/>
+					
+				
+					<Exclusion p1="10" p2="32"/>
+					
+				
+					<Exclusion p1="10" p2="33"/>
+					
+				
+					<Exclusion p1="11" p2="34"/>
+					
+				
+					<Exclusion p1="11" p2="35"/>
+					
+				
+					<Exclusion p1="12" p2="36"/>
+					
+				
+					<Exclusion p1="12" p2="52"/>
+					
+				
+					<Exclusion p1="13" p2="37"/>
+					
+				
+					<Exclusion p1="13" p2="54"/>
+					
+				
+					<Exclusion p1="14" p2="38"/>
+					
+				
+					<Exclusion p1="14" p2="56"/>
+					
+				
+					<Exclusion p1="15" p2="39"/>
+					
+				
+					<Exclusion p1="15" p2="58"/>
+					
+				
+					<Exclusion p1="16" p2="40"/>
+					
+				
+					<Exclusion p1="16" p2="53"/>
+					
+				
+					<Exclusion p1="17" p2="41"/>
+					
+				
+					<Exclusion p1="17" p2="55"/>
+					
+				
+					<Exclusion p1="18" p2="42"/>
+					
+				
+					<Exclusion p1="18" p2="57"/>
+					
+				
+					<Exclusion p1="19" p2="43"/>
+					
+				
+					<Exclusion p1="19" p2="59"/>
+					
+				
+					<Exclusion p1="20" p2="36"/>
+					
+				
+					<Exclusion p1="20" p2="44"/>
+					
+				
+					<Exclusion p1="21" p2="38"/>
+					
+				
+					<Exclusion p1="21" p2="45"/>
+					
+				
+					<Exclusion p1="22" p2="40"/>
+					
+				
+					<Exclusion p1="22" p2="46"/>
+					
+				
+					<Exclusion p1="23" p2="42"/>
+					
+				
+					<Exclusion p1="23" p2="47"/>
+					
+				
+					<Exclusion p1="24" p2="37"/>
+					
+				
+					<Exclusion p1="24" p2="48"/>
+					
+				
+					<Exclusion p1="25" p2="39"/>
+					
+				
+					<Exclusion p1="25" p2="49"/>
+					
+				
+					<Exclusion p1="26" p2="41"/>
+					
+				
+					<Exclusion p1="26" p2="50"/>
+					
+				
+					<Exclusion p1="27" p2="43"/>
+					
+				
+					<Exclusion p1="27" p2="51"/>
+					
+				
+					<Exclusion p1="28" p2="44"/>
+					
+				
+					<Exclusion p1="28" p2="52"/>
+					
+				
+					<Exclusion p1="29" p2="46"/>
+					
+				
+					<Exclusion p1="29" p2="53"/>
+					
+				
+					<Exclusion p1="30" p2="48"/>
+					
+				
+					<Exclusion p1="30" p2="54"/>
+					
+				
+					<Exclusion p1="31" p2="50"/>
+					
+				
+					<Exclusion p1="31" p2="55"/>
+					
+				
+					<Exclusion p1="32" p2="45"/>
+					
+				
+					<Exclusion p1="32" p2="56"/>
+					
+				
+					<Exclusion p1="33" p2="47"/>
+					
+				
+					<Exclusion p1="33" p2="57"/>
+					
+				
+					<Exclusion p1="34" p2="49"/>
+					
+				
+					<Exclusion p1="34" p2="58"/>
+					
+				
+					<Exclusion p1="35" p2="51"/>
+					
+				
+					<Exclusion p1="35" p2="59"/>
+					
+				
+					<Exclusion p1="36" p2="38"/>
+					
+				
+					<Exclusion p1="37" p2="39"/>
+					
+				
+					<Exclusion p1="40" p2="42"/>
+					
+				
+					<Exclusion p1="41" p2="43"/>
+					
+				
+					<Exclusion p1="44" p2="46"/>
+					
+				
+					<Exclusion p1="45" p2="47"/>
+					
+				
+					<Exclusion p1="48" p2="50"/>
+					
+				
+					<Exclusion p1="49" p2="51"/>
+					
+				
+					<Exclusion p1="52" p2="54"/>
+					
+				
+					<Exclusion p1="53" p2="55"/>
+					
+				
+					<Exclusion p1="56" p2="58"/>
+					
+				
+					<Exclusion p1="57" p2="59"/>
+					
+				
+					<Exclusion p1="60" p2="61"/>
+					
+				
+					<Exclusion p1="60" p2="72"/>
+					
+				
+					<Exclusion p1="60" p2="73"/>
+					
+				
+					<Exclusion p1="61" p2="74"/>
+					
+				
+					<Exclusion p1="61" p2="75"/>
+					
+				
+					<Exclusion p1="62" p2="63"/>
+					
+				
+					<Exclusion p1="62" p2="76"/>
+					
+				
+					<Exclusion p1="62" p2="77"/>
+					
+				
+					<Exclusion p1="63" p2="78"/>
+					
+				
+					<Exclusion p1="63" p2="79"/>
+					
+				
+					<Exclusion p1="64" p2="65"/>
+					
+				
+					<Exclusion p1="64" p2="80"/>
+					
+				
+					<Exclusion p1="64" p2="81"/>
+					
+				
+					<Exclusion p1="65" p2="82"/>
+					
+				
+					<Exclusion p1="65" p2="83"/>
+					
+				
+					<Exclusion p1="66" p2="67"/>
+					
+				
+					<Exclusion p1="66" p2="84"/>
+					
+				
+					<Exclusion p1="66" p2="85"/>
+					
+				
+					<Exclusion p1="67" p2="86"/>
+					
+				
+					<Exclusion p1="67" p2="87"/>
+					
+				
+					<Exclusion p1="68" p2="69"/>
+					
+				
+					<Exclusion p1="68" p2="88"/>
+					
+				
+					<Exclusion p1="68" p2="89"/>
+					
+				
+					<Exclusion p1="69" p2="90"/>
+					
+				
+					<Exclusion p1="69" p2="91"/>
+					
+				
+					<Exclusion p1="70" p2="71"/>
+					
+				
+					<Exclusion p1="70" p2="92"/>
+					
+				
+					<Exclusion p1="70" p2="93"/>
+					
+				
+					<Exclusion p1="71" p2="94"/>
+					
+				
+					<Exclusion p1="71" p2="95"/>
+					
+				
+					<Exclusion p1="72" p2="96"/>
+					
+				
+					<Exclusion p1="72" p2="112"/>
+					
+				
+					<Exclusion p1="73" p2="97"/>
+					
+				
+					<Exclusion p1="73" p2="114"/>
+					
+				
+					<Exclusion p1="74" p2="98"/>
+					
+				
+					<Exclusion p1="74" p2="116"/>
+					
+				
+					<Exclusion p1="75" p2="99"/>
+					
+				
+					<Exclusion p1="75" p2="118"/>
+					
+				
+					<Exclusion p1="76" p2="100"/>
+					
+				
+					<Exclusion p1="76" p2="113"/>
+					
+				
+					<Exclusion p1="77" p2="101"/>
+					
+				
+					<Exclusion p1="77" p2="115"/>
+					
+				
+					<Exclusion p1="78" p2="102"/>
+					
+				
+					<Exclusion p1="78" p2="117"/>
+					
+				
+					<Exclusion p1="79" p2="103"/>
+					
+				
+					<Exclusion p1="79" p2="119"/>
+					
+				
+					<Exclusion p1="80" p2="96"/>
+					
+				
+					<Exclusion p1="80" p2="104"/>
+					
+				
+					<Exclusion p1="81" p2="98"/>
+					
+				
+					<Exclusion p1="81" p2="105"/>
+					
+				
+					<Exclusion p1="82" p2="100"/>
+					
+				
+					<Exclusion p1="82" p2="106"/>
+					
+				
+					<Exclusion p1="83" p2="102"/>
+					
+				
+					<Exclusion p1="83" p2="107"/>
+					
+				
+					<Exclusion p1="84" p2="97"/>
+					
+				
+					<Exclusion p1="84" p2="108"/>
+					
+				
+					<Exclusion p1="85" p2="99"/>
+					
+				
+					<Exclusion p1="85" p2="109"/>
+					
+				
+					<Exclusion p1="86" p2="101"/>
+					
+				
+					<Exclusion p1="86" p2="110"/>
+					
+				
+					<Exclusion p1="87" p2="103"/>
+					
+				
+					<Exclusion p1="87" p2="111"/>
+					
+				
+					<Exclusion p1="88" p2="104"/>
+					
+				
+					<Exclusion p1="88" p2="112"/>
+					
+				
+					<Exclusion p1="89" p2="106"/>
+					
+				
+					<Exclusion p1="89" p2="113"/>
+					
+				
+					<Exclusion p1="90" p2="108"/>
+					
+				
+					<Exclusion p1="90" p2="114"/>
+					
+				
+					<Exclusion p1="91" p2="110"/>
+					
+				
+					<Exclusion p1="91" p2="115"/>
+					
+				
+					<Exclusion p1="92" p2="105"/>
+					
+				
+					<Exclusion p1="92" p2="116"/>
+					
+				
+					<Exclusion p1="93" p2="107"/>
+					
+				
+					<Exclusion p1="93" p2="117"/>
+					
+				
+					<Exclusion p1="94" p2="109"/>
+					
+				
+					<Exclusion p1="94" p2="118"/>
+					
+				
+					<Exclusion p1="95" p2="111"/>
+					
+				
+					<Exclusion p1="95" p2="119"/>
+					
+				
+					<Exclusion p1="96" p2="98"/>
+					
+				
+					<Exclusion p1="97" p2="99"/>
+					
+				
+					<Exclusion p1="100" p2="102"/>
+					
+				
+					<Exclusion p1="101" p2="103"/>
+					
+				
+					<Exclusion p1="104" p2="106"/>
+					
+				
+					<Exclusion p1="105" p2="107"/>
+					
+				
+					<Exclusion p1="108" p2="110"/>
+					
+				
+					<Exclusion p1="109" p2="111"/>
+					
+				
+					<Exclusion p1="112" p2="114"/>
+					
+				
+					<Exclusion p1="113" p2="115"/>
+					
+				
+					<Exclusion p1="116" p2="118"/>
+					
+				
+					<Exclusion p1="117" p2="119"/>
+					
+			
+				</Exclusions>
+				
+			
+				<Functions/>
+				
+			
+				<InteractionGroups/>
+				
+		
+			</Force>
+			
+		
+			<Force energy="fx + fy + fz; fx=(c12 / rx6^2) - (c6 / rx6); fy=(c12 / ry6^2) - (c6 / ry6); fz=(c12 / rz6^2) - (c6 / rz6); rx6=rx^6; ry6=ry^6; rz6=rz^6; rx=min(x+1, mx-x); ry=min(y+1, my-y); rz=min(z+1, mz-z);" forceGroup="0" name="CustomExternalForce" type="CustomExternalForce" version="1">
+				
+			
+				<PerParticleParameters/>
+				
+			
+				<GlobalParameters>
+					
+				
+					<Parameter default="7" name="mx"/>
+					
+				
+					<Parameter default="7" name="my"/>
+					
+				
+					<Parameter default="7" name="mz"/>
+					
+				
+					<Parameter default="0" name="c6"/>
+					
+				
+					<Parameter default="1" name="c12"/>
+					
+			
+				</GlobalParameters>
+				
+			
+				<Particles>
+					
+				
+					<Particle index="0"/>
+					
+				
+					<Particle index="1"/>
+					
+				
+					<Particle index="2"/>
+					
+				
+					<Particle index="3"/>
+					
+				
+					<Particle index="4"/>
+					
+				
+					<Particle index="5"/>
+					
+				
+					<Particle index="6"/>
+					
+				
+					<Particle index="7"/>
+					
+				
+					<Particle index="8"/>
+					
+				
+					<Particle index="9"/>
+					
+				
+					<Particle index="10"/>
+					
+				
+					<Particle index="11"/>
+					
+				
+					<Particle index="12"/>
+					
+				
+					<Particle index="13"/>
+					
+				
+					<Particle index="14"/>
+					
+				
+					<Particle index="15"/>
+					
+				
+					<Particle index="16"/>
+					
+				
+					<Particle index="17"/>
+					
+				
+					<Particle index="18"/>
+					
+				
+					<Particle index="19"/>
+					
+				
+					<Particle index="20"/>
+					
+				
+					<Particle index="21"/>
+					
+				
+					<Particle index="22"/>
+					
+				
+					<Particle index="23"/>
+					
+				
+					<Particle index="24"/>
+					
+				
+					<Particle index="25"/>
+					
+				
+					<Particle index="26"/>
+					
+				
+					<Particle index="27"/>
+					
+				
+					<Particle index="28"/>
+					
+				
+					<Particle index="29"/>
+					
+				
+					<Particle index="30"/>
+					
+				
+					<Particle index="31"/>
+					
+				
+					<Particle index="32"/>
+					
+				
+					<Particle index="33"/>
+					
+				
+					<Particle index="34"/>
+					
+				
+					<Particle index="35"/>
+					
+				
+					<Particle index="36"/>
+					
+				
+					<Particle index="37"/>
+					
+				
+					<Particle index="38"/>
+					
+				
+					<Particle index="39"/>
+					
+				
+					<Particle index="40"/>
+					
+				
+					<Particle index="41"/>
+					
+				
+					<Particle index="42"/>
+					
+				
+					<Particle index="43"/>
+					
+				
+					<Particle index="44"/>
+					
+				
+					<Particle index="45"/>
+					
+				
+					<Particle index="46"/>
+					
+				
+					<Particle index="47"/>
+					
+				
+					<Particle index="48"/>
+					
+				
+					<Particle index="49"/>
+					
+				
+					<Particle index="50"/>
+					
+				
+					<Particle index="51"/>
+					
+				
+					<Particle index="52"/>
+					
+				
+					<Particle index="53"/>
+					
+				
+					<Particle index="54"/>
+					
+				
+					<Particle index="55"/>
+					
+				
+					<Particle index="56"/>
+					
+				
+					<Particle index="57"/>
+					
+				
+					<Particle index="58"/>
+					
+				
+					<Particle index="59"/>
+					
+				
+					<Particle index="60"/>
+					
+				
+					<Particle index="61"/>
+					
+				
+					<Particle index="62"/>
+					
+				
+					<Particle index="63"/>
+					
+				
+					<Particle index="64"/>
+					
+				
+					<Particle index="65"/>
+					
+				
+					<Particle index="66"/>
+					
+				
+					<Particle index="67"/>
+					
+				
+					<Particle index="68"/>
+					
+				
+					<Particle index="69"/>
+					
+				
+					<Particle index="70"/>
+					
+				
+					<Particle index="71"/>
+					
+				
+					<Particle index="72"/>
+					
+				
+					<Particle index="73"/>
+					
+				
+					<Particle index="74"/>
+					
+				
+					<Particle index="75"/>
+					
+				
+					<Particle index="76"/>
+					
+				
+					<Particle index="77"/>
+					
+				
+					<Particle index="78"/>
+					
+				
+					<Particle index="79"/>
+					
+				
+					<Particle index="80"/>
+					
+				
+					<Particle index="81"/>
+					
+				
+					<Particle index="82"/>
+					
+				
+					<Particle index="83"/>
+					
+				
+					<Particle index="84"/>
+					
+				
+					<Particle index="85"/>
+					
+				
+					<Particle index="86"/>
+					
+				
+					<Particle index="87"/>
+					
+				
+					<Particle index="88"/>
+					
+				
+					<Particle index="89"/>
+					
+				
+					<Particle index="90"/>
+					
+				
+					<Particle index="91"/>
+					
+				
+					<Particle index="92"/>
+					
+				
+					<Particle index="93"/>
+					
+				
+					<Particle index="94"/>
+					
+				
+					<Particle index="95"/>
+					
+				
+					<Particle index="96"/>
+					
+				
+					<Particle index="97"/>
+					
+				
+					<Particle index="98"/>
+					
+				
+					<Particle index="99"/>
+					
+				
+					<Particle index="100"/>
+					
+				
+					<Particle index="101"/>
+					
+				
+					<Particle index="102"/>
+					
+				
+					<Particle index="103"/>
+					
+				
+					<Particle index="104"/>
+					
+				
+					<Particle index="105"/>
+					
+				
+					<Particle index="106"/>
+					
+				
+					<Particle index="107"/>
+					
+				
+					<Particle index="108"/>
+					
+				
+					<Particle index="109"/>
+					
+				
+					<Particle index="110"/>
+					
+				
+					<Particle index="111"/>
+					
+				
+					<Particle index="112"/>
+					
+				
+					<Particle index="113"/>
+					
+				
+					<Particle index="114"/>
+					
+				
+					<Particle index="115"/>
+					
+				
+					<Particle index="116"/>
+					
+				
+					<Particle index="117"/>
+					
+				
+					<Particle index="118"/>
+					
+				
+					<Particle index="119"/>
+					
+			
+				</Particles>
+				
+		
+			</Force>
+			
+		
+			<Force energy="k *0.5 *dtheta*dtheta*expansion;expansion= 1.0 -0.014*dtor*dtheta+ 5.6e-5*dtor^2*dtheta^2-1.0e-6*dtor^3*dtheta^3+2.2e-8*dtor^4*dtheta^4;dtor=57.295779;dtheta = theta- theta_eq" forceGroup="0" name="CustomAngleForce" type="CustomAngleForce" usesPeriodic="0" version="3">
+				
+			
+				<PerAngleParameters>
+					
+				
+					<Parameter name="k"/>
+					
+				
+					<Parameter name="theta_eq"/>
+					
+			
+				</PerAngleParameters>
+				
+			
+				<GlobalParameters/>
+				
+			
+				<EnergyParameterDerivatives/>
+				
+			
+				<Angles>
+					
+				
+					<Angle p1="0" p2="1" p3="14" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="0" p2="1" p3="15" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="0" p2="12" p3="36" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="0" p2="12" p3="52" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="0" p2="13" p3="37" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="0" p2="13" p3="54" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="1" p2="0" p3="12" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="1" p2="0" p3="13" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="1" p2="14" p3="38" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="1" p2="14" p3="56" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="1" p2="15" p3="39" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="1" p2="15" p3="58" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="2" p2="3" p3="18" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="2" p2="3" p3="19" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="2" p2="16" p3="40" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="2" p2="16" p3="53" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="2" p2="17" p3="41" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="2" p2="17" p3="55" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="3" p2="2" p3="16" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="3" p2="2" p3="17" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="3" p2="18" p3="42" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="3" p2="18" p3="57" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="3" p2="19" p3="43" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="3" p2="19" p3="59" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="4" p2="5" p3="22" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="4" p2="5" p3="23" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="4" p2="20" p3="36" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="4" p2="20" p3="44" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="4" p2="21" p3="38" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="4" p2="21" p3="45" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="5" p2="4" p3="20" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="5" p2="4" p3="21" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="5" p2="22" p3="40" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="5" p2="22" p3="46" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="5" p2="23" p3="42" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="5" p2="23" p3="47" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="6" p2="7" p3="26" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="6" p2="7" p3="27" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="6" p2="24" p3="37" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="6" p2="24" p3="48" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="6" p2="25" p3="39" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="6" p2="25" p3="49" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="7" p2="6" p3="24" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="7" p2="6" p3="25" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="7" p2="26" p3="41" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="7" p2="26" p3="50" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="7" p2="27" p3="43" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="7" p2="27" p3="51" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="8" p2="9" p3="30" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="8" p2="9" p3="31" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="8" p2="28" p3="44" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="8" p2="28" p3="52" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="8" p2="29" p3="46" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="8" p2="29" p3="53" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="9" p2="8" p3="28" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="9" p2="8" p3="29" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="9" p2="30" p3="48" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="9" p2="30" p3="54" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="9" p2="31" p3="50" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="9" p2="31" p3="55" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="10" p2="11" p3="34" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="10" p2="11" p3="35" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="10" p2="32" p3="45" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="10" p2="32" p3="56" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="10" p2="33" p3="47" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="10" p2="33" p3="57" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="11" p2="10" p3="32" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="11" p2="10" p3="33" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="11" p2="34" p3="49" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="11" p2="34" p3="58" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="11" p2="35" p3="51" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="11" p2="35" p3="59" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="12" p2="0" p3="13" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="12" p2="36" p3="20" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="12" p2="36" p3="38" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="12" p2="52" p3="28" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="12" p2="52" p3="54" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="13" p2="37" p3="24" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="13" p2="37" p3="39" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="13" p2="54" p3="30" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="13" p2="54" p3="52" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="14" p2="1" p3="15" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="14" p2="38" p3="21" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="14" p2="38" p3="36" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="14" p2="56" p3="32" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="14" p2="56" p3="58" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="15" p2="39" p3="25" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="15" p2="39" p3="37" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="15" p2="58" p3="34" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="15" p2="58" p3="56" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="16" p2="2" p3="17" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="16" p2="40" p3="22" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="16" p2="40" p3="42" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="16" p2="53" p3="29" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="16" p2="53" p3="55" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="17" p2="41" p3="26" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="17" p2="41" p3="43" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="17" p2="55" p3="31" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="17" p2="55" p3="53" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="18" p2="3" p3="19" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="18" p2="42" p3="23" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="18" p2="42" p3="40" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="18" p2="57" p3="33" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="18" p2="57" p3="59" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="19" p2="43" p3="27" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="19" p2="43" p3="41" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="19" p2="59" p3="35" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="19" p2="59" p3="57" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="20" p2="4" p3="21" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="20" p2="36" p3="38" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="20" p2="44" p3="28" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="20" p2="44" p3="46" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="21" p2="38" p3="36" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="21" p2="45" p3="32" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="21" p2="45" p3="47" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="22" p2="5" p3="23" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="22" p2="40" p3="42" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="22" p2="46" p3="29" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="22" p2="46" p3="44" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="23" p2="42" p3="40" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="23" p2="47" p3="33" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="23" p2="47" p3="45" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="24" p2="6" p3="25" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="24" p2="37" p3="39" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="24" p2="48" p3="30" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="24" p2="48" p3="50" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="25" p2="39" p3="37" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="25" p2="49" p3="34" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="25" p2="49" p3="51" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="26" p2="7" p3="27" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="26" p2="41" p3="43" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="26" p2="50" p3="31" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="26" p2="50" p3="48" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="27" p2="43" p3="41" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="27" p2="51" p3="35" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="27" p2="51" p3="49" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="28" p2="8" p3="29" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="28" p2="44" p3="46" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="28" p2="52" p3="54" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="29" p2="46" p3="44" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="29" p2="53" p3="55" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="30" p2="9" p3="31" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="30" p2="48" p3="50" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="30" p2="54" p3="52" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="31" p2="50" p3="48" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="31" p2="55" p3="53" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="32" p2="10" p3="33" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="32" p2="45" p3="47" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="32" p2="56" p3="58" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="33" p2="47" p3="45" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="33" p2="57" p3="59" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="34" p2="11" p3="35" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="34" p2="49" p3="51" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="34" p2="58" p3="56" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="35" p2="51" p3="49" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="35" p2="59" p3="57" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="36" p2="12" p3="52" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="36" p2="20" p3="44" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="37" p2="13" p3="54" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="37" p2="24" p3="48" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="38" p2="14" p3="56" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="38" p2="21" p3="45" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="39" p2="15" p3="58" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="39" p2="25" p3="49" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="40" p2="16" p3="53" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="40" p2="22" p3="46" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="41" p2="17" p3="55" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="41" p2="26" p3="50" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="42" p2="18" p3="57" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="42" p2="23" p3="47" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="43" p2="19" p3="59" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="43" p2="27" p3="51" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="44" p2="28" p3="52" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="45" p2="32" p3="56" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="46" p2="29" p3="53" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="47" p2="33" p3="57" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="48" p2="30" p3="54" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="49" p2="34" p3="58" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="50" p2="31" p3="55" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="51" p2="35" p3="59" param1="457.672" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="60" p2="61" p3="74" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="60" p2="61" p3="75" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="60" p2="72" p3="96" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="60" p2="72" p3="112" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="60" p2="73" p3="97" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="60" p2="73" p3="114" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="61" p2="60" p3="72" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="61" p2="60" p3="73" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="61" p2="74" p3="98" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="61" p2="74" p3="116" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="61" p2="75" p3="99" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="61" p2="75" p3="118" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="62" p2="63" p3="78" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="62" p2="63" p3="79" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="62" p2="76" p3="100" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="62" p2="76" p3="113" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="62" p2="77" p3="101" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="62" p2="77" p3="115" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="63" p2="62" p3="76" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="63" p2="62" p3="77" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="63" p2="78" p3="102" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="63" p2="78" p3="117" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="63" p2="79" p3="103" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="63" p2="79" p3="119" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="64" p2="65" p3="82" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="64" p2="65" p3="83" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="64" p2="80" p3="96" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="64" p2="80" p3="104" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="64" p2="81" p3="98" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="64" p2="81" p3="105" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="65" p2="64" p3="80" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="65" p2="64" p3="81" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="65" p2="82" p3="100" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="65" p2="82" p3="106" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="65" p2="83" p3="102" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="65" p2="83" p3="107" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="66" p2="67" p3="86" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="66" p2="67" p3="87" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="66" p2="84" p3="97" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="66" p2="84" p3="108" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="66" p2="85" p3="99" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="66" p2="85" p3="109" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="67" p2="66" p3="84" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="67" p2="66" p3="85" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="67" p2="86" p3="101" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="67" p2="86" p3="110" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="67" p2="87" p3="103" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="67" p2="87" p3="111" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="68" p2="69" p3="90" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="68" p2="69" p3="91" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="68" p2="88" p3="104" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="68" p2="88" p3="112" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="68" p2="89" p3="106" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="68" p2="89" p3="113" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="69" p2="68" p3="88" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="69" p2="68" p3="89" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="69" p2="90" p3="108" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="69" p2="90" p3="114" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="69" p2="91" p3="110" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="69" p2="91" p3="115" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="70" p2="71" p3="94" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="70" p2="71" p3="95" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="70" p2="92" p3="105" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="70" p2="92" p3="116" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="70" p2="93" p3="107" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="70" p2="93" p3="117" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="71" p2="70" p3="92" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="71" p2="70" p3="93" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="71" p2="94" p3="109" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="71" p2="94" p3="118" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="71" p2="95" p3="111" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="71" p2="95" p3="119" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="72" p2="60" p3="73" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="72" p2="96" p3="80" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="72" p2="96" p3="98" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="72" p2="112" p3="88" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="72" p2="112" p3="114" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="73" p2="97" p3="84" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="73" p2="97" p3="99" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="73" p2="114" p3="90" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="73" p2="114" p3="112" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="74" p2="61" p3="75" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="74" p2="98" p3="81" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="74" p2="98" p3="96" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="74" p2="116" p3="92" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="74" p2="116" p3="118" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="75" p2="99" p3="85" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="75" p2="99" p3="97" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="75" p2="118" p3="94" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="75" p2="118" p3="116" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="76" p2="62" p3="77" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="76" p2="100" p3="82" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="76" p2="100" p3="102" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="76" p2="113" p3="89" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="76" p2="113" p3="115" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="77" p2="101" p3="86" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="77" p2="101" p3="103" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="77" p2="115" p3="91" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="77" p2="115" p3="113" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="78" p2="63" p3="79" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="78" p2="102" p3="83" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="78" p2="102" p3="100" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="78" p2="117" p3="93" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="78" p2="117" p3="119" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="79" p2="103" p3="87" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="79" p2="103" p3="101" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="79" p2="119" p3="95" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="79" p2="119" p3="117" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="80" p2="64" p3="81" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="80" p2="96" p3="98" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="80" p2="104" p3="88" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="80" p2="104" p3="106" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="81" p2="98" p3="96" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="81" p2="105" p3="92" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="81" p2="105" p3="107" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="82" p2="65" p3="83" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="82" p2="100" p3="102" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="82" p2="106" p3="89" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="82" p2="106" p3="104" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="83" p2="102" p3="100" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="83" p2="107" p3="93" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="83" p2="107" p3="105" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="84" p2="66" p3="85" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="84" p2="97" p3="99" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="84" p2="108" p3="90" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="84" p2="108" p3="110" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="85" p2="99" p3="97" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="85" p2="109" p3="94" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="85" p2="109" p3="111" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="86" p2="67" p3="87" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="86" p2="101" p3="103" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="86" p2="110" p3="91" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="86" p2="110" p3="108" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="87" p2="103" p3="101" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="87" p2="111" p3="95" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="87" p2="111" p3="109" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="88" p2="68" p3="89" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="88" p2="104" p3="106" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="88" p2="112" p3="114" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="89" p2="106" p3="104" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="89" p2="113" p3="115" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="90" p2="69" p3="91" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="90" p2="108" p3="110" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="90" p2="114" p3="112" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="91" p2="110" p3="108" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="91" p2="115" p3="113" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="92" p2="70" p3="93" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="92" p2="105" p3="107" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="92" p2="116" p3="118" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="93" p2="107" p3="105" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="93" p2="117" p3="119" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="94" p2="71" p3="95" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="94" p2="109" p3="111" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="94" p2="118" p3="116" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="95" p2="111" p3="109" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="95" p2="119" p3="117" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="96" p2="72" p3="112" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="96" p2="80" p3="104" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="97" p2="73" p3="114" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="97" p2="84" p3="108" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="98" p2="74" p3="116" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="98" p2="81" p3="105" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="99" p2="75" p3="118" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="99" p2="85" p3="109" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="100" p2="76" p3="113" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="100" p2="82" p3="106" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="101" p2="77" p3="115" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="101" p2="86" p3="110" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="102" p2="78" p3="117" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="102" p2="83" p3="107" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="103" p2="79" p3="119" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="103" p2="87" p3="111" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="104" p2="88" p3="112" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="105" p2="92" p3="116" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="106" p2="89" p3="113" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="107" p2="93" p3="117" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="108" p2="90" p3="114" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="109" p2="94" p3="118" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="110" p2="91" p3="115" param1="286.045" param2="2.129301687433082"/>
+					
+				
+					<Angle p1="111" p2="95" p3="119" param1="286.045" param2="2.129301687433082"/>
+					
+			
+				</Angles>
+				
+		
+			</Force>
+			
+	
+		</Forces>
+		
+
+	</System>
+	<Integrator constraintTolerance="1e-05" friction="1" randomSeed="0" stepSize=".001" temperature="300" type="LangevinIntegrator" version="1"/>
+</OpenMMSimulation>

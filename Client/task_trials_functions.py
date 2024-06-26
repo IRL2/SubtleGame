@@ -74,8 +74,9 @@ def get_order_of_simulations(simulations, num_repeats):
     unique_multipliers = get_unique_multipliers(simulations)
 
     # Initialise lists
-    practice_task_sims = []
     main_task_sims = []
+    max_multiplier_sims = []
+    min_multiplier_sims = []
 
     # Loop through each multiplier
     for multiplier in unique_multipliers:
@@ -90,9 +91,11 @@ def get_order_of_simulations(simulations, num_repeats):
 
         # Store the data for the simulations with max and min multipliers for the practice task
         if multiplier == max(unique_multipliers):
-            practice_task_sims.extend(corresponding_sims)
+            max_multiplier_sims.extend(corresponding_sims)
         elif multiplier == min(unique_multipliers):
-            practice_task_sims.extend(corresponding_sims)
+            min_multiplier_sims.extend(corresponding_sims)
+
+    practice_task_sims = [random.sample(max_multiplier_sims, 1)[0], random.sample(min_multiplier_sims, 1)[0]]
 
     # If there is only one practice simulation, duplicate it so that the player always gets 2 practice tasks
     if len(practice_task_sims) == 1:
@@ -101,5 +104,7 @@ def get_order_of_simulations(simulations, num_repeats):
     # Randomise the order of the simulations
     random.shuffle(practice_task_sims)
     random.shuffle(main_task_sims)
+
+    print("practice sims = ", practice_task_sims)
 
     return practice_task_sims, main_task_sims

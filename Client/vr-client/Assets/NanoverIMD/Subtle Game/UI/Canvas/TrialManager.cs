@@ -98,7 +98,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
 
             UpdateScoreCalculations(state);
 
-            // Check if this was the final one in the set of 7
+            // Check if this was the final one in the set (i.e. the max icon index)
             if (_setTrialIndex == trialsTaskIcons.Count)
             {
                 ResetSet(false);

@@ -241,7 +241,7 @@ class PuppeteeringClient:
 
 
 if __name__ == '__main__':
-    number_of_repeats = 3
+    number_of_repeats = 2
 
     # Create puppeteering client
     puppeteering_client = PuppeteeringClient(number_of_trial_repeats=number_of_repeats,
