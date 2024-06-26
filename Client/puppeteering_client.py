@@ -2,6 +2,8 @@ from nanover.app import NanoverImdClient
 from task_nanotube import NanotubeTask
 from task_knot_tying import KnotTyingTask
 from task_trials_training import TrialsTrainingTask
+from task_trials_observer import TrialsObserverTask
+from task_trials_observer_training import TrialsObserverTrainingTask
 from task_sandbox import SandboxTask
 from task_trials import TrialsTask
 from additional_functions import write_to_shared_state, randomise_list_order
@@ -35,7 +37,7 @@ def get_order_of_tasks(run_short_game: bool):
     if run_short_game:
         return [TASK_NANOTUBE, TASK_NANOTUBE]
     else:
-        tasks = [TASK_KNOT_TYING, TASK_TRIALS]
+        tasks = [TASK_TRIALS_OBSERVER]
 
     tasks_without_training = []
 
@@ -51,6 +53,8 @@ def get_order_of_tasks(run_short_game: bool):
     for task in tasks_without_training:
         if task == TASK_TRIALS:
             order_of_tasks.append(TASK_TRIALS_TRAINING)
+        if task == TASK_TRIALS_OBSERVER:
+            order_of_tasks.append(TASK_TRIALS_OBSERVER_TRAINING)
         order_of_tasks.append(task)
 
     return order_of_tasks
@@ -132,6 +136,16 @@ class PuppeteeringClient:
                 current_task = TrialsTrainingTask(client=self.nanover_client, simulations=self.trials_sims,
                                                   simulation_counter=simulation_counter,
                                                   number_of_repeats=self.num_of_trial_repeats)
+
+            elif task == TASK_TRIALS_OBSERVER:
+                current_task = TrialsObserverTask(client=self.nanover_client, simulations=self.trials_sims,
+                                                  simulation_counter=simulation_counter,
+                                                  number_of_repeats=self.num_of_trial_repeats)
+
+            elif task == TASK_TRIALS_OBSERVER_TRAINING:
+                current_task = TrialsObserverTrainingTask(client=self.nanover_client, simulations=self.trials_sims,
+                                                          simulation_counter=simulation_counter,
+                                                          number_of_repeats=self.num_of_trial_repeats)
 
             else:
                 print("Current task not recognised, closing the puppeteering client.")
