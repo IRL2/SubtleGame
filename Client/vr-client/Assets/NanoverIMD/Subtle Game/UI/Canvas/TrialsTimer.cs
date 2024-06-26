@@ -57,10 +57,10 @@ namespace NanoverImd.Subtle_Game.Canvas
         {
             switch (subtleGameManager.CurrentTaskType)
             {
-                case SubtleGameManager.TaskTypeVal.Trials:
+                case SubtleGameManager.TaskTypeVal.Trials or SubtleGameManager.TaskTypeVal.TrialsObserver:
                     _duration = DurationTrials;
                     break;
-                case SubtleGameManager.TaskTypeVal.TrialsTraining:
+                case SubtleGameManager.TaskTypeVal.TrialsTraining or SubtleGameManager.TaskTypeVal.TrialsObserverTraining:
                     _duration = DurationTrialsTraining;
                     break;
                 default:

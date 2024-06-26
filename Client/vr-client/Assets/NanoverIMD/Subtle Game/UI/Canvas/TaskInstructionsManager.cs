@@ -2,6 +2,7 @@
 using NanoverImd.Subtle_Game;
 using NanoverImd.Subtle_Game.Canvas;
 using NanoverImd.Subtle_Game.Data_Collection;
+using NanoverIMD.Subtle_Game.Data_Collection;
 using NanoverImd.Subtle_Game.Interaction;
 using NanoverImd.Subtle_Game.UI.Simulation;
 using UnityEngine;
@@ -171,13 +172,6 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             // activate the instruction objects required for each task type
             switch (_subtleGameManager.CurrentTaskType)
             {
-                case SubtleGameManager.TaskTypeVal.Trials or SubtleGameManager.TaskTypeVal.TrialsTraining:
-                    taskTrialsInstructions.SetActive(true);
-                    timer.SetActive(true);
-                    trialProgressManager.gameObject.SetActive(true);
-                    trialsProgressGroup.SetActive(true);
-                    break;
-
                 case SubtleGameManager.TaskTypeVal.KnotTying:
                     taskKnotInstructions.SetActive(true);
                     break;
@@ -190,8 +184,14 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                     taskSandboxInstructions.SetActive(true);
                     exitInstructions.SetActive(true);
                     break;
-
-                default: break;
+                
+                default:
+                    if (!TaskLists.TrialsTasks.Contains(_subtleGameManager.CurrentTaskType)) return;
+                    taskTrialsInstructions.SetActive(true);
+                    timer.SetActive(true);
+                    trialProgressManager.gameObject.SetActive(true);
+                    trialsProgressGroup.SetActive(true);
+                    break;
             }
         }
 

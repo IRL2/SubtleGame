@@ -1,5 +1,6 @@
 using System;
 using NanoverImd.Subtle_Game;
+using NanoverIMD.Subtle_Game.Data_Collection;
 using TMPro;
 using UnityEngine;
 
@@ -116,7 +117,7 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
             {
                 SubtleGameManager.TaskTypeVal.Nanotube => TaskTypes.Nanotube,
                 SubtleGameManager.TaskTypeVal.KnotTying => TaskTypes.Knot,
-                SubtleGameManager.TaskTypeVal.TrialsTraining or SubtleGameManager.TaskTypeVal.Trials => TaskTypes.Trials,
+                _ when TaskLists.TrialsTasks.Contains(newTask) => TaskTypes.Trials,
                 _ => _currentTask
             };
         }
