@@ -168,11 +168,11 @@ namespace NanoverImd.Subtle_Game
                             break;
                         case TaskTypeVal.KnotTying:
                             _pinchGrab.InteractionType = "gaussian";
-                            _pinchGrab.InteractionForceScale = 525f;
+                            _pinchGrab.InteractionForceScale = 600f;
                             break;
                         case TaskTypeVal.Trials or TaskTypeVal.TrialsTraining:
-                            _pinchGrab.InteractionType = "spring";
-                            _pinchGrab.InteractionForceScale = 175f;
+                            _pinchGrab.InteractionType = "gaussian";
+                            _pinchGrab.InteractionForceScale = 400f;
                             break;
                         case TaskTypeVal.None:
                         case TaskTypeVal.GameFinished:
