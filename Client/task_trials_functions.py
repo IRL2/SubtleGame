@@ -41,11 +41,16 @@ def get_unique_multipliers(simulations: list):
 
 def get_multiplier_of_simulation(sim_file_name: str):
     """ Returns the multiplier of the simulation, which is stored in the simulation name. """
-    return float(sim_file_name.removesuffix(".xml").split("_")[3].strip())
+    if 'recording' in sim_file_name:
+        return float(sim_file_name.split(".traj")[0].split("recording-buckyball_angle_")[1].split("_")[1])
+    else:
+        return float(sim_file_name.removesuffix(".xml").split("_")[3].strip())
 
 
 def get_residue_id_of_modified_molecule(sim_file_name: str):
     """ Returns the residue id of the modified molecule in the simulation, which is stored in the simulation name. """
+    if 'recording' in sim_file_name:
+        return sim_file_name.split(".traj")[0].split("recording-buckyball_angle_")[1].split("_")[0]
     return sim_file_name.split("_")[2].strip()
 
 
