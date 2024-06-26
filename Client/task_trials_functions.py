@@ -30,7 +30,7 @@ def calculate_correct_answer(sim_file_name: str):
 
 
 def get_unique_multipliers(simulations: list):
-    """ Returns a list of unique multipliers from the dictionary of simulations. """
+    """ Returns a list of unique multipliers from the dictionary of simulations/recordings. """
     unique_multipliers = set()
     for simulation in simulations:
         for name in simulation:
@@ -40,7 +40,7 @@ def get_unique_multipliers(simulations: list):
 
 
 def get_multiplier_of_simulation(sim_file_name: str):
-    """ Returns the multiplier of the simulation, which is stored in the simulation name. """
+    """ Returns the multiplier of the simulation or the recording, which is stored in the simulation name. """
     if 'recording' in sim_file_name:
         return float(sim_file_name.split(".traj")[0].split("recording-buckyball_angle_")[1].split("_")[1])
     else:
@@ -54,12 +54,15 @@ def get_residue_id_of_modified_molecule(sim_file_name: str):
     return sim_file_name.split("_")[2].strip()
 
 
-def get_simulations_for_multiplier(simulations: list, multiplier: float):
-    """ Get simulations corresponding to a given multiplier. """
+def get_simulations_for_multiplier(simulations: list, multiplier: float, observer_condition=False):
+    """ Get simulations or recordings corresponding to a given multiplier. """
+
+    # Retrieve either the simulations for the trials task or the recordings for the trials-observer task
+    subset_of_simulations = [sim for sim in simulations if ("recording" in sim) == observer_condition]
 
     corresponding_sims = []
 
-    for simulation in simulations:
+    for simulation in subset_of_simulations:
         for name, index in simulation.items():
             if get_multiplier_of_simulation(name) == multiplier:
                 corresponding_sims.append((name, index, calculate_correct_answer(name)))
@@ -67,7 +70,7 @@ def get_simulations_for_multiplier(simulations: list, multiplier: float):
     return corresponding_sims
 
 
-def get_order_of_simulations(simulations, num_repeats):
+def get_order_of_simulations(simulations, num_repeats, observer_condition=False):
     """ Returns the simulations for the main and practice parts (the simulations with the max and min force constant
     coefficients) of the Trials task, each in the order that they will be presented to the player. """
 
@@ -82,7 +85,8 @@ def get_order_of_simulations(simulations, num_repeats):
     for multiplier in unique_multipliers:
 
         # Get simulations for this multiplier
-        corresponding_sims = get_simulations_for_multiplier(simulations=simulations, multiplier=multiplier)
+        corresponding_sims = get_simulations_for_multiplier(simulations=simulations, multiplier=multiplier,
+                                                            observer_condition=observer_condition)
 
         # Choose n simulations, where n is the number of repeats
         for n in range(num_repeats):
