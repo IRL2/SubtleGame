@@ -12320,13 +12320,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2589516053115016014, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      propertyPath: rawImage
+      value: 
+      objectReference: {fileID: 575933603}
+    - target: {fileID: 2589516053115016014, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: handsTexture
       value: 
-      objectReference: {fileID: 8400000, guid: 6a958677d591b4f4782387241bc3274e, type: 2}
+      objectReference: {fileID: 8400000, guid: d68290ad29a588c49a73d0ae30a115f5, type: 2}
     - target: {fileID: 2589516053115016014, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: controllersTexture
       value: 
-      objectReference: {fileID: 8400000, guid: 67bb3b40ac4634e4fa8c5cdd29cbadfa, type: 2}
+      objectReference: {fileID: 8400000, guid: d786ddf923a3487449ea6591abb31963, type: 2}
     - target: {fileID: 3155682078891187314, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_Name
       value: Next
@@ -18622,8 +18626,8 @@ Transform:
   - {fileID: 1422570001}
   - {fileID: 1772514191}
   - {fileID: 47583277}
-  - {fileID: 475497421}
   - {fileID: 1522670197}
+  - {fileID: 475497421}
   m_Father: {fileID: 1364228085}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1335832273
@@ -20353,11 +20357,11 @@ PrefabInstance:
     - target: {fileID: 2589516053115016014, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: handsTexture
       value: 
-      objectReference: {fileID: 8400000, guid: 6a958677d591b4f4782387241bc3274e, type: 2}
+      objectReference: {fileID: 8400000, guid: d68290ad29a588c49a73d0ae30a115f5, type: 2}
     - target: {fileID: 2589516053115016014, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: controllersTexture
       value: 
-      objectReference: {fileID: 8400000, guid: 67bb3b40ac4634e4fa8c5cdd29cbadfa, type: 2}
+      objectReference: {fileID: 8400000, guid: d786ddf923a3487449ea6591abb31963, type: 2}
     - target: {fileID: 3155682078891187314, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_Name
       value: Next
