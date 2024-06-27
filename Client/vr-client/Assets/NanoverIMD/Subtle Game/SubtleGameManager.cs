@@ -250,6 +250,10 @@ namespace NanoverImd.Subtle_Game
         }
         
         [NonSerialized] public const string NumberOfTrialRounds = "Number of trial rounds";
+        [NonSerialized] public const string TrialTimeLimit = "Trial time limit";
+        [NonSerialized] public const string TrialTrainingTimeLimit = "Trial training time limit";
+        private const float trialTimeLimit = 20f;
+        private const float trialTrainingTimeLimit = 60f;
 
         #endregion
 
@@ -260,6 +264,10 @@ namespace NanoverImd.Subtle_Game
             
         private void Start()
         {
+            // Set trials duration
+            PlayerPrefs.SetFloat(TrialTimeLimit, trialTimeLimit);
+            PlayerPrefs.SetFloat(TrialTrainingTimeLimit, trialTrainingTimeLimit);
+            
             confetti.gameObject.SetActive(false);
             
             // Find the Canvas Manager
