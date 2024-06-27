@@ -10963,6 +10963,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1030798948}
   m_CullTransparentMesh: 1
+--- !u!1 &1031238272 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6971942011666263798, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+  m_PrefabInstance: {fileID: 257718813}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1033786464 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4453513310108136, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
@@ -20860,6 +20865,11 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!1 &1589285381 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4692959639264923835, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+  m_PrefabInstance: {fileID: 257718813}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1594128022
 GameObject:
   m_ObjectHideFlags: 0
@@ -23905,8 +23915,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f60221592d4d30f4bb84b9b085b9126c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quest2ControllerIcon: {fileID: 0}
-  handsIcon: {fileID: 0}
+  quest2ControllerIcon: {fileID: 1589285381}
+  handsIcon: {fileID: 1031238272}
 --- !u!1001 &1979269658
 PrefabInstance:
   m_ObjectHideFlags: 0
