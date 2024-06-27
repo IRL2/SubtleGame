@@ -914,6 +914,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8058119997532801804, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 47583288}
+    - targetCorrespondingSourceObject: {fileID: 2120020009729026702, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
 --- !u!224 &47583277 stripped
 RectTransform:
@@ -3920,7 +3923,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1993769644905264480, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2018580288504464499, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_SortingLayer
@@ -4012,10 +4015,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_text
-      value: '1. Interact with the molecules until the timer is up
-
-        2. Select
-        the softest by placing your hand or controller inside the molecule'
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_fontSize
@@ -4220,6 +4220,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6142973512928681115, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1977365361}
+    - targetCorrespondingSourceObject: {fileID: 4787139029640928072, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1882015818}
+    - targetCorrespondingSourceObject: {fileID: 8782213168435246505, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 7571863152665335010, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0f44c030a807a9942967612c05be2392, type: 3}
 --- !u!224 &257718814 stripped
 RectTransform:
@@ -4263,6 +4272,35 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4269171732357299513, guid: 0f44c030a807a9942967612c05be2392, type: 3}
   m_PrefabInstance: {fileID: 257718813}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &262899740 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4787139029640928072, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+  m_PrefabInstance: {fileID: 1753567044}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &262899742 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+  m_PrefabInstance: {fileID: 1753567044}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262899740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &262899744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262899740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 295ca1ad9dec4da1952bcd1481dead45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 262899742}
 --- !u!1001 &280963004
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8222,6 +8260,10 @@ PrefabInstance:
         Remember, now you
         will only have 15 seconds to interact!'
       objectReference: {fileID: 0}
+    - target: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_margin.z
+      value: 83.48804
+      objectReference: {fileID: 0}
     - target: {fileID: 4269171732357299513, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       propertyPath: m_Name
       value: Prev
@@ -8338,6 +8380,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1993769644905264480, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       insertIndex: -1
       addedObject: {fileID: 728585783}
+    - targetCorrespondingSourceObject: {fileID: 8782213168435246505, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 7571863152665335010, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
 --- !u!224 &728585777 stripped
 RectTransform:
@@ -9860,6 +9908,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 832125491}
   m_CullTransparentMesh: 1
+--- !u!1 &850634442 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4787139029640928072, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+  m_PrefabInstance: {fileID: 1127339704}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &850634444 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+  m_PrefabInstance: {fileID: 1127339704}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850634442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &850634446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 850634442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 295ca1ad9dec4da1952bcd1481dead45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 850634444}
 --- !u!1 &850699905
 GameObject:
   m_ObjectHideFlags: 0
@@ -12278,11 +12355,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_text
-      value: '1. Watch a recording of someone interacting with the molecules until
-        the timer is up
-
-        2. Select the softest by placing your hand or controller
-        inside the molecule'
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_fontSize
@@ -12359,6 +12432,10 @@ PrefabInstance:
     - target: {fileID: 7587083500869181581, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_SortingLayer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7846966433404695310, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -91
       objectReference: {fileID: 0}
     - target: {fileID: 7955034836861445169, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_SortingLayer
@@ -12491,6 +12568,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6142973512928681115, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1143503291}
+    - targetCorrespondingSourceObject: {fileID: 4787139029640928072, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 850634446}
+    - targetCorrespondingSourceObject: {fileID: 8782213168435246505, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 7571863152665335010, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0f44c030a807a9942967612c05be2392, type: 3}
 --- !u!224 &1127339705 stripped
 RectTransform:
@@ -20292,14 +20378,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_text
-      value: '1. Interact with the molecules for 15 seconds
-
-        2. Select the
-        softest one, by placing your hand or controller inside'
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_fontSize
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      propertyPath: m_margin.z
+      value: -106.77115
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_lineSpacing
@@ -20312,6 +20399,10 @@ PrefabInstance:
     - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_paragraphSpacing
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4269171732357299513, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_Name
@@ -20496,6 +20587,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6142973512928681115, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       insertIndex: -1
       addedObject: {fileID: 21443496}
+    - targetCorrespondingSourceObject: {fileID: 4787139029640928072, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2096269778}
+    - targetCorrespondingSourceObject: {fileID: 8782213168435246505, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 7571863152665335010, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0f44c030a807a9942967612c05be2392, type: 3}
 --- !u!224 &1514606228 stripped
 RectTransform:
@@ -22257,11 +22357,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_text
-      value: '1. Watch a recording of someone interacting with the molecules until
-        the timer is up
-
-        2. Select the softest by placing your hand or controller
-        inside the molecule'
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_fontSize
@@ -22269,7 +22365,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_margin.z
-      value: -39.379486
+      value: -77.5506
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_lineSpacing
@@ -22341,7 +22437,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7846966433404695310, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -16
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 7955034836861445169, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_SortingLayer
@@ -22474,6 +22570,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6142973512928681115, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       insertIndex: -1
       addedObject: {fileID: 466247335}
+    - targetCorrespondingSourceObject: {fileID: 4787139029640928072, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 262899744}
+    - targetCorrespondingSourceObject: {fileID: 8782213168435246505, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 7571863152665335010, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0f44c030a807a9942967612c05be2392, type: 3}
 --- !u!224 &1753567045 stripped
 RectTransform:
@@ -23014,6 +23119,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8058119997532801804, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1772514197}
+    - targetCorrespondingSourceObject: {fileID: 2120020009729026702, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 9098190041061289825, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1916655562}
@@ -24336,6 +24444,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1881272541}
   m_CullTransparentMesh: 1
+--- !u!1 &1882015814 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4787139029640928072, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+  m_PrefabInstance: {fileID: 257718813}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1882015816 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+  m_PrefabInstance: {fileID: 257718813}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882015814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1882015818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882015814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c2491419ca349288d1fae9c9a02553a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 1882015816}
 --- !u!224 &1916655559 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2267585911259913715, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
@@ -25540,6 +25677,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2096269774 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4787139029640928072, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+  m_PrefabInstance: {fileID: 1514606227}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2096269776 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4159508871465649981, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+  m_PrefabInstance: {fileID: 1514606227}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096269774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2096269778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096269774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c2491419ca349288d1fae9c9a02553a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 2096269776}
 --- !u!4 &14603505261681326
 Transform:
   m_ObjectHideFlags: 0
