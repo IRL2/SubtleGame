@@ -171,15 +171,15 @@ namespace NanoverImd.Subtle_Game
                             break;
                         case TaskTypeVal.KnotTying:
                             _pinchGrab.InteractionType = "gaussian";
-                            _pinchGrab.InteractionForceScale = 525f;
+                            _pinchGrab.InteractionForceScale = 600f;
                             break;
                         case TaskTypeVal.None:
                         case TaskTypeVal.GameFinished:
                         default:
                             if (TaskLists.TrialsTasks.Contains(value))
                             {
-                                _pinchGrab.InteractionType = "spring";
-                                _pinchGrab.InteractionForceScale = 175f;
+                                _pinchGrab.InteractionType = "gaussian";
+                                _pinchGrab.InteractionForceScale = 400f;
                                 break;
                             }
                             _pinchGrab.InteractionType = "gaussian";
@@ -189,8 +189,6 @@ namespace NanoverImd.Subtle_Game
                 }
             }
             private TaskTypeVal _currentTaskType;
-
-            [NonSerialized] public TaskTypeVal NextTaskType;
             public TaskStatusVal TaskStatus
             {
                 get => _taskStatus;
@@ -430,7 +428,6 @@ namespace NanoverImd.Subtle_Game
             }
             // Update current task, next task, and task status
             CurrentTaskType = OrderOfTasks[CurrentTaskNum];
-            NextTaskType = CurrentTaskNum + 1 < OrderOfTasks.Count ? OrderOfTasks[CurrentTaskNum + 1] : TaskTypeVal.GameFinished;
             TaskStatus = TaskStatusVal.Intro;
 
             if (TaskLists.TrialsTasks.Contains(CurrentTaskType))
