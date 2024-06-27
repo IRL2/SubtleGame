@@ -323,9 +323,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1993769644905264480, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1044237}
-    - targetCorrespondingSourceObject: {fileID: 2075125420025657282, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
 --- !u!224 &1044230 stripped
 RectTransform:
@@ -690,6 +687,14 @@ PrefabInstance:
     - target: {fileID: 4322276515709658451, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_Name
       value: Ok
+      objectReference: {fileID: 0}
+    - target: {fileID: 4603057991032441163, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4603057991032441163, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4918236098167764109, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.size
@@ -3679,7 +3684,7 @@ PrefabInstance:
     - target: {fileID: 73669956043292071, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_Texture
       value: 
-      objectReference: {fileID: 8400000, guid: 6a958677d591b4f4782387241bc3274e, type: 2}
+      objectReference: {fileID: 8400000, guid: 67bb3b40ac4634e4fa8c5cdd29cbadfa, type: 2}
     - target: {fileID: 286683828916896351, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_SortingLayer
       value: 0
@@ -3850,6 +3855,14 @@ PrefabInstance:
     - target: {fileID: 4900041469916250369, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_SortingLayer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448831386056259367, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448831386056259367, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 6121633184630251594, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       propertyPath: m_SortingLayer
@@ -8581,7 +8594,7 @@ PrefabInstance:
     - target: {fileID: 6265446789246498824, guid: 242e7b280762e984d98966c4a77c3f71, type: 3}
       propertyPath: m_VideoClip
       value: 
-      objectReference: {fileID: 32900000, guid: 630a66e78877fa84a96f81dbf384e604, type: 3}
+      objectReference: {fileID: 32900000, guid: 4ad26ba8477056744898718aa39219c4, type: 3}
     - target: {fileID: 6265446789246498824, guid: 242e7b280762e984d98966c4a77c3f71, type: 3}
       propertyPath: m_AspectRatio
       value: 3
@@ -8596,23 +8609,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6265446789246498824, guid: 242e7b280762e984d98966c4a77c3f71, type: 3}
       propertyPath: m_ControlledAudioTrackCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6265446789246498824, guid: 242e7b280762e984d98966c4a77c3f71, type: 3}
       propertyPath: m_DirectAudioMutes.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6265446789246498824, guid: 242e7b280762e984d98966c4a77c3f71, type: 3}
       propertyPath: m_DirectAudioVolumes.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6265446789246498824, guid: 242e7b280762e984d98966c4a77c3f71, type: 3}
       propertyPath: m_EnabledAudioTracks.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6265446789246498824, guid: 242e7b280762e984d98966c4a77c3f71, type: 3}
       propertyPath: m_TargetAudioSources.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6265446789246498824, guid: 242e7b280762e984d98966c4a77c3f71, type: 3}
       propertyPath: m_DirectAudioMutes.Array.data[0]
@@ -10248,7 +10261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1993769644905264480, guid: 1de8cde62e894ad49911c106eb9e3f77, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2390446077571400554, guid: 1de8cde62e894ad49911c106eb9e3f77, type: 3}
       propertyPath: m_SortingLayer
@@ -12188,7 +12201,7 @@ PrefabInstance:
     - target: {fileID: 6265446789246498824, guid: 242e7b280762e984d98966c4a77c3f71, type: 3}
       propertyPath: m_VideoClip
       value: 
-      objectReference: {fileID: 32900000, guid: 2c4448d1d13b50a40a882bec66ccee33, type: 3}
+      objectReference: {fileID: 32900000, guid: 175b07c4bd48afd4c9541d89402bd238, type: 3}
     - target: {fileID: 6265446789246498824, guid: 242e7b280762e984d98966c4a77c3f71, type: 3}
       propertyPath: m_AspectRatio
       value: 3
@@ -12200,7 +12213,7 @@ PrefabInstance:
     - target: {fileID: 6265446789246498824, guid: 242e7b280762e984d98966c4a77c3f71, type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 8400000, guid: 6a958677d591b4f4782387241bc3274e, type: 2}
+      objectReference: {fileID: 8400000, guid: 67bb3b40ac4634e4fa8c5cdd29cbadfa, type: 2}
     - target: {fileID: 6265446789246498824, guid: 242e7b280762e984d98966c4a77c3f71, type: 3}
       propertyPath: m_AudioOutputMode
       value: 0
@@ -12227,7 +12240,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6265446789246498824, guid: 242e7b280762e984d98966c4a77c3f71, type: 3}
       propertyPath: m_DirectAudioMutes.Array.data[0]
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8088820552707735675, guid: 242e7b280762e984d98966c4a77c3f71, type: 3}
       propertyPath: m_Pivot.x
@@ -23098,7 +23111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1993769644905264480, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2307109292209641524, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_Sprite
