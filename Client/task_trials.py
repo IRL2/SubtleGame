@@ -97,6 +97,11 @@ class TrialsTask(Task):
             self.was_answer_correct = FALSE
         else:
             raise ValueError("An unexpected error occurred.")
+
+        # Print info about player's answer to the terminal
+        print(f"Current trial: {self.sim_name}")
+        print(f"Player answered {answer}, correct answer is {self.correct_answer}. RESULT = {self.was_answer_correct}\n")
+
         write_to_shared_state(client=self.client, key=KEY_TRIALS_ANSWER, value=self.was_answer_correct)
 
     def _update_visualisations(self):
