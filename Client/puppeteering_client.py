@@ -37,7 +37,7 @@ def get_order_of_tasks(run_short_game: bool):
     if run_short_game:
         return [TASK_NANOTUBE, TASK_NANOTUBE]
     else:
-        tasks = [TASK_TRIALS_OBSERVER]
+        tasks = [TASK_TRIALS]
 
     tasks_without_training = []
 
@@ -192,7 +192,9 @@ class PuppeteeringClient:
                                                simulation_counter=simulation_counter)
                     current_task.run_task()
                     continue
-                elif value in [PLAYER_NANOTUBE, PLAYER_KNOT_TYING, PLAYER_TRIALS, PLAYER_TRIALS_TRAINING]:
+                elif value in [PLAYER_NANOTUBE, PLAYER_KNOT_TYING,
+                               PLAYER_TRIALS, PLAYER_TRIALS_TRAINING,
+                               PLAYER_TRIALS_OBSERVER, PLAYER_TRIALS_OBSERVER_TRAINING]:
                     break
 
             except KeyError:

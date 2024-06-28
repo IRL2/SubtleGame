@@ -77,6 +77,8 @@ PLAYER_NANOTUBE = 'Nanotube'
 PLAYER_KNOT_TYING = 'KnotTying'
 PLAYER_TRIALS = 'Trials'
 PLAYER_TRIALS_TRAINING = 'TrialsTraining'
+PLAYER_TRIALS_OBSERVER = 'TrialsObserver'
+PLAYER_TRIALS_OBSERVER_TRAINING = 'TrialsObserverTraining'
 PLAYER_IN_PROGRESS = 'InProgress'
 PLAYER_FINISHED = 'Finished'
 
