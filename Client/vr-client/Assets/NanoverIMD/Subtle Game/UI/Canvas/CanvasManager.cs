@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using NanoverImd.Subtle_Game;
+using NanoverIMD.Subtle_Game.Data_Collection;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace NanoverIMD.Subtle_Game.UI.Canvas
 {
@@ -18,7 +18,9 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         KnotTying,
         Trials,
         Instructions,
-        TrialsTraining
+        TrialsTraining,
+        TrialsObserver,
+        TrialsObserverTraining
     }
 
     /// <summary>
@@ -154,6 +156,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 SubtleGameManager.TaskTypeVal.Trials => CanvasType.Trials,
                 SubtleGameManager.TaskTypeVal.TrialsTraining => CanvasType.TrialsTraining,
                 SubtleGameManager.TaskTypeVal.Sandbox => CanvasType.Instructions,
+                SubtleGameManager.TaskTypeVal.TrialsObserverTraining => CanvasType.TrialsObserverTraining,
+                SubtleGameManager.TaskTypeVal.TrialsObserver => CanvasType.TrialsObserver,
                 _ => CurrentCanvasType
             };
         }
@@ -194,9 +198,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             
             // Check if player is starting a main task
             if (_subtleGameManager.CurrentTaskType is SubtleGameManager.TaskTypeVal.Nanotube
-                or SubtleGameManager.TaskTypeVal.KnotTying 
-                or SubtleGameManager.TaskTypeVal.Trials 
-                or SubtleGameManager.TaskTypeVal.TrialsTraining)
+                or SubtleGameManager.TaskTypeVal.KnotTying || 
+                TaskLists.TrialsTasks.Contains(_subtleGameManager.CurrentTaskType))
             {
                 // Check if the interaction mode has switched
                 if (_subtleGameManager.interactionModalityHasChanged)

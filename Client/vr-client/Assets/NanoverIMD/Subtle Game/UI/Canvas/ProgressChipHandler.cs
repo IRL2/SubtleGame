@@ -44,7 +44,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 {
                     // If this is a trials task, don't add another tile as the trials training + trials tasks are
                     // considered as one task
-                    if (task == SubtleGameManager.TaskTypeVal.Trials) continue;
+                    if (task is SubtleGameManager.TaskTypeVal.Trials or SubtleGameManager.TaskTypeVal.TrialsObserver) continue;
                     
                     if (isFirstTask) // Instantiate current task icon
                     {
@@ -66,7 +66,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             {
                 // Check if the player is in the trials task
                 var taskCheck = _progressChipObjects[_currentIndex].GetComponent<ProgressChipCurrentView>();
-                if (taskCheck.GetCurrentTask() == SubtleGameManager.TaskTypeVal.Trials)
+                if (taskCheck.GetCurrentTask() is SubtleGameManager.TaskTypeVal.Trials or SubtleGameManager.TaskTypeVal.TrialsObserver)
                 {
                     if (!_skippedTrials)
                     {

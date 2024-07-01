@@ -595,6 +595,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fda91cfd3cf4ce48012d243ed8b9a30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handsTexture: {fileID: 0}
+  controllersTexture: {fileID: 0}
+  rawImage: {fileID: 0}
 --- !u!1 &6971942011666263798
 GameObject:
   m_ObjectHideFlags: 0

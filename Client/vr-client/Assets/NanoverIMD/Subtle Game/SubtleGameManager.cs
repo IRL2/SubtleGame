@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NanoverImd.Subtle_Game.Canvas;
 using NanoverImd.Subtle_Game.Data_Collection;
+using NanoverIMD.Subtle_Game.Data_Collection;
 using NanoverImd.Subtle_Game.Interaction;
 using NanoverIMD.Subtle_Game.UI.Canvas;
 using NanoverIMD.Subtle_Game.UI.Visuals;
@@ -100,7 +101,9 @@ namespace NanoverImd.Subtle_Game
                 KnotTying,
                 Trials,
                 Sandbox,
-                TrialsTraining
+                TrialsTraining,
+                TrialsObserver,
+                TrialsObserverTraining
             }
 
             public enum Modality
@@ -168,26 +171,24 @@ namespace NanoverImd.Subtle_Game
                             break;
                         case TaskTypeVal.KnotTying:
                             _pinchGrab.InteractionType = "gaussian";
-                            _pinchGrab.InteractionForceScale = 525f;
-                            break;
-                        case TaskTypeVal.Trials or TaskTypeVal.TrialsTraining:
-                            _pinchGrab.InteractionType = "spring";
-                            _pinchGrab.InteractionForceScale = 175f;
+                            _pinchGrab.InteractionForceScale = 600f;
                             break;
                         case TaskTypeVal.None:
                         case TaskTypeVal.GameFinished:
                         default:
+                            if (TaskLists.TrialsTasks.Contains(value))
+                            {
+                                _pinchGrab.InteractionType = "gaussian";
+                                _pinchGrab.InteractionForceScale = 400f;
+                                break;
+                            }
                             _pinchGrab.InteractionType = "gaussian";
-                            _pinchGrab.InteractionForceScale = 200f;
+                            _pinchGrab.InteractionForceScale = 300f;
                             break;
                     }
-                    Debug.Log($"Setting user interaction type: {_pinchGrab.InteractionType}");
-                    Debug.Log($"Setting interaction force scale: {_pinchGrab.InteractionForceScale}");
                 }
             }
             private TaskTypeVal _currentTaskType;
-
-            [NonSerialized] public TaskTypeVal NextTaskType;
             public TaskStatusVal TaskStatus
             {
                 get => _taskStatus;
@@ -249,6 +250,10 @@ namespace NanoverImd.Subtle_Game
         }
         
         [NonSerialized] public const string NumberOfTrialRounds = "Number of trial rounds";
+        [NonSerialized] public const string TrialTimeLimit = "Trial time limit";
+        [NonSerialized] public const string TrialTrainingTimeLimit = "Trial training time limit";
+        private const float trialTimeLimit = 30f;
+        private const float trialTrainingTimeLimit = 60f;
 
         #endregion
 
@@ -259,6 +264,10 @@ namespace NanoverImd.Subtle_Game
             
         private void Start()
         {
+            // Set trials duration
+            PlayerPrefs.SetFloat(TrialTimeLimit, trialTimeLimit);
+            PlayerPrefs.SetFloat(TrialTrainingTimeLimit, trialTrainingTimeLimit);
+            
             confetti.gameObject.SetActive(false);
             
             // Find the Canvas Manager
@@ -383,6 +392,14 @@ namespace NanoverImd.Subtle_Game
                         OrderOfTasks.Add(TaskTypeVal.TrialsTraining);
                         break;
                     
+                    case "trials-observer-training":
+                        OrderOfTasks.Add(TaskTypeVal.TrialsObserverTraining);
+                        break;
+                    
+                    case "trials-observer":
+                        OrderOfTasks.Add(TaskTypeVal.TrialsObserver);
+                        break;
+                    
                     default:
                         Debug.LogWarning("One of the tasks in the order of tasks in the shared state was not recognised.");
                         break;
@@ -419,10 +436,9 @@ namespace NanoverImd.Subtle_Game
             }
             // Update current task, next task, and task status
             CurrentTaskType = OrderOfTasks[CurrentTaskNum];
-            NextTaskType = CurrentTaskNum + 1 < OrderOfTasks.Count ? OrderOfTasks[CurrentTaskNum + 1] : TaskTypeVal.GameFinished;
             TaskStatus = TaskStatusVal.Intro;
 
-            if (CurrentTaskType is TaskTypeVal.TrialsTraining or TaskTypeVal.Trials)
+            if (TaskLists.TrialsTasks.Contains(CurrentTaskType))
             {
                 RemoveKeyFromSharedState(SharedStateKey.TrialAnswer);
             }
@@ -454,7 +470,7 @@ namespace NanoverImd.Subtle_Game
             TaskStatus = TaskStatusVal.InProgress;
             
             _canvasManager.HideCanvas();
-            if (CurrentTaskType is TaskTypeVal.Trials or TaskTypeVal.TrialsTraining) return;
+            if (TaskLists.TrialsTasks.Contains(CurrentTaskType)) return;
             ShowSimulation = true;
         }
 

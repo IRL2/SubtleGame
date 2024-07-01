@@ -2,6 +2,8 @@ from nanover.app import NanoverImdClient
 from task_nanotube import NanotubeTask
 from task_knot_tying import KnotTyingTask
 from task_trials_training import TrialsTrainingTask
+from task_trials_observer import TrialsObserverTask
+from task_trials_observer_training import TrialsObserverTrainingTask
 from task_sandbox import SandboxTask
 from task_trials import TrialsTask
 from additional_functions import write_to_shared_state, randomise_list_order
@@ -51,6 +53,8 @@ def get_order_of_tasks(run_short_game: bool):
     for task in tasks_without_training:
         if task == TASK_TRIALS:
             order_of_tasks.append(TASK_TRIALS_TRAINING)
+        if task == TASK_TRIALS_OBSERVER:
+            order_of_tasks.append(TASK_TRIALS_OBSERVER_TRAINING)
         order_of_tasks.append(task)
 
     return order_of_tasks
@@ -133,6 +137,16 @@ class PuppeteeringClient:
                                                   simulation_counter=simulation_counter,
                                                   number_of_repeats=self.num_of_trial_repeats)
 
+            elif task == TASK_TRIALS_OBSERVER:
+                current_task = TrialsObserverTask(client=self.nanover_client, simulations=self.trials_sims,
+                                                  simulation_counter=simulation_counter,
+                                                  number_of_repeats=self.num_of_trial_repeats)
+
+            elif task == TASK_TRIALS_OBSERVER_TRAINING:
+                current_task = TrialsObserverTrainingTask(client=self.nanover_client, simulations=self.trials_sims,
+                                                          simulation_counter=simulation_counter,
+                                                          number_of_repeats=self.num_of_trial_repeats)
+
             else:
                 print("Current task not recognised, closing the puppeteering client.")
                 break
@@ -178,7 +192,9 @@ class PuppeteeringClient:
                                                simulation_counter=simulation_counter)
                     current_task.run_task()
                     continue
-                elif value in [PLAYER_NANOTUBE, PLAYER_KNOT_TYING, PLAYER_TRIALS, PLAYER_TRIALS_TRAINING]:
+                elif value in [PLAYER_NANOTUBE, PLAYER_KNOT_TYING,
+                               PLAYER_TRIALS, PLAYER_TRIALS_TRAINING,
+                               PLAYER_TRIALS_OBSERVER, PLAYER_TRIALS_OBSERVER_TRAINING]:
                     break
 
             except KeyError:
@@ -227,6 +243,7 @@ class PuppeteeringClient:
 
 
 if __name__ == '__main__':
+
     number_of_repeats = 3
 
     # Create puppeteering client

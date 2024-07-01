@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -23,8 +24,8 @@ namespace NanoverImd.Subtle_Game.Canvas
         private bool _timerIsRunning;
         private float _timeElapsed;
 
-        private const float DurationTrials = 15f;
-        private const float DurationTrialsTraining = 60f;
+        private float _durationTrials;
+        private float _durationTrialsTraining;
         private float _duration;
         
         public bool finishTrialEarly;
@@ -36,11 +37,17 @@ namespace NanoverImd.Subtle_Game.Canvas
             answerNowButton.Enable();
         }
 
+        private void OnEnable()
+        {
+            _durationTrials = PlayerPrefs.GetFloat(SubtleGameManager.TrialTimeLimit);
+            _durationTrialsTraining = PlayerPrefs.GetFloat(SubtleGameManager.TrialTrainingTimeLimit);
+        }
+
         private void Update()
         {
             // Check if timer is running
             if (!_timerIsRunning) return;
-            
+
             if (finishTrialEarly || _timeElapsed >= _duration)
             {
                 FinishTimer(_timeElapsed.ToString());
@@ -57,11 +64,11 @@ namespace NanoverImd.Subtle_Game.Canvas
         {
             switch (subtleGameManager.CurrentTaskType)
             {
-                case SubtleGameManager.TaskTypeVal.Trials:
-                    _duration = DurationTrials;
+                case SubtleGameManager.TaskTypeVal.Trials or SubtleGameManager.TaskTypeVal.TrialsObserver:
+                    _duration = _durationTrials;
                     break;
-                case SubtleGameManager.TaskTypeVal.TrialsTraining:
-                    _duration = DurationTrialsTraining;
+                case SubtleGameManager.TaskTypeVal.TrialsTraining or SubtleGameManager.TaskTypeVal.TrialsObserverTraining:
+                    _duration = _durationTrialsTraining;
                     break;
                 default:
                     Debug.LogWarning("Probably shouldn't reach here, why have we started the timer when we are " +

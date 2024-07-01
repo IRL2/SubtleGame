@@ -167,7 +167,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2898210698356507149
 RectTransform:
   m_ObjectHideFlags: 0
@@ -759,8 +759,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3248240361359641993}
+  - component: {fileID: 3514792170050943300}
   m_Layer: 0
-  m_Name: InputIcon (1)
+  m_Name: Input Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -788,6 +789,20 @@ RectTransform:
   m_AnchoredPosition: {x: 61, y: -16}
   m_SizeDelta: {x: 108, y: 133}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3514792170050943300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6447568304179497404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f60221592d4d30f4bb84b9b085b9126c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quest2ControllerIcon: {fileID: 1798608813141141924}
+  handsIcon: {fileID: 3220789708408714297}
 --- !u!1 &6693476807026616799
 GameObject:
   m_ObjectHideFlags: 0

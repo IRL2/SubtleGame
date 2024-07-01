@@ -48,7 +48,7 @@ class KnotTyingTask(Task):
                 consecutive_knotted_frames = 0  # Reset the counter
 
             # Check if the condition has been true for 30 consecutive iterations
-            if consecutive_knotted_frames >= 30:
+            if consecutive_knotted_frames >= 60:
                 self.timestamp_end = datetime.now()
                 break
 

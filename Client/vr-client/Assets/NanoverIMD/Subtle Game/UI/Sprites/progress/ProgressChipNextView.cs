@@ -1,5 +1,6 @@
 using System;
 using NanoverImd.Subtle_Game;
+using NanoverIMD.Subtle_Game.Data_Collection;
 using UnityEngine;
 
 namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
@@ -8,7 +9,7 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
     {
         [Serializable]
         public enum DisplayTasks {
-            Nanotube, Knot, Trials, TrialsTraining
+            Nanotube, Knot, Trials
         }
 
         private DisplayTasks _currentTask;
@@ -47,7 +48,7 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
             _currentTask = task;
             _knotImage.SetActive(_currentTask == DisplayTasks.Knot);
             _tubeImage.SetActive(_currentTask == DisplayTasks.Nanotube);
-            _trialsImage.SetActive(_currentTask is DisplayTasks.Trials or DisplayTasks.TrialsTraining);
+            _trialsImage.SetActive(_currentTask is DisplayTasks.Trials);
         }
         
         /// <summary>
@@ -59,8 +60,7 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
             {
                 SubtleGameManager.TaskTypeVal.Nanotube => DisplayTasks.Nanotube,
                 SubtleGameManager.TaskTypeVal.KnotTying => DisplayTasks.Knot,
-                SubtleGameManager.TaskTypeVal.TrialsTraining => DisplayTasks.TrialsTraining,
-                SubtleGameManager.TaskTypeVal.Trials => DisplayTasks.Trials,
+                _ when TaskLists.TrialsTasks.Contains(newTask) => DisplayTasks.Trials,
                 _ => _currentTask
             };
         }
@@ -76,7 +76,6 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
                 DisplayTasks.Nanotube => SubtleGameManager.TaskTypeVal.Nanotube,
                 DisplayTasks.Knot => SubtleGameManager.TaskTypeVal.KnotTying,
                 DisplayTasks.Trials => SubtleGameManager.TaskTypeVal.Trials,
-                DisplayTasks.TrialsTraining => SubtleGameManager.TaskTypeVal.TrialsTraining,
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

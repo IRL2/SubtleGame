@@ -39,6 +39,9 @@ class TrialsTask(Task):
         # Run trials proper
         for trial_num in range(self.number_of_trials):
 
+            # This is a workaround to ensure that we can switch between recorded simulations
+            self.client.run_play()
+
             self._prepare_trial(name=self.main_sims[trial_num][0],
                                 server_index=self.main_sims[trial_num][1],
                                 correct_answer=self.main_sims[trial_num][2])
@@ -94,6 +97,11 @@ class TrialsTask(Task):
             self.was_answer_correct = FALSE
         else:
             raise ValueError("An unexpected error occurred.")
+
+        # Print info about player's answer to the terminal
+        print(f"Current trial: {self.sim_name}")
+        print(f"Player answered {answer}, correct answer is {self.correct_answer}. RESULT = {self.was_answer_correct}\n")
+
         write_to_shared_state(client=self.client, key=KEY_TRIALS_ANSWER, value=self.was_answer_correct)
 
     def _update_visualisations(self):
