@@ -252,7 +252,7 @@ namespace NanoverImd.Subtle_Game
         [NonSerialized] public const string NumberOfTrialRounds = "Number of trial rounds";
         [NonSerialized] public const string TrialTimeLimit = "Trial time limit";
         [NonSerialized] public const string TrialTrainingTimeLimit = "Trial training time limit";
-        private const float trialTimeLimit = 20f;
+        private const float trialTimeLimit = 30f;
         private const float trialTrainingTimeLimit = 60f;
 
         #endregion

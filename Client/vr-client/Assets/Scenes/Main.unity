@@ -387,6 +387,35 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4269171732357299513, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
   m_PrefabInstance: {fileID: 68828468}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &20186223 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4787139029640928072, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+  m_PrefabInstance: {fileID: 728585776}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &20186224 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+  m_PrefabInstance: {fileID: 728585776}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20186223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &20186225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20186223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127ccbe56dd4488a8f1296fbc995e8d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 20186224}
 --- !u!1 &21443493 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6971942011666263798, guid: 0f44c030a807a9942967612c05be2392, type: 3}
@@ -3276,11 +3305,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       propertyPath: m_text
-      value: 'There will be several trials per round
-
-
-        Remember, now you
-        will only have 15 seconds!'
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       propertyPath: m_margin.z
@@ -3402,6 +3427,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1993769644905264480, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       insertIndex: -1
       addedObject: {fileID: 211891214}
+    - targetCorrespondingSourceObject: {fileID: 4787139029640928072, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 761599537}
   m_SourcePrefab: {fileID: 100100000, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
 --- !u!224 &211891208 stripped
 RectTransform:
@@ -8241,11 +8269,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       propertyPath: m_text
-      value: 'There will be several trials per round
-
-
-        Remember, now you
-        will only have 15 seconds to interact!'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_margin.w
+      value: 85.020294
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      propertyPath: m_margin.x
+      value: 61.229492
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       propertyPath: m_margin.z
@@ -8367,6 +8399,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1993769644905264480, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       insertIndex: -1
       addedObject: {fileID: 728585783}
+    - targetCorrespondingSourceObject: {fileID: 4787139029640928072, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 20186225}
+    - targetCorrespondingSourceObject: {fileID: 8782213168435246505, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 7571863152665335010, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
 --- !u!224 &728585777 stripped
 RectTransform:
@@ -8972,6 +9013,35 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!1 &761599535 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4787139029640928072, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+  m_PrefabInstance: {fileID: 211891207}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &761599536 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+  m_PrefabInstance: {fileID: 211891207}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761599535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &761599537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761599535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127ccbe56dd4488a8f1296fbc995e8d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 761599536}
 --- !u!1 &769530582
 GameObject:
   m_ObjectHideFlags: 0
