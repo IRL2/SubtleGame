@@ -323,6 +323,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1993769644905264480, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1044237}
+    - targetCorrespondingSourceObject: {fileID: 2075125420025657282, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
 --- !u!224 &1044230 stripped
 RectTransform:
@@ -2090,8 +2093,8 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 80, y: 80}
-  m_Spacing: {x: 20, y: 10}
+  m_CellSize: {x: 100, y: 100}
+  m_Spacing: {x: 25, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1001 &83287721
@@ -8402,12 +8405,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4787139029640928072, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       insertIndex: -1
       addedObject: {fileID: 20186225}
-    - targetCorrespondingSourceObject: {fileID: 8782213168435246505, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 7571863152665335010, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
 --- !u!224 &728585777 stripped
 RectTransform:
