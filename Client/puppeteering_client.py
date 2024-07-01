@@ -37,7 +37,7 @@ def get_order_of_tasks(run_short_game: bool):
     if run_short_game:
         return [TASK_NANOTUBE, TASK_NANOTUBE]
     else:
-        tasks = [TASK_TRIALS]
+        tasks = [TASK_KNOT_TYING, TASK_TRIALS]
 
     tasks_without_training = []
 
@@ -243,7 +243,8 @@ class PuppeteeringClient:
 
 
 if __name__ == '__main__':
-    number_of_repeats = 2
+
+    number_of_repeats = 3
 
     # Create puppeteering client
     puppeteering_client = PuppeteeringClient(number_of_trial_repeats=number_of_repeats,
