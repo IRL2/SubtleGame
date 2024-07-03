@@ -329,7 +329,7 @@ namespace NanoverImd.Subtle_Game
         private static bool AreControllersBeingTracked()
         {
             return OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch) ||
-                   OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch);
+                   OVRInput.GetControllerPositionTracked(OVRInput.Controller.LTouch);
         }
         
         /// <summary>
@@ -483,7 +483,7 @@ namespace NanoverImd.Subtle_Game
             while (true)
             {
                 // Check whether controllers or hands are tracking
-                _pinchGrab.UseControllers = !OVRPlugin.GetHandTrackingEnabled();
+                _pinchGrab.UseControllers = AreControllersBeingTracked();
                 
                 // Exit
                 if (_exitSandboxRequested)
