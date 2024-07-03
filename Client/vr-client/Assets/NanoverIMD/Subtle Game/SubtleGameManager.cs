@@ -163,7 +163,7 @@ namespace NanoverImd.Subtle_Game
                     {
                         case TaskTypeVal.Sandbox:
                             _pinchGrab.InteractionType = "gaussian";
-                            _pinchGrab.InteractionForceScale = 300f;
+                            _pinchGrab.InteractionForceScale = 150f;
                             break;
                         case TaskTypeVal.Nanotube:
                             _pinchGrab.InteractionType = "gaussian";
