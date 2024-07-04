@@ -15,7 +15,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
 
         [SerializeField] private GameObject nextButton;
 
-        private bool _handsAreTracked;
+        private bool _controllersAreTracking;
         
         private void OnEnable()
         {
@@ -37,21 +37,22 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         /// </summary>
         private void GetCurrentlyTrackedInteractionMode()
         {
-            _handsAreTracked = OVRPlugin.GetHandTrackingEnabled();
+            _controllersAreTracking = OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch) &&
+                                      OVRInput.GetControllerPositionTracked(OVRInput.Controller.LTouch);
         }
 
         /// <summary>
-        /// Enables the next button if the right interaction mode is tracking and disables the button otherwise.
+        /// Enables the next button if the correct interaction mode is tracking and disables the button otherwise.
         /// </summary>
         private void EnableOrDisableButton()
         {
-            switch (_handsAreTracked)
+            switch (_controllersAreTracking)
             {
-                case true when _subtleGameManager.CurrentInteractionModality == SubtleGameManager.Modality.Hands:
+                case true when
+                    _subtleGameManager.CurrentInteractionModality == SubtleGameManager.Modality.Controllers:
                     nextButton.SetActive(true);
                     return;
-                case false when
-                    _subtleGameManager.CurrentInteractionModality == SubtleGameManager.Modality.Controllers:
+                case false when _subtleGameManager.CurrentInteractionModality == SubtleGameManager.Modality.Hands:
                     nextButton.SetActive(true);
                     return;
                 default:
@@ -68,9 +69,9 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         {
             _menuBodyTextString = _subtleGameManager.CurrentInteractionModality switch
             {
-                SubtleGameManager.Modality.Controllers when _handsAreTracked =>
+                SubtleGameManager.Modality.Controllers when _controllersAreTracking =>
                     "Pick up both controllers to continue",
-                SubtleGameManager.Modality.Hands when !_handsAreTracked =>
+                SubtleGameManager.Modality.Hands when !_controllersAreTracking =>
                     "Put down both controllers to continue",
                 _ => "You are ready to press the button!"
             };

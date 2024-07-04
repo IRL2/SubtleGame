@@ -248,7 +248,7 @@ namespace NanoverImd.Subtle_Game.Canvas
 
         /// <summary>
         /// Checks whether the button can be pressed. If the interaction mode is set in the Puppeteer Manager, then
-        /// this will check that the correct modality is being tracked. If it is, then the button can be pressed.
+        /// this will check that the correct interaction mode is being tracked. If true, then the button can be pressed.
         /// </summary>
         private bool CanButtonBePressed()
         {
@@ -267,7 +267,7 @@ namespace NanoverImd.Subtle_Game.Canvas
                 // Controllers only (both controllers must be tracking)
                 SubtleGameManager.Modality.Controllers when
                     OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch) &&
-                    OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch) => true,
+                    OVRInput.GetControllerPositionTracked(OVRInput.Controller.LTouch) => true,
                 _ => false
             };
         }
