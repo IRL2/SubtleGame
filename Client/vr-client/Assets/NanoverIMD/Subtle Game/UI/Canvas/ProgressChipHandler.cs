@@ -12,9 +12,11 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         [SerializeField] private GameObject completedIconPrefab;
         [SerializeField] private GameObject currentIconPrefab;
         [SerializeField] private GameObject nextIconPrefab;
+        [SerializeField] private GameObject switchingInteractionModePrefab;
         [SerializeField] private Transform iconsParent;
 
         private int _currentIndex = -1;
+        private int _centerIndex;
         private List<GameObject> _progressChipObjects = new();
 
         private bool _skippedTrials;
@@ -61,9 +63,20 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                         _progressChipObjects.Add(nextTaskIconObject);
                     }
                 }
+                
+                // Put icon for switching interaction mode in the center of the progress bar
+                if (_progressChipObjects.Count > 1)
+                {
+                    _centerIndex = _progressChipObjects.Count / 2;
+                    var switchingInteractionModeObj = Instantiate(switchingInteractionModePrefab, iconsParent);
+                    _progressChipObjects.Insert(_centerIndex, switchingInteractionModeObj); // Insert in the middle position
+                }
             }
             else if (_currentIndex < _progressChipObjects.Count - 1) // Player is in the middle of the game
             {
+                // Skip the icon for switching interaction modes
+                if (_currentIndex == _centerIndex) _currentIndex++;
+                
                 // Check if the player is in the trials task
                 var taskCheck = _progressChipObjects[_currentIndex].GetComponent<ProgressChipCurrentView>();
                 if (taskCheck.GetCurrentTask() is SubtleGameManager.TaskTypeVal.Trials or SubtleGameManager.TaskTypeVal.TrialsObserver)
