@@ -1,5 +1,4 @@
-﻿using System;
-using NanoverImd.Subtle_Game;
+﻿using NanoverImd.Subtle_Game;
 using NanoverIMD.Subtle_Game.UI.Simulation;
 using UnityEngine;
 
@@ -20,7 +19,14 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         private void Update()
         {
             PlacePanelOnLeftFaceOfSimBox();
-            sidePanel.SetActive(_subtleGameManager.CurrentTaskType == SubtleGameManager.TaskTypeVal.Sandbox);
+            if (!_subtleGameManager.ShowSimulation)
+            {
+                sidePanel.SetActive(false);
+            }
+            else
+            {
+                sidePanel.SetActive(_subtleGameManager.CurrentTaskType == SubtleGameManager.TaskTypeVal.Sandbox);
+            }
         }
 
 

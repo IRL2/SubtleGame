@@ -450,6 +450,11 @@ namespace NanoverImd.Subtle_Game
         public void StartSandbox()
         {
             CurrentTaskType = TaskTypeVal.Sandbox;
+            Invoke(nameof(DelayedStartSandbox), 0.5f);
+        }
+        
+        private void DelayedStartSandbox()
+        {
             StartTask();
             _sandboxCoroutine = StartCoroutine(PlayerInSandbox());
         }
