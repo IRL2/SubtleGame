@@ -69,14 +69,14 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 {
                     _centerIndex = _progressChipObjects.Count / 2;
                     var switchingInteractionModeObj = Instantiate(switchingInteractionModePrefab, iconsParent);
-                    _progressChipObjects.Insert(_centerIndex, switchingInteractionModeObj); // Insert in the middle position
+                    switchingInteractionModeObj.GetComponent<ProgressChipNextSwitchMode>().SetInteractionMode(_subtleGameManager.CurrentInteractionModality);
+                    // Put in the middle position
+                    _progressChipObjects.Insert(_centerIndex, switchingInteractionModeObj);
+                    switchingInteractionModeObj.transform.SetSiblingIndex(_centerIndex);
                 }
             }
-            else if (_currentIndex < _progressChipObjects.Count - 1) // Player is in the middle of the game
+            else if (_currentIndex < _progressChipObjects.Count - 2) // Player is in the middle of the game
             {
-                // Skip the icon for switching interaction modes
-                if (_currentIndex == _centerIndex) _currentIndex++;
-                
                 // Check if the player is in the trials task
                 var taskCheck = _progressChipObjects[_currentIndex].GetComponent<ProgressChipCurrentView>();
                 if (taskCheck.GetCurrentTask() is SubtleGameManager.TaskTypeVal.Trials or SubtleGameManager.TaskTypeVal.TrialsObserver)
@@ -93,6 +93,9 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 // Replace current task with completed
                 UpdateCurrentTaskToCompleted(_progressChipObjects[_currentIndex], _currentIndex);
                 
+                // Skip the icon for switching interaction modes
+                if (_currentIndex == _centerIndex - 1) _currentIndex++;
+
                 // Replace next task with current
                 var nextTaskIndex = _currentIndex + 1;
                 var nextTask = _progressChipObjects[nextTaskIndex].GetComponent<ProgressChipNextView>();
