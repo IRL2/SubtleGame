@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 4411112683467606699}
   - component: {fileID: 1451897464206734778}
   - component: {fileID: 1889504333838750736}
-  - component: {fileID: 1646681139926744352}
+  - component: {fileID: 3432814435618980711}
   m_Layer: 0
   m_Name: ProgressChip Next Switch Mode
   m_TagString: Untagged
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 86d4dca5100a7dc4ba3cdbe07d19bf6c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cdd1ec35e0ef38a42bb60e3319951f52, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1646681139926744352
+--- !u!114 &3432814435618980711
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5598365677732094402}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ef57b743660dd14fa4a7c71d084ed85, type: 3}
+  m_Script: {fileID: 11500000, guid: 904726cf3c0845dc8c6d5f5a85ffa77f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6141018371047695997
