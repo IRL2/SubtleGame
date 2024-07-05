@@ -29,7 +29,7 @@ namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
         /// <summary>
         /// Updates the right input icon by enabling / dissabling game objects
         /// </summary>
-        private void UpdateInput(InputTypes newInput)
+        public void UpdateInput(InputTypes newInput)
         {
             _input = newInput;
             _handGameObject.SetActive(_input is InputTypes.Hand);
