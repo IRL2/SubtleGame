@@ -203,6 +203,13 @@ namespace NanoverImd.Subtle_Game
             private bool _exitSandboxRequested;
 
             [SerializeField] private Confetti confetti;
+            
+            public delegate void TaskStartedEventHandler(TaskTypeVal taskType);
+            public delegate void TaskCompletedEventHandler(TaskTypeVal taskType);
+            
+            public event TaskStartedEventHandler OnTaskStarted;
+            public event TaskCompletedEventHandler OnTaskCompleted;
+            
         #endregion
 
         #region Interaction modality
@@ -475,6 +482,10 @@ namespace NanoverImd.Subtle_Game
             TaskStatus = TaskStatusVal.InProgress;
             
             _canvasManager.HideCanvas();
+            
+            // For audio
+            OnTaskStarted?.Invoke(CurrentTaskType);
+            
             if (TaskLists.TrialsTasks.Contains(CurrentTaskType)) return;
             ShowSimulation = true;
         }
@@ -547,6 +558,9 @@ namespace NanoverImd.Subtle_Game
             
             // Hide simulation
             ShowSimulation = false;
+            
+            // For audio
+            OnTaskCompleted?.Invoke(CurrentTaskType);
 
             // Load outro menu
             _canvasManager.LoadNextMenu();
