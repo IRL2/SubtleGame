@@ -262,12 +262,12 @@ namespace NanoverImd.Subtle_Game.Canvas
             {
                 // Button can be pressed using either modality
                 SubtleGameManager.Modality.None => true,
+                // Controllers only
+                SubtleGameManager.Modality.Controllers when
+                    OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch) ||
+                    OVRInput.GetControllerPositionTracked(OVRInput.Controller.LTouch) => true,
                 // Hands only
                 SubtleGameManager.Modality.Hands when OVRPlugin.GetHandTrackingEnabled() => true,
-                // Controllers only (both controllers must be tracking)
-                SubtleGameManager.Modality.Controllers when
-                    OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch) &&
-                    OVRInput.GetControllerPositionTracked(OVRInput.Controller.LTouch) => true,
                 _ => false
             };
         }
