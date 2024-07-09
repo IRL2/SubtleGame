@@ -2145,7 +2145,7 @@ MonoBehaviour:
   completedIconPrefab: {fileID: 5593883463417276959, guid: 46295ed0fa6c36c459e2c2faa76ca689, type: 3}
   currentIconPrefab: {fileID: 9106386814934900988, guid: 661acddea3e14434caf9f8d53afd6c67, type: 3}
   nextIconPrefab: {fileID: 5598365677732094402, guid: da304855be1ebe74088537bc6a7dae45, type: 3}
-  switchingInteractionModePrefab: {fileID: 5598365677732094402, guid: 9450202482c37334093467fe4ef49de0, type: 3}
+  switchingInteractionModePrefab: {fileID: 9106386814934900988, guid: f49df93ee32e0f84fbf58dea7e53bc4b, type: 3}
   iconsParent: {fileID: 81200456}
 --- !u!114 &81200458
 MonoBehaviour:

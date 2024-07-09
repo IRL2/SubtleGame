@@ -69,7 +69,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 {
                     _centerIndex = _progressChipObjects.Count / 2;
                     var switchingInteractionModeObj = Instantiate(switchingInteractionModePrefab, iconsParent);
-                    switchingInteractionModeObj.GetComponent<ProgressChipNextSwitchMode>().SetInteractionMode(_subtleGameManager.CurrentInteractionModality);
+                    switchingInteractionModeObj.GetComponent<ProgressChipSwitchView>().SetInteractionMode(_subtleGameManager.CurrentInteractionModality);
                     // Put in the middle position
                     _progressChipObjects.Insert(_centerIndex, switchingInteractionModeObj);
                     switchingInteractionModeObj.transform.SetSiblingIndex(_centerIndex);
