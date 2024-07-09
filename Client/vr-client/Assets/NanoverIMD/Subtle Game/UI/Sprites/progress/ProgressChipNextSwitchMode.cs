@@ -1,6 +1,5 @@
 ﻿using System;
 using NanoverImd.Subtle_Game;
-using NanoverIMD.Subtle_Game.Data_Collection;
 using UnityEngine;
 
 namespace NanoverIMD.Subtle_Game.UI.Sprites.progress
