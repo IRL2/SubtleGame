@@ -43,7 +43,7 @@ def get_order_of_tasks(run_short_game: bool):
 
     # Randomise the order of the tasks, with the nanotube always as the first task
     for n in range(2):
-        t = random.sample(tasks, len(tasks))
+        t = tasks
         t.insert(0, TASK_NANOTUBE)
         tasks_without_training.extend(t)
 
