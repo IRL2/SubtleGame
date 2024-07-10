@@ -1,0 +1,22 @@
+<#
+.SYNOPSIS
+    Run this from a powershell terminal using: `\run_game.ps1`
+#>
+
+# Define the server
+$serverCommand = "Server\nanover-cli.exe --name SubtleGame Inputs\sandbox_2_C10_alkanes.xml Inputs\17-ala.xml Inputs\nanotube_langevin.xml Inputs\ANGLE\buckyball_angle_A_0.75.xml Inputs\ANGLE\buckyball_angle_A_0.625.xml Inputs\ANGLE\buckyball_angle_A_0.875.xml Inputs\ANGLE\buckyball_angle_A_1.7.xml Inputs\ANGLE\buckyball_angle_A_1.25.xml Inputs\ANGLE\buckyball_angle_A_1.125.xml Inputs\ANGLE\buckyball_angle_A_1.375.xml Inputs\ANGLE\buckyball_angle_B_0.3.xml Inputs\ANGLE\buckyball_angle_B_0.75.xml Inputs\ANGLE\buckyball_angle_B_0.625.xml Inputs\ANGLE\buckyball_angle_B_0.875.xml Inputs\ANGLE\buckyball_angle_B_1.7.xml Inputs\ANGLE\buckyball_angle_B_1.25.xml Inputs\ANGLE\buckyball_angle_B_1.125.xml Inputs\ANGLE\buckyball_angle_B_1.375.xml Inputs\ANGLE\buckyball_angle_A_0.3.xml"
+
+# Load the server in a new window
+Start-Process -FilePath "cmd.exe" -ArgumentList "/c start powershell.exe -NoExit -Command `"$serverCommand`""
+
+# Activate the Conda environment
+$condaActivateCommand = "conda activate subtle-game"
+
+# Define command for running the puppeteering client
+$commandPuppeteer = "python .\Client\puppeteering_client.py"
+
+# Create the full command
+$fullCommand = "$condaActivateCommand; $commandPuppeteer"
+
+# Run the puppeteering client
+Invoke-Expression $fullCommand
