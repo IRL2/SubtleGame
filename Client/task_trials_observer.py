@@ -1,8 +1,8 @@
-from Client.task import Task
+from task import Task
 from nanover.app import NanoverImdClient
 from additional_functions import write_to_shared_state, remove_puppeteer_key_from_shared_state
 from standardised_values import *
-from Client.task_trials_functions import get_order_of_simulations
+from task_trials_functions import get_order_of_simulations
 
 
 class TrialsObserverTask(Task):
