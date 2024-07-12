@@ -129,7 +129,4 @@ def get_order_of_simulations(simulations, num_repeats, observer_condition=False)
     random.shuffle(practice_task_sims)
     random.shuffle(main_task_sims)
 
-    print(f"Practice sims = {practice_task_sims}")
-    print(f"Main sims = {main_task_sims}")
-
     return practice_task_sims, main_task_sims
