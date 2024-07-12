@@ -1,7 +1,7 @@
 from datetime import datetime
-from Client.task import Task
+from task import Task
 from nanover.app import NanoverImdClient
-from Client.knot_pull_client import KnotPullClient
+from knot_pull_client import KnotPullClient
 import time
 from standardised_values import *
 
