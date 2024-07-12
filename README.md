@@ -1,4 +1,13 @@
 # SubtleGame
+
+-----
+
+* **If you have already set up your environment**, please go to [Running a game](#Running-a-game).
+* **If you have not yet set up your environment**, please go the [Setting up instructions](#Setting-up). 
+
+-----
+
+## Contents
 1. [Setting up](#Setting-up)
     - [Cloning the repo](#Cloning-the-repo)
     - [Setting up the VR client](#Setting-up-the-VR-client)
@@ -7,9 +16,6 @@
     
 2. [Running a game](#Running-a-game)
 
------
-* **If you have already set up your environment**, please go to [Running a game](#Running-a-game).
-* **If you have not yet set up your environment**, please go the [Setting up instructions](#Setting-up). 
 -----
 
 ## Running a game
