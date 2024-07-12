@@ -2,8 +2,8 @@
 
 -----
 
-* **If you have already set up your environment**, please go to [Running a game](#Running-a-game).
-* **If you have not yet set up your environment**, please go the [Setting up instructions](#Setting-up). 
+* **If you have already set up for Subtle Game**, please go to the instructions for [running a game](#Running-a-game).
+* **If you have not yet set up your environment**, please go the instructions for [setting up](#Setting-up). 
 
 -----
 
@@ -66,13 +66,13 @@ The game is handled by a python script that is referred to as the 'puppeteering 
     conda create -n subtle-game "python>3.11"
     conda activate subtle-game
     ```
-3. Navigate to the Subtle Game repo directory and install the required packages using pip with:
+3. Navigate to the Subtle Game repo directory and install the required packages using pip:
     ```
     pip install -r .\requirements.txt
     ```
     This will install the following packages in your conda environment: [Numpy](https://anaconda.org/anaconda/numpy), [Random-Username](https://pypi.org/project/random-username/), and [Knot-Pull](https://github.com/dzarmola/knot_pull).
  
-4. Install [Nanover Protocol](https://github.com/IRL2/nanover-protocol) using conda with:
+4. Install [Nanover Protocol](https://github.com/IRL2/nanover-protocol) with conda:
     ```
     conda install -c irl -c omnia -c conda-forge nanover-server
     ```
@@ -106,7 +106,7 @@ A NanoVer server is used to run the molecular simulations and stream data betwee
 - The nanotube + methane: `nanotube_langevin.xml`
 - The 17-alanine polypeptide: `17-ala.xml`
 - The sandbox simulation: `sandbox_2_C10_alkanes.xml`
-- Two buckyball simulations: e.g., `buckyballs_angle_A_0.3.xml` and `buckyballs_angle_A_1.7.xml` [NOTE: you can load as many buckyball simulations as you want]
+- Two buckyball simulations: e.g., `buckyballs_angle_A_0.3.xml` and `buckyballs_angle_A_1.7.xml`. IMPORTANT NOTE: you can load as many buckyball simulations as you want, but you must have a minimum of two: one with a multiplier of <1 and one with >1.
 
 The commands for running a server can be found in the [Server directory](Server) in the [server-commands.txt](Server/server-commands.txt) file.
 
