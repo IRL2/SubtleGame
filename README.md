@@ -43,7 +43,7 @@ IMPORTANT NOTE: both the VR client and python client are hardcoded to connect to
 
 ## Setting up
 
-### 1. Cloning the repo
+### Cloning the repo
 
 1. Open a Windows Powershell terminal or Anaconda Powershell Prompt.
 2. Ensure that you have [git](https://github.com/git-guides/install-git) installed.
@@ -55,7 +55,7 @@ git submodule sync
 git submodule update --init --recursive --remote
 ```
 
-### 2. Setting up the game manager
+### Setting up the game manager
 
 The game is handled by a python script that is referred to as the 'puppeteering client' and can be found here: [Client/puppeteering_client.py](Client/puppeteering_client.py). To run this script you will first need to follow these instructions:
 1. Install Conda through whichever program you prefer, e.g., [Miniforge](https://github.com/conda-forge/miniforge).
@@ -76,7 +76,7 @@ The game is handled by a python script that is referred to as the 'puppeteering 
     ```
 5. Open the `SubtleGame` directory in your favourite Python IDE, select the `subtle-game` conda environment as your python interpreter and set the `SubtleGame` directory to be the root.
 
-### 3. Setting up the VR client
+### Setting up the VR client
 
 #### Installing Unity
 
