@@ -33,9 +33,8 @@
    1. Run the [Client/puppeteering_client.py](Client/puppeteering_client.py) from within your Python IDE with your `subtle-game` conda environment activated (as detailed below).
    2. A randomly-generated username will appear on the terminal. Type `y` and press `Enter` on your keyboard to accept this username and continue, or alternatively press `Enter` to generate a new username.
 3. **Run the VR client**:
-   1. Open **Oculus Link** or **Air Link** from inside your Oculus headset.
-   2. Open **Unity** and **click play** to start the game.
-
+   1. If using the Unity Editor, open **Oculus Link** or **Air Link** from inside your Oculus headset, then open **Unity** and **click play** to start the game.
+   2. If using the apk, install the apk on your Quest headset and open the Subtle Game app (note that this will be under "Unknown Sources" in the app directory).
 -----
 
 IMPORTANT NOTE: both the VR client and python client are hardcoded to connect to a locally-running server called "SubtleGame". This will cause issues if you are on the same network as another person who is also running the game. If you want to change the server name, you need to change this in the [VR client](Client/vr-client/Assets/NanoverIMD/Subtle%20Game/SubtleGameManager.cs) and the [puppeteering client](Client/puppeteering_client.py), and then type modify the `--name` field in the server command.
@@ -44,7 +43,7 @@ IMPORTANT NOTE: both the VR client and python client are hardcoded to connect to
 
 ## Setting up
 
-### Cloning the repo
+### 1. Cloning the repo
 
 1. Open a Windows Powershell terminal or Anaconda Powershell Prompt.
 2. Ensure that you have [git](https://github.com/git-guides/install-git) installed.
@@ -56,7 +55,7 @@ git submodule sync
 git submodule update --init --recursive --remote
 ```
 
-### Setting up the game manager
+### 2. Setting up the game manager
 
 The game is handled by a python script that is referred to as the 'puppeteering client' and can be found here: [Client/puppeteering_client.py](Client/puppeteering_client.py). To run this script you will first need to follow these instructions:
 1. Install Conda through whichever program you prefer, e.g., [Miniforge](https://github.com/conda-forge/miniforge).
@@ -77,27 +76,30 @@ The game is handled by a python script that is referred to as the 'puppeteering 
     ```
 5. Open the `SubtleGame` directory in your favourite Python IDE, select the `subtle-game` conda environment as your python interpreter and set the `SubtleGame` directory to be the root.
 
-### Setting up the VR client
+### 3. Setting up the VR client
 
-#### 1. Installing Unity
+#### Installing Unity
 
 1. Install and open Unity Hub.
 2. Click the `Add` button and select the [Client/vr-client](Client/vr-client) directory.
 3. If not already installed, you should get a prompt to install the required version of Unity (2022.3.32f1). Install this along with the Android Build Support with OpenJDK and Android SDK & NDK Tools.
 4. Open the game using this version of Unity and open the `Main` scene, which is found in [Client/vr-client/Assets/Scenes](Client/vr-client/Assets/Scenes).
 
-#### 2. Configuring the Oculus PC App Settings
+#### OPTION A: Playing the game through the Unity Editor with Oculus Link
 
-The game can be played on a Quest 2 or 3 headset using Quest Link or AirLink.
+The game can be played on a Quest 2 or 3 headset using Quest Link or AirLink. You must configure the Oculus PC App settings:
 1. Install the Oculus PC app for Meta Quest Link.
 2. Open the app and ensure that OpenXR Runtime is active by going to `Settings` -> `General` and selecting `Set Oculus as active` for the OpenXR Runtime option. If this option is not selected then you will receive the warning `unable to start Oculus XR plugin` in the Unity console when you click play.
 3. Enable passthrough by going to `Settings` -> `Beta`. Toggle the button to enable `Developer runtime features` and then toggle the option for `Pass-through over oculus link`. This allows the game to use passthrough, where you can see your physical surroundings through the cameras on the VR headset. 
 
-#### 3. Configuring the Oculus settings inside the headset
-
-Hand tracking must be enabled on your VR headset to play the game. To do this:
+You must also configure the Oculus settings inside the headset to enable hand tracking:
 1. Navigate to Settings from inside your headset and select `Movement tracking`. 
 2. Toggle on the `Hand and body tracking` option and click `Enable`.
+
+#### OPTION B: Playing the game locally on the headset
+
+1. Build the game for Android in the Unity Editor, which will output the game as an apk file.
+2. Install this apk on your headset, e.g. using [Meta Quest Developer Hub](https://developer.oculus.com/documentation/unity/ts-odh/) or [SideQuest](https://sidequestvr.com/).
 
 ### Explanation about running a NanoVer server
 
@@ -117,3 +119,9 @@ To run a **short game**, which has only 2 multipliers for the trials task: [0.3,
 ```
 .\nanover-cli.exe --name "SubtleGame" "..\Inputs\sandbox_2_C10_alkanes.xml" "..\Inputs\17-ala.xml" "..\Inputs\nanotube_langevin.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.7.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.7.xml
 ```
+
+-----
+
+**You are ready to play!** Please head to the instructions for [running a game](#Running-a-game).
+
+-----
