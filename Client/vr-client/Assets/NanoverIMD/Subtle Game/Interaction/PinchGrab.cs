@@ -279,7 +279,7 @@ namespace NanoverImd.Subtle_Game.Interaction
                     Particles = new List<int>(grabber.Grab.ParticleIndices),
                     InteractionType = InteractionType,
                     Scale = grabber.ForceScale,
-                    MassWeighted = false,
+                    MassWeighted = true,
                     ResetVelocities = false
                 };
 

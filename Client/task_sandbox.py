@@ -1,4 +1,4 @@
-from Client.task import Task
+from task import Task
 from nanover.app import NanoverImdClient
 import time
 
