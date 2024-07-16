@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace NanoverIMD.Subtle_Game.UI.Canvas
 {
-    public class SetTrialsInstructionsText : MonoBehaviour
+    public class SetTrialsMenu2Text : MonoBehaviour
     {
         private SubtleGameManager _subtleGameManager;
         [SerializeField] private TMP_Text text;
