@@ -1019,6 +1019,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8058119997532801804, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 47583288}
+    - targetCorrespondingSourceObject: {fileID: 2120020009729026702, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
 --- !u!224 &47583277 stripped
 RectTransform:
@@ -2368,7 +2371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 1de8cde62e894ad49911c106eb9e3f77, type: 3}
       propertyPath: m_text
-      value: Task completed!
+      value: Training complete
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 1de8cde62e894ad49911c106eb9e3f77, type: 3}
       propertyPath: m_margin.w
@@ -2524,6 +2527,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1993769644905264480, guid: 1de8cde62e894ad49911c106eb9e3f77, type: 3}
       insertIndex: -1
       addedObject: {fileID: 93884536}
+    - targetCorrespondingSourceObject: {fileID: 2075125420025657282, guid: 1de8cde62e894ad49911c106eb9e3f77, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 1de8cde62e894ad49911c106eb9e3f77, type: 3}
 --- !u!224 &93884533 stripped
 RectTransform:
@@ -4325,6 +4331,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4787139029640928072, guid: 0f44c030a807a9942967612c05be2392, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1882015818}
+    - targetCorrespondingSourceObject: {fileID: 8782213168435246505, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 7571863152665335010, guid: 0f44c030a807a9942967612c05be2392, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0f44c030a807a9942967612c05be2392, type: 3}
 --- !u!224 &257718814 stripped
 RectTransform:
@@ -5994,7 +6006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1993769644905264480, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2362831812398656426, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.size
@@ -6224,6 +6236,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1993769644905264480, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       insertIndex: -1
       addedObject: {fileID: 516101305}
+    - targetCorrespondingSourceObject: {fileID: 8782213168435246505, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 7571863152665335010, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
 --- !u!224 &516101299 stripped
 RectTransform:
@@ -11015,7 +11033,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 1de8cde62e894ad49911c106eb9e3f77, type: 3}
       propertyPath: m_text
-      value: Task completed!
+      value: Training complete
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 1de8cde62e894ad49911c106eb9e3f77, type: 3}
       propertyPath: m_margin.w
@@ -11171,6 +11189,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1993769644905264480, guid: 1de8cde62e894ad49911c106eb9e3f77, type: 3}
       insertIndex: -1
       addedObject: {fileID: 384265782}
+    - targetCorrespondingSourceObject: {fileID: 2075125420025657282, guid: 1de8cde62e894ad49911c106eb9e3f77, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 1de8cde62e894ad49911c106eb9e3f77, type: 3}
 --- !u!1 &991938750
 GameObject:
@@ -33715,6 +33736,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1993769644905264480, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7401802646654478571}
+    - targetCorrespondingSourceObject: {fileID: 8782213168435246505, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 7571863152665335010, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
 --- !u!224 &7401802646654478561 stripped
 RectTransform:
