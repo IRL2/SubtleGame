@@ -13,7 +13,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         {
             _timeLimit = PlayerPrefs.GetFloat(SubtleGameManager.TrialTimeLimit).ToString();
             
-            text.SetText($"Now that you have finished the training, you will start the full task\nThis is " +
+            text.SetText($"Now that you have finished the training, you will start the mini game\nThis is " +
                          $"identical to before, but you only have {_timeLimit} seconds per trial and you will do more " +
                          "trials");
         }
