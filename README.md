@@ -8,13 +8,12 @@
 -----
 
 ## Contents
-1. [Setting up](#Setting-up)
+1. [Running a game](#Running-a-game)
+2. [Setting up](#Setting-up)
     - [Cloning the repo](#Cloning-the-repo)
-    - [Setting up the VR client](#Setting-up-the-VR-client)
     - [Setting up the game manager](#Setting-up-the-game-manager)
-    - [Running a NanoVer server](#Explanation-about-the-server)
-    
-2. [Running a game](#Running-a-game)
+    - [Setting up the VR client](#Setting-up-the-VR-client)
+    - [Explanation about running a NanoVer server](#Explanation-about-running-a-NanoVer-server)
 
 -----
 
@@ -100,7 +99,7 @@ Hand tracking must be enabled on your VR headset to play the game. To do this:
 1. Navigate to Settings from inside your headset and select `Movement tracking`. 
 2. Toggle on the `Hand and body tracking` option and click `Enable`.
 
-### Explanation about the server
+### Explanation about running a NanoVer server
 
 A NanoVer server is used to run the molecular simulations and stream data between clients. Each instance of a game needs its own server. To run a server, you can use either the command line or the GUI. You will need to load a minimum of four simulations:
 - The nanotube + methane: `nanotube_langevin.xml`
