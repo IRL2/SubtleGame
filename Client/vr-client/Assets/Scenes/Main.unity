@@ -323,6 +323,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1993769644905264480, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1044237}
+    - targetCorrespondingSourceObject: {fileID: 2075125420025657282, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
 --- !u!224 &1044230 stripped
 RectTransform:
@@ -1509,7 +1512,7 @@ PrefabInstance:
       objectReference: {fileID: 1233587684}
     - target: {fileID: 503768838568417444, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
       propertyPath: m_text
-      value: SANDBOX
+      value: PRACTICE
       objectReference: {fileID: 0}
     - target: {fileID: 1149125434810716764, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1569,7 +1572,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3330660702731675705, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
       propertyPath: m_text
-      value: '*If you are not familiar with VR try the sandbox first'
+      value: '*If you are not familiar with VR try the practice first'
       objectReference: {fileID: 0}
     - target: {fileID: 3330660702731675705, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
       propertyPath: m_fontStyle
@@ -1605,7 +1608,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
       propertyPath: m_text
-      value: This game involves a series of 6 tests in which you will manipulate
+      value: This game involves a series of 6 mini games in which you will manipulate
         molecules
       objectReference: {fileID: 0}
     - target: {fileID: 4269171732357299513, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
@@ -1800,6 +1803,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1993769644905264480, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 68828477}
+    - targetCorrespondingSourceObject: {fileID: 8782213168435246505, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 2075125420025657282, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 7571863152665335010, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
 --- !u!224 &68828469 stripped
 RectTransform:
@@ -9887,6 +9899,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7998695904646280100, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 827439027}
+    - targetCorrespondingSourceObject: {fileID: 6406907961171276735, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
 --- !u!4 &827439023 stripped
 Transform:
@@ -24802,6 +24817,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9098190041061289825, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1847266665}
+    - targetCorrespondingSourceObject: {fileID: 8729201886575439299, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
 --- !u!224 &1847266651 stripped
 RectTransform:
