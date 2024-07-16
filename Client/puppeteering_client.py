@@ -11,6 +11,8 @@ from standardised_values import *
 import time
 import random
 from random_username.generate import generate_username
+from datetime import datetime, timedelta
+import pytz
 
 
 def generate_username_for_player():
@@ -58,6 +60,19 @@ def get_order_of_tasks(run_short_game: bool):
         order_of_tasks.append(task)
 
     return order_of_tasks
+
+
+def get_current_time_in_spain():
+    """ Returns the current date and time in Spain. Note that Spain uses two main time zones, CET and CEST"""
+    timezone = pytz.timezone('Europe/Madrid')  # Timezone for Madrid, Spain
+    return round_time_to_nearest_second(datetime.now(timezone))
+
+
+def round_time_to_nearest_second(dt):
+    """ Returns a time rounded to the nearest second."""
+    if dt.microsecond >= 500000:  # Check if microseconds are more than or equal to 500,000
+        dt += timedelta(seconds=1)  # Add one second if true
+    return dt.replace(microsecond=0)  # Set microseconds to 0
 
 
 class PuppeteeringClient:
@@ -173,6 +188,7 @@ class PuppeteeringClient:
         write_to_shared_state(client=self.nanover_client, key=KEY_GAME_STATUS, value=WAITING)
         write_to_shared_state(client=self.nanover_client, key=KEY_MODALITY, value=self.current_modality)
         write_to_shared_state(client=self.nanover_client, key=KEY_ORDER_OF_TASKS, value=self.order_of_tasks)
+        write_to_shared_state(client=self.nanover_client, key=KEY_START_TIME, value=str(get_current_time_in_spain()))
 
         # Print game setup to the terminal
         print('\nGame initialised:')
@@ -237,6 +253,7 @@ class PuppeteeringClient:
     def _finish_game(self):
         """ Update the shared state and close the client at the end of the game. """
         print("Closing the nanover client and ending game.")
+        write_to_shared_state(client=self.nanover_client, key=KEY_END_TIME, value=str(get_current_time_in_spain()))
         write_to_shared_state(client=self.nanover_client, key=KEY_GAME_STATUS, value=FINISHED)
         self.nanover_client.close()
         print('Game finished')

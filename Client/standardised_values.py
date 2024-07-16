@@ -34,6 +34,8 @@ LIST_OF_VALID_ANSWERS = [MOLECULE_A, MOLECULE_B]
 KEY_USERNAME = 'participant-username'
 KEY_MODALITY = 'modality'
 KEY_GAME_STATUS = 'game-status'
+KEY_START_TIME = 'start-time'
+KEY_END_TIME = 'end-time'
 KEY_ORDER_OF_TASKS = 'order-of-tasks'
 KEY_SIM_COUNTER = 'system-simulation-counter'
 KEY_CURRENT_TASK = 'current-task'
@@ -99,4 +101,4 @@ SHARED_STATE_KEYS_AND_VALS = {
 
 KEYS_WITH_UNRESTRICTED_VALS = [KEY_TASK_COMPLETION_TIME, KEY_SIMULATION_NAME, KEY_SIMULATION_SERVER_INDEX,
                                KEY_TRIALS_SIMS, KEY_NUMBER_OF_TRIALS, KEY_NUMBER_OF_TRIAL_REPEATS, KEY_USERNAME,
-                               KEY_SIM_COUNTER]
+                               KEY_SIM_COUNTER, KEY_START_TIME, KEY_END_TIME]

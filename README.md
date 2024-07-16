@@ -69,7 +69,7 @@ The game is handled by a python script that is referred to as the 'puppeteering 
     ```
     pip install -r .\requirements.txt
     ```
-    This will install the following packages in your conda environment: [Numpy](https://anaconda.org/anaconda/numpy), [Random-Username](https://pypi.org/project/random-username/), and [Knot-Pull](https://github.com/dzarmola/knot_pull).
+    This will install the following packages in your conda environment: [Numpy](https://anaconda.org/anaconda/numpy), [Random-Username](https://pypi.org/project/random-username/), [Knot-Pull](https://github.com/dzarmola/knot_pull), and [pytz](https://pypi.org/project/pytz/).
  
 4. Install [Nanover Protocol](https://github.com/IRL2/nanover-protocol) with conda:
     ```
