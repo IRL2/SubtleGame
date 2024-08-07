@@ -50,7 +50,7 @@ IMPORTANT NOTE: both the VR client and python client are hardcoded to connect to
 2. Ensure that you have [git](https://github.com/git-guides/install-git) installed.
 3. Navigate to the local directory where you want the SubtleGame git repo.
 4. Clone the repo with `git clone paste-repo-URL-here`.
-5. Navigate into the repo with `cd .\SubtleGame\` and run the following commands to update the Nanover Plugin submodule:
+5. Navigate into the repo with `cd .\SubtleGame\` and run the following commands to update the [NanoverUnityPlugin](https://github.com/IRL2/NanoverUnityPlugin) submodule:
 ```
 git submodule sync
 git submodule update --init --recursive --remote
