@@ -36,10 +36,8 @@ def get_order_of_tasks(run_short_game: bool):
     always the nanotube task, then the knot-tying and trials task is randomised.
     @param: test_run If true then each section will only contain the nanotube task """
 
-    # if run_short_game:
-    #     return [TASK_NANOTUBE, TASK_NANOTUBE]
-    # else:
-    #     tasks = [TASK_KNOT_TYING, TASK_TRIALS]
+    if run_short_game:
+        return [TASK_NANOTUBE, TASK_NANOTUBE]
 
     # Fix the order of the tasks, with the nanotube always as the first task
     tasks_without_training = [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS]
