@@ -3195,6 +3195,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 189326262}
   m_CullTransparentMesh: 1
+--- !u!1 &191922065
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 191922066}
+  m_Layer: 0
+  m_Name: Avatars
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &191922066
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191922065}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1364228085}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &202167448
 GameObject:
   m_ObjectHideFlags: 0
@@ -19246,6 +19277,7 @@ Transform:
   - {fileID: 1211599610}
   - {fileID: 436285475}
   - {fileID: 136582858}
+  - {fileID: 191922066}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1364228086
@@ -19310,6 +19342,7 @@ MonoBehaviour:
   simulation: {fileID: 1265723033}
   headsetPrefab: {fileID: 493567020}
   controllerPrefab: {fileID: 486422601}
+  avatarsParentTransform: {fileID: 191922066}
 --- !u!114 &1364228090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26266,6 +26299,7 @@ MonoBehaviour:
   subtleGameManager: {fileID: 1364228086}
   centreEyeAnchor: {fileID: 4948775120161647665}
   frameSource: {fileID: 1265723032}
+  avatarParentTransform: {fileID: 191922066}
 --- !u!1 &2067010102
 GameObject:
   m_ObjectHideFlags: 0

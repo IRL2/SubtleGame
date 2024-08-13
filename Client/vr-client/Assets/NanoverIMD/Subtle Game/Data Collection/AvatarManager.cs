@@ -36,6 +36,8 @@ namespace NanoverImd.Subtle_Game.Data_Collection
         
         private Coroutine sendAvatarsCoroutine;
 
+        [SerializeField] private Transform avatarsParentTransform;
+
         /// <summary>
         /// Updates the local avatar data and flushes this to the shared state.
         /// </summary>
@@ -47,13 +49,13 @@ namespace NanoverImd.Subtle_Game.Data_Collection
         private void OnEnable()
         {
             headsetObjects = new IndexedPool<AvatarModel>(
-                () => Instantiate(headsetPrefab),
+                () => Instantiate(headsetPrefab, avatarsParentTransform),
                 transformTrue => transformTrue.gameObject.SetActive(true),
                 transformFalse => transformFalse.gameObject.SetActive(false)
             );
 
             controllerObjects = new IndexedPool<AvatarModel>(
-                () => Instantiate(controllerPrefab),
+                () => Instantiate(controllerPrefab, avatarsParentTransform),
                 transformTrue => transformTrue.gameObject.SetActive(true),
                 transformFalse => transformFalse.gameObject.SetActive(false)
             );
