@@ -3204,6 +3204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 191922066}
+  - component: {fileID: 191922067}
   m_Layer: 0
   m_Name: Avatars
   m_TagString: Untagged
@@ -3226,6 +3227,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1364228085}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &191922067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191922065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b701b9a74131ea4c9d8820363d3d13b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simulationSpace: {fileID: 1152867537}
+  simulation: {fileID: 1265723033}
 --- !u!1 &202167448
 GameObject:
   m_ObjectHideFlags: 0
@@ -19343,6 +19358,7 @@ MonoBehaviour:
   headsetPrefab: {fileID: 493567020}
   controllerPrefab: {fileID: 486422601}
   avatarsParentTransform: {fileID: 191922066}
+  avatarSpace: {fileID: 191922067}
 --- !u!114 &1364228090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26299,7 +26315,6 @@ MonoBehaviour:
   subtleGameManager: {fileID: 1364228086}
   centreEyeAnchor: {fileID: 4948775120161647665}
   frameSource: {fileID: 1265723032}
-  avatarParentTransform: {fileID: 191922066}
 --- !u!1 &2067010102
 GameObject:
   m_ObjectHideFlags: 0
