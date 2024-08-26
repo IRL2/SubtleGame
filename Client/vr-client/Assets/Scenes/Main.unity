@@ -18795,6 +18795,7 @@ MonoBehaviour:
   simulationSpaceTransform: {fileID: 1152867538}
   rightHandedSimulationSpace: {fileID: 1464610667}
   interactableScene: {fileID: 23693884}
+  application: {fileID: 1354330443}
 --- !u!4 &1265723034
 Transform:
   m_ObjectHideFlags: 0
