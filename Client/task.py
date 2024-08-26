@@ -60,6 +60,8 @@ class Task:
     def _wait_for_simulation_to_load(self):
         """ Waits for the simulation to be loaded onto the server by checking if the simulation counter has
         incremented."""
+
+        print(f"(2) waiting for simulation counter = {self.simulation_counter}")
         while True:
 
             try:

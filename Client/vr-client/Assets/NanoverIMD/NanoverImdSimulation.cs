@@ -38,8 +38,8 @@ namespace NanoverImd
         [SerializeField]
         private InteractableScene interactableScene;
 
-        //[SerializeField]
-        //private NanoverImdApplication application;
+        [SerializeField]
+        private NanoverImdApplication application;
 
         public TrajectorySession Trajectory { get; } = new TrajectorySession();
         public MultiplayerSession Multiplayer { get; } = new MultiplayerSession();
@@ -100,9 +100,10 @@ namespace NanoverImd
         {
             Interactions = new ParticleInteractionCollection(Multiplayer);
             
-            //ManipulableSimulationSpace = new ManipulableScenePose(simulationSpaceTransform,
-            //                                                      Multiplayer,
-            //                                                      application.CalibratedSpace);
+            
+            ManipulableSimulationSpace = new ManipulableScenePose(simulationSpaceTransform,
+                                                                  Multiplayer,
+                                                                  application.CalibratedSpace);
 
             ManipulableParticles = new ManipulableParticles(rightHandedSimulationSpace,
                                                             Interactions,
