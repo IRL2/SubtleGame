@@ -25449,7 +25449,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1925843024}
-  - component: {fileID: 1925843026}
   - component: {fileID: 1925843025}
   m_Layer: 0
   m_Name: Avatar manager
@@ -25489,27 +25488,6 @@ MonoBehaviour:
   nanover: {fileID: 1265723033}
   headsetPrefab: {fileID: 493567020}
   controllerPrefab: {fileID: 486422601}
---- !u!114 &1925843026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1925843023}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd66041001c24834a442f4d36c54c106, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  centerEyeAnchor: {fileID: 4948775120161647665}
-  leftHand: {fileID: 716911152845657032}
-  rightHand: {fileID: 6693760772930067047}
-  leftController: {fileID: 7782402911361238551}
-  rightController: {fileID: 4468034851178459339}
-  simulation: {fileID: 1265723033}
-  headsetPrefab: {fileID: 493567020}
-  controllerPrefab: {fileID: 486422601}
-  avatarsParentTransform: {fileID: 758418883}
 --- !u!1 &1950933474 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3895664296461673764, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
