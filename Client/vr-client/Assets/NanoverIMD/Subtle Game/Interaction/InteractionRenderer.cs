@@ -29,13 +29,7 @@ namespace NanoverIMD.Subtle_Game.Interaction
         private const float MaxWidth = 0.01f;  // Max width
         private const float MinWidth = 0.001f;  // Min width
         private const float WidthFactor = .01f;  // Factor by which the width decreases with distance (default 0.01)
-        
-        /*// Atom Marker
-        [SerializeField] private Transform AtomMarkerBlueprint;
-        private float _atomMarkerScale = .025f;
-        private float _markerTriggerDistance = .03f;
-        private float _pinchTriggerDistance = .02f;*/
-        
+
         private void Update()
         {
             interactionRenderer.SetPosition(0, startPoint);

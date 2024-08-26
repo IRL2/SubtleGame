@@ -581,6 +581,7 @@ GameObject:
   - component: {fileID: 27521870}
   - component: {fileID: 27521869}
   - component: {fileID: 27521868}
+  - component: {fileID: 27521871}
   m_Layer: 0
   m_Name: AtomMarkerBlueprint
   m_TagString: Untagged
@@ -674,6 +675,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 27521866}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &27521871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27521866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09f69724677649378df223e316987696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &29610934
 GameObject:
   m_ObjectHideFlags: 0
@@ -1217,6 +1230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPoint: {x: 0, y: 0, z: 0}
   endPoint: {x: 0, y: 0, z: 0}
+  scale: 0
   interactionRenderer: {fileID: 49755829}
 --- !u!120 &49755829
 LineRenderer:
@@ -9758,6 +9772,7 @@ GameObject:
   m_Component:
   - component: {fileID: 770771424}
   - component: {fileID: 770771425}
+  - component: {fileID: 770771426}
   m_Layer: 0
   m_Name: Interaction rendering
   m_TagString: Untagged
@@ -9796,6 +9811,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simulation: {fileID: 1265723033}
   interactionRendererTemplate: {fileID: 49755828}
+--- !u!114 &770771426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770771423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ab6e07855347a18c35a41ac71da3d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simulation: {fileID: 1265723033}
+  atomMarkerRendererTemplate: {fileID: 27521871}
 --- !u!1001 &774640874
 PrefabInstance:
   m_ObjectHideFlags: 0
