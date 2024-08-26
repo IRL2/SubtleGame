@@ -62,9 +62,9 @@ namespace NanoverImd.Subtle_Game.Interaction
         public float nextFetchClosestAtomTime {  get; set; } 
         #endregion
 
-        #region Line Renderer
+        /*#region Line Renderer
         public LineRenderer LineRenderer { get; private set; }
-        #endregion
+        #endregion*/
 
         #endregion
         /// <summary>
@@ -72,7 +72,7 @@ namespace NanoverImd.Subtle_Game.Interaction
         /// These parameters include transforms for the thumb and index fingers, distances to trigger pinches and marker display, and references to various other components
         /// like the interactable scene, the simulation, and blueprints for LineRenderers and AtomMarkers.
         /// </summary>
-        public PinchGrabber(Transform thumbTip, Transform indexTrigger, Transform middleTip, float pinchTriggerDistance, float markerTriggerDistance, InteractableScene interactableScene, NanoverImdSimulation simulation, LineRenderer lineRendererBlueprint, Transform atomMarkerBlueprint, AudioClip grabNewAtomSound, bool useController, bool primaryController, Transform pokePosition)
+        public PinchGrabber(Transform thumbTip, Transform indexTrigger, Transform middleTip, float pinchTriggerDistance, float markerTriggerDistance, InteractableScene interactableScene, NanoverImdSimulation simulation, AudioClip grabNewAtomSound, bool useController, bool primaryController, Transform pokePosition)
         {
             #region Controllers
             UseControllers = useController;
@@ -80,7 +80,7 @@ namespace NanoverImd.Subtle_Game.Interaction
             PokePosition = pokePosition;
             #endregion
 
-            #region Line Renderer
+            /*#region Line Renderer
             // Create a new LineRenderer
             LineRenderer = thumbTip.gameObject.AddComponent<LineRenderer>();
         
@@ -143,9 +143,11 @@ namespace NanoverImd.Subtle_Game.Interaction
 
             AtomMarkerInstance.localScale = atomMarkerBlueprint.localScale;
             #endregion
-
-            MarkerTriggerDistance = markerTriggerDistance;
             #endregion
+            */
+            
+            MarkerTriggerDistance = markerTriggerDistance;
+            
 
             #region Script References
             InteractableScene = interactableScene;

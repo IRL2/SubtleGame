@@ -9,6 +9,8 @@ namespace NanoverIMD.Subtle_Game.Interaction
         private MeshRenderer _meshRenderer;
         private const float AtomMarkerScale = .15f;
 
+        public float scale;
+
         private void OnEnable()
         {
             _meshRenderer = gameObject.GetComponent<MeshRenderer>();
@@ -18,7 +20,7 @@ namespace NanoverIMD.Subtle_Game.Interaction
         {
             transform.position = ParticlePosition;
             transform.localScale = Vector3.one * AtomMarkerScale;
-            _meshRenderer.enabled = true;
+            //_meshRenderer.enabled = scale != 0;
         }
     }
 }

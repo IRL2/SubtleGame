@@ -24,51 +24,7 @@ namespace NanoverImd.Subtle_Game.Interaction
         [NonSerialized] public bool UseControllers = false;
         public List<Transform> PokePositions;
         #endregion
-
-        #region Line Renderer
-        /// <summary>
-        /// Variables associated with the LineRenderer, which serves as a visual indication of the pinch-to-grab interaction with atoms.
-        /// </summary>
-        [Header("Line Renderer")]
-        [Tooltip("Blueprint for the LineRenderer that connects a grabber to an atom. It links to the closest atom when not pinched and to the currently grabbed atom when pinched. Configurable via the Unity Inspector.")]
-        public LineRenderer InteractionLineRendererBlueprint;
-
-        #region Transparency
-        [Tooltip("Maximum alpha (transparency) value for the LineRenderer. Decreases as the distance between the grabber and the atom increases.")]
-        private float LineRendererMaxAlpha = .35f;
-        [Tooltip("Minimum alpha (transparency) value to ensure the LineRenderer is always slightly visible.")]
-        private float LineRendererMinAlpha = 0.25f;
-        [Tooltip("Factor by which the LineRenderer's alpha decreases with distance. Typically set to 1 for linear scaling.")]
-        public float LineRendererAlphaScalingFactor = .05f;
-        #endregion
-
-        #region Width
-        [Tooltip("Maximum width of the LineRenderer, attained when the grabber is at zero distance from the atom.")]
-        [Range(0f, .1f)]
-        public float MaxWidth = 0.01f;
-        [Tooltip("Minimum allowable width for the LineRenderer.")]
-        [Range(0f, .01f)]
-        public float MinWidth = 0.001f;
-        [Tooltip("Factor affecting how the LineRenderer's width decreases with distance. Typically set to 0.01 for linear scaling.")]
-        public float WidthFactor = .01f;
-        #endregion
-
-        #endregion
-
-        #region Atom Marker
-        /// <summary>
-        /// Variables governing the Atom Marker, which indicates the atom currently or potentially affected by the pinch-to-grab interaction.
-        /// </summary>
-        [Header("Atom Marker")]
-        [Tooltip("Blueprint for the Atom Marker, which is placed at the atom being interacted with or the one that would be interacted with upon pinching.")]
-        public Transform AtomMarkerBlueprint;
-        [Tooltip("The scale of the Atom Marker Transforms.")]
-        [Range(0f, .1f)]
-        public float AtomMarkerScale = .025f;
-        [Tooltip("Pinch distance threshold for displaying the Atom Marker and LineRenderer.")]
-        private float MarkerTriggerDistance = .03f;
-        #endregion
-
+        
         #region Script References
         /// <summary>
         /// External script references needed for this class to function properly, including the connection to Narupa.
@@ -92,6 +48,7 @@ namespace NanoverImd.Subtle_Game.Interaction
         public List<Transform> IndexAndThumbTransforms;
         [Tooltip("Threshold distance between index and thumb to activate a pinch, triggering a grab interaction.")]
         private float PinchTriggerDistance = .02f;
+        private float MarkerTriggerDistance = .03f;
         #endregion
 
         #region Grab
@@ -222,9 +179,10 @@ namespace NanoverImd.Subtle_Game.Interaction
                 if (i + 1 >= IndexAndThumbTransforms.Count) continue;
                 bool primaryController = i == 0;
                 Transform pokePosition = i == 0 ? PokePositions[0] : PokePositions[1];
-                PinchGrabber grabber = new PinchGrabber(IndexAndThumbTransforms[i], IndexAndThumbTransforms[i + 1], IndexAndThumbTransforms[i + 2], PinchTriggerDistance, MarkerTriggerDistance, 
-                    InteractableSceneScript, nanoverSimulation, InteractionLineRendererBlueprint, AtomMarkerBlueprint,
-                    GrabNewAtomSound, UseControllers, primaryController, pokePosition);
+                PinchGrabber grabber = new PinchGrabber(IndexAndThumbTransforms[i], IndexAndThumbTransforms[i + 1], 
+                    IndexAndThumbTransforms[i + 2], PinchTriggerDistance, MarkerTriggerDistance, 
+                    InteractableSceneScript, nanoverSimulation, GrabNewAtomSound, 
+                    UseControllers, primaryController, pokePosition);
                 pinchGrabbers.Add(grabber);
             }
         }
@@ -255,10 +213,10 @@ namespace NanoverImd.Subtle_Game.Interaction
                 }
 
                 // Enable interaction atom marker
-                grabber.AtomMarkerInstance.GetComponent<MeshRenderer>().enabled = true;
+                // grabber.AtomMarkerInstance.GetComponent<MeshRenderer>().enabled = true;
             
                 // Enable interaction line renderer
-                grabber.LineRenderer.enabled = true;
+                // grabber.LineRenderer.enabled = true;
             
                 // Set whether the player will use controllers to interact with the simulation
                 grabber.UseControllers = UseControllers;
@@ -285,9 +243,6 @@ namespace NanoverImd.Subtle_Game.Interaction
 
                 // Update the interaction in the Nanover simulation
                 nanoverSimulation.Interactions.UpdateValue(grabber.Grab.Id, interaction);
-
-                // Update the LineRenderer and Atom marker such that both highlight the atom this grabber is currently interacting with or would interact with if pinched.
-                UpdateAtomMarkerAndLineRenderer(grabber, interaction);
             }
         }
     
@@ -301,7 +256,7 @@ namespace NanoverImd.Subtle_Game.Interaction
                 var grabber = pinchGrabbers[grabberIndex];
                 if (grabber == null) {return;}
             
-                // Disable interaction atom marker
+                /*// Disable interaction atom marker
                 var atomMarker = grabber.AtomMarkerInstance;
                 if (atomMarker != null)
                 {
@@ -313,7 +268,7 @@ namespace NanoverImd.Subtle_Game.Interaction
                 if (interactionLine != null)
                 {
                     interactionLine.enabled = false;
-                }
+                }*/
             }
             
             // Wipe interactions
@@ -377,76 +332,7 @@ namespace NanoverImd.Subtle_Game.Interaction
                 grabber.ForceScale = 0;
             }
         }
-
-        /// <summary>
-        /// Updates the visual cues (LineRenderer and AtomMarker) based on the current interactions.
-        /// The AtomMarker's position is set to the particle's world position, and its visibility is toggled based on whether marking is active.
-        /// The LineRenderer's properties such as length, position, width, and alpha are dynamically adjusted based on the distance between the thumb tip and the atom.
-        /// </summary>
-        /// <param name="grabber">The PinchGrabber object that is being updated.</param>
-        /// <param name="interaction">The ParticleInteraction object that contains the current interaction data.</param>
-        private void UpdateAtomMarkerAndLineRenderer(PinchGrabber grabber, ParticleInteraction interaction)
-        {
-            /*#region Get Atom World Position
-            // Retrieve the index of the first particle in the interaction for locating its world position.
-            int firstParticleIndex = interaction.Particles[0]; // TODO: Consider changing for residue or center of mass calculations.
-            var currentFrame = FrameSourceScript.CurrentFrame;
-            // Transform the particle's local position to its world position.
-            Vector3 particleWorldPos = InteractableSceneTransform.TransformPoint(currentFrame.ParticlePositions[firstParticleIndex]);
-            #endregion
-
-            #region Update Atom Marker
-            // Retrieve the AtomMarker instance associated with this PinchGrabber.
-            Transform AtomMarkerInstance = grabber.AtomMarkerInstance;
-            // Set the AtomMarker's position and scale.
-            AtomMarkerInstance.position = particleWorldPos;
-            AtomMarkerInstance.localScale = Vector3.one * AtomMarkerScale;
-            // Toggle AtomMarker visibility based on whether it is marking an atom.
-            AtomMarkerInstance.gameObject.GetComponent<MeshRenderer>().enabled = grabber.Marking;
-            #endregion
-
-            #region Update Line Renderer
-
-            #region Update Line Renderer Target Position
-            // Calculate the vector from the thumb tip to the AtomMarker's center.
-            Vector3 toMarkerCenter = particleWorldPos - grabber.PinchPositionTransform.position;
-            // Normalize the vector.
-            Vector3 toMarkerCenterNormalized = toMarkerCenter.normalized;
-            // Calculate the radius of the AtomMarker based on its scale.
-            float markerRadius = AtomMarkerInstance.localScale.x * 0.5f;  // Assuming the AtomMarker is uniformly scaled.
-            // Calculate the point on the AtomMarker sphere where the line should end.
-            Vector3 lineEnd = particleWorldPos - (toMarkerCenterNormalized * markerRadius);
-            #endregion
-
-            #region Update Length
-            // Calculate the length of the LineRenderer based on the distance between the thumb tip and the particle's world position.
-            float lineLength = Vector3.Distance(grabber.PinchPositionTransform.position, lineEnd);
-            #endregion
-
-            #region Update Positions
-            // Set the start and end positions of the LineRenderer.
-            grabber.LineRenderer.SetPosition(0, grabber.PinchPositionTransform.position);
-            grabber.LineRenderer.SetPosition(1, lineEnd);  // Updated to end at the AtomMarker's edge.
-            #endregion
-
-            #region Update Width
-            // Compute and set the LineRenderer's width based on its length.
-            float widthMultiplier = MaxWidth - (lineLength * WidthFactor);
-            widthMultiplier = Mathf.Clamp(widthMultiplier, MinWidth, MaxWidth); // Ensure the width falls within the specified range.
-            grabber.LineRenderer.widthMultiplier = widthMultiplier;
-            #endregion
-
-            #region Update Alpha
-            // Compute and set the LineRenderer's alpha based on its length.
-            float alpha = LineRendererMaxAlpha - (lineLength * LineRendererAlphaScalingFactor);
-            alpha = Mathf.Clamp(alpha, LineRendererMinAlpha, LineRendererMaxAlpha); // Ensure the alpha falls within the specified range.
-            Material mat = grabber.LineRenderer.material;
-            Color color = mat.color;
-            color.a = grabber.Marking ? alpha : 0;  // Set alpha to 0 if the LineRenderer is not marking an atom.
-            mat.color = color;
-            #endregion
-            #endregion*/
-        }
+        
         #endregion
     }
 

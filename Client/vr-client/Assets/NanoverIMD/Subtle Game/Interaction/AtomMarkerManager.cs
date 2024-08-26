@@ -62,6 +62,7 @@ namespace NanoverIMD.Subtle_Game.Interaction
                 var particlePositionSim = ComputeParticleCentroid(interaction.Particles);
                 var particlePositionWorld = transform.TransformPoint(particlePositionSim);
                 
+                markerRenderer.scale = interaction.Scale;
                 markerRenderer.ParticlePosition = particlePositionWorld;
             }
 

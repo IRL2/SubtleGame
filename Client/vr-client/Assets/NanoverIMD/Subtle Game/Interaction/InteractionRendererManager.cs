@@ -56,7 +56,6 @@ namespace NanoverIMD.Subtle_Game.Interaction
         {
             var interactions = simulation.Interactions;
             var frame = simulation.FrameSynchronizer.CurrentFrame;
-            
             _rendererPool.MapConfig(interactions.Values, MapConfigToInstance);
 
             void MapConfigToInstance(ParticleInteraction interaction, 
@@ -64,7 +63,8 @@ namespace NanoverIMD.Subtle_Game.Interaction
             {
                 var particlePositionSim = ComputeParticleCentroid(interaction.Particles);
                 var particlePositionWorld = transform.TransformPoint(particlePositionSim);
-                
+
+                interactionRenderer.scale = interaction.Scale;
                 interactionRenderer.EndPosition = transform.TransformPoint(interaction.Position);
                 interactionRenderer.StartPosition = particlePositionWorld;
             }

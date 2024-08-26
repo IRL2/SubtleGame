@@ -8,6 +8,7 @@ namespace NanoverIMD.Subtle_Game.Interaction
         // Variables
         [SerializeField] private Vector3 startPoint; // particle position
         [SerializeField] private Vector3 endPoint; // interaction origin
+
         public Vector3 StartPosition
         {
             get => startPoint;
@@ -48,6 +49,7 @@ namespace NanoverIMD.Subtle_Game.Interaction
             var mat = interactionRenderer.material;
             var color = mat.color;
             color.a = Mathf.Clamp(alpha, LineRendererMinAlpha, LineRendererMaxAlpha);
+            color.a = scale != 0 ? alpha : 0;
             // color.a = grabber.Marking ? alpha : 0;  // Set alpha to 0 if the LineRenderer is not marking an atom
             mat.color = color;
         }
