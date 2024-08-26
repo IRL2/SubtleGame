@@ -1,6 +1,5 @@
 using Nanover.Core.Math;
 using Nanover.Frontend.Manipulation;
-using NanoverImd;
 using NanoverImd.Interaction;
 using UnityEngine;
 
@@ -29,7 +28,6 @@ namespace NanoverImd.Subtle_Game.Interaction
         #endregion
 
         #region Marker
-        public Transform AtomMarkerInstance { get; private set; }
         public float MarkerTriggerDistance { get; set; }
         public bool Marking { get; private set; }
         #endregion
@@ -53,7 +51,6 @@ namespace NanoverImd.Subtle_Game.Interaction
 
         #region Audio
         public AudioSource AudioSource { get; private set; }
-        public bool WasPinchingLastFrame { get; private set; }
         #endregion
 
         #region Grab
@@ -61,10 +58,6 @@ namespace NanoverImd.Subtle_Game.Interaction
         public float ForceScale { get; set; }
         public float nextFetchClosestAtomTime {  get; set; } 
         #endregion
-
-        /*#region Line Renderer
-        public LineRenderer LineRenderer { get; private set; }
-        #endregion*/
 
         #endregion
         /// <summary>
@@ -80,75 +73,8 @@ namespace NanoverImd.Subtle_Game.Interaction
             PokePosition = pokePosition;
             #endregion
 
-            /*#region Line Renderer
-            // Create a new LineRenderer
-            LineRenderer = thumbTip.gameObject.AddComponent<LineRenderer>();
-        
-            // Deactivate line renderer
-            LineRenderer.enabled = false;
-
-            // Create a Copy of the Material used by the blueprint
-            Material materialInstance = new Material(lineRendererBlueprint.material);
-            LineRenderer.material = materialInstance;
-
-            #region Copy properties from blueprint
-            LineRenderer.alignment = lineRendererBlueprint.alignment;
-            LineRenderer.allowOcclusionWhenDynamic = lineRendererBlueprint.allowOcclusionWhenDynamic;
-            LineRenderer.colorGradient = lineRendererBlueprint.colorGradient;
-            LineRenderer.endColor = lineRendererBlueprint.endColor;
-            LineRenderer.endWidth = lineRendererBlueprint.endWidth;
-            LineRenderer.generateLightingData = lineRendererBlueprint.generateLightingData;
-            LineRenderer.loop = lineRendererBlueprint.loop;
-            LineRenderer.motionVectorGenerationMode = lineRendererBlueprint.motionVectorGenerationMode;
-            LineRenderer.numCapVertices = lineRendererBlueprint.numCapVertices;
-            LineRenderer.numCornerVertices = lineRendererBlueprint.numCornerVertices;
-            LineRenderer.positionCount = lineRendererBlueprint.positionCount;
-            LineRenderer.receiveShadows = lineRendererBlueprint.receiveShadows;
-            LineRenderer.shadowCastingMode = lineRendererBlueprint.shadowCastingMode;
-            LineRenderer.shadowBias = lineRendererBlueprint.shadowBias;
-            LineRenderer.sharedMaterial = lineRendererBlueprint.sharedMaterial;
-            LineRenderer.sharedMaterials = lineRendererBlueprint.sharedMaterials;
-            LineRenderer.sortingLayerID = lineRendererBlueprint.sortingLayerID;
-            LineRenderer.sortingLayerName = lineRendererBlueprint.sortingLayerName;
-            LineRenderer.sortingOrder = lineRendererBlueprint.sortingOrder;
-            LineRenderer.startColor = lineRendererBlueprint.startColor;
-            LineRenderer.startWidth = lineRendererBlueprint.startWidth;
-            LineRenderer.textureMode = lineRendererBlueprint.textureMode;
-            LineRenderer.useWorldSpace = lineRendererBlueprint.useWorldSpace;
-            LineRenderer.widthCurve = lineRendererBlueprint.widthCurve;
-            LineRenderer.widthMultiplier = lineRendererBlueprint.widthMultiplier;
-            #endregion
-
-            #endregion
-
-            #region Atom Marker
-
-            #region Create Atom Marker Instance
-            // Create a new empty GameObject
-            AtomMarkerInstance = new GameObject("AtomMarkerInstance").transform;
-
-            // Add a MeshFilter and MeshRenderer to make it visible
-            MeshFilter meshFilter = AtomMarkerInstance.gameObject.AddComponent<MeshFilter>();
-            MeshRenderer meshRenderer = AtomMarkerInstance.gameObject.AddComponent<MeshRenderer>();
-        
-            // Deactivate atom marker
-            AtomMarkerInstance.GetComponent<MeshRenderer>().enabled = false;
-        
-            // Assign the sphere mesh
-            meshFilter.mesh = Resources.GetBuiltinResource<Mesh>("Sphere.fbx");
-
-            // Assign a copy of the material used by the AtomMarkerBlueprint
-            Material atomMarkerMaterial = new Material(atomMarkerBlueprint.GetComponent<MeshRenderer>().material);
-            meshRenderer.material = atomMarkerMaterial;
-
-            AtomMarkerInstance.localScale = atomMarkerBlueprint.localScale;
-            #endregion
-            #endregion
-            */
-            
             MarkerTriggerDistance = markerTriggerDistance;
             
-
             #region Script References
             InteractableScene = interactableScene;
             Simulation = simulation;

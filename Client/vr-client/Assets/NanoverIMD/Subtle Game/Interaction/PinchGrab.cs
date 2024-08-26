@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Nanover.Visualisation;
 using NanoverImd.Interaction;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace NanoverImd.Subtle_Game.Interaction
 {
@@ -212,12 +211,6 @@ namespace NanoverImd.Subtle_Game.Interaction
                     return;
                 }
 
-                // Enable interaction atom marker
-                // grabber.AtomMarkerInstance.GetComponent<MeshRenderer>().enabled = true;
-            
-                // Enable interaction line renderer
-                // grabber.LineRenderer.enabled = true;
-            
                 // Set whether the player will use controllers to interact with the simulation
                 grabber.UseControllers = UseControllers;
 
@@ -255,20 +248,6 @@ namespace NanoverImd.Subtle_Game.Interaction
             {
                 var grabber = pinchGrabbers[grabberIndex];
                 if (grabber == null) {return;}
-            
-                /*// Disable interaction atom marker
-                var atomMarker = grabber.AtomMarkerInstance;
-                if (atomMarker != null)
-                {
-                    atomMarker.GetComponent<MeshRenderer>().enabled = false;
-                }
-                
-                // Disable interaction line renderer
-                var interactionLine = grabber.LineRenderer;
-                if (interactionLine != null)
-                {
-                    interactionLine.enabled = false;
-                }*/
             }
             
             // Wipe interactions
