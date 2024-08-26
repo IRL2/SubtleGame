@@ -387,7 +387,7 @@ namespace NanoverImd.Subtle_Game.Interaction
         /// <param name="interaction">The ParticleInteraction object that contains the current interaction data.</param>
         private void UpdateAtomMarkerAndLineRenderer(PinchGrabber grabber, ParticleInteraction interaction)
         {
-            #region Get Atom World Position
+            /*#region Get Atom World Position
             // Retrieve the index of the first particle in the interaction for locating its world position.
             int firstParticleIndex = interaction.Particles[0]; // TODO: Consider changing for residue or center of mass calculations.
             var currentFrame = FrameSourceScript.CurrentFrame;
@@ -445,7 +445,7 @@ namespace NanoverImd.Subtle_Game.Interaction
             color.a = grabber.Marking ? alpha : 0;  // Set alpha to 0 if the LineRenderer is not marking an atom.
             mat.color = color;
             #endregion
-            #endregion
+            #endregion*/
         }
         #endregion
     }
