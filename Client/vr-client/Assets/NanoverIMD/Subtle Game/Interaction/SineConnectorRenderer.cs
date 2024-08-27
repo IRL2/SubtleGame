@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace NanoverIMD.UI
+namespace NanoverIMD.Subtle_Game.Interaction
 {
     [ExecuteAlways]
     public class SineConnectorRenderer : MonoBehaviour

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Nanover.Frontend.Utility;
-using NanoverIMD.UI;
+using NanoverIMD.Subtle_Game.Interaction;
 using UnityEngine;
 
 namespace NanoverImd.Interaction
