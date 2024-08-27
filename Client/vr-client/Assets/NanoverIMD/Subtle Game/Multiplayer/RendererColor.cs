@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace NanoverImd
+namespace NanoverIMD.Subtle_Game.Multiplayer
 {
     [SerializeField]
     [RequireComponent(typeof(Renderer))]

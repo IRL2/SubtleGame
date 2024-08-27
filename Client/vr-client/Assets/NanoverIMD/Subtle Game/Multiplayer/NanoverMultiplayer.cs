@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using NanoverImd;
+using UnityEngine;
 
-namespace NanoverImd
+namespace NanoverIMD.Subtle_Game.Multiplayer
 {
     public class NanoverMultiplayer : MonoBehaviour
     {

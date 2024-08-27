@@ -3,7 +3,7 @@ using NanoverImd.Selection;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace NanoverImd.UI
+namespace NanoverIMD.Subtle_Game.Multiplayer
 {
     public class PlayerColor : MonoBehaviour
     {

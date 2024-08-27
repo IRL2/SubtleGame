@@ -1,12 +1,9 @@
 using System;
 using System.Text.RegularExpressions;
-using NanoverImd.Selection;
 using UnityEngine;
-using UnityEngine.UI;
-
 using Text = TMPro.TextMeshProUGUI;
 
-namespace NanoverImd.UI
+namespace NanoverIMD.Subtle_Game.Multiplayer
 {
     public class PlayerName : MonoBehaviour
     {

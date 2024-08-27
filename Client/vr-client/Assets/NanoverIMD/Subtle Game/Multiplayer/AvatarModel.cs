@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace NanoverImd
+namespace NanoverIMD.Subtle_Game.Multiplayer
 {
     public class AvatarModel : MonoBehaviour
     {
