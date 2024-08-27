@@ -28,7 +28,7 @@ namespace NanoverImd.Subtle_Game.Interaction
         // Pinch
         private float PinchTriggerDistance { get; }
         public bool Pinched { get; private set; }
-        public Transform PinchPositionTransform { get; }
+        public Transform InteractionTransform { get; }
         private const int SustainedPinchFramesRequired = 10; // Number of frames a pinch must be detected to activate
         private const int SustainedReleaseFramesRequired = 10; // Number of frames a non-pinch must be detected to deactivate
         private int _currentPinchFrameCount;
@@ -62,7 +62,7 @@ namespace NanoverImd.Subtle_Game.Interaction
             IndexTip = indexTrigger;
             MiddleTip = middleTip;
             PinchTriggerDistance = pinchTriggerDistance;
-            PinchPositionTransform = new GameObject("PinchPositionTransform").transform;
+            InteractionTransform = new GameObject("PinchPositionTransform").transform;
         }
 
         /// <summary>
@@ -70,48 +70,67 @@ namespace NanoverImd.Subtle_Game.Interaction
         /// </summary>
         public void GetNewGrab()
         {
-            if (PinchPositionTransform == null) return;
+            if (InteractionTransform == null) return;
         
             var grabPose = new Transformation
             {
-                Position = PinchPositionTransform.position,
-                Rotation = PinchPositionTransform.rotation,
-                Scale = PinchPositionTransform.localScale
+                Position = InteractionTransform.position,
+                Rotation = InteractionTransform.rotation,
+                Scale = InteractionTransform.localScale
             };
             Grab = InteractableScene.GetParticleGrab(grabPose);
         }
         
-        public void CheckForPinch()
+        /// <summary>
+        /// Call the functions to check if the player is interacting with the simulation.
+        /// </summary>
+        public void CheckForInteraction()
         {
             if (UseControllers)
             {
-                var triggerValue = PrimaryController ? OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) : OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
-                Pinched = triggerValue > .5f;
+                CheckControllerInteraction();
             }
             else
             {
-                var distanceToIndex = Vector3.Distance(ThumbTip.position, IndexTip.position);
-                var distanceToMiddle = Vector3.Distance(ThumbTip.position, MiddleTip.position);
-                var minDistance = Mathf.Min(distanceToIndex, distanceToMiddle);
+                CheckHandInteraction();
+            }
+        }
 
-                // Evaluate current pinch status based on minimal distance
-                var currentlyPinching = minDistance < PinchTriggerDistance;
+        private void CheckControllerInteraction()
+        {
+            var triggerValue = PrimaryController
+                ? OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger)
+                : OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
 
-                if (currentlyPinching)
+            Pinched = triggerValue > 0.5f;
+        }
+
+        private void CheckHandInteraction()
+        {
+            var thumbPosition = ThumbTip.position;
+            var distanceToIndex = Vector3.Distance(thumbPosition, IndexTip.position);
+            var distanceToMiddle = Vector3.Distance(thumbPosition, MiddleTip.position);
+            var minDistance = Mathf.Min(distanceToIndex, distanceToMiddle);
+
+            UpdatePinchState(minDistance < PinchTriggerDistance);
+        }
+
+        private void UpdatePinchState(bool currentlyPinching)
+        {
+            if (currentlyPinching)
+            {
+                _currentReleaseFrameCount = 0;
+                if (!Pinched && ++_currentPinchFrameCount >= SustainedPinchFramesRequired)
                 {
-                    _currentReleaseFrameCount = 0;
-                    if (!Pinched && ++_currentPinchFrameCount >= SustainedPinchFramesRequired)
-                    {
-                        Pinched = true;
-                    }
+                    Pinched = true;
                 }
-                else
+            }
+            else
+            {
+                _currentPinchFrameCount = 0;
+                if (Pinched && ++_currentReleaseFrameCount >= SustainedReleaseFramesRequired)
                 {
-                    _currentPinchFrameCount = 0;
-                    if (Pinched && ++_currentReleaseFrameCount >= SustainedReleaseFramesRequired)
-                    {
-                        Pinched = false;
-                    }
+                    Pinched = false;
                 }
             }
         }

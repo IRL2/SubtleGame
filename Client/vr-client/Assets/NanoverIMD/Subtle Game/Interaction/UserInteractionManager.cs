@@ -139,7 +139,7 @@ namespace NanoverImd.Subtle_Game.Interaction
         {
             return new ParticleInteraction
             {
-                Position = _interactableSceneTransform.InverseTransformPoint(grabber.PinchPositionTransform.position),
+                Position = _interactableSceneTransform.InverseTransformPoint(grabber.InteractionTransform.position),
                 Particles = new List<int>(grabber.Grab.ParticleIndices),
                 InteractionType = InteractionType,
                 Scale = grabber.ForceScale,
@@ -174,14 +174,14 @@ namespace NanoverImd.Subtle_Game.Interaction
         {
             if (grabber.UseControllers)
             {
-                grabber.PinchPositionTransform.position = grabber.PokePosition.position;
-                grabber.PinchPositionTransform.rotation = grabber.PokePosition.rotation;
+                grabber.InteractionTransform.position = grabber.PokePosition.position;
+                grabber.InteractionTransform.rotation = grabber.PokePosition.rotation;
             }
             else
             {
                 var pinchTransformPosition = (grabber.ThumbTip.position + grabber.IndexTip.position) / 2;
-                grabber.PinchPositionTransform.position = pinchTransformPosition;
-                grabber.PinchPositionTransform.rotation = grabber.ThumbTip.rotation;
+                grabber.InteractionTransform.position = pinchTransformPosition;
+                grabber.InteractionTransform.rotation = grabber.ThumbTip.rotation;
             }
         }
 
@@ -190,7 +190,7 @@ namespace NanoverImd.Subtle_Game.Interaction
         /// </summary>
         private void UpdateGrab(PinchGrabber grabber)
         {
-            grabber.CheckForPinch();
+            grabber.CheckForInteraction();
             
             if (grabber.Pinched)
             {
