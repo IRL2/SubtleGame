@@ -1228,9 +1228,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97030587532c4b3e99f1337269791f27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPoint: {x: 0, y: 0, z: 0}
-  endPoint: {x: 0, y: 0, z: 0}
-  scale: 0
   interactionRenderer: {fileID: 49755829}
 --- !u!120 &49755829
 LineRenderer:
@@ -9810,7 +9807,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simulation: {fileID: 1265723033}
-  interactionRendererTemplate: {fileID: 49755828}
+  rendererTemplate: {fileID: 49755828}
 --- !u!114 &770771426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9824,7 +9821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simulation: {fileID: 1265723033}
-  atomMarkerRendererTemplate: {fileID: 27521871}
+  rendererTemplate: {fileID: 27521871}
 --- !u!1001 &774640874
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12406,13 +12403,6 @@ MonoBehaviour:
   PokePositions:
   - {fileID: 7416501715839334339}
   - {fileID: 9116940136169035185}
-  InteractionLineRendererBlueprint: {fileID: 2067010103}
-  LineRendererAlphaScalingFactor: 0.05
-  MaxWidth: 0.01
-  MinWidth: 0.001
-  WidthFactor: 0.01
-  AtomMarkerBlueprint: {fileID: 1851029525}
-  AtomMarkerScale: 0.025
   InteractableSceneScript: {fileID: 23693884}
   nanoverSimulation: {fileID: 1265723033}
   IndexAndThumbTransforms:
