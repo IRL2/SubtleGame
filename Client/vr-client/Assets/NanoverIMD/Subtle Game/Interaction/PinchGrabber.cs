@@ -34,9 +34,6 @@ namespace NanoverImd.Subtle_Game.Interaction
         private int _currentPinchFrameCount;
         private int _currentReleaseFrameCount;
 
-        // Audio
-        private AudioSource AudioSource { get; }
-        
         // Grab
         private string LastGrabId { get; set; }
         public float ForceScale { get; set; }
@@ -49,7 +46,7 @@ namespace NanoverImd.Subtle_Game.Interaction
         /// </summary>
         public PinchGrabber(Transform thumbTip, Transform indexTrigger, Transform middleTip, 
             float pinchTriggerDistance, InteractableScene interactableScene, NanoverImdSimulation simulation, 
-            AudioClip grabNewAtomSound, bool useController, bool primaryController, Transform pokePosition)
+            bool useController, bool primaryController, Transform pokePosition)
         {
             // Controllers
             UseControllers = useController;
@@ -66,10 +63,6 @@ namespace NanoverImd.Subtle_Game.Interaction
             MiddleTip = middleTip;
             PinchTriggerDistance = pinchTriggerDistance;
             PinchPositionTransform = new GameObject("PinchPositionTransform").transform;
-
-            // Audio Source
-            AudioSource = ThumbTip.gameObject.AddComponent<AudioSource>();
-            AudioSource.clip = grabNewAtomSound;
         }
 
         /// <summary>
@@ -110,7 +103,6 @@ namespace NanoverImd.Subtle_Game.Interaction
                     if (!Pinched && ++_currentPinchFrameCount >= SustainedPinchFramesRequired)
                     {
                         Pinched = true;
-                        AudioSource.Play();
                     }
                 }
                 else

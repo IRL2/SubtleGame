@@ -15,8 +15,7 @@ namespace NanoverImd.Subtle_Game.Interaction
     {
         private bool FrameReady =>
             _frameSource != null &&
-            _frameSource.CurrentFrame != null &&
-            _frameSource.CurrentFrame.ParticlePositions != null;
+            _frameSource.CurrentFrame is { ParticlePositions: not null };
 
         // Controllers
         [NonSerialized] public bool UseControllers = false;
@@ -38,9 +37,6 @@ namespace NanoverImd.Subtle_Game.Interaction
         [NonSerialized] public string InteractionType = "gaussian";
         [NonSerialized] public float InteractionForceScale = 200f;
         private const float FetchClosestAtomUpdateInterval = .1f;  // time interval for updating closest atom when not interacting
-
-        // Audio Effects
-        public AudioClip GrabNewAtomSound;  // audio clip when a new interaction is activated, not currently being used
 
         // Connection Check
         private bool _firstFrameReceived;
@@ -99,7 +95,6 @@ namespace NanoverImd.Subtle_Game.Interaction
                 PinchTriggerThreshold,
                 interactableScene,
                 simulation,
-                GrabNewAtomSound,
                 UseControllers,
                 primaryController,
                 pokePosition
