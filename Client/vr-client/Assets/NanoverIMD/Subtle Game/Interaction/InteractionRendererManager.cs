@@ -13,9 +13,9 @@ namespace NanoverIMD.Subtle_Game.Interaction
         /// </summary>
         protected override void ConfigureRenderer(ParticleInteraction interaction, InteractionRenderer rendererInstance, Vector3 particlePositionWorld)
             {
-                rendererInstance.scale = interaction.Scale;
-                rendererInstance.EndPosition = transform.TransformPoint(interaction.Position);
-                rendererInstance.StartPosition = particlePositionWorld;
+                rendererInstance.forceScale = interaction.Scale;
+                rendererInstance.InteractionPosition = transform.TransformPoint(interaction.Position);
+                rendererInstance.ParticlePosition = particlePositionWorld;
             }
     }
 }
