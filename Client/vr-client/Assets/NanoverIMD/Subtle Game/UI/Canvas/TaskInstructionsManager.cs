@@ -6,6 +6,7 @@ using NanoverIMD.Subtle_Game.Data_Collection;
 using NanoverImd.Subtle_Game.Interaction;
 using NanoverImd.Subtle_Game.UI.Simulation;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NanoverIMD.Subtle_Game.UI.Canvas
 {
@@ -57,9 +58,9 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         [SerializeField] private GameObject exitInstructions;
 
         /// <summary>
-        /// The pinch grab script.
+        /// The user interaction manager.
         /// </summary>
-        [SerializeField] private PinchGrab pinchGrab;
+        [SerializeField] private UserInteractionManager userInteractionManager;
         
         /// <summary>
         /// The game object representing the center of the XY plane of the simulation box.
@@ -206,8 +207,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
            }
            else
            {
-                inputHandInstructions.SetActive( !pinchGrab.UseControllers );
-                inputControllerInstructions.SetActive( pinchGrab.UseControllers );
+                inputHandInstructions.SetActive( !userInteractionManager.UseControllers );
+                inputControllerInstructions.SetActive( userInteractionManager.UseControllers );
            }
         }
         

@@ -46,7 +46,7 @@ namespace NanoverImd.Subtle_Game
 
         [SerializeField] private GameObject simulationSpace;
 
-        private PinchGrab _pinchGrab;
+        private UserInteractionManager _userInteractionManager;
             public bool ShowSimulation
             {
                 get => _showSimulation;
@@ -65,7 +65,7 @@ namespace NanoverImd.Subtle_Game
                 {
                     _enableInteractions = value;
                     userInteraction.SetActive(_enableInteractions);
-                    _pinchGrab.UseControllers = CurrentInteractionModality == Modality.Controllers;
+                    _userInteractionManager.UseControllers = CurrentInteractionModality == Modality.Controllers;
                 }
             }
 
@@ -162,28 +162,28 @@ namespace NanoverImd.Subtle_Game
                     switch (value)
                     {
                         case TaskTypeVal.Sandbox:
-                            _pinchGrab.InteractionType = "gaussian";
-                            _pinchGrab.InteractionForceScale = 150f;
+                            _userInteractionManager.InteractionType = "gaussian";
+                            _userInteractionManager.InteractionForceScale = 150f;
                             break;
                         case TaskTypeVal.Nanotube:
-                            _pinchGrab.InteractionType = "gaussian";
-                            _pinchGrab.InteractionForceScale = 300f;
+                            _userInteractionManager.InteractionType = "gaussian";
+                            _userInteractionManager.InteractionForceScale = 300f;
                             break;
                         case TaskTypeVal.KnotTying:
-                            _pinchGrab.InteractionType = "gaussian";
-                            _pinchGrab.InteractionForceScale = 600f;
+                            _userInteractionManager.InteractionType = "gaussian";
+                            _userInteractionManager.InteractionForceScale = 600f;
                             break;
                         case TaskTypeVal.None:
                         case TaskTypeVal.GameFinished:
                         default:
                             if (TaskLists.TrialsTasks.Contains(value))
                             {
-                                _pinchGrab.InteractionType = "gaussian";
-                                _pinchGrab.InteractionForceScale = 400f;
+                                _userInteractionManager.InteractionType = "gaussian";
+                                _userInteractionManager.InteractionForceScale = 400f;
                                 break;
                             }
-                            _pinchGrab.InteractionType = "gaussian";
-                            _pinchGrab.InteractionForceScale = 300f;
+                            _userInteractionManager.InteractionType = "gaussian";
+                            _userInteractionManager.InteractionForceScale = 300f;
                             break;
                     }
                 }
@@ -281,7 +281,7 @@ namespace NanoverImd.Subtle_Game
             _canvasManager = FindObjectOfType<CanvasManager>();
             
             // Find the pinch grab script
-            _pinchGrab = FindObjectOfType<PinchGrab>();
+            _userInteractionManager = FindObjectOfType<UserInteractionManager>();
             
             // Find the trials timer script
             _timer = FindObjectOfType<TrialsTimer>();
@@ -352,7 +352,7 @@ namespace NanoverImd.Subtle_Game
             await simulation.AutoConnectByName("SubtleGame");
 
             // Initialise pinch grabs for interactions
-            _pinchGrab.InitialiseInteractions();
+            _userInteractionManager.InitialiseInteractions();
 
             // Let the Puppeteer Manager know that the player has connected
             PlayerStatus = true;
@@ -499,7 +499,7 @@ namespace NanoverImd.Subtle_Game
             while (true)
             {
                 // Check whether controllers or hands are tracking
-                _pinchGrab.UseControllers = AreControllersBeingTracked();
+                _userInteractionManager.UseControllers = AreControllersBeingTracked();
                 
                 // Exit
                 if (_exitSandboxRequested)
