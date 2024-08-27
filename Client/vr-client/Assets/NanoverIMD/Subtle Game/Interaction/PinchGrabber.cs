@@ -20,10 +20,6 @@ namespace NanoverImd.Subtle_Game.Interaction
         public Transform IndexTip { get; }
         private Transform MiddleTip { get; }
 
-        // Marker
-        private float MarkerTriggerDistance { get; }
-        private bool Marking { get; set; }
-
         // Script References
         public ActiveParticleGrab Grab { get; private set; }
         private InteractableScene InteractableScene { get; }
@@ -52,18 +48,14 @@ namespace NanoverImd.Subtle_Game.Interaction
         /// like the interactable scene, the simulation, and blueprints for LineRenderers and AtomMarkers.
         /// </summary>
         public PinchGrabber(Transform thumbTip, Transform indexTrigger, Transform middleTip, 
-            float pinchTriggerDistance, float markerTriggerDistance, 
-            InteractableScene interactableScene, NanoverImdSimulation simulation, AudioClip grabNewAtomSound, 
-            bool useController, bool primaryController, Transform pokePosition)
+            float pinchTriggerDistance, InteractableScene interactableScene, NanoverImdSimulation simulation, 
+            AudioClip grabNewAtomSound, bool useController, bool primaryController, Transform pokePosition)
         {
             // Controllers
             UseControllers = useController;
             PrimaryController = primaryController;
             PokePosition = pokePosition;
-            
-            // TODO: check if this is needed
-            MarkerTriggerDistance = markerTriggerDistance;
-            
+
             // Script References
             InteractableScene = interactableScene;
             Simulation = simulation;
@@ -101,7 +93,6 @@ namespace NanoverImd.Subtle_Game.Interaction
             if (UseControllers)
             {
                 var triggerValue = PrimaryController ? OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) : OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
-                Marking = triggerValue > 0f;
                 Pinched = triggerValue > .5f;
             }
             else
@@ -112,8 +103,6 @@ namespace NanoverImd.Subtle_Game.Interaction
 
                 // Evaluate current pinch status based on minimal distance
                 var currentlyPinching = minDistance < PinchTriggerDistance;
-                // TODO: check if this is being used
-                var currentlyMarking = minDistance < MarkerTriggerDistance;
 
                 if (currentlyPinching)
                 {
@@ -130,23 +119,6 @@ namespace NanoverImd.Subtle_Game.Interaction
                     if (Pinched && ++_currentReleaseFrameCount >= SustainedReleaseFramesRequired)
                     {
                         Pinched = false;
-                    }
-                }
-
-                if (currentlyMarking)
-                {
-                    _currentReleaseFrameCount = 0;
-                    if (!Marking && ++_currentPinchFrameCount >= SustainedPinchFramesRequired)
-                    {
-                        Marking = true;
-                    }
-                }
-                else
-                {
-                    _currentPinchFrameCount = 0;
-                    if (Marking && ++_currentReleaseFrameCount >= SustainedReleaseFramesRequired)
-                    {
-                        Marking = false;
                     }
                 }
             }

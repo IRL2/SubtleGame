@@ -32,7 +32,6 @@ namespace NanoverImd.Subtle_Game.Interaction
         // Pinch
         [SerializeField] private List<Transform> indexAndThumbTransforms;
         private const float PinchTriggerThreshold = .02f; // threshold for activating an interaction
-        private const float MarkerTriggerDistance = .03f;  // TODO: IS THIS STILL BEING USED? threshold for marking an atom
 
         // Grab
         private List<PinchGrabber> _pinchGrabbers;
@@ -98,7 +97,6 @@ namespace NanoverImd.Subtle_Game.Interaction
                 indexAndThumbTransforms[index + 1],
                 indexAndThumbTransforms[index + 2],
                 PinchTriggerThreshold,
-                MarkerTriggerDistance,
                 interactableScene,
                 simulation,
                 GrabNewAtomSound,
