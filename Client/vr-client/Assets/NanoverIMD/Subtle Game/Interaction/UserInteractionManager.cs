@@ -206,9 +206,9 @@ namespace NanoverImd.Subtle_Game.Interaction
             else
             {
                 // If specified time has passed, check for the closest atom again
-                if (Time.time >= grabber.nextFetchClosestAtomTime)
+                if (Time.time >= grabber.NextFetchClosestAtomTime)
                 {
-                    grabber.nextFetchClosestAtomTime = Time.time + FetchClosestAtomUpdateInterval;
+                    grabber.NextFetchClosestAtomTime = Time.time + FetchClosestAtomUpdateInterval;
                     grabber.UpdateLastGrabId(grabber.Grab.Id);
                     grabber.GetNewGrab();
                 }
