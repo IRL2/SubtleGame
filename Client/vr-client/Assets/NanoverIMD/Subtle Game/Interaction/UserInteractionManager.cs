@@ -13,7 +13,7 @@ namespace NanoverImd.Subtle_Game.Interaction
     /// transforms that together act as a single grabber. The class also manages visual cues like LineRenderers
     /// and AtomMarkers to indicate the interactions.
     /// </summary>
-    public class PinchGrab : MonoBehaviour
+    public class UserInteractionManager : MonoBehaviour
     {
         public bool FrameReady => FrameSourceScript?.CurrentFrame?.ParticlePositions != null;
 

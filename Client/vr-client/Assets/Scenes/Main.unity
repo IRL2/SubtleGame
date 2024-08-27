@@ -1342,8 +1342,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 50482151}
+  - component: {fileID: 50482152}
   m_Layer: 0
-  m_Name: User Interaction
+  m_Name: User interaction manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1357,14 +1358,39 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 50482150}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1039910426}
-  m_Father: {fileID: 0}
+  m_Children: []
+  m_Father: {fileID: 1364228085}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &50482152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50482150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e1c2e6973f58904fae20f1850923351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PokePositions:
+  - {fileID: 7416501715839334339}
+  - {fileID: 9116940136169035185}
+  InteractableSceneScript: {fileID: 23693884}
+  nanoverSimulation: {fileID: 1265723033}
+  IndexAndThumbTransforms:
+  - {fileID: 4595471348484302799}
+  - {fileID: 4682591776209724542}
+  - {fileID: 3675295410859812432}
+  - {fileID: 4887313454428485390}
+  - {fileID: 4591869718317071806}
+  - {fileID: 359393469706056710}
+  FetchClosestAtomUpdateInterval: 0.1
+  GrabNewAtomSound: {fileID: 8300000, guid: a05d082cd207b4b12a47c089be8b7a62, type: 3}
 --- !u!1001 &58347021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12356,64 +12382,6 @@ Transform:
   - {fileID: 2053234310}
   m_Father: {fileID: 8677729729140572697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1039910424
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1039910426}
-  - component: {fileID: 1039910427}
-  m_Layer: 0
-  m_Name: Pinch Trigger Interface
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1039910426
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1039910424}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 50482151}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1039910427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1039910424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e1c2e6973f58904fae20f1850923351, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PokePositions:
-  - {fileID: 7416501715839334339}
-  - {fileID: 9116940136169035185}
-  InteractableSceneScript: {fileID: 23693884}
-  nanoverSimulation: {fileID: 1265723033}
-  IndexAndThumbTransforms:
-  - {fileID: 4595471348484302799}
-  - {fileID: 4682591776209724542}
-  - {fileID: 3675295410859812432}
-  - {fileID: 4887313454428485390}
-  - {fileID: 4591869718317071806}
-  - {fileID: 359393469706056710}
-  FetchClosestAtomUpdateInterval: 0.1
-  GrabNewAtomSound: {fileID: 8300000, guid: a05d082cd207b4b12a47c089be8b7a62, type: 3}
 --- !u!1 &1051271512
 GameObject:
   m_ObjectHideFlags: 0
@@ -19666,6 +19634,7 @@ Transform:
   - {fileID: 436285475}
   - {fileID: 136582858}
   - {fileID: 758418883}
+  - {fileID: 50482151}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1364228086
@@ -20353,7 +20322,7 @@ MonoBehaviour:
   taskSandboxInstructions: {fileID: 440835136}
   taskTrialsInstructions: {fileID: 916951214}
   exitInstructions: {fileID: 1484478698}
-  pinchGrab: {fileID: 1039910427}
+  userInteractionManager: {fileID: 50482152}
   centerRightFace: {fileID: 746467490}
   trialProgressManager: {fileID: 1245036777}
   trialsProgressGroup: {fileID: 1839179447}
@@ -36460,7 +36429,6 @@ SceneRoots:
   - {fileID: 1354330444}
   - {fileID: 1265723034}
   - {fileID: 2767777564478886469}
-  - {fileID: 50482151}
   - {fileID: 1621786873}
   - {fileID: 8831589731561787294}
   - {fileID: 1081504607}
