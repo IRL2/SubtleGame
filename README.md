@@ -27,7 +27,7 @@
       ``` 
       Or the following for a short game:
       ```
-      .\nanover-cli.exe --name "SubtleGame" "..\Inputs\sandbox_2_C10_alkanes.xml" "..\Inputs\17-ala.xml" "..\Inputs\nanotube_langevin.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.7.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.7.xml
+      .\nanover-cli.exe --name "SubtleGame" "..\Inputs\sandbox_2_C10_alkanes.xml" "..\Inputs\17-ala.xml" "..\Inputs\nanotube_langevin.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.7.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.7.xml"
       ```
       If you want to record the session, add `--trajectory "write-your-file-name-here.traj --state "write-your-file-name-here.state"` to the end of the above commands.
 2. **Run the game manager**:
