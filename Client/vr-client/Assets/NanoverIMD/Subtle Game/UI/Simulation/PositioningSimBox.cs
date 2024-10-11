@@ -1,5 +1,6 @@
 ﻿using Nanover.Core.Math;
 using Nanover.Visualisation;
+using NanoverImd;
 using NanoverImd.Subtle_Game;
 using NanoverIMD.Subtle_Game.Data_Collection;
 using UnityEngine;
@@ -8,6 +9,17 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
 {
     public class PositioningSimBox : MonoBehaviour
     {
+        [SerializeField]
+        private NanoverImdApplication application;
+
+        [SerializeField] private Transform boxCenter;
+
+        private Vector3 desiredPosition;
+        private Quaternion desiredRotation;
+        private Vector3 desiredScale;
+
+        private bool firstPass = true;
+        
         /// <summary>
         /// The NarupaIMD simulation.
         /// </summary>
@@ -62,21 +74,63 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
             {
                 CheckTaskChanged();
                 CheckBoxSizeChanged();
+                
+                UpdatePose();
 
                 if (_taskChanged) UpdateOffsets();
                 
                 if (_boxSizeChanged && _taskChanged)
                 {
-                    UpdatePlayerPosition();
+                    if (firstPass)
+                    {
+                        // FOR TESTING: only update players position on first pass
+                        UpdatePlayerPosition();
+                        firstPass = false;
+                    }
+                    
                     _boxSizeChanged = _taskChanged = false;
                 }
 
-                UpdatePose();
+                // UpdatePose();
             }
 
             private void UpdatePose()
             {
-                // box scale
+                
+                // TODO: Change this code to move the calibrated space
+                
+                // Specify rotation
+                desiredRotation = Quaternion.LookRotation(-playerReference.forward);
+                
+                // Specify position
+                desiredPosition = new Vector3(
+                    playerReference.position.x + boxCenter.position.x, 
+                    -(playerReference.position.y + boxCenter.position.y), 
+                    playerReference.position.z + boxCenter.position.z);
+                
+                Debug.LogWarning(boxCenter.position);
+
+                // Create the transformation
+                var desiredTransformation = new Transformation(desiredPosition, desiredRotation, Vector3.one);
+                
+                // Convert transformation from world into calibrated space
+                var calibratedPose = application.CalibratedSpace.TransformPoseWorldToCalibrated(desiredTransformation);
+                
+                // Create transformation matrix
+                var transformationMatrix = Matrix4x4.TRS(calibratedPose.Position, calibratedPose.Rotation, Vector3.one);
+                
+                // Calibrate the space
+                application.CalibratedSpace.CalibrateFromMatrix(transformationMatrix);
+                
+                // set teh scale
+                if (subtleGameManager.simulation.Multiplayer.IsOpen)
+                {
+                    var currentPose = subtleGameManager.simulation.Multiplayer.SimulationPose.Value;
+                    currentPose.Scale = Vector3.one * Scale;
+                    subtleGameManager.simulation.Multiplayer.SimulationPose.UpdateValueWithLock(currentPose);
+                }
+                
+                /*// box scale
                 var scale = Scale;
 
                 // half box size in world coordinates
@@ -99,7 +153,7 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
                 if (subtleGameManager.simulation.Multiplayer.IsOpen)
                 {
                     subtleGameManager.simulation.Multiplayer.SimulationPose.UpdateValueWithLock(t);
-                }
+                }*/
             }
 
             private void UpdatePlayerPosition()
