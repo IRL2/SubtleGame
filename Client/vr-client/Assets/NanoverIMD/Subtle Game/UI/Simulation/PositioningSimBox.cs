@@ -1,7 +1,4 @@
-﻿using System.Net;
-using System.Numerics;
-using Nanover.Core.Math;
-using Nanover.Visualisation;
+﻿using Nanover.Visualisation;
 using NanoverImd;
 using NanoverImd.Subtle_Game;
 using NanoverIMD.Subtle_Game.Data_Collection;
@@ -9,7 +6,6 @@ using UnityEngine;
 using Matrix4x4 = UnityEngine.Matrix4x4;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
-using Vector4 = UnityEngine.Vector4;
 
 namespace NanoverIMD.Subtle_Game.UI.Simulation
 {
@@ -17,9 +13,11 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
     {
         [SerializeField]
         private NanoverImdApplication application;
-
+        
+        [SerializeField] private Transform trackerForCalibration;
         [SerializeField] private Transform boxCenter;
         [SerializeField] private Transform box;
+        [SerializeField] private Transform calibratedSpaceTransform;
 
         private Vector3 desiredPosition;
         private Quaternion desiredRotation;
@@ -87,16 +85,20 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
         {
             CheckTaskChanged();
             CheckBoxSizeChanged();
-            UpdateOffsets();
+            // UpdateOffsets();
+            
+            trackerForCalibration.position = boxCenter.position;
+            trackerForCalibration.rotation = boxCenter.rotation;
             
             // if (_taskChanged) UpdateOffsets();
             
-            if (_boxSizeChanged && _taskChanged)
+            /*if (_boxSizeChanged && _taskChanged)
             {
                 UpdatePlayerPosition();
                 _boxSizeChanged = _taskChanged = false;
-            }
-
+            }*/
+            
+            UpdatePlayerPosition();
             UpdateBoxScale();
             UpdatePose();
         }
@@ -115,24 +117,38 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
 
         private void UpdatePose()
         {
-            // Get transformation matrix for calibration
+            /*
             var halfBoxSize = _currentBoxSize / 2;
             
+            var calibratedSpaceToTracker = calibratedSpaceTransform.localToWorldMatrix.inverse * trackerForCalibration.localToWorldMatrix;
+            var calibratedSpaceToBox = calibratedSpaceTransform.localToWorldMatrix.inverse * boxCenter.transform.localToWorldMatrix;
+            var boxToCenter = Matrix4x4.TRS(new Vector3(-halfBoxSize, halfBoxSize, halfBoxSize), Quaternion.identity, Vector3.one);
+            */
+            
+            // var guess = playerReference.localToWorldMatrix * trackerForCalibration.localToWorldMatrix.inverse * application.CalibratedSpace.LocalToWorldMatrix;
+            
+            var desiredTransform = playerReference.localToWorldMatrix * Matrix4x4.TRS(boxCenter.position, boxCenter.rotation, Vector3.one).inverse * application.CalibratedSpace.LocalToWorldMatrix;
+            
+            application.CalibratedSpace.CalibrateFromMatrix(desiredTransform);
+            
+            /*// Get transformation matrix for calibration
+            var halfBoxSize = _currentBoxSize / 2;
+
             var posVector = new Vector3(-halfBoxSize, halfBoxSize, halfBoxSize);
             var boxCenterMatrix = Matrix4x4.TRS(posVector, Quaternion.identity, Vector3.one);
             /*var offsetPosition = new Vector3(
-                -halfBoxSize + offsetAbsolute.x + offsetPercent.x * _currentBoxSize * Scale, 
-                halfBoxSize+ offsetAbsolute.y + offsetPercent.y * _currentBoxSize * Scale, 
+                -halfBoxSize + offsetAbsolute.x + offsetPercent.x * _currentBoxSize * Scale,
+                halfBoxSize+ offsetAbsolute.y + offsetPercent.y * _currentBoxSize * Scale,
                 halfBoxSize+ offsetAbsolute.z + offsetPercent.z * _currentBoxSize * Scale
                 );
-        
-            var boxCenterMatrix = Matrix4x4.TRS(offsetPosition, Quaternion.identity, Vector3.one);*/
-            
-            
+
+            var boxCenterMatrix = Matrix4x4.TRS(offsetPosition, Quaternion.identity, Vector3.one);#1#
+
+
             var inverseHeadsetMatrix = playerReference.localToWorldMatrix;
-            
+
             // Calibrate the calibrated space
-            application.CalibratedSpace.CalibrateFromMatrix(inverseHeadsetMatrix * boxCenterMatrix.inverse);
+            application.CalibratedSpace.CalibrateFromMatrix(inverseHeadsetMatrix * boxCenterMatrix.inverse);*/
 
             /*
             // box scale
@@ -160,6 +176,23 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
                 subtleGameManager.simulation.Multiplayer.SimulationPose.UpdateValueWithLock(t);
             }
             */
+        }
+        
+        public void SetMatrix(Transform t, Matrix4x4 m, bool scale=true)
+        {
+            t.SetPositionAndRotation(m.GetPosition(), m.rotation);
+        
+            if (scale)
+            {
+                if (t.parent == null)
+                {
+                    t.localScale = m.lossyScale;
+                }
+                else
+                {
+                    t.localScale = t.parent.lossyScale * m.lossyScale.x;
+                }
+            }
         }
 
         private void UpdatePlayerPosition()

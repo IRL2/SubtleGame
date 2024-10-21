@@ -7408,6 +7408,37 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4322276515709658451, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
   m_PrefabInstance: {fileID: 1847266650}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &600730816
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 600730817}
+  m_Layer: 0
+  m_Name: Tracker for space calibration
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &600730817
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600730816}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &607568738
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26644,6 +26675,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2066515855}
   - component: {fileID: 2066515856}
+  - component: {fileID: 2066515857}
   m_Layer: 0
   m_Name: Center Sim
   m_TagString: Untagged
@@ -26673,18 +26705,38 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066515854}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a08d3946ae584beaad9675a795875f59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   application: {fileID: 1354330443}
+  trackerForCalibration: {fileID: 600730817}
   boxCenter: {fileID: 627743193}
   box: {fileID: 543794535019733081}
+  calibratedSpaceTransform: {fileID: 1265723034}
   simulation: {fileID: 1152867538}
   subtleGameManager: {fileID: 1364228086}
   centreEyeAnchor: {fileID: 4948775120161647665}
   frameSource: {fileID: 1265723032}
+  xOffset: 0
+  yOffset: 0
+  zOffset: 0
+--- !u!114 &2066515857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066515854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91c642d2c63c4d438a6b7328a6ccf623, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  centerEyeAnchor: {fileID: 4948775120161647665}
+  boxCenter: {fileID: 627743193}
+  application: {fileID: 1354330443}
 --- !u!1 &2067010102
 GameObject:
   m_ObjectHideFlags: 0
@@ -36434,3 +36486,4 @@ SceneRoots:
   - {fileID: 8831589731561787294}
   - {fileID: 1081504607}
   - {fileID: 1364228085}
+  - {fileID: 600730817}
