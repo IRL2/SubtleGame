@@ -34,7 +34,10 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
         {
             SubtleGameManager.TaskTypeVal.Nanotube => 1f * .3f,
             SubtleGameManager.TaskTypeVal.KnotTying => 0.5f * .3f,
-            _ when TaskLists.TrialsTasks.Contains(subtleGameManager.CurrentTaskType) => 1f * 0.3f,
+            SubtleGameManager.TaskTypeVal.TrialsObserver => 1f,
+            SubtleGameManager.TaskTypeVal.TrialsObserverTraining => 1f,
+            SubtleGameManager.TaskTypeVal.Trials => 1f * .3f,
+            SubtleGameManager.TaskTypeVal.TrialsTraining => 1f,
             _ => 1f * .3f,
         };
         
@@ -51,40 +54,60 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
                 boxSizeChanged = taskChanged = false;
             }
             
-            PositionSimBox();
+            CalibrateSpace();
             UpdateBoxScale();
         }
-
+        
+        /// <summary>
+        /// Update the headset reference to the current headset matrix.
+        /// This is the root to headset matrix.
+        /// </summary>
         private void UpdatePlayerPosition()
         {
-            // Update the player reference to the current headset position
             headsetReference = centerEyeAnchor.localToWorldMatrix;
         }
         
+        /// <summary>
+        /// Update the scale of the simulation box (with lock). We only do this if we are in a task where we are NOT
+        /// replaying recordings.
+        /// </summary>
         private void UpdateBoxScale()
         {
             if (subtleGameManager.CurrentTaskType is SubtleGameManager.TaskTypeVal.TrialsObserver
                 or SubtleGameManager.TaskTypeVal.TrialsObserverTraining) return;
-
-            if (!subtleGameManager.simulation.Multiplayer.IsOpen) return;
             
+            // TODO - get direct access to the simulation, not through the game manager
+            if (!subtleGameManager.simulation.Multiplayer.IsOpen) return;
             var currentPose = subtleGameManager.simulation.Multiplayer.SimulationPose.Value;
             currentPose.Scale = Vector3.one * Scale;
             subtleGameManager.simulation.Multiplayer.SimulationPose.UpdateValueWithLock(currentPose);
         }
-
-        private void PositionSimBox()
+        
+        
+        /// <summary>
+        /// Calibrate the calibrated space according to the specified (task-specific) scale and offset values. 
+        /// </summary>
+        private void CalibrateSpace()
         {
-            // Position the box based on the headset reference
+            // headset pose
             var rootToHeadset = headsetReference;
+            
+            // the world pose of the box center, i.e. the box center matrix without scale
             var rootToBoxCenterUnscaled = Matrix4x4.TRS(boxCenter.position, boxCenter.rotation, Vector3.one);
+            
+            // current calibrated space matrix
             var rootToCalibratedSpace = application.CalibratedSpace.LocalToWorldMatrix;
+            
+            // desired calibrated space matrix
             var desiredCalibration = rootToHeadset * rootToBoxCenterUnscaled.inverse * rootToCalibratedSpace;
             
-            // Calibrate the space
+            // calibrate the space
             application.CalibratedSpace.CalibrateFromMatrix(desiredCalibration);
         }
         
+        /// <summary>
+        /// Check if the player has changed task.
+        /// </summary>
         private void CheckTaskChanged()
         {
             currentTask = subtleGameManager.CurrentTaskType;
@@ -94,8 +117,14 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
             // TODO: task does not changed when player goes in and out of sandbox. Ensure task is set to None when the player leaves the sandbox.
         }
 
+        
+        /// <summary>
+        /// Check if the box size has changed. 
+        /// </summary>
         private void CheckBoxSizeChanged()
         {
+            // TODO - Do we need this check?
+            
             previousBoxSize = currentBoxSize;
 
             if (frameSource.CurrentFrame is { BoxVectors: { } box })
