@@ -1,12 +1,9 @@
-﻿using System;
-using Nanover.Frontend.Utility;
-using Nanover.Visualisation;
+﻿using Nanover.Visualisation;
 using NanoverImd;
 using NanoverImd.Subtle_Game;
 using NanoverIMD.Subtle_Game.Data_Collection;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UIElements;
+
 
 namespace NanoverIMD.Subtle_Game.Multiplayer
 {
@@ -25,13 +22,13 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
         private Matrix4x4 headsetReference;
         
         // track changes
-        private float _previousBoxSize;
-        private float _currentBoxSize;
-        private bool _boxSizeChanged;
+        private float previousBoxSize;
+        private float currentBoxSize;
+        private bool boxSizeChanged;
         
-        private SubtleGameManager.TaskTypeVal _previousTask = SubtleGameManager.TaskTypeVal.None;
-        private SubtleGameManager.TaskTypeVal _currentTask;
-        private bool _taskChanged;
+        private SubtleGameManager.TaskTypeVal previousTask = SubtleGameManager.TaskTypeVal.None;
+        private SubtleGameManager.TaskTypeVal currentTask;
+        private bool taskChanged;
         
         private float Scale => subtleGameManager.CurrentTaskType switch
         {
@@ -43,15 +40,15 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
         
         private void Update()
         {
-            CheckTaskChanged();
-            // CheckBoxSizeChanged();
+            if (subtleGameManager.PlayerStatus == false || !boxCenter.gameObject.activeInHierarchy) return;
             
-            // if (_boxSizeChanged && _taskChanged)
-            if (_taskChanged)
+            CheckTaskChanged();
+            CheckBoxSizeChanged();
+            
+            if (boxSizeChanged && taskChanged)
             {
-                Debug.LogWarning("Updating player position");
                 UpdatePlayerPosition();
-                _boxSizeChanged = _taskChanged = false;
+                boxSizeChanged = taskChanged = false;
             }
             
             PositionSimBox();
@@ -63,7 +60,6 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
             // Update the player reference to the current headset position
             headsetReference = centerEyeAnchor.localToWorldMatrix;
         }
-        
         
         private void UpdateBoxScale()
         {
@@ -91,25 +87,25 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
         
         private void CheckTaskChanged()
         {
-            _currentTask = subtleGameManager.CurrentTaskType;
-            _taskChanged = _currentTask != _previousTask;
-            _previousTask = _currentTask;
+            currentTask = subtleGameManager.CurrentTaskType;
+            taskChanged = currentTask != previousTask;
+            previousTask = currentTask;
             
             // TODO: task does not changed when player goes in and out of sandbox. Ensure task is set to None when the player leaves the sandbox.
         }
 
         private void CheckBoxSizeChanged()
         {
-            _previousBoxSize = _currentBoxSize;
+            previousBoxSize = currentBoxSize;
 
             if (frameSource.CurrentFrame is { BoxVectors: { } box })
             {
-                _currentBoxSize = box.axesMagnitudes.x * Scale;
+                currentBoxSize = box.axesMagnitudes.x * Scale;
             }
 
-            if (Mathf.Abs(_currentBoxSize - _previousBoxSize) > 0.01)
+            if (Mathf.Abs(currentBoxSize - previousBoxSize) > 0.01)
             {
-                _boxSizeChanged = true;
+                boxSizeChanged = true;
             }
         }
     }
