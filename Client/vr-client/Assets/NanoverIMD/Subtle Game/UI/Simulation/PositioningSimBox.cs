@@ -89,16 +89,13 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
             
             trackerForCalibration.position = boxCenter.position;
             trackerForCalibration.rotation = boxCenter.rotation;
-            
-            // if (_taskChanged) UpdateOffsets();
-            
-            /*if (_boxSizeChanged && _taskChanged)
+
+            if (_boxSizeChanged && _taskChanged)
             {
                 UpdatePlayerPosition();
                 _boxSizeChanged = _taskChanged = false;
-            }*/
-            
-            UpdatePlayerPosition();
+            }
+
             UpdateBoxScale();
             UpdatePose();
         }
@@ -117,83 +114,9 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
 
         private void UpdatePose()
         {
-            /*
-            var halfBoxSize = _currentBoxSize / 2;
-            
-            var calibratedSpaceToTracker = calibratedSpaceTransform.localToWorldMatrix.inverse * trackerForCalibration.localToWorldMatrix;
-            var calibratedSpaceToBox = calibratedSpaceTransform.localToWorldMatrix.inverse * boxCenter.transform.localToWorldMatrix;
-            var boxToCenter = Matrix4x4.TRS(new Vector3(-halfBoxSize, halfBoxSize, halfBoxSize), Quaternion.identity, Vector3.one);
-            */
-            
-            // var guess = playerReference.localToWorldMatrix * trackerForCalibration.localToWorldMatrix.inverse * application.CalibratedSpace.LocalToWorldMatrix;
-            
-            var desiredTransform = playerReference.localToWorldMatrix * Matrix4x4.TRS(boxCenter.position, boxCenter.rotation, Vector3.one).inverse * application.CalibratedSpace.LocalToWorldMatrix;
-            
-            application.CalibratedSpace.CalibrateFromMatrix(desiredTransform);
-            
-            /*// Get transformation matrix for calibration
-            var halfBoxSize = _currentBoxSize / 2;
-
-            var posVector = new Vector3(-halfBoxSize, halfBoxSize, halfBoxSize);
-            var boxCenterMatrix = Matrix4x4.TRS(posVector, Quaternion.identity, Vector3.one);
-            /*var offsetPosition = new Vector3(
-                -halfBoxSize + offsetAbsolute.x + offsetPercent.x * _currentBoxSize * Scale,
-                halfBoxSize+ offsetAbsolute.y + offsetPercent.y * _currentBoxSize * Scale,
-                halfBoxSize+ offsetAbsolute.z + offsetPercent.z * _currentBoxSize * Scale
-                );
-
-            var boxCenterMatrix = Matrix4x4.TRS(offsetPosition, Quaternion.identity, Vector3.one);#1#
-
-
-            var inverseHeadsetMatrix = playerReference.localToWorldMatrix;
-
-            // Calibrate the calibrated space
-            application.CalibratedSpace.CalibrateFromMatrix(inverseHeadsetMatrix * boxCenterMatrix.inverse);*/
-
-            /*
-            // box scale
-            var scale = Scale;
-
-            // half box size in world coordinates
-            var half = Vector3.one * _currentBoxSize * .5f * scale;
-            half.x *= -1; // because of reversed x
-
-            // move box to reference, rotate to face player, scale
-            simulation.position = playerReference.position;
-            simulation.rotation = Quaternion.LookRotation(-playerReference.forward);
-            simulation.localScale = Vector3.one * scale;
-
-            // offset from the perspective of the box
-            var offset = offsetAbsolute + offsetPercent * _currentBoxSize * scale;
-            simulation.Translate(-half + offset, Space.Self);
-
-            // copy box transform to multiplayer scene key
-            var t = Transformation.FromTransformRelativeToParent(simulation);
-            t.CopyToTransformRelativeToParent(simulation);
-
-            if (subtleGameManager.simulation.Multiplayer.IsOpen)
-            {
-                subtleGameManager.simulation.Multiplayer.SimulationPose.UpdateValueWithLock(t);
-            }
-            */
+            // TODO - Add the code back in here
         }
-        
-        public void SetMatrix(Transform t, Matrix4x4 m, bool scale=true)
-        {
-            t.SetPositionAndRotation(m.GetPosition(), m.rotation);
-        
-            if (scale)
-            {
-                if (t.parent == null)
-                {
-                    t.localScale = m.lossyScale;
-                }
-                else
-                {
-                    t.localScale = t.parent.lossyScale * m.lossyScale.x;
-                }
-            }
-        }
+
 
         private void UpdatePlayerPosition()
         {
