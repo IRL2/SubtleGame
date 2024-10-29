@@ -26737,6 +26737,7 @@ MonoBehaviour:
   centerEyeAnchor: {fileID: 4948775120161647665}
   boxCenter: {fileID: 627743193}
   application: {fileID: 1354330443}
+  simulation: {fileID: 1265723033}
   subtleGameManager: {fileID: 1364228086}
   frameSource: {fileID: 1265723032}
 --- !u!1 &2067010102

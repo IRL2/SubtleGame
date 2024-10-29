@@ -15,6 +15,8 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
         
         [SerializeField] private NanoverImdApplication application;
 
+        [SerializeField] private NanoverImdSimulation simulation;
+
         [SerializeField] private SubtleGameManager subtleGameManager;
         
         [SerializeField] private SynchronisedFrameSource frameSource;
@@ -76,13 +78,11 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
             if (subtleGameManager.CurrentTaskType is SubtleGameManager.TaskTypeVal.TrialsObserver
                 or SubtleGameManager.TaskTypeVal.TrialsObserverTraining) return;
             
-            // TODO - get direct access to the simulation, not through the game manager
-            if (!subtleGameManager.simulation.Multiplayer.IsOpen) return;
-            var currentPose = subtleGameManager.simulation.Multiplayer.SimulationPose.Value;
+            if (!simulation.Multiplayer.IsOpen) return;
+            var currentPose = simulation.Multiplayer.SimulationPose.Value;
             currentPose.Scale = Vector3.one * Scale;
-            subtleGameManager.simulation.Multiplayer.SimulationPose.UpdateValueWithLock(currentPose);
+            simulation.Multiplayer.SimulationPose.UpdateValueWithLock(currentPose);
         }
-        
         
         /// <summary>
         /// Calibrate the calibrated space according to the specified (task-specific) scale and offset values. 
