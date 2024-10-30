@@ -56,17 +56,19 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
                 boxSizeChanged = taskChanged = false;
             }
             
-            CalibrateSpace();
             UpdateBoxScale();
+            CalibrateSpace();
         }
         
         /// <summary>
         /// Update the headset reference to the current headset matrix.
-        /// This is the root to headset matrix.
+        /// We refer to this as the root-to-headset matrix.
         /// </summary>
         private void UpdatePlayerPosition()
         {
-            headsetReference = centerEyeAnchor.localToWorldMatrix;
+            // remove all lateral rotation
+            var levelHead = Quaternion.Euler(0, centerEyeAnchor.eulerAngles.y, 0);
+            headsetReference = Matrix4x4.TRS(centerEyeAnchor.position, levelHead, Vector3.one);
         }
         
         /// <summary>
@@ -79,8 +81,20 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
                 or SubtleGameManager.TaskTypeVal.TrialsObserverTraining) return;
             
             if (!simulation.Multiplayer.IsOpen) return;
+
             var currentPose = simulation.Multiplayer.SimulationPose.Value;
+            
+            // Correct an invalid (default, unset) pose to identity
+            var invalid = currentPose.Scale.x < 0.001f;
+            if (invalid)
+            {
+                currentPose.Position = Vector3.one;
+                currentPose.Rotation = Quaternion.identity;
+                currentPose.Scale = Vector3.one;
+            }
+
             currentPose.Scale = Vector3.one * Scale;
+            
             simulation.Multiplayer.SimulationPose.UpdateValueWithLock(currentPose);
         }
         
@@ -93,7 +107,8 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
             var rootToHeadset = headsetReference;
             
             // the world pose of the box center, i.e. the box center matrix without scale
-            var rootToBoxCenterUnscaled = Matrix4x4.TRS(boxCenter.position, boxCenter.rotation, Vector3.one);
+            var turn180 = Quaternion.AngleAxis(180, Vector3.up);
+            var rootToBoxCenterUnscaled = Matrix4x4.TRS(boxCenter.position, boxCenter.rotation * turn180, Vector3.one);
             
             // current calibrated space matrix
             var rootToCalibratedSpace = application.CalibratedSpace.LocalToWorldMatrix;

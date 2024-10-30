@@ -5273,6 +5273,51 @@ RectTransform:
   m_AnchoredPosition: {x: 1000, y: -1050}
   m_SizeDelta: {x: 2000, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &458614457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 458614458}
+  - component: {fileID: 458614459}
+  m_Layer: 0
+  m_Name: Simulation Box Center
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &458614458
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458614457}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1464610667}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &458614459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458614457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2435ee14cc819b4439d3abccc1f25ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frameSource: {fileID: 1265723032}
 --- !u!1 &466247332 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6971942011666263798, guid: 0f44c030a807a9942967612c05be2392, type: 3}
@@ -20994,6 +21039,7 @@ Transform:
   - {fileID: 627743193}
   - {fileID: 829249466}
   - {fileID: 770771424}
+  - {fileID: 458614458}
   m_Father: {fileID: 1152867538}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1483173244
