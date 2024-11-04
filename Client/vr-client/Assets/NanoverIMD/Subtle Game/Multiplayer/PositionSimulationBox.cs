@@ -20,55 +20,69 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
         [SerializeField] private SubtleGameManager subtleGameManager;
         
         [SerializeField] private SynchronisedFrameSource frameSource;
-
-        private Matrix4x4 headsetReference;
+        
+        [Header("Config")]
+        private Vector3 offsetAbsolute;
+        private Vector3 offsetPercent;
+        private Vector3 headsetReferencePosition;
+        private Quaternion headsetReferenceRotation;
+        private Matrix4x4 offsetHeadsetReference;
+        private bool headsetReferenceSet;
+        
+        [Header("Setting offsets")]
+        [SerializeField] private float xOffset;
+        [SerializeField] private float yOffset;
+        [SerializeField] private float zOffset;
+        [SerializeField] private float xPercent;
+        [SerializeField] private float yPercent;
+        [SerializeField] private float zPercent;
+        
+        private float Scale => subtleGameManager.CurrentTaskType switch
+                {
+                    SubtleGameManager.TaskTypeVal.Nanotube => 1f * .3f,
+                    SubtleGameManager.TaskTypeVal.KnotTying => 0.5f * .3f,
+                    SubtleGameManager.TaskTypeVal.TrialsObserver => 1f,
+                    SubtleGameManager.TaskTypeVal.TrialsObserverTraining => 1f,
+                    SubtleGameManager.TaskTypeVal.Trials => 1f * .3f,
+                    SubtleGameManager.TaskTypeVal.TrialsTraining => 1f * .3f,
+                    _ => 1f * .3f,
+                };
         
         // track changes
-        private float previousBoxSize;
         private float currentBoxSize;
-        private bool boxSizeChanged;
-        
         private SubtleGameManager.TaskTypeVal previousTask = SubtleGameManager.TaskTypeVal.None;
         private SubtleGameManager.TaskTypeVal currentTask;
         private bool taskChanged;
-        
-        private float Scale => subtleGameManager.CurrentTaskType switch
-        {
-            SubtleGameManager.TaskTypeVal.Nanotube => 1f * .3f,
-            SubtleGameManager.TaskTypeVal.KnotTying => 0.5f * .3f,
-            SubtleGameManager.TaskTypeVal.TrialsObserver => 1f,
-            SubtleGameManager.TaskTypeVal.TrialsObserverTraining => 1f,
-            SubtleGameManager.TaskTypeVal.Trials => 1f * .3f,
-            SubtleGameManager.TaskTypeVal.TrialsTraining => 1f,
-            _ => 1f * .3f,
-        };
         
         private void Update()
         {
             if (subtleGameManager.PlayerStatus == false || !boxCenter.gameObject.activeInHierarchy) return;
             
-            CheckTaskChanged();
-            CheckBoxSizeChanged();
-            
-            if (boxSizeChanged && taskChanged)
+            // Check if the player has started the first task
+            if (!headsetReferenceSet)
             {
-                UpdatePlayerPosition();
-                boxSizeChanged = taskChanged = false;
+                CheckTaskChanged();
+                if (taskChanged)
+                {
+                    UpdateHeadsetReference();
+                    headsetReferenceSet = true;
+                }
             }
             
+            UpdateOffsetsToPlayerHeadsetReference();
+            SaveDimensionsOfSimulationBox();
             UpdateBoxScale();
             CalibrateSpace();
+            
         }
         
         /// <summary>
-        /// Update the headset reference to the current headset matrix.
-        /// We refer to this as the root-to-headset matrix.
+        /// Update the headset reference to the current headset matrix (root-to-headset matrix).
         /// </summary>
-        private void UpdatePlayerPosition()
+        private void UpdateHeadsetReference()
         {
-            // remove all lateral rotation
-            var levelHead = Quaternion.Euler(0, centerEyeAnchor.eulerAngles.y, 0);
-            headsetReference = Matrix4x4.TRS(centerEyeAnchor.position, levelHead, Vector3.one);
+            headsetReferencePosition = centerEyeAnchor.position;
+            headsetReferenceRotation = centerEyeAnchor.rotation;
         }
         
         /// <summary>
@@ -103,12 +117,17 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
         /// </summary>
         private void CalibrateSpace()
         {
-            // headset pose
-            var rootToHeadset = headsetReference;
+            //  use the offset headset position as the headset pose
+            var rootToHeadset = offsetHeadsetReference;
             
             // the world pose of the box center, i.e. the box center matrix without scale
             var turn180 = Quaternion.AngleAxis(180, Vector3.up);
-            var rootToBoxCenterUnscaled = Matrix4x4.TRS(boxCenter.position, boxCenter.rotation * turn180, Vector3.one);
+
+            // Get the position of the box center, and offset it according to where we want the player to be relative to the box
+            var boxCenterOffsetPosition =
+                boxCenter.position + offsetAbsolute + offsetPercent * currentBoxSize;
+            
+            var rootToBoxCenterUnscaled = Matrix4x4.TRS(boxCenterOffsetPosition, boxCenter.rotation * turn180, Vector3.one);
             
             // current calibrated space matrix
             var rootToCalibratedSpace = application.CalibratedSpace.LocalToWorldMatrix;
@@ -118,6 +137,58 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
             
             // calibrate the space
             application.CalibratedSpace.CalibrateFromMatrix(desiredCalibration);
+        }
+        
+        /// <summary>
+        /// Update the offsets to be applied to the players position according to the current task.
+        /// </summary>
+        private void UpdateOffsetsToPlayerHeadsetReference()
+        {
+            /*offsetAbsolute = new Vector3(xOffset, yOffset, zOffset);
+            offsetPercent = new Vector3(xPercent, yPercent, zPercent);*/
+            
+            switch (currentTask)
+            {
+                case SubtleGameManager.TaskTypeVal.Sandbox:
+                    offsetAbsolute = new Vector3(0, 0.19f, 0.62f);
+                    offsetPercent = new Vector3(0, 0, 0);
+                    /*offsetAbsolute = new Vector3(0, 0.15f, 0);
+                    offsetPercent = new Vector3(0, 0, 0.25f);*/
+                    break;
+                case SubtleGameManager.TaskTypeVal.Nanotube:
+                    offsetAbsolute = new Vector3(0, 0.22f, 0.15f);
+                    offsetPercent = new Vector3(0, 0, 0.083f);
+                    /*offsetAbsolute = new Vector3(0, 0.22f, 0.15f);
+                    offsetPercent = new Vector3(0, 0, 0.25f); // divide this by 3*/
+                    break;
+                case SubtleGameManager.TaskTypeVal.KnotTying:
+                    offsetAbsolute = new Vector3(0, 0.28f, 0);
+                    offsetPercent = new Vector3(0, 0 , 0.14f);
+                    /*offsetAbsolute = new Vector3(0, 0.28f, 0);
+                    offsetPercent = new Vector3(0, 0, 0.42f);*/
+                    break;
+                default:
+                    if (TaskLists.TrialsTasks.Contains(currentTask))
+                    {
+                        offsetAbsolute = new Vector3(0, 0.2f, 0);
+                        offsetPercent = new Vector3(0, 0, 0.25f);
+                    }
+                    else
+                    {
+                        offsetAbsolute = new Vector3(0, 0, 0);
+                        offsetPercent = new Vector3(0, 0, 0);
+                    }
+                    break;
+            }
+            
+            // offset the position of the headset
+            var offsetHeadsetPosition = headsetReferencePosition;
+            
+            // calculate the rotation that removes all lateral rotation
+            var levelHead = Quaternion.Euler(0, headsetReferenceRotation.eulerAngles.y, 0);
+            
+            // construct TRS matrix for headset
+            offsetHeadsetReference = Matrix4x4.TRS(offsetHeadsetPosition, levelHead, Vector3.one);
         }
         
         /// <summary>
@@ -131,25 +202,15 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
             
             // TODO: task does not changed when player goes in and out of sandbox. Ensure task is set to None when the player leaves the sandbox.
         }
-
         
         /// <summary>
-        /// Check if the box size has changed. 
+        /// Save the current dimensions of the simulation box. 
         /// </summary>
-        private void CheckBoxSizeChanged()
+        private void SaveDimensionsOfSimulationBox()
         {
-            // TODO - Do we need this check?
-            
-            previousBoxSize = currentBoxSize;
-
             if (frameSource.CurrentFrame is { BoxVectors: { } box })
             {
-                currentBoxSize = box.axesMagnitudes.x * Scale;
-            }
-
-            if (Mathf.Abs(currentBoxSize - previousBoxSize) > 0.01)
-            {
-                boxSizeChanged = true;
+                currentBoxSize = box.axesMagnitudes.x;
             }
         }
     }

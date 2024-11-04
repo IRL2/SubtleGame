@@ -175,7 +175,7 @@ namespace NanoverIMD.Subtle_Game.UI.Simulation
                     }
                     else
                     {
-                        offsetAbsolute = new Vector3(xOffset, yOffset, zOffset);
+                        offsetAbsolute = new Vector3(0, -0.15f, 0);
                         offsetPercent = new Vector3(0, 0, -0.25f);
                     }
                     break;
