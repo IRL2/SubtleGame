@@ -519,6 +519,7 @@ namespace NanoverImd.Subtle_Game
         public void ExitSandbox()
         {
             _exitSandboxRequested = true;
+            CurrentTaskType = TaskTypeVal.None;
             RemoveKeyFromSharedState(SharedStateKey.TaskType);
             RemoveKeyFromSharedState(SharedStateKey.TaskStatus);
             ShowSimulation = false;
