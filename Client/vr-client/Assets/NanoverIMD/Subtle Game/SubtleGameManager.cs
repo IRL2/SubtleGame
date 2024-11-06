@@ -149,7 +149,8 @@ namespace NanoverImd.Subtle_Game
                     _currentTaskNum = value;
                 }
             }
-
+            
+            // TODO: task does not changed when player goes in and out of sandbox. Ensure task is set to None when the player leaves the sandbox.
             public TaskTypeVal CurrentTaskType
             {
                 get => _currentTaskType;
