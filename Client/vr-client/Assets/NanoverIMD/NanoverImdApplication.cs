@@ -82,10 +82,8 @@ namespace NanoverImd
         private void Update()
         {
 
-            if (ColocateLighthouses)
-                CalibratedSpace.CalibrateFromLighthouses();
-            else
-                CalibrateFromRemote();
+            // TODO: We removed some code specifically for Subtle Game, leaving a note here that we may want/need to add
+            // something back in the future to calibrate the space here.
 
             UpdatePlayArea();
         }
