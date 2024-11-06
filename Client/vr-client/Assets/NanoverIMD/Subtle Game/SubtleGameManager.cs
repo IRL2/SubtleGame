@@ -54,6 +54,12 @@ namespace NanoverImd.Subtle_Game
                 {
                     _showSimulation = value;
                     simulationSpace.SetActive(_showSimulation);
+
+                    if (TaskLists.ObserverTrialsTasks.Contains(CurrentTaskType))
+                    {
+                        EnableInteractions = false;
+                        return;
+                    }
                     EnableInteractions = _showSimulation;
                 }
             }

@@ -28,14 +28,7 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
         private Quaternion headsetReferenceRotation;
         private Matrix4x4 offsetHeadsetReference;
         private bool headsetReferenceSet;
-        
-        [Header("Setting offsets")]
-        [SerializeField] private float xOffset;
-        [SerializeField] private float yOffset;
-        [SerializeField] private float zOffset;
-        [SerializeField] private float xPercent;
-        [SerializeField] private float yPercent;
-        [SerializeField] private float zPercent;
+        [SerializeField] private Transform offset;
         
         private float Scale => subtleGameManager.CurrentTaskType switch
                 {
@@ -62,6 +55,7 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
             if (!headsetReferenceSet)
             {
                 CheckTaskChanged();
+                
                 if (taskChanged)
                 {
                     UpdateHeadsetReference();
@@ -91,14 +85,14 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
         /// </summary>
         private void UpdateBoxScale()
         {
-            if (subtleGameManager.CurrentTaskType is SubtleGameManager.TaskTypeVal.TrialsObserver
-                or SubtleGameManager.TaskTypeVal.TrialsObserverTraining) return;
-            
             if (!simulation.Multiplayer.IsOpen) return;
-
+            
+            if (TaskLists.ObserverTrialsTasks.Contains(subtleGameManager.CurrentTaskType)) return;
+            
+            // get the current pose
             var currentPose = simulation.Multiplayer.SimulationPose.Value;
             
-            // Correct an invalid (default, unset) pose to identity
+            // correct an invalid (default, unset) pose to identity
             var invalid = currentPose.Scale.x < 0.001f;
             if (invalid)
             {
@@ -106,10 +100,10 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
                 currentPose.Rotation = Quaternion.identity;
                 currentPose.Scale = Vector3.one;
             }
-
-            currentPose.Scale = Vector3.one * Scale;
             
-            simulation.Multiplayer.SimulationPose.UpdateValueWithLock(currentPose);
+            currentPose.Scale = Vector3.one * Scale; // set the scale
+            simulation.Multiplayer.SimulationPose.UpdateValueWithLock(currentPose); // flush to shared state
+            simulation.Multiplayer.SimulationPose.ReleaseLock(); // release lock immediately to stop issues with playback
         }
         
         /// <summary>
@@ -121,12 +115,20 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
             var rootToHeadset = offsetHeadsetReference;
             
             // the world pose of the box center, i.e. the box center matrix without scale
-            var turn180 = Quaternion.AngleAxis(180, Vector3.up);
+            //var turn180 = Quaternion.AngleAxis(180, Vector3.up);
 
-            // Get the position of the box center, and offset it according to where we want the player to be relative to the box
-            var boxCenterOffsetPosition =
-                boxCenter.position + offsetAbsolute + offsetPercent * currentBoxSize;
+            var turn180 = Quaternion.AngleAxis(180, Vector3.up);
             
+            // Get the position of the box center, and offset it according to where we want the player to be relative to the box
+            // var boxCenterOffsetPosition = boxCenter.position;
+            /*var boxCenterOffsetPosition =
+                boxCenter.position - (offsetAbsolute + offsetPercent * currentBoxSize);*/
+
+            var boxCenterOffsetPosition = offset.position;
+            
+            // if (Time.time % 1f > 0.5f) boxCenterOffsetPosition = boxCenter.position;
+            
+            /*var rootToBoxCenterUnscaled = Matrix4x4.TRS(boxCenterOffsetPosition, boxCenter.rotation * turn180, Vector3.one);*/
             var rootToBoxCenterUnscaled = Matrix4x4.TRS(boxCenterOffsetPosition, boxCenter.rotation * turn180, Vector3.one);
             
             // current calibrated space matrix
@@ -147,25 +149,25 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
             /*offsetAbsolute = new Vector3(xOffset, yOffset, zOffset);
             offsetPercent = new Vector3(xPercent, yPercent, zPercent);*/
             
-            switch (currentTask)
+            /*switch (currentTask)
             {
                 case SubtleGameManager.TaskTypeVal.Sandbox:
                     offsetAbsolute = new Vector3(0, 0.19f, 0.62f);
                     offsetPercent = new Vector3(0, 0, 0);
                     /*offsetAbsolute = new Vector3(0, 0.15f, 0);
-                    offsetPercent = new Vector3(0, 0, 0.25f);*/
+                    offsetPercent = new Vector3(0, 0, 0.25f);#1#
                     break;
                 case SubtleGameManager.TaskTypeVal.Nanotube:
                     offsetAbsolute = new Vector3(0, 0.22f, 0.15f);
                     offsetPercent = new Vector3(0, 0, 0.083f);
                     /*offsetAbsolute = new Vector3(0, 0.22f, 0.15f);
-                    offsetPercent = new Vector3(0, 0, 0.25f); // divide this by 3*/
+                    offsetPercent = new Vector3(0, 0, 0.25f); // divide this by 3#1#
                     break;
                 case SubtleGameManager.TaskTypeVal.KnotTying:
                     offsetAbsolute = new Vector3(0, 0.28f, 0);
                     offsetPercent = new Vector3(0, 0 , 0.14f);
-                    /*offsetAbsolute = new Vector3(0, 0.28f, 0);
-                    offsetPercent = new Vector3(0, 0, 0.42f);*/
+                    offsetAbsolute = new Vector3(0, 0.28f, 0);
+                    offsetPercent = new Vector3(0, 0, 0.42f);
                     break;
                 default:
                     if (TaskLists.TrialsTasks.Contains(currentTask))
@@ -179,7 +181,7 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
                         offsetPercent = new Vector3(0, 0, 0);
                     }
                     break;
-            }
+            }*/
             
             // offset the position of the headset
             var offsetHeadsetPosition = headsetReferencePosition;

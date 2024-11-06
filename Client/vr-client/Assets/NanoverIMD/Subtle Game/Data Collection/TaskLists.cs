@@ -12,5 +12,11 @@ namespace NanoverIMD.Subtle_Game.Data_Collection
             SubtleGameManager.TaskTypeVal.TrialsObserverTraining,
             SubtleGameManager.TaskTypeVal.TrialsObserver
         };
+        
+        public static readonly List<SubtleGameManager.TaskTypeVal> ObserverTrialsTasks = new()
+        {
+            SubtleGameManager.TaskTypeVal.TrialsObserverTraining,
+            SubtleGameManager.TaskTypeVal.TrialsObserver
+        };
     }
 }
