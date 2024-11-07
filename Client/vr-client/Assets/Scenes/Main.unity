@@ -19099,7 +19099,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2066515855}
   - {fileID: 1152867538}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20963,6 +20962,8 @@ Transform:
   - {fileID: 627743193}
   - {fileID: 829249466}
   - {fileID: 770771424}
+  - {fileID: 1823317315}
+  - {fileID: 1769895433}
   m_Father: {fileID: 1152867538}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1483173244
@@ -24057,6 +24058,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1766707715}
   m_CullTransparentMesh: 1
+--- !u!1 &1769895432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1769895433}
+  - component: {fileID: 1769895434}
+  m_Layer: 0
+  m_Name: Simulation box center
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1769895433
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769895432}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.834, y: -0.803, z: 0.677}
+  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1464610667}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1769895434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769895432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4898d8a4506e4111b998dadb4f29f285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frameSource: {fileID: 1265723032}
 --- !u!1001 &1772514190
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24780,6 +24826,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1820091839}
   m_CullTransparentMesh: 1
+--- !u!1 &1823317314
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1823317315}
+  - component: {fileID: 1823317316}
+  m_Layer: 0
+  m_Name: Desired headset position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1823317315
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823317314}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.834, y: -0.803, z: 0.677}
+  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1464610667}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1823317316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823317314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07fcdda476943c3a62dc5ca622c2493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subtleGameManager: {fileID: 1364228086}
+  frameSource: {fileID: 1265723032}
+  boxCenter: {fileID: 1769895434}
 --- !u!1 &1838310062
 GameObject:
   m_ObjectHideFlags: 0
@@ -26645,7 +26738,7 @@ GameObject:
   - component: {fileID: 2066515855}
   - component: {fileID: 2066515856}
   m_Layer: 0
-  m_Name: Center Sim
+  m_Name: Calibrated space controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26659,12 +26752,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066515854}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1265723034}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2066515856
 MonoBehaviour:
@@ -26678,10 +26771,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a08d3946ae584beaad9675a795875f59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simulation: {fileID: 1152867538}
-  subtleGameManager: {fileID: 1364228086}
-  centreEyeAnchor: {fileID: 4948775120161647665}
+  simulation: {fileID: 1265723033}
+  application: {fileID: 1354330443}
   frameSource: {fileID: 1265723032}
+  subtleGameManager: {fileID: 1364228086}
+  centerEyeAnchor: {fileID: 4948775120161647665}
+  boxCenter: {fileID: 1769895434}
+  desiredHeadsetPosition: {fileID: 1823317316}
 --- !u!1 &2067010102
 GameObject:
   m_ObjectHideFlags: 0
@@ -36430,4 +36526,5 @@ SceneRoots:
   - {fileID: 1621786873}
   - {fileID: 8831589731561787294}
   - {fileID: 1081504607}
+  - {fileID: 2066515855}
   - {fileID: 1364228085}
