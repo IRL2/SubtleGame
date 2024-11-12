@@ -5198,6 +5198,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textMeshPro: {fileID: 1694557276}
+--- !u!1 &390955719
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 390955720}
+  m_Layer: 0
+  m_Name: Avatar parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &390955720
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390955719}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 758418883}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &394664563 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6896215808809296414, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
@@ -9391,6 +9422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 758418883}
   - component: {fileID: 758418884}
+  - component: {fileID: 758418885}
   m_Layer: 0
   m_Name: Multiplayer
   m_TagString: Untagged
@@ -9412,6 +9444,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1925843024}
+  - {fileID: 390955720}
   m_Father: {fileID: 1364228085}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &758418884
@@ -9428,6 +9461,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simulation: {fileID: 1265723033}
   avatars: {fileID: 1925843025}
+--- !u!114 &758418885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758418882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e4fa0213f5107546b8d20c4546e8754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  avatarParentObject: {fileID: 390955719}
 --- !u!1001 &760507463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19651,6 +19697,7 @@ MonoBehaviour:
   confetti: {fileID: 1233017830}
   isIntroToSection: 1
   interactionModalityHasChanged: 0
+  avatarController: {fileID: 758418885}
   trialManager: {fileID: 1245036777}
   trialAnswerSubmission: {fileID: 1364228087}
   currentTrialNumber: 0
@@ -25758,6 +25805,7 @@ MonoBehaviour:
   nanover: {fileID: 1265723033}
   headsetPrefab: {fileID: 493567020}
   controllerPrefab: {fileID: 486422601}
+  avatarParentObject: {fileID: 390955720}
 --- !u!1 &1950933474 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3895664296461673764, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}

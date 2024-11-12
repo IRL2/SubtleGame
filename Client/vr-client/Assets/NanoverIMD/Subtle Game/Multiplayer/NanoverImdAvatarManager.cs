@@ -6,6 +6,7 @@ using Nanover.Frontend.XR;
 using Nanover.Grpc.Multiplayer;
 using NanoverIMD.Subtle_Game.Multiplayer;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.XR;
 
 namespace NanoverImd
@@ -24,6 +25,11 @@ namespace NanoverImd
 
         [SerializeField]
         private AvatarModel controllerPrefab;
+        
+        /// <summary>
+        /// The parent game object of the avatars.
+        /// </summary>
+        [SerializeField] private Transform avatarParentObject;
 #pragma warning restore 0649
         
         private IndexedPool<AvatarModel> headsetObjects;
@@ -41,13 +47,13 @@ namespace NanoverImd
         private void OnEnable()
         {
             headsetObjects = new IndexedPool<AvatarModel>(
-                () => Instantiate(headsetPrefab),
+                () => Instantiate(headsetPrefab, avatarParentObject),
                 transform => transform.gameObject.SetActive(true),
                 transform => transform.gameObject.SetActive(false)
             );
 
             controllerObjects = new IndexedPool<AvatarModel>(
-                () => Instantiate(controllerPrefab),
+                () => Instantiate(controllerPrefab, avatarParentObject),
                 transform => transform.gameObject.SetActive(true),
                 transform => transform.gameObject.SetActive(false)
             );
