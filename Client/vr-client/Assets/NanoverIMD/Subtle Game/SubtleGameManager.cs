@@ -7,6 +7,7 @@ using NanoverImd.Subtle_Game.Canvas;
 using NanoverImd.Subtle_Game.Data_Collection;
 using NanoverIMD.Subtle_Game.Data_Collection;
 using NanoverImd.Subtle_Game.Interaction;
+using NanoverIMD.Subtle_Game.Multiplayer;
 using NanoverIMD.Subtle_Game.UI.Canvas;
 using NanoverIMD.Subtle_Game.UI.Visuals;
 using NanoverImd.Subtle_Game.Visuals;
@@ -53,8 +54,9 @@ namespace NanoverImd.Subtle_Game
                 set
                 {
                     _showSimulation = value;
-                    simulationSpace.SetActive(_showSimulation);
-                    EnableInteractions = _showSimulation;
+                    simulationSpace.SetActive(_showSimulation); // show/hide simulation box
+                    avatarController.ToggleAvatars(_showSimulation); // show/hide avatars
+                    EnableInteractions = _showSimulation; // toggle script for user interactions
                 }
             }
 
@@ -229,6 +231,11 @@ namespace NanoverImd.Subtle_Game
         #endregion
         
         #region Trials
+        
+        /// <summary>
+        /// The Avatar Controller, which shows/hides the avatars during the Trials tasks.
+        /// </summary>
+        [SerializeField] private AvatarController avatarController;
         
         private TrialsTimer _timer;
         [FormerlySerializedAs("trialIconManager")] [SerializeField] private TrialManager trialManager;
