@@ -65,13 +65,14 @@ namespace NanoverImd.Subtle_Game
             {
                 set
                 {
-                    _enableInteractions = value;
+                    _enableInteractions = true;
+                    userInteraction.SetActive(true);
                     
-                    _userInteractionManager.UseControllers = CurrentInteractionModality == Modality.Controllers;
+                    /*_userInteractionManager.UseControllers = CurrentInteractionModality == Modality.Controllers;
                     
                     // Toggle user interactions (always disabled during the observer trials tasks)
                     userInteraction.SetActive(!TaskLists.ObserverTrialsTasks.Contains(CurrentTaskType) &&
-                                              _enableInteractions);
+                                              _enableInteractions);*/
                 }
             }
 

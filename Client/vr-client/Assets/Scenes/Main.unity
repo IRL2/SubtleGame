@@ -215,6 +215,10 @@ PrefabInstance:
       propertyPath: m_text
       value: CONTINUE
       objectReference: {fileID: 0}
+    - target: {fileID: 7312838880703007495, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7846966433404695310, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 48
@@ -323,6 +327,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1993769644905264480, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1044237}
+    - targetCorrespondingSourceObject: {fileID: 1993769644905264480, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1044241}
   m_SourcePrefab: {fileID: 100100000, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
 --- !u!224 &1044230 stripped
 RectTransform:
@@ -382,6 +389,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1044241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddfde38341c34906b1068b03fdb82c25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4033881 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4269171732357299513, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
@@ -19545,8 +19564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192df714ca8f472e8471d869e0ce6af6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchingInteractionModeMenus:
-  - {fileID: 486730392}
+  switchingInteractionModeMenus: []
   progressChips: {fileID: 81200455}
 --- !u!4 &1335832272
 Transform:
@@ -19749,6 +19767,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1335832272}
     m_Modifications:
+    - target: {fileID: 41769868647420166, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1225849549282948459, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1623505689175459417, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -19983,12 +20009,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8058119997532801804, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1380009032}
+    - targetCorrespondingSourceObject: {fileID: 8058119997532801804, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1380009034}
     - targetCorrespondingSourceObject: {fileID: 9098190041061289825, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1380009030}
     - targetCorrespondingSourceObject: {fileID: 9098190041061289825, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1380009029}
+    - targetCorrespondingSourceObject: {fileID: 9098190041061289825, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1380009031}
   m_SourcePrefab: {fileID: 100100000, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
 --- !u!224 &1380009021 stripped
 RectTransform:
@@ -20051,6 +20083,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1380009031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380009023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a036fa7155b943fe9ffa5996eeedc06a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1380009032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20075,6 +20119,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1380009034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380009025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7a107bb86fcbb840a2609adae8c4ad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1381040377
 GameObject:
   m_ObjectHideFlags: 0

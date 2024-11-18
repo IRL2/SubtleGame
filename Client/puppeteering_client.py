@@ -40,24 +40,8 @@ def get_order_of_tasks(run_short_game: bool):
         return [TASK_NANOTUBE, TASK_NANOTUBE]
 
     # Fix the order of the tasks
-    tasks_without_training = [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS]
-
-    # # Randomise the order of the tasks, with the nanotube always as the first task
-    # tasks_without_training = []
-
-    # for n in range(2):
-    #     t = [TASK_KNOT_TYING, TASK_TRIALS]
-    #     t.insert(0, TASK_NANOTUBE)
-    #     tasks_without_training.extend(t)
-
-    # # Only perform the observer task, for testing
-    # tasks = [TASK_TRIALS_OBSERVER]
-    # tasks_without_training = []
-    #
-    # for n in range(2):
-    #     t = random.sample(tasks, len(tasks))
-    #     # t.insert(0, TASK_NANOTUBE)
-    #     tasks_without_training.extend(t)
+    tasks_without_training = [TASK_NANOTUBE, TASK_NANOTUBE, TASK_NANOTUBE, TASK_NANOTUBE, TASK_NANOTUBE, TASK_NANOTUBE,
+                              TASK_NANOTUBE, TASK_NANOTUBE, TASK_NANOTUBE, TASK_NANOTUBE, TASK_NANOTUBE, TASK_NANOTUBE]
 
     order_of_tasks = []
 
@@ -131,55 +115,62 @@ class PuppeteeringClient:
         self._wait_for_vr_client_to_connect_to_server()
         self._player_in_main_menu()
 
-        # Loop through the tasks
-        for task in self.order_of_tasks:
+        # loop through the tasks
+        try:
+            while True:
 
-            simulation_counter = self.nanover_client.current_frame.values["system.simulation.counter"]
+                # Select the task
+                for task in self.order_of_tasks:
 
-            if task == TASK_NANOTUBE:
+                    simulation_counter = self.nanover_client.current_frame.values["system.simulation.counter"]
 
-                # Check if we are in the second section
-                if not self.first_practice_sim:
-                    # If yes, increment interaction modality
-                    self.current_modality = self.order_of_interaction_modality[1]
-                    write_to_shared_state(client=self.nanover_client, key=KEY_MODALITY, value=self.current_modality)
+                    if task == TASK_NANOTUBE:
 
-                current_task = NanotubeTask(client=self.nanover_client, simulations=self.nanotube_sim,
-                                            simulation_counter=simulation_counter)
-                self.first_practice_sim = False
+                        self.current_modality = self.order_of_interaction_modality[0]
+                        write_to_shared_state(client=self.nanover_client, key=KEY_MODALITY, value=self.current_modality)
+                        current_task = NanotubeTask(client=self.nanover_client, simulations=self.nanotube_sim,
+                                                    simulation_counter=simulation_counter)
 
-            elif task == TASK_KNOT_TYING:
-                current_task = KnotTyingTask(client=self.nanover_client, simulations=self.alanine_sim,
-                                             simulation_counter=simulation_counter)
+                    elif task == TASK_KNOT_TYING:
+                        current_task = KnotTyingTask(client=self.nanover_client, simulations=self.alanine_sim,
+                                                     simulation_counter=simulation_counter)
 
-            elif task == TASK_TRIALS:
-                current_task = TrialsTask(client=self.nanover_client, simulations=self.trials_sims,
-                                          simulation_counter=simulation_counter,
-                                          number_of_repeats=self.num_of_trial_repeats)
-
-            elif task == TASK_TRIALS_TRAINING:
-                current_task = TrialsTrainingTask(client=self.nanover_client, simulations=self.trials_sims,
+                    elif task == TASK_TRIALS:
+                        current_task = TrialsTask(client=self.nanover_client, simulations=self.trials_sims,
                                                   simulation_counter=simulation_counter,
                                                   number_of_repeats=self.num_of_trial_repeats)
 
-            elif task == TASK_TRIALS_OBSERVER:
-                current_task = TrialsObserverTask(client=self.nanover_client, simulations=self.trials_sims,
-                                                  simulation_counter=simulation_counter,
-                                                  number_of_repeats=self.num_of_trial_repeats)
-
-            elif task == TASK_TRIALS_OBSERVER_TRAINING:
-                current_task = TrialsObserverTrainingTask(client=self.nanover_client, simulations=self.trials_sims,
+                    elif task == TASK_TRIALS_TRAINING:
+                        current_task = TrialsTrainingTask(client=self.nanover_client, simulations=self.trials_sims,
                                                           simulation_counter=simulation_counter,
                                                           number_of_repeats=self.num_of_trial_repeats)
 
-            else:
-                print("Current task not recognised, closing the puppeteering client.")
-                break
+                    elif task == TASK_TRIALS_OBSERVER:
+                        current_task = TrialsObserverTask(client=self.nanover_client, simulations=self.trials_sims,
+                                                          simulation_counter=simulation_counter,
+                                                          number_of_repeats=self.num_of_trial_repeats)
 
-            # Run the task
-            print('\n- Running ' + task + ' task')
-            current_task.run_task()
-            print('Finished ' + task + ' task\n')
+                    elif task == TASK_TRIALS_OBSERVER_TRAINING:
+                        current_task = TrialsObserverTrainingTask(client=self.nanover_client,
+                                                                  simulations=self.trials_sims,
+                                                                  simulation_counter=simulation_counter,
+                                                                  number_of_repeats=self.num_of_trial_repeats)
+
+                    else:
+                        print("Current task not recognised, closing the puppeteering client.")
+                        break
+
+                    # Run the task
+                    print('\n- Running ' + task + ' task')
+                    current_task.run_task()
+                    print('Finished ' + task + ' task\n')
+
+                time.sleep(1)
+
+        except KeyboardInterrupt:
+            print("\nCaught KeyboardInterrupt. Exiting the loop.")
+
+
 
         self._finish_game()
 

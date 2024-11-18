@@ -13,7 +13,6 @@ namespace NanoverImd.Subtle_Game.Canvas
     /// </summary>
     public class ButtonController : MonoBehaviour
     {
-        
         private CanvasManager _canvasManager;
         private SubtleGameManager _subtleGameManager;
         
