@@ -8,7 +8,7 @@ public class UITransitionsController : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("UITransitionsController() " + gameObject.name + " :: start");
+        //Debug.Log("UITransitionsController() " + gameObject.name + " :: start");
 
         gameObject.GetComponent<CanvasGroup>().alpha = 0.0f;
 
@@ -19,7 +19,7 @@ public class UITransitionsController : MonoBehaviour
 
     void Appear()
     {
-        Debug.Log("UITransitionsController() " + gameObject.name + " :: appear");
+        //Debug.Log("UITransitionsController() " + gameObject.name + " :: appear");
         gameObject.GetComponent<CanvasGroup>().alpha = 0.0f;
         LeanTween.alphaCanvas(gameObject.GetComponent<CanvasGroup>(), 1f, 1.0f).setEaseInCirc();
         // LeanTween.scale(gameObject, Vector3.one, 0.5f).setEaseOutCirc();
@@ -27,7 +27,7 @@ public class UITransitionsController : MonoBehaviour
 
     void Disappear()
     {
-        Debug.Log("UITransitionsController() " + gameObject.name + " :: disappear");
+        //Debug.Log("UITransitionsController() " + gameObject.name + " :: disappear");
         LeanTween.alphaCanvas(gameObject.GetComponent<CanvasGroup>(), 0f, 0.3f).setEaseOutCirc().setOnComplete(()=>{
             Deactivate();
         });
@@ -38,24 +38,24 @@ public class UITransitionsController : MonoBehaviour
 
     void Done()
     {
-        Debug.Log("UITransitionsController() " + gameObject.name + " :: done");
+        //Debug.Log("UITransitionsController() " + gameObject.name + " :: done");
     }
 
     void Deactivate(){
-        Debug.Log("UITransitionsController() " + gameObject.name + " :: deactivate");
+        //Debug.Log("UITransitionsController() " + gameObject.name + " :: deactivate");
         gameObject.SetActive(false);
     }
 
     void OnEnable()
     {
-        Debug.Log("UITransitionsController() " + gameObject.name + " :: enable");
+        //Debug.Log("UITransitionsController() " + gameObject.name + " :: enable");
         // Invoke("Appear", 0.1f);
         Appear();
     }
 
     void OnDisable()
     {
-        Debug.Log("UITransitionsController() " + gameObject.name + " :: disable");
+        //Debug.Log("UITransitionsController() " + gameObject.name + " :: disable");
         // Invoke("Dissapear", 0.1f);
         // Disappear();
         // LeanTween.alphaCanvas(gameObject.GetComponent<CanvasGroup>(), 0.0f, 1.0f).setEaseInQuad();

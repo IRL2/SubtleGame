@@ -2464,7 +2464,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 81200455}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b875bd28420b49958111b796e2a4d598, type: 3}
   m_Name: 
@@ -2481,7 +2481,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 81200455}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
   m_Name: 
@@ -7762,6 +7762,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fda91cfd3cf4ce48012d243ed8b9a30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &641110215 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1993769644905264480, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+  m_PrefabInstance: {fileID: 1380009020}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &641793600
 GameObject:
   m_ObjectHideFlags: 0
@@ -13650,6 +13655,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1152867538}
+  - component: {fileID: 1152867539}
   m_Layer: 0
   m_Name: Simulation Space
   m_TagString: Untagged
@@ -13673,6 +13679,19 @@ Transform:
   - {fileID: 1464610667}
   m_Father: {fileID: 1265723034}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1152867539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152867537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca1ef20b856a6b346b3530c555a81dd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  passthroughLayer: {fileID: 7660847348239094321}
 --- !u!1001 &1153927415
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20003,6 +20022,9 @@ PrefabInstance:
     - {fileID: 6896215808809296414, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1993769644905264480, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2123360358}
     - targetCorrespondingSourceObject: {fileID: 8058119997532801804, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1380009033}
@@ -27109,6 +27131,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 2096269776}
+--- !u!114 &2123360358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641110215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca1ef20b856a6b346b3530c555a81dd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  passthroughLayer: {fileID: 7660847348239094321}
 --- !u!4 &14603505261681326
 Transform:
   m_ObjectHideFlags: 0
