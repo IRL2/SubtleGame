@@ -60,9 +60,9 @@ git submodule update --init --recursive --remote
 
 The game is handled by a python script that is referred to as the 'puppeteering client' and can be found here: [Client/puppeteering_client.py](Client/puppeteering_client.py). To run this script you will first need to follow these instructions:
 1. Install Conda through whichever program you prefer, e.g., [Miniforge](https://github.com/conda-forge/miniforge).
-2. Open a Windows Powershell terminal (or whichever terminal you have conda installed in) and run the following commands to create a Conda environment called `subtle-game` and activate that environment:
+2. Open a Windows Powershell terminal (or whichever terminal you have conda installed in) and run the following commands to (1) create a Conda environment called `subtle-game` and install `nanover-server` in it, and (2) activate that environment:
     ```
-    conda create -n subtle-game "python>3.11"
+    conda create -n subtle-game -c irl -c conda-forge nanover-server
     conda activate subtle-game
     ```
 3. Navigate to the Subtle Game repo directory and install the required packages using pip:
@@ -70,12 +70,8 @@ The game is handled by a python script that is referred to as the 'puppeteering 
     pip install -r .\requirements.txt
     ```
     This will install the following packages in your conda environment: [Numpy](https://anaconda.org/anaconda/numpy), [Random-Username](https://pypi.org/project/random-username/), [Knot-Pull](https://github.com/dzarmola/knot_pull), and [pytz](https://pypi.org/project/pytz/).
- 
-4. Install [Nanover Protocol](https://github.com/IRL2/nanover-protocol) with conda:
-    ```
-    conda install -c irl -c omnia -c conda-forge nanover-server
-    ```
-5. Open the `SubtleGame` directory in your favourite Python IDE, select the `subtle-game` conda environment as your python interpreter and set the `SubtleGame` directory to be the root.
+
+4. Open the `SubtleGame` directory in your favourite Python IDE, select the `subtle-game` conda environment as your python interpreter and set the `SubtleGame` directory to be the root.
 
 ### Setting up the VR client
 
