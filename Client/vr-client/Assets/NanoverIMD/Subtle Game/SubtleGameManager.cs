@@ -314,8 +314,8 @@ namespace NanoverImd.Subtle_Game
             // Check that we are connected to the server
             if (!simulation.ServerConnected) return;
             
-            // Check if the controllers are currently being tracked
-            var currentInputModeIsControllers = AreControllersBeingTracked();
+            // Set interaction mode to the currently tracked interaction mode
+            _userInteractionManager.UseControllers = AreControllersBeingTracked();
             
             // Write to shared state the first time we connect to the server
             if (!_initialized)
@@ -324,17 +324,7 @@ namespace NanoverImd.Subtle_Game
                 WriteToSharedState(SharedStateKey.CurrentInteractionMode,
                     AreControllersBeingTracked() ? Modality.Controllers.ToString() : Modality.Hands.ToString());
                 _previousInputModeWasControllers = AreControllersBeingTracked();
-                return;
             }
-
-            // Check if the interaction mode has changed
-            if (currentInputModeIsControllers == _previousInputModeWasControllers) return;
-            
-            // If changed, update the shared state
-            WriteToSharedState(SharedStateKey.CurrentInteractionMode,
-                currentInputModeIsControllers ? Modality.Controllers.ToString() : Modality.Hands.ToString());
-            
-            _previousInputModeWasControllers = currentInputModeIsControllers;
         }
         
         /// <summary>
@@ -592,7 +582,7 @@ namespace NanoverImd.Subtle_Game
         {
             switch (key)
             {
-                case "puppeteer.modality":
+                /*case "puppeteer.modality":
 
                     var previousInteractionModality = CurrentInteractionModality;
                     
@@ -609,7 +599,7 @@ namespace NanoverImd.Subtle_Game
                         interactionModalityHasChanged = true;
                     }
                     
-                    break;
+                    break;*/
 
                 case "puppeteer.order-of-tasks":
                     GetOrderOfTasks((List<object>)val);
