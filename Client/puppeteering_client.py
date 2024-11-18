@@ -17,18 +17,7 @@ import pytz
 
 def generate_username_for_player():
     """ Generates a random username for the player."""
-    while True:
-        # Perform the function
-        username = generate_username(1)
-        print("Username: ", username)
-
-        user_input = input("Type 'y' to accept this username: ").strip().upper()
-
-        if user_input != 'Y':
-            print("Generating another username. ")
-        else:
-            print("Keeping username.")
-            return username
+    return generate_username(1)
 
 
 def get_order_of_tasks(run_short_game: bool):
@@ -42,6 +31,9 @@ def get_order_of_tasks(run_short_game: bool):
     # Fix the order of the tasks
     tasks_without_training = [TASK_NANOTUBE, TASK_NANOTUBE, TASK_NANOTUBE, TASK_NANOTUBE, TASK_NANOTUBE, TASK_NANOTUBE,
                               TASK_NANOTUBE, TASK_NANOTUBE, TASK_NANOTUBE, TASK_NANOTUBE, TASK_NANOTUBE, TASK_NANOTUBE]
+
+    tasks_without_training = [TASK_KNOT_TYING, TASK_KNOT_TYING, TASK_KNOT_TYING, TASK_KNOT_TYING, TASK_KNOT_TYING,
+                              TASK_KNOT_TYING, TASK_KNOT_TYING, TASK_KNOT_TYING, TASK_KNOT_TYING, TASK_KNOT_TYING]
 
     order_of_tasks = []
 
