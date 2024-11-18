@@ -21,7 +21,7 @@ namespace NanoverIMD.Subtle_Game
         // Wait for 5 seconds, then switch task
         private IEnumerator SwitchTaskWithDelay()
         {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(10f);
             
             if (subtleGameManager)
             {

@@ -18,7 +18,7 @@ namespace NanoverIMD.Subtle_Game
         // Wait for 5 seconds, then start the task
         private IEnumerator StartTaskWithDelay()
         {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(10f);
             
             if (subtleGameManager)
             {

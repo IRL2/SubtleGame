@@ -19790,6 +19790,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 652475675713513743, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 56
+      objectReference: {fileID: 0}
     - target: {fileID: 1225849549282948459, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -19801,6 +19805,10 @@ PrefabInstance:
     - target: {fileID: 1706344471068599459, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_text
       value: LET'S GO!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1978716920379493890, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1993769644905264480, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_Name
@@ -19870,6 +19878,14 @@ PrefabInstance:
       propertyPath: _whenSelect.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3895664296461673764, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4603057991032441163, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -520
+      objectReference: {fileID: 0}
     - target: {fileID: 5604431612938369361, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_text
       value: This mini game involves threading a methane molecule through a nanotube
@@ -19877,6 +19893,30 @@ PrefabInstance:
     - target: {fileID: 5698340354324879298, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_text
       value: Methane through a nanotube
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618847446718959876, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618847446718959876, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -97
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652241100628516156, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_text
+      value: "Por favor qu\xEDtate las gafas"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652241100628516156, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_margin.y
+      value: 135.30151
+      objectReference: {fileID: 0}
+    - target: {fileID: 6810533964266124207, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_text
+      value: "Muy bien!!\r"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6907175800575473014, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7214045676631728308, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: canvasType
