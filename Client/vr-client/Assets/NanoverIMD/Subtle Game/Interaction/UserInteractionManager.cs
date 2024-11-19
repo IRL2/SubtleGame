@@ -24,9 +24,8 @@ namespace NanoverImd.Subtle_Game.Interaction
         // References
         [SerializeField] private InteractableScene interactableScene;
         private Transform _interactableSceneTransform;
-        private SynchronisedFrameSource _frameSource;
+        [SerializeField] private SynchronisedFrameSource _frameSource;
         [SerializeField] private NanoverImdSimulation simulation;
-        private SubtleGameManager _subtleGameManager;
         
         // Pinch
         [SerializeField] private List<Transform> indexAndThumbTransforms;
@@ -43,9 +42,7 @@ namespace NanoverImd.Subtle_Game.Interaction
         
         private void Start()
         {
-            _subtleGameManager = FindObjectOfType<SubtleGameManager>();
             _interactableSceneTransform = interactableScene.transform;
-            _frameSource = interactableScene.GetFrameSource();
         }
         
         /// <summary>
@@ -79,8 +76,6 @@ namespace NanoverImd.Subtle_Game.Interaction
                 var grabber = CreateGrabber(i);
                 _pinchGrabbers.Add(grabber);
             }
-            
-            _subtleGameManager.grabbersReady = true;
         }
         
         private PinchGrabber CreateGrabber(int index)

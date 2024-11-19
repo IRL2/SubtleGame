@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Plugins/Narupa/Visualisation/Examples/ShaderTests.unity
+    path: Assets/Plugins/Nanover/Visualisation/Examples/ShaderTests.unity
     guid: a3c4f1ed355b94cd18eda436331f6380
   - enabled: 0
     path: Assets/Scenes/Start.unity
@@ -16,5 +16,6 @@ EditorBuildSettings:
     guid: 778a57bdeac2f1d4a9827ba1bd8b4909
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: c42d567363603e240851b28d8c56f8c8, type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: bc3b4b106ece5f141858335243c54e04, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 01815009588db9a44a49abf1a19c74da, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 7b2cb57e794203d4ea6316f969daed21, type: 2}
