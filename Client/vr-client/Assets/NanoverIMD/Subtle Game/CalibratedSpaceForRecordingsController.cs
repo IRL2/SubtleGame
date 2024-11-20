@@ -1,4 +1,3 @@
-using System;
 using Nanover.Visualisation;
 using NanoverImd;
 using NanoverIMD.Subtle_Game.Multiplayer;
@@ -9,6 +8,8 @@ namespace NanoverIMD.Subtle_Game
 {
     public class CalibratedSpaceForRecordingsController : MonoBehaviour
     {
+        [SerializeField] private Transform simulationTransform;
+        
         /// <summary>
         /// The NanoVer iMD Simulation game object.
         /// </summary>
@@ -124,8 +125,15 @@ namespace NanoverIMD.Subtle_Game
             // set the scale based on the current task
             currentPose.Scale = Vector3.one * ObserverTrialsSimulationBoxScale; 
             
+            // Set the pos & rot in world coords
+            currentPose.Position = simulationTransform.position;
+            currentPose.Rotation = simulationTransform.rotation;
+            
             // update shared state
-            simulation.Multiplayer.SimulationPose.UpdateValueWithLock(currentPose); 
+            // multiplayer.SimulationPose.UpdateValueWithLock(currentPose); 
+            var worldPose = application.CalibratedSpace
+                .TransformPoseWorldToCalibrated(currentPose);
+            simulation.Multiplayer.SimulationPose.UpdateValueWithLock(worldPose); 
             
             // release lock immediately to stop potential issues with playback
             simulation.Multiplayer.SimulationPose.ReleaseLock(); 

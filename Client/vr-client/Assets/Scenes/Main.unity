@@ -24821,7 +24821,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a07fcdda476943c3a62dc5ca622c2493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subtleGameManager: {fileID: 1364228086}
   frameSource: {fileID: 1265723032}
   boxCenter: {fileID: 1769895434}
 --- !u!1 &1838310062
@@ -26743,6 +26742,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1029e168c82778459a783ef77925622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulationTransform: {fileID: 1152867538}
   simulation: {fileID: 1265723033}
   application: {fileID: 1354330443}
   frameSource: {fileID: 1265723032}
