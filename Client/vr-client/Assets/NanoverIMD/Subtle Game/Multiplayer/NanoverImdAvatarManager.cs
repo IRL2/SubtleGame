@@ -13,16 +13,23 @@ namespace NanoverImd
 {
     public class NanoverImdAvatarManager : MonoBehaviour
     {
+        [Header("Scene references")]
 #pragma warning disable 0649
         [SerializeField]
         private NanoverImdApplication application;
         
         [SerializeField]
         private NanoverImdSimulation nanover;
-
+        
+        /// <summary>
+        /// The model for the headset.
+        /// </summary>
         [SerializeField]
         private AvatarModel headsetPrefab;
-
+        
+        /// <summary>
+        /// The model for the controllers.
+        /// </summary>
         [SerializeField]
         private AvatarModel controllerPrefab;
         
@@ -38,10 +45,25 @@ namespace NanoverImd
         private Coroutine sendAvatarsCoroutine;
 
         private MultiplayerAvatar LocalAvatar => nanover.Multiplayer.Avatars.LocalAvatar;
+        
+        [Header("Local avatar transforms")]
+        // Transforms representing the headset position, and the interaction origin of the hands and controllers
+        [SerializeField] private Transform leftControllerPoke;
+        [SerializeField] private Transform rightControllerPoke;
+        [SerializeField] private Transform leftIndexTip;
+        [SerializeField] private Transform leftThumbTip;
+        [SerializeField] private Transform rightIndexTip;
+        [SerializeField] private Transform rightThumbTip;
+        [SerializeField] private Transform headsetTransform;
+
+        private Transformation leftHandController;
+        private Transformation rightHandController;
+        private Transformation headset;
 
         private void Update()
         {
             UpdateRendering();
+            UpdateLocalAvatarTransformations();
         }
 
         private void OnEnable()
@@ -67,18 +89,14 @@ namespace NanoverImd
 
         private IEnumerator UpdateLocalAvatar()
         {
-            var leftHand = InputDeviceCharacteristics.Left.WrapAsPosedObject();
-            var rightHand = InputDeviceCharacteristics.Right.WrapAsPosedObject();
-            var headset = InputDeviceCharacteristics.HeadMounted.WrapAsPosedObject();
-
             while (true)
             {
                 if (nanover.Multiplayer.IsOpen)
                 {
                     LocalAvatar.SetTransformations(
-                        TransformPoseWorldToCalibrated(headset.Pose),
-                        TransformPoseWorldToCalibrated(leftHand.Pose),
-                        TransformPoseWorldToCalibrated(rightHand.Pose));
+                        TransformPoseWorldToCalibrated(headset),
+                        TransformPoseWorldToCalibrated(leftHandController),
+                        TransformPoseWorldToCalibrated(rightHandController));
                     LocalAvatar.Name = PlayerName.GetPlayerName();
                     LocalAvatar.Color = PlayerColor.GetPlayerColor();
                     nanover.Multiplayer.Avatars.FlushLocalAvatar();
@@ -86,6 +104,56 @@ namespace NanoverImd
 
                 yield return null;
             }
+        }
+        
+        /// <summary>
+        /// Check if the controllers are being tracked. Returns true if either Touch controller is being tracked.
+        /// </summary>
+        private static bool AreControllersBeingTracked()
+        {
+            return OVRInput.GetControllerPositionTracked(OVRInput.Controller.RTouch) ||
+                   OVRInput.GetControllerPositionTracked(OVRInput.Controller.LTouch);
+        }
+        
+        /// <summary>
+        /// Assign the appropriate transforms for the left and right HandControllers based on whether the hands or
+        /// controllers are being tracked.
+        /// </summary>
+        private void UpdateLocalAvatarTransformations()
+        {
+            Transform leftHandControllerTransform;
+            Transform rightHandControllerTransform;
+            
+            if (AreControllersBeingTracked())
+            {
+                leftHandControllerTransform = leftControllerPoke;
+                rightHandControllerTransform = rightControllerPoke;
+            }
+            else
+            {
+                // TODO: The orientation of the hand is not correct, but the position of the interaction is. 
+                // We calculate the position of interaction to be halfway between the thumb tip and index tip, same
+                // as in the UserInteractionManager.
+                leftHandControllerTransform = leftIndexTip;
+                leftHandControllerTransform.position = (leftThumbTip.position + leftIndexTip.position) / 2;
+                rightHandControllerTransform = rightIndexTip;
+                rightHandControllerTransform.position = (leftThumbTip.position + leftIndexTip.position) / 2;
+            }
+            
+            leftHandController = CreateTransformation(leftHandControllerTransform);
+            rightHandController = CreateTransformation(rightHandControllerTransform);
+            headset = CreateTransformation(headsetTransform);
+        }
+        
+        /// <summary>
+        /// Create a transformation object based on the given transform.
+        /// </summary>
+        private static Transformation CreateTransformation(Transform transformToConvert)
+        {
+            return new Transformation(
+                transformToConvert.position, 
+                transformToConvert.rotation, 
+                transformToConvert.lossyScale);
         }
 
         private void UpdateRendering()
