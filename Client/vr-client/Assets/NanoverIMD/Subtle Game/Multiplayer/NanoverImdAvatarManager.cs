@@ -124,6 +124,7 @@ namespace NanoverImd
             Transform leftHandControllerTransform;
             Transform rightHandControllerTransform;
             
+            // TODO: Make this nicer. Check this in update and only update the transforms if the mode has changed.
             if (AreControllersBeingTracked())
             {
                 leftHandControllerTransform = leftControllerPoke;
