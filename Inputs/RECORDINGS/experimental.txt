@@ -1,4 +1,0 @@
-"stripped" trajectories have had the system simulation counter key remove
-"stripped" state files have had the "scene" key removed
-
-Note that all of the recordings are identical (buckyball, angle, 0.5), even though they have different names.
