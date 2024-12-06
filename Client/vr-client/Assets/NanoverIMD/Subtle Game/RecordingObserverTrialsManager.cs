@@ -1,4 +1,3 @@
-using System;
 using NanoverImd;
 using NanoverImd.Subtle_Game.Interaction;
 using UnityEngine;
@@ -45,12 +44,10 @@ namespace NanoverIMD.Subtle_Game
         {
             // Connect to the server
             await simulation.AutoConnectByName("SubtleGameRecording");
-
             serverConnected = true;
             
             // Calibrate the space once connected to the server
-            calibratedSpaceForRecordingController.InitializeRootToHeadsetMatrix();
-            
+            calibratedSpaceForRecordingController.CalculateRootToHeadsetMatrix();
             
         }
     }

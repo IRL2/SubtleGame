@@ -41,11 +41,6 @@ namespace NanoverIMD.Subtle_Game
         private Matrix4x4 rootToHeadsetMatrix;
         
         /// <summary>
-        /// Indicates whether the root-to-headset matrix has been calculated.
-        /// </summary>
-        private bool rootToHeadsetMatrixSet;
-        
-        /// <summary>
         /// The game object that is placed at the position at which we want to place the headset relative to the simulation box.
         /// </summary>
         [SerializeField] private DesiredHeadsetPosition desiredHeadsetPosition;
@@ -65,27 +60,17 @@ namespace NanoverIMD.Subtle_Game
         /// </summary>
         private void Update()
         {
-            // Save the current headset position when "H" key is pressed
+            // Update the headset position (and therefore space calibration) when space key is pressed
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.LogWarning("Keypress detected");
-                InitializeRootToHeadsetMatrix();
+                CalculateRootToHeadsetMatrix();
             }
 
             if (!simulation.Multiplayer.IsOpen) return;
+            
             // Calibrate the space
             UpdateBoxScale();
             CalibrateSpace();
-        }
-
-        /// <summary>
-        /// Calculates the root-to-headset matrix.
-        /// </summary>
-        public void InitializeRootToHeadsetMatrix()
-        {
-            // if (rootToHeadsetMatrixSet) return;
-            CalculateRootToHeadsetMatrix();
-            rootToHeadsetMatrixSet = true;
         }
         
         /// <summary>
@@ -93,7 +78,7 @@ namespace NanoverIMD.Subtle_Game
         /// around the y-axis. This matrix will be used to calibrate the multiplayer space, and removing lateral 
         /// rotation ensures that the simulation box will always be placed with one edge parallel to the floor.
         /// </summary>
-        private void CalculateRootToHeadsetMatrix()
+        public void CalculateRootToHeadsetMatrix()
         {
             // save the rotation of the headset around the y-axis
             var levelHead = Quaternion.Euler(0, centerEyeAnchor.rotation.eulerAngles.y, 0);

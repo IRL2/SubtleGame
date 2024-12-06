@@ -25824,6 +25824,13 @@ MonoBehaviour:
   headsetPrefab: {fileID: 493567020}
   controllerPrefab: {fileID: 486422601}
   avatarParentObject: {fileID: 390955720}
+  leftControllerPoke: {fileID: 7416501715839334339}
+  rightControllerPoke: {fileID: 9116940136169035185}
+  leftIndexTip: {fileID: 4591869718317071806}
+  leftThumbTip: {fileID: 4887313454428485390}
+  rightIndexTip: {fileID: 4682591776209724542}
+  rightThumbTip: {fileID: 4595471348484302799}
+  headsetTransform: {fileID: 4948775120161647665}
 --- !u!1 &1950933474 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3895664296461673764, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
