@@ -29,7 +29,7 @@
       ```
       .\nanover-cli.exe --name "SubtleGame" "..\Inputs\sandbox_2_C10_alkanes.xml" "..\Inputs\17-ala.xml" "..\Inputs\nanotube_langevin.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.7.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.7.xml"
       ```
-      If you want to record the session, add `--trajectory "write-your-file-name-here.traj --state "write-your-file-name-here.state"` to the end of the above commands.
+      If you want to record the session, add `--include-velocity --include-forces --trajectory "write-your-file-name-here.traj --state "write-your-file-name-here.state"` to the end of the above commands. Note that we include forces and velocities here so that we can calculate the work done on the system.
 2. **Run the game manager**:
    1. Run the [Client/puppeteering_client.py](Client/puppeteering_client.py) from within your Python IDE with your `subtle-game` conda environment activated (as detailed below).
    2. A randomly-generated username will appear on the terminal. Type `y` and press `Enter` on your keyboard to accept this username and continue, or alternatively press `Enter` to generate a new username.
