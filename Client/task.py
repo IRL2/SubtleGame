@@ -159,6 +159,7 @@ class Task:
 
         try:
             remove_puppeteer_key_from_shared_state(client=self.client, key=KEY_TASK_COMPLETION_TIME)
+            remove_puppeteer_key_from_shared_state(client=self.client, key=KEY_TASK_COMMENT)
 
         except KeyError:
             return
