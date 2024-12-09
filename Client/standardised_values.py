@@ -66,6 +66,8 @@ FALSE = 'False'
 MODALITY_HANDS = 'hands'
 MODALITY_CONTROLLERS = 'controllers'
 # Task comments
+METHANE_IN_NANOTUBE = 'methane-in-nanotube'
+METHANE_NOT_IN_NANOTUBE = 'methane-NOT-in-nanotube'
 CHAIN_KNOTTED = 'knotted'
 CHAIN_UNKNOTTED = 'unknotted'
 

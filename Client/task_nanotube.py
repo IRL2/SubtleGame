@@ -5,6 +5,7 @@ import numpy as np
 from scipy.spatial import Delaunay
 import time
 from standardised_values import *
+from additional_functions import write_to_shared_state
 
 
 class NanotubeTask(Task):
@@ -23,6 +24,7 @@ class NanotubeTask(Task):
         super()._run_task_logic()
 
         self.timestamp_start = datetime.now()
+        write_to_shared_state(client=self.client, key=KEY_TASK_COMMENT, value=METHANE_NOT_IN_NANOTUBE)
 
         while True:
 
@@ -41,6 +43,7 @@ class NanotubeTask(Task):
                 self.methane_end_of_entry = get_closest_end(entry_pos=methane_carbon_position,
                                                             first_pos=nanotube_carbon_positions[0],
                                                             last_pos=nanotube_carbon_positions[-1])
+                write_to_shared_state(client=self.client, key=KEY_TASK_COMMENT, value=METHANE_IN_NANOTUBE)
 
             # Has methane exited the nanotube?
             if self.was_methane_in_nanotube and not self.is_methane_in_nanotube:
@@ -49,6 +52,7 @@ class NanotubeTask(Task):
                 methane_end_of_exit = get_closest_end(entry_pos=methane_carbon_position,
                                                       first_pos=nanotube_carbon_positions[0],
                                                       last_pos=nanotube_carbon_positions[-1])
+                write_to_shared_state(client=self.client, key=KEY_TASK_COMMENT, value=METHANE_NOT_IN_NANOTUBE)
 
                 # Did the methane exit from the other end?
                 if self.methane_end_of_entry != methane_end_of_exit:

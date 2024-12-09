@@ -20,12 +20,13 @@ class Task:
             self.sim_index = self.simulations[0][sim]
             self.sim_name = sim
 
+        self._wipe_shared_state_values_from_previous_task()
+
     def run_task(self):
 
         self._prepare_task()
         self._wait_for_task_intro()
 
-        self._wipe_shared_state_values_from_previous_task()
         self._wait_for_task_in_progress()
 
         self._run_task_logic()
