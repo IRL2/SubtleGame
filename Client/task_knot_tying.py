@@ -4,6 +4,7 @@ from nanover.app import NanoverImdClient
 from knot_pull_client import KnotPullClient
 import time
 from standardised_values import *
+from additional_functions import write_to_shared_state
 
 
 class KnotTyingTask(Task):
@@ -33,6 +34,8 @@ class KnotTyingTask(Task):
 
         # Keeping checking if the chain is knotted
         consecutive_knotted_frames = 0
+        write_to_shared_state(client=self.client, key=KEY_TASK_COMMENT, value=CHAIN_UNKNOTTED)
+
         while True:
 
             # Check that the particle positions exist in the latest frame
@@ -44,8 +47,10 @@ class KnotTyingTask(Task):
 
             if self.knot_pull_client.is_currently_knotted:
                 consecutive_knotted_frames += 1  # Increment the counter
+                write_to_shared_state(client=self.client, key=KEY_TASK_COMMENT, value=CHAIN_KNOTTED)
             else:
                 consecutive_knotted_frames = 0  # Reset the counter
+                write_to_shared_state(client=self.client, key=KEY_TASK_COMMENT, value=CHAIN_UNKNOTTED)
 
             # Check if the condition has been true for 30 consecutive iterations
             if consecutive_knotted_frames >= 60:

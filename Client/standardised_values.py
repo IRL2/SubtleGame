@@ -40,6 +40,7 @@ KEY_ORDER_OF_TASKS = 'order-of-tasks'
 KEY_SIM_COUNTER = 'system-simulation-counter'
 KEY_CURRENT_TASK = 'current-task'
 KEY_TASK_STATUS = 'task-status'
+KEY_TASK_COMMENT = 'task-comment'
 KEY_TRIALS_SIMS = 'trials-simulations'
 KEY_NUMBER_OF_TRIALS = 'number-of-trials'
 KEY_NUMBER_OF_TRIAL_REPEATS = 'number-of-trial-repeats'
@@ -64,6 +65,9 @@ FALSE = 'False'
 # Interaction modality
 MODALITY_HANDS = 'hands'
 MODALITY_CONTROLLERS = 'controllers'
+# Task comments
+CHAIN_KNOTTED = 'knotted'
+CHAIN_UNKNOTTED = 'unknotted'
 
 # ---------------- #
 # PLAYER
@@ -101,4 +105,4 @@ SHARED_STATE_KEYS_AND_VALS = {
 
 KEYS_WITH_UNRESTRICTED_VALS = [KEY_TASK_COMPLETION_TIME, KEY_SIMULATION_NAME, KEY_SIMULATION_SERVER_INDEX,
                                KEY_TRIALS_SIMS, KEY_NUMBER_OF_TRIALS, KEY_NUMBER_OF_TRIAL_REPEATS, KEY_USERNAME,
-                               KEY_SIM_COUNTER, KEY_START_TIME, KEY_END_TIME]
+                               KEY_SIM_COUNTER, KEY_START_TIME, KEY_END_TIME, KEY_TASK_COMMENT]
