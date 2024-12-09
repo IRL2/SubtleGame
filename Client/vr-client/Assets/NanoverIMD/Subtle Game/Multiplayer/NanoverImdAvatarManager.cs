@@ -138,7 +138,7 @@ namespace NanoverImd
                 leftHandControllerTransform = leftIndexTip;
                 leftHandControllerTransform.position = (leftThumbTip.position + leftIndexTip.position) / 2;
                 rightHandControllerTransform = rightIndexTip;
-                rightHandControllerTransform.position = (leftThumbTip.position + leftIndexTip.position) / 2;
+                rightHandControllerTransform.position = (rightThumbTip.position + rightIndexTip.position) / 2;
             }
             
             leftHandController = CreateTransformation(leftHandControllerTransform);
