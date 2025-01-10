@@ -13,7 +13,7 @@ TASK_TRIALS_OBSERVER = 'trials-observer'
 TASK_TRIALS_OBSERVER_TRAINING = 'trials-observer-training'
 # Simulation
 SIM_NAME_SANDBOX = 'sandbox'
-SIM_NAME_NANOTUBE = 'nanotube'
+SIM_NAME_NANOTUBE = 'nanotube-methane'
 SIM_NAME_KNOT_TYING = '17-ala'
 SIM_NAME_TRIALS = 'buckyball'
 # Frequency
