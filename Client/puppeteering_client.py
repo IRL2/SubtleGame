@@ -1,11 +1,8 @@
 from nanover.app import NanoverImdClient
 from task_nanotube import NanotubeTask
 from task_knot_tying import KnotTyingTask
-from task_trials_training import TrialsTrainingTask
-from task_trials_observer import TrialsObserverTask
-from task_trials_observer_training import TrialsObserverTrainingTask
+from task_trials import TrialsInteractorTask, TrialsObserverTask, TrialsInteractorTrainingTask, TrialsObserverTrainingTask
 from task_sandbox import SandboxTask
-from task_trials_interactor import TrialsInteractorTask
 from additional_functions import write_to_shared_state, randomise_list_order
 from standardised_values import *
 import time
@@ -40,7 +37,7 @@ def get_order_of_tasks(run_short_game: bool):
         return [TASK_NANOTUBE, TASK_NANOTUBE]
 
     # Fix the order of the tasks
-    tasks_without_training = [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS]
+    tasks_without_training = [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_INTERACTOR, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_INTERACTOR]
 
     # # Randomise the order of the tasks, with the nanotube always as the first task
     # tasks_without_training = []
@@ -63,8 +60,8 @@ def get_order_of_tasks(run_short_game: bool):
 
     # Add the trials training task before each Trials task
     for task in tasks_without_training:
-        if task == TASK_TRIALS:
-            order_of_tasks.append(TASK_TRIALS_TRAINING)
+        if task == TASK_TRIALS_INTERACTOR:
+            order_of_tasks.append(TASK_TRIALS_INTERACTOR_TRAINING)
         if task == TASK_TRIALS_OBSERVER:
             order_of_tasks.append(TASK_TRIALS_OBSERVER_TRAINING)
         order_of_tasks.append(task)
@@ -152,15 +149,15 @@ class PuppeteeringClient:
                 current_task = KnotTyingTask(client=self.nanover_client, simulations=self.alanine_sim,
                                              simulation_counter=simulation_counter)
 
-            elif task == TASK_TRIALS:
+            elif task == TASK_TRIALS_INTERACTOR:
                 current_task = TrialsInteractorTask(client=self.nanover_client, simulations=self.trials_sims,
                                                     simulation_counter=simulation_counter,
                                                     number_of_repeats=self.num_of_trial_repeats)
 
-            elif task == TASK_TRIALS_TRAINING:
-                current_task = TrialsTrainingTask(client=self.nanover_client, simulations=self.trials_sims,
-                                                  simulation_counter=simulation_counter,
-                                                  number_of_repeats=self.num_of_trial_repeats)
+            elif task == TASK_TRIALS_INTERACTOR_TRAINING:
+                current_task = TrialsInteractorTrainingTask(client=self.nanover_client, simulations=self.trials_sims,
+                                                            simulation_counter=simulation_counter,
+                                                            number_of_repeats=self.num_of_trial_repeats)
 
             elif task == TASK_TRIALS_OBSERVER:
                 current_task = TrialsObserverTask(client=self.nanover_client, simulations=self.trials_sims,
