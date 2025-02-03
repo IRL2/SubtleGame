@@ -1,15 +1,11 @@
 from nanover.app import NanoverImdClient
 from task_nanotube import NanotubeTask
 from task_knot_tying import KnotTyingTask
-from task_trials_training import TrialsTrainingTask
-from task_trials_observer import TrialsObserverTask
-from task_trials_observer_training import TrialsObserverTrainingTask
+from task_trials import InteractorTrialsTask, ObserverTrialsTask, InteractorTrialsTraining, ObserverTrialsTraining
 from task_sandbox import SandboxTask
-from task_trials import TrialsTask
 from additional_functions import write_to_shared_state, randomise_list_order
 from standardised_values import *
 import time
-import random
 from random_username.generate import generate_username
 from datetime import datetime, timedelta
 import pytz
@@ -40,31 +36,14 @@ def get_order_of_tasks(run_short_game: bool):
         return [TASK_NANOTUBE, TASK_NANOTUBE]
 
     # Fix the order of the tasks
-    tasks_without_training = [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS]
-
-    # # Randomise the order of the tasks, with the nanotube always as the first task
-    # tasks_without_training = []
-
-    # for n in range(2):
-    #     t = [TASK_KNOT_TYING, TASK_TRIALS]
-    #     t.insert(0, TASK_NANOTUBE)
-    #     tasks_without_training.extend(t)
-
-    # # Only perform the observer task, for testing
-    # tasks = [TASK_TRIALS_OBSERVER]
-    # tasks_without_training = []
-    #
-    # for n in range(2):
-    #     t = random.sample(tasks, len(tasks))
-    #     # t.insert(0, TASK_NANOTUBE)
-    #     tasks_without_training.extend(t)
+    tasks_without_training = [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_INTERACTOR, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_INTERACTOR]
 
     order_of_tasks = []
 
     # Add the trials training task before each Trials task
     for task in tasks_without_training:
-        if task == TASK_TRIALS:
-            order_of_tasks.append(TASK_TRIALS_TRAINING)
+        if task == TASK_TRIALS_INTERACTOR:
+            order_of_tasks.append(TASK_TRIALS_INTERACTOR_TRAINING)
         if task == TASK_TRIALS_OBSERVER:
             order_of_tasks.append(TASK_TRIALS_OBSERVER_TRAINING)
         order_of_tasks.append(task)
@@ -125,7 +104,7 @@ class PuppeteeringClient:
 
     def run_game(self):
 
-        print('STARTING GAME!\n')
+        print('\nSTARTING GAME!')
 
         self._initialise_game()
         self._wait_for_vr_client_to_connect_to_server()
@@ -136,6 +115,8 @@ class PuppeteeringClient:
 
             simulation_counter = self.nanover_client.current_frame.values["system.simulation.counter"]
 
+            print('\n- Current task: ' + task)
+            
             if task == TASK_NANOTUBE:
 
                 # Check if we are in the second section
@@ -152,34 +133,33 @@ class PuppeteeringClient:
                 current_task = KnotTyingTask(client=self.nanover_client, simulations=self.alanine_sim,
                                              simulation_counter=simulation_counter)
 
-            elif task == TASK_TRIALS:
-                current_task = TrialsTask(client=self.nanover_client, simulations=self.trials_sims,
-                                          simulation_counter=simulation_counter,
-                                          number_of_repeats=self.num_of_trial_repeats)
+            elif task == TASK_TRIALS_INTERACTOR:
+                current_task = InteractorTrialsTask(client=self.nanover_client, simulations=self.trials_sims,
+                                                    simulation_counter=simulation_counter,
+                                                    number_of_repeats=self.num_of_trial_repeats)
 
-            elif task == TASK_TRIALS_TRAINING:
-                current_task = TrialsTrainingTask(client=self.nanover_client, simulations=self.trials_sims,
-                                                  simulation_counter=simulation_counter,
-                                                  number_of_repeats=self.num_of_trial_repeats)
+            elif task == TASK_TRIALS_INTERACTOR_TRAINING:
+                current_task = InteractorTrialsTraining(client=self.nanover_client, simulations=self.trials_sims,
+                                                        simulation_counter=simulation_counter,
+                                                        number_of_repeats=self.num_of_trial_repeats)
 
             elif task == TASK_TRIALS_OBSERVER:
-                current_task = TrialsObserverTask(client=self.nanover_client, simulations=self.trials_sims,
+                current_task = ObserverTrialsTask(client=self.nanover_client, simulations=self.trials_sims,
                                                   simulation_counter=simulation_counter,
                                                   number_of_repeats=self.num_of_trial_repeats)
 
             elif task == TASK_TRIALS_OBSERVER_TRAINING:
-                current_task = TrialsObserverTrainingTask(client=self.nanover_client, simulations=self.trials_sims,
-                                                          simulation_counter=simulation_counter,
-                                                          number_of_repeats=self.num_of_trial_repeats)
+                current_task = ObserverTrialsTraining(client=self.nanover_client, simulations=self.trials_sims,
+                                                      simulation_counter=simulation_counter,
+                                                      number_of_repeats=self.num_of_trial_repeats)
 
             else:
                 print("Current task not recognised, closing the puppeteering client.")
                 break
 
             # Run the task
-            print('\n- Running ' + task + ' task')
             current_task.run_task()
-            print('Finished ' + task + ' task\n')
+            print('Finished ' + task + ' task.\n')
 
         self._finish_game()
 
@@ -203,16 +183,17 @@ class PuppeteeringClient:
         # Print game setup to the terminal
         print('\nGame initialised:')
         print('Order of tasks: ', self.order_of_tasks)
-        print('Current interaction modality: ', self.current_modality, '\n')
+        print('Current interaction modality: ', self.current_modality)
 
     def _player_in_main_menu(self):
-        print("Player connected, waiting for them to choose a task")
+        print("VR client connected, waiting for the player to choose a task...")
 
         # Wait for player to choose between sandbox and main game
         while True:
             try:
                 value = self.nanover_client.latest_multiplayer_values[KEY_PLAYER_TASK_TYPE]
                 if value == PLAYER_SANDBOX:
+                    print('\n- Current task: sandbox')
                     simulation_counter = self.nanover_client.current_frame.values["system.simulation.counter"]
                     current_task = SandboxTask(client=self.nanover_client, simulations=self.sandbox_sim,
                                                simulation_counter=simulation_counter)
@@ -243,7 +224,7 @@ class PuppeteeringClient:
 
     def _wait_for_vr_client_to_connect_to_server(self):
         """ Waits for the player to be connected."""
-        print("Waiting for player to connect...")
+        print("Waiting for player to connect...\n")
         self._wait_for_key_values(KEY_PLAYER_CONNECTED, TRUE)
         write_to_shared_state(client=self.nanover_client, key=KEY_GAME_STATUS, value=IN_PROGRESS)
 
@@ -262,16 +243,16 @@ class PuppeteeringClient:
 
     def _finish_game(self):
         """ Update the shared state and close the client at the end of the game. """
-        print("Closing the nanover client and ending game.")
+        print("Closing the puppeteering client and ending the game.")
         write_to_shared_state(client=self.nanover_client, key=KEY_END_TIME, value=str(get_current_time_in_spain()))
         write_to_shared_state(client=self.nanover_client, key=KEY_GAME_STATUS, value=FINISHED)
         self.nanover_client.close()
-        print('Game finished')
+        print('Game finished.')
 
 
 if __name__ == '__main__':
 
-    number_of_repeats = 3
+    number_of_repeats = 1
 
     # Create puppeteering client
     puppeteering_client = PuppeteeringClient(number_of_trial_repeats=number_of_repeats,

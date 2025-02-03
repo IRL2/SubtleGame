@@ -2,49 +2,152 @@ from task import Task
 from nanover.app import NanoverImdClient
 from additional_functions import write_to_shared_state, remove_puppeteer_key_from_shared_state
 from standardised_values import *
-from task_trials_functions import get_order_of_simulations
+from task_trials_functions import get_main_task_simulations, get_practice_task_simulations
 
 
-class TrialsTask(Task):
-    task_type = TASK_TRIALS
+class BaseTrialsTask(Task):
+    """ A base class for the Trials tasks. """
 
-    def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int, number_of_repeats):
-
+    def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int, number_of_repeats,
+                 observer_condition: bool = False, training_task: bool = False):
         super().__init__(client=client, simulations=simulations, sim_counter=simulation_counter)
 
         self.num_of_repeats = number_of_repeats
-
-        self.ordered_simulation_names = []
-        self.ordered_correct_answers = []
-        self.ordered_simulation_indices = []
         self.sim_index = None
         self.sim_name = None
         self.correct_answer = None
-
         self.answer_correct = False
         self.was_answer_correct = False
 
-        self.practice_sims, self.main_sims = get_order_of_simulations(self.simulations, num_repeats=self.num_of_repeats)
+        # Get ordered list of simulations
+        # self.practice_sims, self.main_sims = get_order_of_simulations(self.simulations, num_repeats=self.num_of_repeats, observer_condition=observer_condition)
+        if not training_task:
+            self.main_sims = get_main_task_simulations(self.simulations, num_repeats=self.num_of_repeats, observer_condition=observer_condition)
+            print(f'Trials sims: {self.main_sims}')
 
-        write_to_shared_state(client=self.client, key=KEY_TRIALS_SIMS, value=str(self.main_sims))
-
-        self.number_of_trials = len(self.main_sims)
-
-        write_to_shared_state(client=self.client, key=KEY_NUMBER_OF_TRIALS, value=self.number_of_trials)
-        write_to_shared_state(client=self.client, key=KEY_NUMBER_OF_TRIAL_REPEATS, value=self.num_of_repeats)
+            # Store trials info in shared state
+            self.number_of_trials = len(self.main_sims)
+            write_to_shared_state(self.client, KEY_TRIALS_SIMS, str(self.main_sims))
+            write_to_shared_state(self.client, KEY_NUMBER_OF_TRIALS, self.number_of_trials)
+            write_to_shared_state(self.client, KEY_NUMBER_OF_TRIAL_REPEATS, self.num_of_repeats)
 
     def run_task(self):
         """ Runs through the psychophysics trials. """
 
-        # Run trials proper
         for trial_num in range(self.number_of_trials):
-
-            # This is a workaround to ensure that we can switch between recorded simulations
-            self.client.run_play()
+            self.client.run_play()  # Ensure we can switch between recorded simulations
 
             self._prepare_trial(name=self.main_sims[trial_num][0],
                                 server_index=self.main_sims[trial_num][1],
                                 correct_answer=self.main_sims[trial_num][2])
+
+            if trial_num == 0:
+                write_to_shared_state(self.client, KEY_TASK_STATUS, IN_PROGRESS)
+
+            write_to_shared_state(self.client, KEY_TRIALS_TIMER, STARTED)
+            self._wait_for_player_to_answer(current_trial_number=trial_num)
+
+        self._finish_task()  # End trials
+
+    def _prepare_trial(self, name, server_index, correct_answer):
+        """ Set variables and prepare task for a new trial """
+        self.sim_name = name
+        self.sim_index = server_index
+        self.correct_answer = correct_answer
+
+        self._prepare_task()
+        print(f'Current trial: "{self.sim_name}"')
+        self._wait_for_task_in_progress()
+
+    def _request_load_simulation(self):
+        """ Loads the simulation corresponding to the current simulation index. """
+        self.client.run_command("playback/load", index=self.sim_index)
+
+    def _wait_for_player_to_answer(self, current_trial_number: int):
+        """ Waits for the player to submit an answer, processes the response, and updates shared state. """
+
+        print(f"Waiting for player to answer trial {current_trial_number}...")
+
+        # Remove previous answer
+        remove_puppeteer_key_from_shared_state(self.client, KEY_TRIALS_ANSWER)
+
+        # Wait for player response
+        super()._wait_for_key_values(KEY_PLAYER_TRIAL_NUMBER, str(current_trial_number))
+        super()._wait_for_key_values(KEY_PLAYER_TRIAL_ANSWER, MOLECULE_A, MOLECULE_B)
+        answer = self.client.latest_multiplayer_values[KEY_PLAYER_TRIAL_ANSWER]
+
+        if answer not in LIST_OF_VALID_ANSWERS:
+            raise ValueError("Invalid answer provided. Answer must be 'A' or 'B'.")
+
+        # Process the answer
+        if self.correct_answer == AMBIVALENT:
+            self.was_answer_correct = AMBIVALENT
+        elif answer == self.correct_answer:
+            self.was_answer_correct = TRUE
+        else:
+            self.was_answer_correct = FALSE
+
+        write_to_shared_state(self.client, KEY_TRIALS_ANSWER, self.was_answer_correct)
+
+        print(f"Player answered {answer}, correct answer is {self.correct_answer}. RESULT = {self.was_answer_correct}\n")
+
+    def _update_visualisations(self):
+        """ Update the visualization by setting object colors. """
+
+        self.client.clear_selections()
+
+        # Set color of buckyball A
+        buckyball_a = self.client.create_selection("BUC_A", list(range(0, 60)))
+        buckyball_a.remove()
+        with buckyball_a.modify() as selection:
+            selection.renderer = {'render': 'ball and stick', 'color': 'grey'}
+
+        # Set color of buckyball B
+        buckyball_b = self.client.create_selection("BUC_B", list(range(60, 120)))
+        buckyball_b.remove()
+        with buckyball_b.modify() as selection:
+            selection.renderer = {'render': 'ball and stick', 'color': 'grey'}
+
+
+class BaseTrialsTraining(BaseTrialsTask):
+    """
+    A base class for training Trials tasks.
+    """
+
+    def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int, number_of_repeats,
+                 observer_condition: bool = False):
+        """
+        Initializes the Trials training class.
+        """
+        super().__init__(client=client, simulations=simulations, simulation_counter=simulation_counter,
+                         number_of_repeats=number_of_repeats, observer_condition=observer_condition, training_task=True)
+
+        # Set order of simulations
+        self.practice_sims = get_practice_task_simulations(self.simulations, observer_condition=observer_condition)
+        print(f'Training sims: {self.practice_sims}')
+
+        # Store trials info in shared state
+        self.number_of_trials = len(self.practice_sims)
+        write_to_shared_state(self.client, KEY_TRIALS_SIMS, str(self.practice_sims))
+        write_to_shared_state(self.client, KEY_NUMBER_OF_TRIALS,  self.number_of_trials)
+        write_to_shared_state(self.client, KEY_NUMBER_OF_TRIAL_REPEATS, 1)
+
+    def run_task(self):
+        """ Runs through the psychophysics trials for the training task. """
+
+        # Run trials proper
+        for trial_num, current_simulation in enumerate(self.practice_sims):
+
+            if not current_simulation:
+                continue
+
+            # Workaround to ensure we can switch between recorded simulations
+            if trial_num > 0:
+                self.client.run_play()
+
+            self._prepare_trial(name=current_simulation[0],
+                                server_index=current_simulation[1],
+                                correct_answer=current_simulation[2])
 
             if trial_num == 0:
                 write_to_shared_state(client=self.client, key=KEY_TASK_STATUS, value=IN_PROGRESS)
@@ -55,74 +158,38 @@ class TrialsTask(Task):
         # End trials
         self._finish_task()
 
-    def _prepare_trial(self, name, server_index, correct_answer):
 
-        # Set variables
-        self.sim_name = name
-        self.sim_index = server_index
-        self.correct_answer = correct_answer
+class InteractorTrialsTask(BaseTrialsTask):
+    """ Trials Task - players interact with the simulation. """
+    task_type = TASK_TRIALS_INTERACTOR
 
-        # Prepare task and wait for player to be ready
-        self._prepare_task()
-        self._wait_for_task_in_progress()
+    def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int, number_of_repeats):
+        super().__init__(client, simulations, simulation_counter, number_of_repeats, observer_condition=False)
 
-    def _request_load_simulation(self):
-        """ Loads the simulation corresponding to the current simulation index. """
-        self.client.run_command("playback/load", index=self.sim_index)
 
-    def _wait_for_player_to_answer(self, current_trial_number: int):
-        """ Waits for the player to submit an answer and, once received, sorts it and updates the shared state with the
-        correctness of the answer: 'Ambivalent', 'True', or 'False'.  """
+class ObserverTrialsTask(BaseTrialsTask):
+    """ Trials Task - players watch recorded simulations. """
+    task_type = TASK_TRIALS_OBSERVER
 
-        print(f"Waiting for player to answer trial number: {current_trial_number}")
+    def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int, number_of_repeats):
+        super().__init__(client, simulations, simulation_counter, number_of_repeats, observer_condition=True)
 
-        # Remove puppeteer's previous answer
-        remove_puppeteer_key_from_shared_state(client=self.client, key=KEY_TRIALS_ANSWER)
 
-        # Wait for player's answer
-        super()._wait_for_key_values(KEY_PLAYER_TRIAL_NUMBER, str(current_trial_number))
-        super()._wait_for_key_values(KEY_PLAYER_TRIAL_ANSWER, MOLECULE_A, MOLECULE_B)
-        answer = self.client.latest_multiplayer_values[KEY_PLAYER_TRIAL_ANSWER]
+class InteractorTrialsTraining(BaseTrialsTraining):
+    """Training task for interactor trials."""
+    task_type = TASK_TRIALS_INTERACTOR_TRAINING
 
-        # Check answer is valid
-        if answer not in LIST_OF_VALID_ANSWERS:
-            raise ValueError("Invalid answer provided. Answer must be 'A' or 'B'.")
+    def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int, number_of_repeats):
+        super().__init__(client=client, simulations=simulations, simulation_counter=simulation_counter,
+                         number_of_repeats=number_of_repeats)
 
-        # Sort answer and update the shared state
-        if self.correct_answer == AMBIVALENT:
-            self.was_answer_correct = AMBIVALENT
-        elif answer == self.correct_answer:
-            self.was_answer_correct = TRUE
-        elif answer != self.correct_answer and self.correct_answer in LIST_OF_VALID_ANSWERS:
-            self.was_answer_correct = FALSE
-        else:
-            raise ValueError("An unexpected error occurred.")
 
-        # Print info about player's answer to the terminal
-        print(f"Current trial: {self.sim_name}")
-        print(f"Player answered {answer}, correct answer is {self.correct_answer}. RESULT = {self.was_answer_correct}\n")
+class ObserverTrialsTraining(BaseTrialsTraining):
+    """Training task for observer trials."""
+    task_type = TASK_TRIALS_OBSERVER_TRAINING
 
-        write_to_shared_state(client=self.client, key=KEY_TRIALS_ANSWER, value=self.was_answer_correct)
+    def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int, number_of_repeats):
+        super().__init__(client=client, simulations=simulations, simulation_counter=simulation_counter,
+                         number_of_repeats=number_of_repeats)
 
-    def _update_visualisations(self):
 
-        # Clear current selections
-        self.client.clear_selections()
-
-        # Set colour of buckyball A
-        buckyball_A = self.client.create_selection("BUC_A", list(range(0, 60)))
-        buckyball_A.remove()
-        with buckyball_A.modify() as selection:
-            selection.renderer = \
-                {'render': 'ball and stick',
-                 'color': 'grey'
-                 }
-
-        # Set colour of buckyball B
-        buckyball_B = self.client.create_selection("BUC_B", list(range(60, 120)))
-        buckyball_B.remove()
-        with buckyball_B.modify() as selection:
-            selection.renderer = \
-                {'render': 'ball and stick',
-                 'color': 'grey'
-                 }
