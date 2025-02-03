@@ -62,7 +62,7 @@ class Task:
         """ Waits for the simulation to be loaded onto the server by checking if the simulation counter has
         incremented."""
 
-        print(f"(2) waiting for simulation counter = {self.simulation_counter}")
+        print(f"(2) waiting for simulation counter to increase, current val = {self.simulation_counter}")
         while True:
 
             try:
@@ -150,7 +150,7 @@ class Task:
                                   value=str(self.task_completion_time))
 
         # Wait for player to register that the task has finished
-        print('Waiting for player to confirm end of task')
+        print('Waiting for VR client to confirm end of task')
         self._wait_for_key_values(KEY_PLAYER_TASK_STATUS, PLAYER_FINISHED)
 
     def _change_simulation_colour_when_task_finishes(self):

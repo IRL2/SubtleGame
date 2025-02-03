@@ -177,7 +177,7 @@ class PuppeteeringClient:
                 break
 
             # Run the task
-            print('\n- Running ' + task + ' task')
+            print('\n- Current task: ' + task)
             current_task.run_task()
             print('Finished ' + task + ' task\n')
 
@@ -206,7 +206,7 @@ class PuppeteeringClient:
         print('Current interaction modality: ', self.current_modality, '\n')
 
     def _player_in_main_menu(self):
-        print("Player connected, waiting for them to choose a task")
+        print("VR client connected, waiting for the player to choose a task")
 
         # Wait for player to choose between sandbox and main game
         while True:
@@ -262,11 +262,11 @@ class PuppeteeringClient:
 
     def _finish_game(self):
         """ Update the shared state and close the client at the end of the game. """
-        print("Closing the nanover client and ending game.")
+        print("Closing the puppeteering client and ending the game.")
         write_to_shared_state(client=self.nanover_client, key=KEY_END_TIME, value=str(get_current_time_in_spain()))
         write_to_shared_state(client=self.nanover_client, key=KEY_GAME_STATUS, value=FINISHED)
         self.nanover_client.close()
-        print('Game finished')
+        print('Game finished.')
 
 
 if __name__ == '__main__':

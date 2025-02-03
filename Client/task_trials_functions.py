@@ -60,9 +60,9 @@ def get_unique_multipliers_recordings(simulations: list):
 def get_multiplier_of_simulation(sim_file_name: str):
     """ Returns the multiplier of the simulation or the recording, which is stored in the simulation name. """
     if 'recording' in sim_file_name:
-        print(f"File name = {sim_file_name}")
+
         multiplier = float(sim_file_name.split(".traj")[0].split("recording-buckyball_angle_")[1].split("_")[1])
-        print(f"multiplier = {multiplier}")
+        print(f"File name = {sim_file_name}, multiplier = {multiplier}")
         return multiplier
     else:
         return float(sim_file_name.removesuffix(".xml").split("_")[3].strip())
