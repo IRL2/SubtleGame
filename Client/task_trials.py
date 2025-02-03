@@ -93,19 +93,19 @@ class BaseTrialsTask(Task):
         self.client.clear_selections()
 
         # Set color of buckyball A
-        buckyball_A = self.client.create_selection("BUC_A", list(range(0, 60)))
-        buckyball_A.remove()
-        with buckyball_A.modify() as selection:
+        buckyball_a = self.client.create_selection("BUC_A", list(range(0, 60)))
+        buckyball_a.remove()
+        with buckyball_a.modify() as selection:
             selection.renderer = {'render': 'ball and stick', 'color': 'grey'}
 
         # Set color of buckyball B
-        buckyball_B = self.client.create_selection("BUC_B", list(range(60, 120)))
-        buckyball_B.remove()
-        with buckyball_B.modify() as selection:
+        buckyball_b = self.client.create_selection("BUC_B", list(range(60, 120)))
+        buckyball_b.remove()
+        with buckyball_b.modify() as selection:
             selection.renderer = {'render': 'ball and stick', 'color': 'grey'}
 
 
-class TrialsBaseTrainingTask:
+class BaseTrialsTraining(BaseTrialsTask):
     """
     A base class for training Trials tasks.
     """
@@ -137,7 +137,7 @@ class TrialsBaseTrainingTask:
         self._finish_task()
 
 
-class TrialsInteractorTask(BaseTrialsTask):
+class InteractorTrialsTask(BaseTrialsTask):
     """ Trials Task - players interact with the simulation. """
     task_type = TASK_TRIALS_INTERACTOR
 
@@ -145,7 +145,7 @@ class TrialsInteractorTask(BaseTrialsTask):
         super().__init__(client, simulations, simulation_counter, number_of_repeats, observer_condition=False)
 
 
-class TrialsObserverTask(BaseTrialsTask):
+class ObserverTrialsTask(BaseTrialsTask):
     """ Trials Task - players watch recorded simulations. """
     task_type = TASK_TRIALS_OBSERVER
 
@@ -153,7 +153,7 @@ class TrialsObserverTask(BaseTrialsTask):
         super().__init__(client, simulations, simulation_counter, number_of_repeats, observer_condition=True)
 
 
-class TrialsInteractorTrainingTask(TrialsBaseTrainingTask, TrialsInteractorTask):
+class InteractorTrialsTraining(BaseTrialsTraining, InteractorTrialsTask):
     """Training task for interactor trials."""
     task_type = TASK_TRIALS_INTERACTOR_TRAINING
 
@@ -162,7 +162,7 @@ class TrialsInteractorTrainingTask(TrialsBaseTrainingTask, TrialsInteractorTask)
                          number_of_repeats=number_of_repeats)
 
 
-class TrialsObserverTrainingTask(TrialsBaseTrainingTask, TrialsObserverTask):
+class ObserverTrialsTraining(BaseTrialsTraining, ObserverTrialsTask):
     """Training task for observer trials."""
     task_type = TASK_TRIALS_OBSERVER_TRAINING
 

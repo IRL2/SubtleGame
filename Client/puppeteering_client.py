@@ -1,7 +1,7 @@
 from nanover.app import NanoverImdClient
 from task_nanotube import NanotubeTask
 from task_knot_tying import KnotTyingTask
-from task_trials import TrialsInteractorTask, TrialsObserverTask, TrialsInteractorTrainingTask, TrialsObserverTrainingTask
+from task_trials import InteractorTrialsTask, ObserverTrialsTask, InteractorTrialsTraining, ObserverTrialsTraining
 from task_sandbox import SandboxTask
 from additional_functions import write_to_shared_state, randomise_list_order
 from standardised_values import *
@@ -150,24 +150,24 @@ class PuppeteeringClient:
                                              simulation_counter=simulation_counter)
 
             elif task == TASK_TRIALS_INTERACTOR:
-                current_task = TrialsInteractorTask(client=self.nanover_client, simulations=self.trials_sims,
+                current_task = InteractorTrialsTask(client=self.nanover_client, simulations=self.trials_sims,
                                                     simulation_counter=simulation_counter,
                                                     number_of_repeats=self.num_of_trial_repeats)
 
             elif task == TASK_TRIALS_INTERACTOR_TRAINING:
-                current_task = TrialsInteractorTrainingTask(client=self.nanover_client, simulations=self.trials_sims,
-                                                            simulation_counter=simulation_counter,
-                                                            number_of_repeats=self.num_of_trial_repeats)
+                current_task = InteractorTrialsTraining(client=self.nanover_client, simulations=self.trials_sims,
+                                                        simulation_counter=simulation_counter,
+                                                        number_of_repeats=self.num_of_trial_repeats)
 
             elif task == TASK_TRIALS_OBSERVER:
-                current_task = TrialsObserverTask(client=self.nanover_client, simulations=self.trials_sims,
+                current_task = ObserverTrialsTask(client=self.nanover_client, simulations=self.trials_sims,
                                                   simulation_counter=simulation_counter,
                                                   number_of_repeats=self.num_of_trial_repeats)
 
             elif task == TASK_TRIALS_OBSERVER_TRAINING:
-                current_task = TrialsObserverTrainingTask(client=self.nanover_client, simulations=self.trials_sims,
-                                                          simulation_counter=simulation_counter,
-                                                          number_of_repeats=self.num_of_trial_repeats)
+                current_task = ObserverTrialsTraining(client=self.nanover_client, simulations=self.trials_sims,
+                                                      simulation_counter=simulation_counter,
+                                                      number_of_repeats=self.num_of_trial_repeats)
 
             else:
                 print("Current task not recognised, closing the puppeteering client.")
