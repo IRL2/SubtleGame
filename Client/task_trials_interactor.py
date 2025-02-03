@@ -5,7 +5,7 @@ from standardised_values import *
 from task_trials_functions import get_order_of_simulations
 
 
-class TrialsTask(Task):
+class TrialsInteractorTask(Task):
     task_type = TASK_TRIALS
 
     def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int, number_of_repeats):

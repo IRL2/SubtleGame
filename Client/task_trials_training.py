@@ -1,10 +1,10 @@
 from nanover.app import NanoverImdClient
 from additional_functions import write_to_shared_state
 from standardised_values import *
-from task_trials import TrialsTask
+from task_trials_interactor import TrialsInteractorTask
 
 
-class TrialsTrainingTask(TrialsTask):
+class TrialsTrainingTask(TrialsInteractorTask):
     task_type = TASK_TRIALS_TRAINING
 
     def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int, number_of_repeats):

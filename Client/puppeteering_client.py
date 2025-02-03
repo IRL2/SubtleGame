@@ -5,7 +5,7 @@ from task_trials_training import TrialsTrainingTask
 from task_trials_observer import TrialsObserverTask
 from task_trials_observer_training import TrialsObserverTrainingTask
 from task_sandbox import SandboxTask
-from task_trials import TrialsTask
+from task_trials_interactor import TrialsInteractorTask
 from additional_functions import write_to_shared_state, randomise_list_order
 from standardised_values import *
 import time
@@ -153,9 +153,9 @@ class PuppeteeringClient:
                                              simulation_counter=simulation_counter)
 
             elif task == TASK_TRIALS:
-                current_task = TrialsTask(client=self.nanover_client, simulations=self.trials_sims,
-                                          simulation_counter=simulation_counter,
-                                          number_of_repeats=self.num_of_trial_repeats)
+                current_task = TrialsInteractorTask(client=self.nanover_client, simulations=self.trials_sims,
+                                                    simulation_counter=simulation_counter,
+                                                    number_of_repeats=self.num_of_trial_repeats)
 
             elif task == TASK_TRIALS_TRAINING:
                 current_task = TrialsTrainingTask(client=self.nanover_client, simulations=self.trials_sims,

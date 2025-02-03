@@ -1,4 +1,4 @@
-from Client.task_trials import *
+from Client.task_trials_interactor import *
 import unittest
 from unittest.mock import patch
 
