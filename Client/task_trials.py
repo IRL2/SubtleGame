@@ -2,13 +2,14 @@ from task import Task
 from nanover.app import NanoverImdClient
 from additional_functions import write_to_shared_state, remove_puppeteer_key_from_shared_state
 from standardised_values import *
-from task_trials_functions import get_order_of_simulations
+from task_trials_functions import get_main_task_simulations, get_practice_task_simulations
 
 
 class BaseTrialsTask(Task):
-    """ Base class for Trials Tasks """
+    """ A base class for the Trials tasks. """
 
-    def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int, number_of_repeats, observer_condition: bool = False):
+    def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int, number_of_repeats,
+                 observer_condition: bool = False, training_task: bool = False):
         super().__init__(client=client, simulations=simulations, sim_counter=simulation_counter)
 
         self.num_of_repeats = number_of_repeats
@@ -19,13 +20,16 @@ class BaseTrialsTask(Task):
         self.was_answer_correct = False
 
         # Get ordered list of simulations
-        self.practice_sims, self.main_sims = get_order_of_simulations(self.simulations, num_repeats=self.num_of_repeats, observer_condition=observer_condition)
+        # self.practice_sims, self.main_sims = get_order_of_simulations(self.simulations, num_repeats=self.num_of_repeats, observer_condition=observer_condition)
+        if not training_task:
+            self.main_sims = get_main_task_simulations(self.simulations, num_repeats=self.num_of_repeats, observer_condition=observer_condition)
+            print(f'Trials sims: {self.main_sims}')
 
-        # Store trials info in shared state
-        self.number_of_trials = len(self.main_sims)
-        write_to_shared_state(self.client, KEY_TRIALS_SIMS, str(self.main_sims))
-        write_to_shared_state(self.client, KEY_NUMBER_OF_TRIALS, self.number_of_trials)
-        write_to_shared_state(self.client, KEY_NUMBER_OF_TRIAL_REPEATS, self.num_of_repeats)
+            # Store trials info in shared state
+            self.number_of_trials = len(self.main_sims)
+            write_to_shared_state(self.client, KEY_TRIALS_SIMS, str(self.main_sims))
+            write_to_shared_state(self.client, KEY_NUMBER_OF_TRIALS, self.number_of_trials)
+            write_to_shared_state(self.client, KEY_NUMBER_OF_TRIAL_REPEATS, self.num_of_repeats)
 
     def run_task(self):
         """ Runs through the psychophysics trials. """
@@ -110,6 +114,24 @@ class BaseTrialsTraining(BaseTrialsTask):
     A base class for training Trials tasks.
     """
 
+    def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int, number_of_repeats,
+                 observer_condition: bool = False):
+        """
+        Initializes the Trials training class.
+        """
+        super().__init__(client=client, simulations=simulations, simulation_counter=simulation_counter,
+                         number_of_repeats=number_of_repeats, observer_condition=observer_condition, training_task=True)
+
+        # Set order of simulations
+        self.practice_sims = get_practice_task_simulations(self.simulations, observer_condition=observer_condition)
+        print(f'Training sims: {self.practice_sims}')
+
+        # Store trials info in shared state
+        self.number_of_trials = len(self.practice_sims)
+        write_to_shared_state(self.client, KEY_TRIALS_SIMS, str(self.practice_sims))
+        write_to_shared_state(self.client, KEY_NUMBER_OF_TRIALS,  self.number_of_trials)
+        write_to_shared_state(self.client, KEY_NUMBER_OF_TRIAL_REPEATS, 1)
+
     def run_task(self):
         """ Runs through the psychophysics trials for the training task. """
 
@@ -153,7 +175,7 @@ class ObserverTrialsTask(BaseTrialsTask):
         super().__init__(client, simulations, simulation_counter, number_of_repeats, observer_condition=True)
 
 
-class InteractorTrialsTraining(BaseTrialsTraining, InteractorTrialsTask):
+class InteractorTrialsTraining(BaseTrialsTraining):
     """Training task for interactor trials."""
     task_type = TASK_TRIALS_INTERACTOR_TRAINING
 
@@ -162,7 +184,7 @@ class InteractorTrialsTraining(BaseTrialsTraining, InteractorTrialsTask):
                          number_of_repeats=number_of_repeats)
 
 
-class ObserverTrialsTraining(BaseTrialsTraining, ObserverTrialsTask):
+class ObserverTrialsTraining(BaseTrialsTraining):
     """Training task for observer trials."""
     task_type = TASK_TRIALS_OBSERVER_TRAINING
 

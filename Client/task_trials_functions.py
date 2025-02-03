@@ -156,3 +156,93 @@ def get_order_of_simulations(simulations, num_repeats, observer_condition=False)
 
     return practice_task_sims, main_task_sims
 
+
+def get_practice_task_simulations(simulations, observer_condition):
+    """
+    Returns two simulations for the practice task:
+    one with the maximum and one with the minimum force constant coefficient.
+
+    Parameters:
+    - simulations: list -> List of all available simulations.
+    - observer_condition: bool -> If True, chooses from recordings rather than live simulations.
+
+    Returns:
+    - list: A shuffled list of the two training task simulations.
+    """
+
+    # Get unique multipliers based on observer condition
+    get_multipliers_func = get_unique_multipliers_recordings if observer_condition else get_unique_multipliers
+    unique_multipliers = get_multipliers_func(simulations)
+
+    if not unique_multipliers:
+        return []  # No valid multipliers found
+
+    # Store max and min values to avoid redundant calculations
+    max_multiplier = max(unique_multipliers)
+    min_multiplier = min(unique_multipliers)
+
+    # Get simulations for max and min multipliers
+    max_sims = get_simulations_for_multiplier(simulations, max_multiplier, observer_condition)
+    min_sims = get_simulations_for_multiplier(simulations, min_multiplier, observer_condition)
+
+    # Select one simulation for max and min multipliers
+    practice_task_sims = [
+        random.choice(max_sims) if max_sims else None,
+        random.choice(min_sims) if min_sims else None
+    ]
+
+    # Remove `None` values (if any multipliers were missing)
+    practice_task_sims = [sim for sim in practice_task_sims if sim is not None]
+
+    # Ensure exactly two practice simulations exist
+    if len(practice_task_sims) == 1:
+        practice_task_sims.append(practice_task_sims[0])  # Duplicate if only one exists
+
+    # Shuffle order of practice simulations
+    random.shuffle(practice_task_sims)
+
+    return practice_task_sims
+
+
+def get_main_task_simulations(simulations, num_repeats, observer_condition):
+    """
+    Returns a randomised list of main task simulations, excluding the max/min multipliers.
+
+    Parameters:
+    - simulations: list -> List of all available simulations.
+    - num_repeats: int -> Number of repetitions for each unique multiplier.
+    - observer_condition: bool -> If True, uses observer-specific functions.
+
+    Returns:
+    - list: A shuffled list of the main task simulations.
+    """
+
+    # Get unique multipliers
+    get_multipliers_func = get_unique_multipliers_recordings if observer_condition else get_unique_multipliers
+    unique_multipliers = get_multipliers_func(simulations)
+
+    if not unique_multipliers:
+        return []  # No valid multipliers found
+
+    # Store max and min values to exclude them from the main task
+    max_multiplier = max(unique_multipliers)
+    min_multiplier = min(unique_multipliers)
+
+    main_task_sims = []
+
+    for multiplier in unique_multipliers:
+        # Skip max/min multipliers since they are only for the training
+        if multiplier in {max_multiplier, min_multiplier}:
+            continue
+
+        # Get simulations for this multiplier
+        corresponding_sims = get_simulations_for_multiplier(simulations, multiplier, observer_condition)
+
+        # Select `num_repeats` random simulations if available
+        main_task_sims.extend(random.choices(corresponding_sims, k=num_repeats) if corresponding_sims else [])
+
+    # Shuffle order of main simulations
+    random.shuffle(main_task_sims)
+
+    return main_task_sims
+

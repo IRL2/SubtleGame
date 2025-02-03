@@ -37,7 +37,7 @@ def get_order_of_tasks(run_short_game: bool):
         return [TASK_NANOTUBE, TASK_NANOTUBE]
 
     # Fix the order of the tasks
-    tasks_without_training = [TASK_TRIALS_INTERACTOR, TASK_TRIALS_INTERACTOR]
+    tasks_without_training = [TASK_TRIALS_OBSERVER, TASK_TRIALS_OBSERVER]
 
     # # Randomise the order of the tasks, with the nanotube always as the first task
     # tasks_without_training = []
@@ -133,6 +133,8 @@ class PuppeteeringClient:
 
             simulation_counter = self.nanover_client.current_frame.values["system.simulation.counter"]
 
+            print('\n- Current task: ' + task)
+            
             if task == TASK_NANOTUBE:
 
                 # Check if we are in the second section
@@ -174,7 +176,6 @@ class PuppeteeringClient:
                 break
 
             # Run the task
-            print('\n- Current task: ' + task)
             current_task.run_task()
             print('Finished ' + task + ' task.\n')
 

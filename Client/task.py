@@ -158,9 +158,17 @@ class Task:
     def _wipe_shared_state_values_from_previous_task(self):
         """Remove necessary keys leftover from previous tasks."""
 
-        try:
-            remove_puppeteer_key_from_shared_state(client=self.client, key=KEY_TASK_COMPLETION_TIME)
-            remove_puppeteer_key_from_shared_state(client=self.client, key=KEY_TASK_COMMENT)
+        keys_to_remove = [
+            KEY_TASK_COMPLETION_TIME,
+            KEY_TASK_COMMENT,
+            KEY_TRIALS_SIMS,
+            KEY_NUMBER_OF_TRIALS,
+            KEY_NUMBER_OF_TRIAL_REPEATS,
+        ]
 
-        except KeyError:
-            return
+        for key in keys_to_remove:
+            try:
+                remove_puppeteer_key_from_shared_state(client=self.client, key=key)
+            except KeyError:
+                pass  # Ignore missing keys and continue
+
