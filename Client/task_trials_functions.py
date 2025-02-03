@@ -175,6 +175,18 @@ def get_main_task_simulations(simulations, num_repeats, observer_condition):
         # Select `num_repeats` random simulations if available
         main_task_sims.extend(random.choices(corresponding_sims, k=num_repeats) if corresponding_sims else [])
 
+    # If no simulations were found, use the training simulations instead
+    if not main_task_sims:
+        print("No valid main task simulations found. Using training simulations instead for a shorter game.")
+
+        max_sims = get_simulations_for_multiplier(simulations, max_multiplier, observer_condition)
+        min_sims = get_simulations_for_multiplier(simulations, min_multiplier, observer_condition)
+
+        # Randomly select from max/min multipliers
+        fallback_sims = random.choices(max_sims, k=1) + random.choices(min_sims, k=num_repeats)
+
+        main_task_sims.extend(fallback_sims)
+
     # Shuffle order of main simulations
     random.shuffle(main_task_sims)
 
