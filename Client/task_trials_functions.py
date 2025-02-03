@@ -62,7 +62,6 @@ def get_multiplier_of_simulation(sim_file_name: str):
     if 'recording' in sim_file_name:
 
         multiplier = float(sim_file_name.split(".traj")[0].split("recording-buckyball_angle_")[1].split("_")[1])
-        print(f"File name = {sim_file_name}, multiplier = {multiplier}")
         return multiplier
     else:
         return float(sim_file_name.removesuffix(".xml").split("_")[3].strip())
