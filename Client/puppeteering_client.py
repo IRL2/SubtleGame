@@ -37,7 +37,7 @@ def get_order_of_tasks(run_short_game: bool):
         return [TASK_NANOTUBE, TASK_NANOTUBE]
 
     # Fix the order of the tasks
-    tasks_without_training = [TASK_TRIALS_OBSERVER, TASK_TRIALS_OBSERVER]
+    tasks_without_training = [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_INTERACTOR, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_INTERACTOR]
 
     # # Randomise the order of the tasks, with the nanotube always as the first task
     # tasks_without_training = []
