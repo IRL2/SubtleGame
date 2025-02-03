@@ -122,7 +122,7 @@ class PuppeteeringClient:
 
     def run_game(self):
 
-        print('STARTING GAME!\n')
+        print('\nSTARTING GAME!')
 
         self._initialise_game()
         self._wait_for_vr_client_to_connect_to_server()
@@ -176,7 +176,7 @@ class PuppeteeringClient:
             # Run the task
             print('\n- Current task: ' + task)
             current_task.run_task()
-            print('Finished ' + task + ' task\n')
+            print('Finished ' + task + ' task.\n')
 
         self._finish_game()
 
@@ -200,16 +200,17 @@ class PuppeteeringClient:
         # Print game setup to the terminal
         print('\nGame initialised:')
         print('Order of tasks: ', self.order_of_tasks)
-        print('Current interaction modality: ', self.current_modality, '\n')
+        print('Current interaction modality: ', self.current_modality)
 
     def _player_in_main_menu(self):
-        print("VR client connected, waiting for the player to choose a task")
+        print("VR client connected, waiting for the player to choose a task...")
 
         # Wait for player to choose between sandbox and main game
         while True:
             try:
                 value = self.nanover_client.latest_multiplayer_values[KEY_PLAYER_TASK_TYPE]
                 if value == PLAYER_SANDBOX:
+                    print('\n- Current task: sandbox')
                     simulation_counter = self.nanover_client.current_frame.values["system.simulation.counter"]
                     current_task = SandboxTask(client=self.nanover_client, simulations=self.sandbox_sim,
                                                simulation_counter=simulation_counter)
@@ -240,7 +241,7 @@ class PuppeteeringClient:
 
     def _wait_for_vr_client_to_connect_to_server(self):
         """ Waits for the player to be connected."""
-        print("Waiting for player to connect...")
+        print("Waiting for player to connect...\n")
         self._wait_for_key_values(KEY_PLAYER_CONNECTED, TRUE)
         write_to_shared_state(client=self.nanover_client, key=KEY_GAME_STATUS, value=IN_PROGRESS)
 
@@ -268,7 +269,7 @@ class PuppeteeringClient:
 
 if __name__ == '__main__':
 
-    number_of_repeats = 3
+    number_of_repeats = 1
 
     # Create puppeteering client
     puppeteering_client = PuppeteeringClient(number_of_trial_repeats=number_of_repeats,

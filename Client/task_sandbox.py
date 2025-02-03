@@ -20,13 +20,10 @@ class SandboxTask(Task):
         self._finish_task()
 
     def _run_task_logic(self):
-
         write_to_shared_state(client=self.client, key=KEY_TASK_STATUS, value=IN_PROGRESS)
-
-        print('Starting sandbox')
         self.client.run_play()
         self._wait_for_player_to_exit_sandbox()
-        print('Exiting sandbox')
+        print('Player exited sandbox.\n')
         self.client.run_pause()
 
     def _wait_for_player_to_exit_sandbox(self):

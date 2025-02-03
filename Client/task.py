@@ -38,10 +38,8 @@ class Task:
         # Load simulation
         self._request_load_simulation()
 
-        print("Waiting for simulation to load")
+        print("Task chosen. Preparing task...")
         self._wait_for_simulation_to_load()
-
-        print("Simulation loaded")
 
         # Update visualisation
         self._update_visualisations()
@@ -56,13 +54,13 @@ class Task:
         write_to_shared_state(client=self.client, key=KEY_CURRENT_TASK, value=self.task_type)
         write_to_shared_state(client=self.client, key=KEY_TASK_STATUS, value=READY)
 
-        print("Task prepared")
+        print("Task prepared.")
 
     def _wait_for_simulation_to_load(self):
         """ Waits for the simulation to be loaded onto the server by checking if the simulation counter has
         incremented."""
 
-        print(f"(2) waiting for simulation counter to increase, current val = {self.simulation_counter}")
+        print(f"Waiting for simulation counter to increase, currently = {self.simulation_counter}")
         while True:
 
             try:
@@ -80,12 +78,12 @@ class Task:
         self.client.run_command("playback/load", index=self.sim_index)
 
     def _wait_for_task_intro(self):
-
-        print("Waiting for player to start intro to task")
+        """ Waits until the VR has confirmed that the player is in the intro of the task. """
         self._wait_for_key_values(KEY_PLAYER_TASK_STATUS, PLAYER_INTRO)
 
     def _wait_for_task_in_progress(self):
-        print("Waiting for player to start task")
+        """ Waits until the VR has confirmed that the player has started the task. """
+        print("Waiting for player to start the task...")
         self._wait_for_key_values(KEY_PLAYER_TASK_STATUS, PLAYER_IN_PROGRESS)
 
     def _wait_for_key_values(self, key, *values):
@@ -108,7 +106,7 @@ class Task:
     def _run_task_logic(self):
         """Container for the logic specific to each task."""
 
-        print('Starting task')
+        print('Task started.')
 
         # Play simulation
         self.client.run_play()
@@ -150,7 +148,7 @@ class Task:
                                   value=str(self.task_completion_time))
 
         # Wait for player to register that the task has finished
-        print('Waiting for VR client to confirm end of task')
+        print('Waiting for VR client to confirm end of task...')
         self._wait_for_key_values(KEY_PLAYER_TASK_STATUS, PLAYER_FINISHED)
 
     def _change_simulation_colour_when_task_finishes(self):
