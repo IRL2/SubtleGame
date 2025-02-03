@@ -92,46 +92,67 @@ def get_simulations_for_multiplier(simulations: list, multiplier: float, observe
 
 
 def get_order_of_simulations(simulations, num_repeats, observer_condition=False):
-    """ Returns the simulations for the main and practice parts (the simulations with the max and min force constant
-    coefficients) of the Trials task, each in the order that they will be presented to the player. """
+    """
+    Returns the ordered simulations for the main and practice parts of the Trials task.
+    The practice part consists of the simulations with the maximum and minimum force
+    constant coefficients, while the main part consists of randomized simulations.
 
-    if observer_condition:
-        unique_multipliers = get_unique_multipliers_recordings(simulations)
-    else:
-        unique_multipliers = get_unique_multipliers(simulations)
+    Parameters:
+    - simulations: list -> List of all available simulations.
+    - num_repeats: int -> Number of repetitions for each unique multiplier in the main task.
+    - observer_condition: bool -> If True, uses observer-specific functions.
+
+    Returns:
+    - tuple: (practice_task_sims, main_task_sims)
+    """
+
+    # Get unique multipliers based on observer condition
+    get_multipliers_func = get_unique_multipliers_recordings if observer_condition else get_unique_multipliers
+    unique_multipliers = get_multipliers_func(simulations)
+
+    if not unique_multipliers:
+        return [], []  # Return empty lists if no multipliers are found
+
+    # Store max and min values to avoid recomputing them
+    max_multiplier = max(unique_multipliers)
+    min_multiplier = min(unique_multipliers)
 
     # Initialise lists
     main_task_sims = []
-    max_multiplier_sims = []
-    min_multiplier_sims = []
+    practice_sims = {"max": [], "min": []}
 
     # Loop through each multiplier
     for multiplier in unique_multipliers:
-
         # Get simulations for this multiplier
-        corresponding_sims = get_simulations_for_multiplier(simulations=simulations, multiplier=multiplier,
-                                                            observer_condition=observer_condition)
+        corresponding_sims = get_simulations_for_multiplier(simulations, multiplier, observer_condition)
 
-        # Choose n simulations, where n is the number of repeats
-        if len(corresponding_sims) != 0:
-            for n in range(num_repeats):
-                # Randomly choose one of the simulations
-                main_task_sims.append(random.choice(corresponding_sims))
+        # Skip if no simulations were found
+        if not corresponding_sims:
+            continue
 
-        # Store the data for the simulations with max and min multipliers for the practice task
-        if multiplier == max(unique_multipliers):
-            max_multiplier_sims.extend(corresponding_sims)
-        elif multiplier == min(unique_multipliers):
-            min_multiplier_sims.extend(corresponding_sims)
+        # Store the simulations with max and min multipliers for the practice task
+        if multiplier == max_multiplier:
+            practice_sims["max"].extend(corresponding_sims)
+        elif multiplier == min_multiplier:
+            practice_sims["min"].extend(corresponding_sims)
+        else:
+            # Select `num_repeats` simulations at random
+            main_task_sims.extend(random.choices(corresponding_sims, k=num_repeats))
 
-    practice_task_sims = [random.sample(max_multiplier_sims, 1)[0], random.sample(min_multiplier_sims, 1)[0]]
+    # Randomly select one simulation from max and min multipliers for practice task
+    practice_task_sims = [
+        random.choice(practice_sims["max"]) if practice_sims["max"] else None,
+        random.choice(practice_sims["min"]) if practice_sims["min"] else None
+    ]
 
-    # If there is only one practice simulation, duplicate it so that the player always gets 2 practice tasks
+    # Ensure exactly two practice simulations exist
+    practice_task_sims = [sim for sim in practice_task_sims if sim is not None]  # Remove `None` values
     if len(practice_task_sims) == 1:
-        practice_task_sims.append(practice_task_sims[0])
+        practice_task_sims.append(practice_task_sims[0])  # Duplicate the single simulation
 
-    # Randomise the order of the simulations
+    # Shuffle order of practice and main task simulations
     random.shuffle(practice_task_sims)
     random.shuffle(main_task_sims)
 
     return practice_task_sims, main_task_sims
+

@@ -52,7 +52,7 @@ class BaseTrialsTask(Task):
         self.correct_answer = correct_answer
 
         self._prepare_task()
-        print(f"Current trial simulation: {self.sim_name}")
+        print(f'Current trial: "{self.sim_name}"')
         self._wait_for_task_in_progress()
 
     def _request_load_simulation(self):
@@ -62,7 +62,7 @@ class BaseTrialsTask(Task):
     def _wait_for_player_to_answer(self, current_trial_number: int):
         """ Waits for the player to submit an answer, processes the response, and updates shared state. """
 
-        print(f"Waiting for player to answer trial number: {current_trial_number}")
+        print(f"Waiting for player to answer trial {current_trial_number}...")
 
         # Remove previous answer
         remove_puppeteer_key_from_shared_state(self.client, KEY_TRIALS_ANSWER)
