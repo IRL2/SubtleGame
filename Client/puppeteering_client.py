@@ -6,7 +6,6 @@ from task_sandbox import SandboxTask
 from additional_functions import write_to_shared_state, randomise_list_order
 from standardised_values import *
 import time
-import random
 from random_username.generate import generate_username
 from datetime import datetime, timedelta
 import pytz
@@ -38,23 +37,6 @@ def get_order_of_tasks(run_short_game: bool):
 
     # Fix the order of the tasks
     tasks_without_training = [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_INTERACTOR, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_INTERACTOR]
-
-    # # Randomise the order of the tasks, with the nanotube always as the first task
-    # tasks_without_training = []
-
-    # for n in range(2):
-    #     t = [TASK_KNOT_TYING, TASK_TRIALS]
-    #     t.insert(0, TASK_NANOTUBE)
-    #     tasks_without_training.extend(t)
-
-    # # Only perform the observer task, for testing
-    # tasks = [TASK_TRIALS_OBSERVER]
-    # tasks_without_training = []
-    #
-    # for n in range(2):
-    #     t = random.sample(tasks, len(tasks))
-    #     # t.insert(0, TASK_NANOTUBE)
-    #     tasks_without_training.extend(t)
 
     order_of_tasks = []
 
