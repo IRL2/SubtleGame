@@ -190,6 +190,6 @@ class ObserverTrialsTraining(BaseTrialsTraining):
 
     def __init__(self, client: NanoverImdClient, simulations: list, simulation_counter: int, number_of_repeats):
         super().__init__(client=client, simulations=simulations, simulation_counter=simulation_counter,
-                         number_of_repeats=number_of_repeats)
+                         number_of_repeats=number_of_repeats, observer_condition=True)
 
 
