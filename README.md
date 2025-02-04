@@ -23,13 +23,13 @@
    1. Open a Windows Powershell terminal and navigate to the [Server directory](Server). 
    2. Run the following command for a full game:
       ```
-      .\nanover-cli.exe --name "SubtleGame" "..\Inputs\sandbox_2_C10_alkanes.xml" "..\Inputs\17-alanine.xml" "..\Inputs\nanotube-methane.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.75.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.625.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.875.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.7.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.25.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.125.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.375.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.75.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.625.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.875.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.7.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.25.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.125.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.375.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.3.xml"
-      ``` 
+      nanover-omni --name "SubtleGame" --omm "..\Inputs\sandbox_2_C10_alkanes.xml" "..\Inputs\17-alanine.xml" "..\Inputs\nanotube-methane.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.625.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.796.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.89.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.94.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.06.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.1105.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.2036.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.375.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.7.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.625.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.796.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.89.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.94.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.06.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.1105.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.2036.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.375.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.7.xml"
+      ```
       Or the following for a short game:
       ```
-      .\nanover-cli.exe --name "SubtleGame" "..\Inputs\sandbox_2_C10_alkanes.xml" "..\Inputs\17-alanine.xml" "..\Inputs\nanotube-methane.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.7.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.7.xml"
+      nanover-omni --name "SubtleGame" --omm "..\Inputs\sandbox_2_C10_alkanes.xml" "..\Inputs\17-alanine.xml" "..\Inputs\nanotube-methane.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.7.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.7.xml"
       ```
-      If you want to record the session, add `--include-velocity --include-forces --trajectory "write-your-file-name-here.traj --state "write-your-file-name-here.state"` to the end of the above commands. Note that we include forces and velocities here so that we can calculate the work done on the system.
+      If you want to record the session, add `--record "recording-file-name" --include-velocities --include-forces"` to the end of the above commands. Note that we include forces and velocities here so that we can calculate the work done on the system.
 2. **Run the game manager**:
    1. Run the [Client/puppeteering_client.py](Client/puppeteering_client.py) from within your Python IDE with your `subtle-game` conda environment activated (as detailed below).
    2. A randomly-generated username will appear on the terminal. Type `y` and press `Enter` on your keyboard to accept this username and continue, or alternatively press `Enter` to generate a new username.
@@ -111,15 +111,6 @@ A NanoVer server is used to run the molecular simulations and stream data betwee
 - Two buckyball simulations: e.g., `buckyballs_angle_A_0.3.xml` and `buckyballs_angle_A_1.7.xml`. IMPORTANT NOTE: you can load as many buckyball simulations as you want, but you must have a minimum of two: one with a multiplier of <1 and one with >1.
 
 The commands for running a server can be found in the [Server directory](Server) in the [server-commands.txt](Server/server-commands.txt) file.
-
-To run a **full game**, which has 8 multipliers for the trials task: [0.3, 1.525, 1.75, 0.875, 1.125, 1.125, 1.375, 1.7]
-```
-.\nanover-cli.exe --name "SubtleGame" "..\Inputs\sandbox_2_C10_alkanes.xml" "..\Inputs\17-alanine.xml" "..\Inputs\nanotube-methane.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.75.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.625.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.875.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.7.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.25.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.125.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.375.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.75.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.625.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.875.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.7.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.25.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.125.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.375.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.3.xml"
-``` 
-To run a **short game**, which has only 2 multipliers for the trials task: [0.3, 1.7]:
-```
-.\nanover-cli.exe --name "SubtleGame" "..\Inputs\sandbox_2_C10_alkanes.xml" "..\Inputs\17-alanine.xml" "..\Inputs\nanotube-methane.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.7.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.7.xml
-```
 
 -----
 
