@@ -155,6 +155,11 @@ namespace NanoverImd.Subtle_Game.Interaction
         {
             if (_pinchGrabbers == null || _pinchGrabbers.Any(grabber => grabber == null)) return;
             
+            foreach (var grabber in _pinchGrabbers)
+            {
+                grabber.ClearGrab();
+            }
+            
             var interactionsToRemove = simulation.Interactions.Keys
                 .Where(key => key.Contains("interaction."))
                 .ToList();
