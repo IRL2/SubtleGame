@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Nanover.Core.Collections;
 using NanoverImd.Subtle_Game.Canvas;
 using NanoverImd.Subtle_Game.Data_Collection;
 using NanoverIMD.Subtle_Game.Data_Collection;
@@ -538,6 +539,13 @@ namespace NanoverImd.Subtle_Game
             
             // Show simulation and begin timer for the trial
             ShowSimulation = true;
+            
+            // Wait until the player interacts
+            while (_userInteractionManager.AllInteractionsHaveScaleZero())
+            {
+                yield return null; // Wait for the next frame
+            }
+            
             _timer.StartTimer();
         }
 

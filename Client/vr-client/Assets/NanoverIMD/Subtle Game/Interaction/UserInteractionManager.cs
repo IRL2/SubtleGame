@@ -215,5 +215,10 @@ namespace NanoverImd.Subtle_Game.Interaction
                 grabber.ForceScale = 0;
             }
         }
+
+        public bool AllInteractionsHaveScaleZero()
+        {
+            return simulation.Interactions.Values.All(interaction => interaction.Scale == 0);
+        }
     }
 }
