@@ -80,6 +80,12 @@ namespace NanoverImd.Subtle_Game.Interaction
             };
             Grab = InteractableScene.GetParticleGrab(grabPose);
         }
+
+        public void ClearGrab()
+        {
+            RemovePreviousGrab();
+            Grab = null;
+        }
         
         /// <summary>
         /// Call the functions to check if the player is interacting with the simulation.
