@@ -541,13 +541,14 @@ namespace NanoverImd.Subtle_Game
             simulation.PlayTrajectory();
             _timer.ResetTimerForBeginningOfTrial();
             
-            // Wait until the player interacts
-            while (!_userInteractionManager.PlayerIsInteracting())
-            {
-                yield return null;
+            // If not an Observer Trial, wait until the player interacts to start the timer
+            if (!TaskLists.ObserverTrialsTasks.Contains(CurrentTaskType)){
+                while (!_userInteractionManager.PlayerIsInteracting())
+                {
+                    yield return null;
+                }
             }
             
-            // Start the timer
             _timer.StartTimer();
         }
 
