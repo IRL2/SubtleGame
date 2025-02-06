@@ -539,13 +539,18 @@ namespace NanoverImd.Subtle_Game
             
             // Show simulation and begin timer for the trial
             ShowSimulation = true;
-            
+
+            _timer.SetTimerDuration();
+
+            simulation.PlayTrajectory();
+
             // Wait until the player interacts
-            while (_userInteractionManager.AllInteractionsHaveScaleZero())
+            Debug.Log("Waiting for player interaction: " + _userInteractionManager.PlayerIsInteracting());
+            while (!_userInteractionManager.PlayerIsInteracting())
             {
                 yield return null; // Wait for the next frame
             }
-            
+
             _timer.StartTimer();
         }
 

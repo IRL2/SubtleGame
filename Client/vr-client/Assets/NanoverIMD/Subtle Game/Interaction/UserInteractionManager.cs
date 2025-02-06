@@ -215,10 +215,13 @@ namespace NanoverImd.Subtle_Game.Interaction
                 grabber.ForceScale = 0;
             }
         }
-
-        public bool AllInteractionsHaveScaleZero()
+        
+        /// <summary>
+        /// Returns a bool representing whether a player is interacting with the simulation.
+        /// </summary>
+        public bool PlayerIsInteracting()
         {
-            return simulation.Interactions.Values.All(interaction => interaction.Scale == 0);
+            return simulation.Interactions.Values.Any(interaction => interaction.Scale != 0);
         }
     }
 }

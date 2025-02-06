@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Collections;
+using NanoverImd.Subtle_Game.Interaction;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ namespace NanoverImd.Subtle_Game.Canvas
     public class TrialsTimer : MonoBehaviour
     {
         [SerializeField] private SubtleGameManager subtleGameManager;
+        [SerializeField] private UserInteractionManager _userInteractionManager;
 
 
         // <summary>
@@ -46,7 +48,9 @@ namespace NanoverImd.Subtle_Game.Canvas
         private void Update()
         {
             // Check if timer is running
-            if (!_timerIsRunning) return;
+            if (!_timerIsRunning){
+                return;
+            }
 
             if (finishTrialEarly || _timeElapsed >= _duration)
             {
@@ -60,7 +64,8 @@ namespace NanoverImd.Subtle_Game.Canvas
             UpdateTimerVisuals();
         }
         
-        public void StartTimer()
+
+        public void SetTimerDuration()
         {
             switch (subtleGameManager.CurrentTaskType)
             {
@@ -75,13 +80,21 @@ namespace NanoverImd.Subtle_Game.Canvas
                                      "not in one of the trials tasks?");
                     break;
             }
+            
+            timerLabel.text = _duration.ToString();
+            timerImage.fillAmount = 1.0f;
+
             finishTrialEarly = false;
-            subtleGameManager.simulation.PlayTrajectory();
+        }
+        
+        
+        public void StartTimer()
+        {
             _timerIsRunning = true;
             _timeElapsed = 0;
-            timerImage.fillAmount = 0;
             answerNowButton.Enable();
         }
+        
 
         private void FinishTimer(string timeElapsed)
         {
