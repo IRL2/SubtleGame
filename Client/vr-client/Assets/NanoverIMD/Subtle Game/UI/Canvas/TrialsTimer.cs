@@ -1,29 +1,23 @@
-﻿using System;
-using System.Globalization;
-using System.Collections;
+﻿using System.Collections;
+using NanoverImd.Subtle_Game;
+using NanoverImd.Subtle_Game.Canvas;
+using NanoverImd.Subtle_Game.Interaction;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace NanoverImd.Subtle_Game.Canvas
+namespace NanoverIMD.Subtle_Game.UI.Canvas
 {
     public class TrialsTimer : MonoBehaviour
     {
         [SerializeField] private SubtleGameManager subtleGameManager;
-
-
-        // <summary>
-        // A link to the Answer Now button to enable/disable it
-        // <summary>
+        [SerializeField] private UserInteractionManager userInteractionManager;
         [SerializeField] private ButtonController answerNowButton;
-
-        
         [SerializeField] private Image timerImage;
         [SerializeField] private TextMeshProUGUI timerLabel;
 
-        private bool _timerIsRunning;
-        private float _timeElapsed;
-
+        private bool _isTimerRunning;
+        private float _elapsedTime;
         private float _durationTrials;
         private float _durationTrialsTraining;
         private float _duration;
@@ -32,8 +26,18 @@ namespace NanoverImd.Subtle_Game.Canvas
         
         private void Start()
         {
-            if (timerImage != null) return;
-            Debug.LogError("Timer Image is not assigned!");
+            if (timerImage == null)
+            {
+                Debug.LogError("Timer Image is not assigned!");
+                return;
+            }
+            
+            if (answerNowButton == null)
+            {
+                Debug.LogError("Answer Now Button is not assigned!");
+                return;
+            }
+
             answerNowButton.Enable();
         }
 
@@ -45,78 +49,83 @@ namespace NanoverImd.Subtle_Game.Canvas
 
         private void Update()
         {
-            // Check if timer is running
-            if (!_timerIsRunning) return;
+            if (!_isTimerRunning) return;
 
-            if (finishTrialEarly || _timeElapsed >= _duration)
+            if (finishTrialEarly || _elapsedTime >= _duration)
             {
-                FinishTimer(_timeElapsed.ToString());
+                FinishTimer(_elapsedTime.ToString());
                 return;
             }
 
-            // Increment timer
-            _timeElapsed += Time.deltaTime;
-
+            // Update the timer
+            _elapsedTime += Time.deltaTime;
             UpdateTimerVisuals();
         }
         
+        /// <summary>
+        /// Resets the timer icon for the beginning of a Trial.
+        /// </summary>
+        public void ResetTimerForBeginningOfTrial()
+        {
+            // Determine task type and set duration
+            _duration = subtleGameManager.CurrentTaskType switch
+            {
+                SubtleGameManager.TaskTypeVal.Trials or SubtleGameManager.TaskTypeVal.TrialsObserver => _durationTrials,
+                SubtleGameManager.TaskTypeVal.TrialsTraining or SubtleGameManager.TaskTypeVal.TrialsObserverTraining => _durationTrialsTraining,
+                _ => throw new System.Exception("Unexpected task type when starting the timer.")
+            };
+            
+            // Update the timer visuals & reset variables
+            timerLabel.text = _duration.ToString();
+            timerImage.fillAmount = 1.0f;
+            finishTrialEarly = false;
+        }
+        
+        /// <summary>
+        /// Starts the timer running and enables the "answer now" button.
+        /// </summary>
         public void StartTimer()
         {
-            switch (subtleGameManager.CurrentTaskType)
-            {
-                case SubtleGameManager.TaskTypeVal.Trials or SubtleGameManager.TaskTypeVal.TrialsObserver:
-                    _duration = _durationTrials;
-                    break;
-                case SubtleGameManager.TaskTypeVal.TrialsTraining or SubtleGameManager.TaskTypeVal.TrialsObserverTraining:
-                    _duration = _durationTrialsTraining;
-                    break;
-                default:
-                    Debug.LogWarning("Probably shouldn't reach here, why have we started the timer when we are " +
-                                     "not in one of the trials tasks?");
-                    break;
-            }
-            finishTrialEarly = false;
-            subtleGameManager.simulation.PlayTrajectory();
-            _timerIsRunning = true;
-            _timeElapsed = 0;
-            timerImage.fillAmount = 0;
+            _isTimerRunning = true;
+            _elapsedTime = 0;
             answerNowButton.Enable();
         }
-
+        
+        /// <summary>
+        /// Called when the timer has stopped and player is making their selection.
+        /// </summary>
         private void FinishTimer(string timeElapsed)
         {
             subtleGameManager.DurationOfTrial = timeElapsed;
-            _timerIsRunning = false;
+            _isTimerRunning = false;
             subtleGameManager.FinishCurrentTrial();
             answerNowButton.Disable();
             StartCoroutine(AnimateTimerToZero());
         }
 
-        // <summary>
-        // A coroutine to animate lower the timer value to zero
-        // </summary>
-        IEnumerator AnimateTimerToZero()
+        /// <summary>
+        /// Smoothly animates the timer's visual countdown to zero.
+        /// </summary>
+        private IEnumerator AnimateTimerToZero()
         {
             while (timerImage.fillAmount > 0)
             {
-                _timeElapsed += 0.5f;
+                _elapsedTime += 0.5f;
                 UpdateTimerVisuals();
                 yield return new WaitForSeconds(0.01f);
             }
-            
         }
 
-        // <summary>
-        // Refresh the number label and the circular graph base on the global _timeElapsed value
-        // </summary>
+        /// <summary>
+        /// Updates the timer label and circular timer fill amount.
+        /// </summary>
         private void UpdateTimerVisuals()
         {
-            timerImage.fillAmount = (_duration - _timeElapsed) / _duration ;
+            timerImage.fillAmount = (_duration - _elapsedTime) / _duration ;
+            var label = Mathf.CeilToInt ( _duration - _elapsedTime );
+            timerLabel.text = label.ToString();
 
-            int _label = Mathf.CeilToInt ( _duration - _timeElapsed );
-            timerLabel.text = _label.ToString();
-
-            if (_duration - _timeElapsed < 0.1) {
+            if (_duration - _elapsedTime < 0.1) {
                 timerLabel.text = "0";
             }
         }

@@ -536,8 +536,18 @@ namespace NanoverImd.Subtle_Game
                 yield return new WaitForSeconds(1f);
             }
             
-            // Show simulation and begin timer for the trial
+            // Show & start simulation, get the timer ready
             ShowSimulation = true;
+            simulation.PlayTrajectory();
+            _timer.ResetTimerForBeginningOfTrial();
+            
+            // Wait until the player interacts
+            while (!_userInteractionManager.PlayerIsInteracting())
+            {
+                yield return null;
+            }
+            
+            // Start the timer
             _timer.StartTimer();
         }
 

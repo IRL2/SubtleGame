@@ -25895,6 +25895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subtleGameManager: {fileID: 1364228086}
+  userInteractionManager: {fileID: 50482152}
   answerNowButton: {fileID: 664773393}
   timerImage: {fileID: 898926699}
   timerLabel: {fileID: 991938752}
