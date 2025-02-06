@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Nanover.Core.Collections;
 using NanoverImd.Subtle_Game.Canvas;
 using NanoverImd.Subtle_Game.Data_Collection;
 using NanoverIMD.Subtle_Game.Data_Collection;
@@ -537,20 +536,18 @@ namespace NanoverImd.Subtle_Game
                 yield return new WaitForSeconds(1f);
             }
             
-            // Show simulation and begin timer for the trial
+            // Show & start simulation, get the timer ready
             ShowSimulation = true;
-
-            _timer.SetTimerDuration();
-
             simulation.PlayTrajectory();
-
+            _timer.ResetTimerForBeginningOfTrial();
+            
             // Wait until the player interacts
-            Debug.Log("Waiting for player interaction: " + _userInteractionManager.PlayerIsInteracting());
             while (!_userInteractionManager.PlayerIsInteracting())
             {
-                yield return null; // Wait for the next frame
+                yield return null;
             }
-
+            
+            // Start the timer
             _timer.StartTimer();
         }
 

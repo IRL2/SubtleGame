@@ -217,7 +217,9 @@ namespace NanoverImd.Subtle_Game.Interaction
         }
         
         /// <summary>
-        /// Returns a bool representing whether a player is interacting with the simulation.
+        /// Returns a bool representing whether a player is interacting with the simulation. Note that there are always
+        /// two interactions in the shared state, but if these will have a scale of zero if the player is not
+        /// interacting.
         /// </summary>
         public bool PlayerIsInteracting()
         {
