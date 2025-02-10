@@ -19647,6 +19647,7 @@ GameObject:
   - component: {fileID: 1364228086}
   - component: {fileID: 1364228087}
   - component: {fileID: 1364228090}
+  - component: {fileID: 1364228091}
   m_Layer: 0
   m_Name: GAME
   m_TagString: Untagged
@@ -19685,7 +19686,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1364228083}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f50c56f77e51d654ea5917689324e900, type: 3}
   m_Name: 
@@ -19709,7 +19710,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1364228083}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cdd6c5288ac4ceeb8f9a717d9037066, type: 3}
   m_Name: 
@@ -19728,7 +19729,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1364228083}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b20a44630c38b9049a030b60c5b3e9ef, type: 3}
   m_Name: 
@@ -19741,6 +19742,22 @@ MonoBehaviour:
   - textureType: 2
     texture: {fileID: 2100000, guid: a23312fd4dea7654c8af92cee0008327, type: 2}
   activeMaterial: 2
+--- !u!114 &1364228091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364228083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c02620a467e8fa64ab37af96edf2e1eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simulation: {fileID: 1265723033}
+  userInteractionManager: {fileID: 50482152}
+  calibratedSpaceForRecordingController: {fileID: 1925446414}
+  passthroughLayer: {fileID: 7660847348239094321}
 --- !u!1001 &1380009020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25757,6 +25774,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textMeshPro: {fileID: 1766707717}
+--- !u!1 &1925446413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1925446415}
+  - component: {fileID: 1925446414}
+  m_Layer: 0
+  m_Name: Calibrated Space For Recordings Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1925446414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925446413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1030fda5f36e440097cdbdb499e80cca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simulationTransform: {fileID: 1152867538}
+  simulation: {fileID: 1265723033}
+  application: {fileID: 1354330443}
+  frameSource: {fileID: 1265723032}
+  centerEyeAnchor: {fileID: 4948775120161647665}
+  boxCenter: {fileID: 1769895434}
+  desiredHeadsetPosition: {fileID: 1823317316}
+--- !u!4 &1925446415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925446413}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1925843023
 GameObject:
   m_ObjectHideFlags: 0
@@ -26707,7 +26775,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066515854}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a08d3946ae584beaad9675a795875f59, type: 3}
   m_Name: 
@@ -36468,4 +36536,5 @@ SceneRoots:
   - {fileID: 8831589731561787294}
   - {fileID: 1081504607}
   - {fileID: 2066515855}
+  - {fileID: 1925446415}
   - {fileID: 1364228085}
