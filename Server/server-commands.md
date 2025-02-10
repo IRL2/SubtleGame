@@ -1,7 +1,7 @@
 # Notes
 
 * For each Trials task, there will be multipliers of [0.3, 1.7] for the training
-  and [1.525, 1.75, 0.875, 1.125, 1.125, 1.375] for the main task.
+  and [0.625, 0.796, 0.89, 0.94, 1.06, 1.1105, 1.2036, 1.375] for the main task.
 * The interaction mode will automatically switch at the start of the second Nanotube task.
 
 # Running a server
