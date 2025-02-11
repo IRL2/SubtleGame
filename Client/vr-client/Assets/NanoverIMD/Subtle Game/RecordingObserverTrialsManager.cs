@@ -1,4 +1,5 @@
 using NanoverImd;
+using NanoverImd.Selection;
 using NanoverImd.Subtle_Game.Interaction;
 using UnityEngine;
 
@@ -13,10 +14,18 @@ namespace NanoverIMD.Subtle_Game
         private bool passthroughSet;
         public bool serverConnected { get; private set; }
         
+        private static string NameKey = "nanover.player.name";
+        private static string ColorKey = "nanover.player.color";
+        
+        private readonly Color avatarColor = new(255, 124, 0);
+        
         private void Start()
         {
             ConnectToServer();
             InitializeInteractions();
+            
+            PlayerPrefs.SetString(NameKey, " ");
+            // PlayerPrefs.SetString(ColorKey, "#" + ColorUtility.ToHtmlStringRGB(avatarColor));
         }
 
         private void Update()
