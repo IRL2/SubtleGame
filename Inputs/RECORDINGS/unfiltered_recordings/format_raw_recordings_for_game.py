@@ -13,14 +13,21 @@ def strip_simulation_counter_from_all_recordings():
 
 def rename_stripped_recordings():
 
-    # Get all .traj files in the current directory
-    for file in glob.glob("*.traj"):
+    # Get all .traj and .state files in the current directory
+    for file in glob.glob("*.traj") + glob.glob("*.state"):
+
         # Use regex to match and capture the relevant parts of the filename
-        match = re.match(r"(buckyball_angle_[AB]_[\d.]+_interact[AB])-\d+-\d+-\d+-stripped\.traj", file)
+        match = re.match(r"(buckyball_angle_[AB]_[\d.]+_interact[AB])-\d+-\d{8}-\d{6}(-stripped)?\.(traj|state)",
+                         file)
 
         if match:
-            # Construct the new filename with "recording-" prefix
-            new_name = f"recording-{match.group(1)}.traj"
+            # Construct the new filename with "recording-" prefix while keeping the original extension
+            new_name = f"recording-{match.group(1)}.{match.group(3)}"
+
+            # Check if the new filename already exists
+            if os.path.exists(new_name):
+                print(f"Skipping: {file} (Target file '{new_name}' already exists)")
+                continue  # Skip renaming
 
             # Rename the file
             os.rename(file, new_name)
