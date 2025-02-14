@@ -530,8 +530,8 @@ namespace NanoverImd.Subtle_Game
         
         IEnumerator StartTrialWithDelay()
         {
-            // Delay start of trial for 0.5s for the first trial, and 2s for subsequent trials
-            var waitTime = currentTrialNumber != -1 ? 2f : 0.5f;
+            // Delay start of trial for 0.5s for the first trial, and 1.8s for subsequent trials
+            var waitTime = currentTrialNumber != -1 ? 1.8f : 0.5f;
             yield return new WaitForSeconds(waitTime);
             
             // Show & start simulation, get the timer ready
