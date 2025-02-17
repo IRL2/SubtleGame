@@ -12,17 +12,22 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
 
         [SerializeField] private Texture handsTexture;
         [SerializeField] private Texture controllersTexture;
-        [SerializeField] private RawImage rawImage;
 
+        private RawImage rawImage;
         private SubtleGameManager _subtleGameManager;
         
         private void OnEnable()
         {
+            // Get the RawImage component from the current GameObject
+            rawImage = GetComponent<RawImage>();
+
+            // Find the SubtleGameManager in the scene
             _subtleGameManager = FindObjectOfType<SubtleGameManager>();
-            
+
+            // Ensure all necessary components are found before proceeding
             if (handsTexture != null && controllersTexture != null && rawImage != null && _subtleGameManager != null)
             {
-                // Set the correct video (hands or controllers)
+                // Set the correct video texture (hands or controllers)
                 rawImage.texture = _subtleGameManager.CurrentInteractionModality == SubtleGameManager.Modality.Hands
                     ? handsTexture
                     : controllersTexture;
