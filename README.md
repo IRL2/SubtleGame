@@ -23,7 +23,7 @@
    1. You can do this via a powershell terminal or your favourite IDE:
       1. Activate your `subtle-game` conda environment.
       2. Navigate to the [Server directory](Server). 
-      3. Run the [run_game_with_subprocesses.py](Server/run_game_with_subprocesses.py) script, e.g.:  `python run_game_with_processes.py`
+      3. Start the game with the dedicated [script](Server/run_game.py), e.g.: `python run_game_with_processes.py`
 
 2. **Run the VR client**:
    1. If using the Unity Editor, open **Oculus Link** or **Air Link** from inside your Oculus headset, then open **Unity** and **click play** to start the game.
@@ -103,7 +103,7 @@ You will need to load a minimum of four simulations:
 - The sandbox simulation: `sandbox_2_C10_alkanes.xml`
 - Two buckyball simulations: e.g., `buckyballs_angle_A_0.3.xml` and `buckyballs_angle_A_1.7.xml`. IMPORTANT NOTE: you can load as many buckyball simulations as you want, but you must have a minimum of two: one with a multiplier of <1 and one with >1.
 
-There is a [script](Server/run_game_with_subprocesses.py) for running the server and puppeteering client together, so you do not need to set up the server manually.
+There is a [script](Server/run_game.py) for running the server and puppeteering client together, so you do not need to set up the server manually.
 
 -----
 
