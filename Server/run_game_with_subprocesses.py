@@ -90,24 +90,34 @@ server_process = None
 client_process = None
 stop_event = threading.Event()  # Used to stop the output thread cleanly
 
-def cleanup(signum, frame):
-    """ Gracefully stops all running processes on CTRL+C """
+def cleanup(signum=None, frame=None):
+    """ Gracefully stops all running processes on CTRL+C or client exit """
     print("\nCTRL+C detected! Stopping all processes...")
-
-    if server_process and server_process.poll() is None:
-        print("Terminating server...")
-        server_process.terminate()
-        server_process.wait()
 
     if client_process and client_process.poll() is None:
         print("Terminating client...")
         client_process.terminate()
-        client_process.wait()
+        try:
+            client_process.wait(timeout=3)  # Give it time to exit
+        except subprocess.TimeoutExpired:
+            print("Client did not exit in time, killing it forcefully.")
+            client_process.kill()
+
+    if server_process and server_process.poll() is None:
+        print("Terminating server...")
+        server_process.terminate()
+        try:
+            server_process.wait(timeout=3)  # Give it time to exit
+        except subprocess.TimeoutExpired:
+            print("Server did not exit in time, killing it forcefully.")
+            server_process.kill()  # Force kill the server if terminate doesn't work
 
     stop_event.set()  # Signal the output thread to stop
 
     print("All processes stopped. Exiting.")
     sys.exit(0)
+
+
 
 # Register the cleanup function to catch SIGINT (CTRL+C)
 signal.signal(signal.SIGINT, cleanup)
