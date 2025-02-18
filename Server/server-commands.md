@@ -4,7 +4,7 @@
   and [0.625, 0.796, 0.89, 0.94, 1.06, 1.1105, 1.2036, 1.375] for the main task.
 * The interaction mode will automatically switch at the start of the second Nanotube task.
 
-# Running a server
+# Running a server manually (not using the run_game_with_subprocesses script)
 
 ## The Python Server
 
