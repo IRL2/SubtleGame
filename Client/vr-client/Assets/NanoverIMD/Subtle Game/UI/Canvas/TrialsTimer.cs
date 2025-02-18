@@ -16,7 +16,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         [SerializeField] private Image timerImage;
         [SerializeField] private TextMeshProUGUI timerLabel;
 
-        private bool _isTimerRunning;
+        private bool _timerIsRunning;
         private float _elapsedTime;
         private float _durationTrials;
         private float _durationTrialsTraining;
@@ -46,20 +46,16 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             _durationTrials = PlayerPrefs.GetFloat(SubtleGameManager.TrialTimeLimit);
             _durationTrialsTraining = PlayerPrefs.GetFloat(SubtleGameManager.TrialTrainingTimeLimit);
         }
-
-        private bool allowAnswerNow = false;
-
+        
         private void Update()
         {
-            if (allowAnswerNow) {
-                answerNowButton.Enable();
-            } 
-            else
+            if (!_timerIsRunning)
             {
-                answerNowButton.Disable();
+                answerNowButton.Disable(); // Player cannot press the "answer now" button if the timer isn't running
+                return;
             }
             
-            if (!_isTimerRunning) return;
+            answerNowButton.Enable();
 
             if (finishTrialEarly || _elapsedTime >= _duration)
             {
@@ -89,8 +85,6 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             timerLabel.text = _duration.ToString();
             timerImage.fillAmount = 1.0f;
             finishTrialEarly = false;
-            answerNowButton.Disable();
-            allowAnswerNow = false;
         }
         
         /// <summary>
@@ -98,10 +92,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         /// </summary>
         public void StartTimer()
         {
-            _isTimerRunning = true;
+            _timerIsRunning = true;
             _elapsedTime = 0;
-            answerNowButton.Enable();
-            allowAnswerNow = true;
         }
         
         /// <summary>
@@ -110,11 +102,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         private void FinishTimer(string timeElapsed)
         {
             subtleGameManager.DurationOfTrial = timeElapsed;
-            _isTimerRunning = false;
+            _timerIsRunning = false;
             subtleGameManager.FinishCurrentTrial();
-            answerNowButton.Disable();
-            allowAnswerNow = false;
-            
             StartCoroutine(AnimateTimerToZero());
         }
 
