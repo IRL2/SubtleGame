@@ -94,7 +94,7 @@ stop_event = threading.Event()  # Used to stop the output thread cleanly
 
 def cleanup(signum=None, frame=None):
     """ Gracefully stops all running processes on CTRL+C or client exit """
-    print("\n-------------------------------------------------\nCTRL+C detected! Stopping all processes...")
+    print("\n-------------------------------------------------\nCleanup called! Stopping all running processes...")
 
     if client_process and client_process.poll() is None:
         print("Terminating client...")
