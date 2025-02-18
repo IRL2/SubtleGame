@@ -79,7 +79,9 @@ SERVER_COMMAND = [
     "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.375_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.375_interactB.traj",
     "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.375_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.375_interactA.traj",
     "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.375_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.375_interactB.traj",
-    "--record", player_username
+    "--record", player_username,
+    "--include-velocities",
+    "--include-forces"
 ]
 
 # Get the Python executable
@@ -116,8 +118,6 @@ def cleanup(signum=None, frame=None):
 
     print("All processes stopped. Exiting.")
     sys.exit(0)
-
-
 
 # Register the cleanup function to catch SIGINT (CTRL+C)
 signal.signal(signal.SIGINT, cleanup)
