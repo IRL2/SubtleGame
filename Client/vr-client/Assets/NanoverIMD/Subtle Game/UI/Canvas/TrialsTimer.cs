@@ -51,10 +51,12 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         {
             if (!_timerIsRunning)
             {
-                answerNowButton.Disable(); // Player cannot press the "answer now" button if the timer isn't running
+                // Player cannot press the "answer now" button if the timer isn't running
+                if (answerNowButton.isActiveAndEnabled) answerNowButton.Disable(); 
                 return;
             }
             
+            // Enable the "answer now" button
             answerNowButton.Enable();
 
             if (finishTrialEarly || _elapsedTime >= _duration)
