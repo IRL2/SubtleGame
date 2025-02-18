@@ -16,7 +16,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         [SerializeField] private Image timerImage;
         [SerializeField] private TextMeshProUGUI timerLabel;
 
-        private bool _isTimerRunning;
+        private bool _timerIsRunning;
         private float _elapsedTime;
         private float _durationTrials;
         private float _durationTrialsTraining;
@@ -46,10 +46,18 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             _durationTrials = PlayerPrefs.GetFloat(SubtleGameManager.TrialTimeLimit);
             _durationTrialsTraining = PlayerPrefs.GetFloat(SubtleGameManager.TrialTrainingTimeLimit);
         }
-
+        
         private void Update()
         {
-            if (!_isTimerRunning) return;
+            if (!_timerIsRunning)
+            {
+                // Player cannot press the "answer now" button if the timer isn't running
+                if (answerNowButton.isActiveAndEnabled) answerNowButton.Disable(); 
+                return;
+            }
+            
+            // Enable the "answer now" button
+            answerNowButton.Enable();
 
             if (finishTrialEarly || _elapsedTime >= _duration)
             {
@@ -86,9 +94,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         /// </summary>
         public void StartTimer()
         {
-            _isTimerRunning = true;
+            _timerIsRunning = true;
             _elapsedTime = 0;
-            answerNowButton.Enable();
         }
         
         /// <summary>
@@ -97,9 +104,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         private void FinishTimer(string timeElapsed)
         {
             subtleGameManager.DurationOfTrial = timeElapsed;
-            _isTimerRunning = false;
+            _timerIsRunning = false;
             subtleGameManager.FinishCurrentTrial();
-            answerNowButton.Disable();
             StartCoroutine(AnimateTimerToZero());
         }
 
