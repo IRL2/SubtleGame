@@ -47,8 +47,18 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             _durationTrialsTraining = PlayerPrefs.GetFloat(SubtleGameManager.TrialTrainingTimeLimit);
         }
 
+        private bool allowAnswerNow = false;
+
         private void Update()
         {
+            if (allowAnswerNow) {
+                answerNowButton.Enable();
+            } 
+            else
+            {
+                answerNowButton.Disable();
+            }
+            
             if (!_isTimerRunning) return;
 
             if (finishTrialEarly || _elapsedTime >= _duration)
@@ -79,6 +89,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             timerLabel.text = _duration.ToString();
             timerImage.fillAmount = 1.0f;
             finishTrialEarly = false;
+            answerNowButton.Disable();
+            allowAnswerNow = false;
         }
         
         /// <summary>
@@ -89,6 +101,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             _isTimerRunning = true;
             _elapsedTime = 0;
             answerNowButton.Enable();
+            allowAnswerNow = true;
         }
         
         /// <summary>
@@ -100,6 +113,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             _isTimerRunning = false;
             subtleGameManager.FinishCurrentTrial();
             answerNowButton.Disable();
+            allowAnswerNow = false;
+            
             StartCoroutine(AnimateTimerToZero());
         }
 
