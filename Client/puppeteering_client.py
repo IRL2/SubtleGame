@@ -9,22 +9,7 @@ import time
 from random_username.generate import generate_username
 from datetime import datetime, timedelta
 import pytz
-
-
-def generate_username_for_player():
-    """ Generates a random username for the player."""
-    while True:
-        # Perform the function
-        username = generate_username(1)
-        print("Username: ", username)
-
-        user_input = input("Type 'y' to accept this username: ").strip().upper()
-
-        if user_input != 'Y':
-            print("Generating another username. ")
-        else:
-            print("Keeping username.")
-            return username
+import argparse
 
 
 def get_order_of_tasks(run_short_game: bool):
@@ -68,9 +53,9 @@ class PuppeteeringClient:
     """ This class interfaces between the Nanover server, VR client and any required packages to control the game 
     logic for the Subtle Game."""
 
-    def __init__(self, short_game: bool = False, number_of_trial_repeats: int = 1, first_modality: str = 'random'):
+    def __init__(self, player_username: str = "Guest", short_game: bool = False, number_of_trial_repeats: int = 1, first_modality: str = 'random'):
 
-        self.username = generate_username_for_player()
+        self.username = player_username
 
         # Connect to a local Nanover server
         self.nanover_client = NanoverImdClient.autoconnect(name=SERVER_NAME)
@@ -252,11 +237,25 @@ class PuppeteeringClient:
 
 if __name__ == '__main__':
 
-    number_of_repeats = 1
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--username", type=str, required=True, help="Username for the player")
+    parser.add_argument("--num_of_trials", type=int, required=False, help="Number of trials that the player will do per stimulus value")
+    args = parser.parse_args()
+
+    # Use provided username or generate a new one
+    player_username = args.username if args.username else generate_username()[0]
+    print(f"Using username: {player_username}")
+
+    # User provided number of trials or set to 1
+    number_of_repeats = args.num_of_trials if args.num_of_trials else 1
+    print(f"Number of trials per stimulus value: {number_of_repeats}")
 
     # Create puppeteering client
-    puppeteering_client = PuppeteeringClient(number_of_trial_repeats=number_of_repeats,
-                                             first_modality=MODALITY_HANDS)
+    puppeteering_client = PuppeteeringClient(
+        player_username=player_username,
+        number_of_trial_repeats=number_of_repeats,
+        first_modality=MODALITY_HANDS
+    )
 
     # Start game
     puppeteering_client.run_game()
