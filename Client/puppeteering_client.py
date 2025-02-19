@@ -12,16 +12,13 @@ import pytz
 import argparse
 
 
-def get_order_of_tasks(run_short_game: bool):
-    """ Get an ordered list of tasks for the game. The game is in two sections and the first task of each section is
-    always the nanotube task, then the knot-tying and trials task is randomised.
-    @param: test_run If true then each section will only contain the nanotube task """
+def set_order_of_tasks(observer_trials_first: bool):
+    """ Return an ordered list of tasks for the game."""
 
-    if run_short_game:
-        return [TASK_NANOTUBE, TASK_NANOTUBE]
-
-    # Fix the order of the tasks
-    tasks_without_training = [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_OBSERVER, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_OBSERVER]
+    if observer_trials_first:
+        tasks_without_training = [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_OBSERVER, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_INTERACTOR]
+    else:
+        tasks_without_training = [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_INTERACTOR, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_OBSERVER]
 
     order_of_tasks = []
 
@@ -53,9 +50,13 @@ class PuppeteeringClient:
     """ This class interfaces between the Nanover server, VR client and any required packages to control the game 
     logic for the Subtle Game."""
 
-    def __init__(self, player_username: str = "Guest", short_game: bool = False, number_of_trial_repeats: int = 1, first_modality: str = 'random'):
+    def __init__(self,
+                 observer_trials_first: bool,
+                 username: str = "Guest",
+                 number_trials_per_stimulus_value: int = 1,
+                 first_interaction_mode: str = 'random'):
 
-        self.username = player_username
+        self.username = username
 
         # Connect to a local Nanover server
         self.nanover_client = NanoverImdClient.autoconnect(name=SERVER_NAME)
@@ -64,14 +65,14 @@ class PuppeteeringClient:
         self.nanover_client.update_available_commands()
 
         # Set order of tasks
-        self.order_of_tasks = get_order_of_tasks(run_short_game=short_game)
+        self.order_of_tasks = set_order_of_tasks(observer_trials_first)
 
         # Set order of interaction modality
-        if first_modality.lower() == 'random':
+        if first_interaction_mode.lower() == 'random':
             self.order_of_interaction_modality = randomise_list_order([MODALITY_HANDS, MODALITY_CONTROLLERS])
-        elif first_modality.lower() == MODALITY_HANDS:
+        elif first_interaction_mode.lower() == MODALITY_HANDS:
             self.order_of_interaction_modality = [MODALITY_HANDS, MODALITY_CONTROLLERS]
-        elif first_modality.lower() == MODALITY_CONTROLLERS:
+        elif first_interaction_mode.lower() == MODALITY_CONTROLLERS:
             self.order_of_interaction_modality = [MODALITY_CONTROLLERS, MODALITY_HANDS]
         else:
             raise ValueError("Invalid interaction modality. Choose 'hands', 'controllers', or 'random'.")
@@ -83,7 +84,7 @@ class PuppeteeringClient:
         self.nanotube_sim = None
         self.alanine_sim = None
         self.trials_sims = None
-        self.num_of_trial_repeats = number_of_trial_repeats
+        self.num_of_trial_repeats = number_trials_per_stimulus_value
         self.trials_sim_names = None
 
     def run_game(self):
@@ -228,9 +229,10 @@ class PuppeteeringClient:
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
+    parser.add_argument("--observer_trials_first", type=str, choices=["True", "False"], required=True, help="Specify whether the player does the Observer Trials first")
+    parser.add_argument("--first_interaction_mode", type=str, required=True, help="The first modality that the player will use, choose 'hands' or 'controllers'")
     parser.add_argument("--username", type=str, required=True, help="Username for the player")
     parser.add_argument("--num_of_trials", type=int, required=False, help="Number of trials that the player will do per stimulus value")
-    parser.add_argument("--first_interaction_mode", type=str, required=True, help="The first modality that the player will use, choose 'hands' or 'controllers'")
     args = parser.parse_args()
 
     # Use provided username or generate a new one
@@ -250,11 +252,18 @@ if __name__ == '__main__':
         raise ValueError(f"Unknown modality: {args.first_interaction_mode}")
     print(f"First interaction mode: {first_modality}")
 
+    observer_trials_first = args.observer_trials_first == "True"
+    if observer_trials_first is True:
+        print(f"Player will be doing the Observer trials first.")
+    else:
+        print(f"Player will be doing the Interactor trials first.")
+
     # Create puppeteering client
     puppeteering_client = PuppeteeringClient(
-        player_username=player_username,
-        number_of_trial_repeats=number_of_repeats,
-        first_modality=first_modality
+        observer_trials_first=observer_trials_first,
+        username=player_username,
+        number_trials_per_stimulus_value=number_of_repeats,
+        first_interaction_mode=first_modality
     )
 
     # Start game

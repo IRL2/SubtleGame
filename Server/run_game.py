@@ -9,6 +9,7 @@ from random_username.generate import generate_username
 # To edit
 number_of_trials = 3                          # Number of trials to do per stimulus value
 first_interaction_mode = 'controllers'        # Choose 'hands' or 'controllers'
+observer_trials_first = False                  # Set to True or False
 
 # Do not edit
 player_username = generate_username()[0]
@@ -150,9 +151,10 @@ def run_game_with_subprocesses():
     print("\nStarting puppeteering client...")
     client_process = subprocess.Popen(
         [PYTHON_EXECUTABLE, PYTHON_CLIENT,
+         "--observer_trials_first", str(observer_trials_first),
+         "--first_interaction_mode", first_interaction_mode,
          "--username", player_username,
-         "--num_of_trials", str(number_of_trials),
-         "--first_interaction_mode", first_interaction_mode],
+         "--num_of_trials", str(number_of_trials)],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True
