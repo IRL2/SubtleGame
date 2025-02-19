@@ -240,21 +240,31 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--username", type=str, required=True, help="Username for the player")
     parser.add_argument("--num_of_trials", type=int, required=False, help="Number of trials that the player will do per stimulus value")
+    parser.add_argument("--first_interaction_mode", type=str, required=True, help="The first modality that the player will use, choose 'hands' or 'controllers'")
     args = parser.parse_args()
 
     # Use provided username or generate a new one
     player_username = args.username if args.username else generate_username()[0]
-    print(f"Using username: {player_username}")
+    print(f"Player username: {player_username}")
 
     # User provided number of trials or set to 1
     number_of_repeats = args.num_of_trials if args.num_of_trials else 1
     print(f"Number of trials per stimulus value: {number_of_repeats}")
 
+    # Specify the first modality
+    if args.first_interaction_mode == "hands":
+        first_modality = MODALITY_HANDS
+    elif args.first_interaction_mode == "controllers":
+        first_modality = MODALITY_CONTROLLERS
+    else:
+        raise ValueError(f"Unknown modality: {args.first_interaction_mode}")
+    print(f"First interaction mode: {first_modality}")
+
     # Create puppeteering client
     puppeteering_client = PuppeteeringClient(
         player_username=player_username,
         number_of_trial_repeats=number_of_repeats,
-        first_modality=MODALITY_HANDS
+        first_modality=first_modality
     )
 
     # Start game
