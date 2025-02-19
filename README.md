@@ -19,26 +19,22 @@
 
 ## Running a game
 
-1. **Run the server**:
-   1. Open a Windows Powershell terminal and navigate to the [Server directory](Server). 
-   2. Run the following command for a full game:
-      ```
-      nanover-omni --name "SubtleGame" --omm "..\Inputs\sandbox_2_C10_alkanes.xml" "..\Inputs\17-alanine.xml" "..\Inputs\nanotube-methane.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.625.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.796.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.89.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.94.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.06.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.1105.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.2036.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.375.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.7.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.625.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.796.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.89.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.94.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.06.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.1105.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.2036.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.375.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.7.xml"
-      ```
-      Or the following for a short game:
-      ```
-      nanover-omni --name "SubtleGame" --omm "..\Inputs\sandbox_2_C10_alkanes.xml" "..\Inputs\17-alanine.xml" "..\Inputs\nanotube-methane.xml" "..\Inputs\ANGLE\buckyball_angle_A_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_A_1.7.xml" "..\Inputs\ANGLE\buckyball_angle_B_0.3.xml" "..\Inputs\ANGLE\buckyball_angle_B_1.7.xml"
-      ```
-      If you want to record the session, add `--record "recording-file-name" --include-velocities --include-forces"` to the end of the above commands. Note that we include forces and velocities here so that we can calculate the work done on the system.
-2. **Run the game manager**:
-   1. Run the [Client/puppeteering_client.py](Client/puppeteering_client.py) from within your Python IDE with your `subtle-game` conda environment activated (as detailed below).
-   2. A randomly-generated username will appear on the terminal. Type `y` and press `Enter` on your keyboard to accept this username and continue, or alternatively press `Enter` to generate a new username.
-3. **Run the VR client**:
+1. **Run the server & puppeteering client using a pre-prepared script**:
+   1. You can do this via a powershell terminal or your favourite IDE:
+      1. Activate your `subtle-game` conda environment.
+      2. Navigate to the [Server directory](Server). 
+      3. Start the game with the dedicated [script](Server/run_game.py), e.g.: `python run_game_with_processes.py`
+
+2. **Run the VR client**:
    1. If using the Unity Editor, open **Oculus Link** or **Air Link** from inside your Oculus headset, then open **Unity** and **click play** to start the game.
    2. If using the apk, install the apk on your Quest headset and open the Subtle Game app (note that this will be under "Unknown Sources" in the app directory).
+   
 -----
 
-IMPORTANT NOTE: both the VR client and python client are hardcoded to connect to a locally-running server called "SubtleGame". This will cause issues if you are on the same network as another person who is also running the game. If you want to change the server name, you need to change this in the [VR client](Client/vr-client/Assets/NanoverIMD/Subtle%20Game/SubtleGameManager.cs) and the [puppeteering client](Client/puppeteering_client.py), and then type modify the `--name` field in the server command.
+IMPORTANT NOTE: both the VR client and python client are hardcoded to connect to a locally-running server called "SubtleGame". 
+This will cause issues if you are on the same network as another person who is also running the game. 
+If you want to change the server name, you need to change this in the [VR client](Client/vr-client/Assets/NanoverIMD/Subtle%20Game/SubtleGameManager.cs) and the [puppeteering client](Client/puppeteering_client.py), 
+and then type modify the `--name` field in the server command.
 
 -----
 
@@ -60,9 +56,9 @@ git submodule update --init --recursive --remote
 
 The game is handled by a python script that is referred to as the 'puppeteering client' and can be found here: [Client/puppeteering_client.py](Client/puppeteering_client.py). To run this script you will first need to follow these instructions:
 1. Install Conda through whichever program you prefer, e.g., [Miniforge](https://github.com/conda-forge/miniforge).
-2. Open a Windows Powershell terminal (or whichever terminal you have conda installed in) and run the following commands to create a Conda environment called `subtle-game` and activate that environment:
+2. Open a Windows Powershell terminal (or whichever terminal you have conda installed in) and run the following commands to create a Conda environment called `subtle-game` & install the `nanover-server` [package](https://github.com/IRL2/nanover-server-py), then activate that environment:
     ```
-    conda create -n subtle-game "python>3.11"
+    conda create -n subtle-game -c irl -c conda-forge nanover-server
     conda activate subtle-game
     ```
 3. Navigate to the Subtle Game repo directory and install the required packages using pip:
@@ -70,12 +66,7 @@ The game is handled by a python script that is referred to as the 'puppeteering 
     pip install -r .\requirements.txt
     ```
     This will install the following packages in your conda environment: [Numpy](https://anaconda.org/anaconda/numpy), [Random-Username](https://pypi.org/project/random-username/), [Knot-Pull](https://github.com/dzarmola/knot_pull), and [pytz](https://pypi.org/project/pytz/).
- 
-4. Install [Nanover Protocol](https://github.com/IRL2/nanover-protocol) with conda:
-    ```
-    conda install -c irl -c omnia -c conda-forge nanover-server
-    ```
-5. Open the `SubtleGame` directory in your favourite Python IDE, select the `subtle-game` conda environment as your python interpreter and set the `SubtleGame` directory to be the root.
+4. Open the `SubtleGame` directory in your favourite Python IDE, select the `subtle-game` conda environment as your python interpreter and set the `SubtleGame` directory to be the root.
 
 ### Setting up the VR client
 
@@ -104,13 +95,15 @@ You must also configure the Oculus settings inside the headset to enable hand tr
 
 ### Explanation about running a NanoVer server
 
-A NanoVer server is used to run the molecular simulations and stream data between clients. Each instance of a game needs its own server. To run a server, you can use either the command line or the GUI. You will need to load a minimum of four simulations:
+A NanoVer server is used to run the molecular simulations and stream data between clients. 
+Each instance of a game needs its own server. To run a server, you can use either the command line or the GUI. 
+You will need to load a minimum of four simulations:
 - The nanotube + methane: `nanotube-methane.xml`
 - The 17-alanine polypeptide: `17-alanine.xml`
 - The sandbox simulation: `sandbox_2_C10_alkanes.xml`
 - Two buckyball simulations: e.g., `buckyballs_angle_A_0.3.xml` and `buckyballs_angle_A_1.7.xml`. IMPORTANT NOTE: you can load as many buckyball simulations as you want, but you must have a minimum of two: one with a multiplier of <1 and one with >1.
 
-The commands for running a server can be found in the [Server directory](Server) in the [server-commands.txt](Server/server-commands.txt) file.
+There is a [script](Server/run_game.py) for running the server and puppeteering client together, so you do not need to set up the server manually.
 
 -----
 

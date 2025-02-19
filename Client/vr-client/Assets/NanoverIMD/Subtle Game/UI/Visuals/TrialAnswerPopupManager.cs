@@ -5,9 +5,9 @@ namespace NanoverIMD.Subtle_Game.UI.Visuals
 {
     public class TrialAnswerPopupManager : MonoBehaviour
     {
-        [SerializeField] private float animationDurationIn = 0.4f;
-        [SerializeField] private float animationDurationStay = 0.2f;
-        [SerializeField] private float animationDurationOut = 0.2f;
+        private float animationDurationIn = 0.4f;
+        private float animationDurationStay = 1.0f;
+        private float animationDurationOut = 0.4f;
 
         private float animationDisplacementUp = 0.15f;
 

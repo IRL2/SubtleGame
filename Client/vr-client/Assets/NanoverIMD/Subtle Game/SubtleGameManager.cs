@@ -530,14 +530,23 @@ namespace NanoverImd.Subtle_Game
         
         IEnumerator StartTrialWithDelay()
         {
-            // Delay start of trial if this is not the first trial of the task
-            if (currentTrialNumber != -1)
-            {
-                yield return new WaitForSeconds(1f);
+            // Delay start of trial for 0.5s for the first trial, and 1.8s for subsequent trials
+            var waitTime = currentTrialNumber != -1 ? 1.8f : 0.5f;
+            yield return new WaitForSeconds(waitTime);
+            
+            // Show & start simulation, get the timer ready
+            ShowSimulation = true;
+            simulation.PlayTrajectory();
+            _timer.ResetTimerForBeginningOfTrial();
+            
+            // If not an Observer Trial, wait until the player interacts to start the timer
+            if (!TaskLists.ObserverTrialsTasks.Contains(CurrentTaskType)){
+                while (!_userInteractionManager.PlayerIsInteracting())
+                {
+                    yield return null;
+                }
             }
             
-            // Show simulation and begin timer for the trial
-            ShowSimulation = true;
             _timer.StartTimer();
         }
 

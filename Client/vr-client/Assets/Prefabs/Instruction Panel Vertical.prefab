@@ -529,7 +529,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handsTexture: {fileID: 0}
   controllersTexture: {fileID: 0}
-  rawImage: {fileID: 0}
 --- !u!1 &7312838880703007495
 GameObject:
   m_ObjectHideFlags: 0

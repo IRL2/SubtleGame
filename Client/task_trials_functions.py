@@ -52,8 +52,6 @@ def get_unique_multipliers_recordings(simulations: list):
     for sim_name in subset_of_simulations:
         unique_multipliers.add(get_multiplier_of_simulation(sim_file_name=sim_name))
 
-    print(f"Unique multipliers = {list(unique_multipliers)}")
-
     return list(unique_multipliers)
 
 
@@ -172,7 +170,13 @@ def get_main_task_simulations(simulations, num_repeats, observer_condition):
         corresponding_sims = get_simulations_for_multiplier(simulations, multiplier, observer_condition)
 
         # Select `num_repeats` random simulations if available
-        main_task_sims.extend(random.choices(corresponding_sims, k=num_repeats) if corresponding_sims else [])
+        if observer_condition:
+            # Sample without replacement
+            main_task_sims.extend(random.sample(corresponding_sims, k=min(num_repeats,
+                                                                          len(corresponding_sims))) if corresponding_sims else [])
+        else:
+            # Sample with replacement
+            main_task_sims.extend(random.choices(corresponding_sims, k=num_repeats) if corresponding_sims else [])
 
     # If no simulations were found, use the training simulations instead
     if not main_task_sims:
