@@ -85,7 +85,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             
             // Update the timer visuals & reset variables
             timerLabel.text = _duration.ToString();
-            timerImage.fillAmount = 1.0f;
+            timerImage.fillAmount = 0.0f;
             finishTrialEarly = false;
         }
         
