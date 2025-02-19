@@ -6,8 +6,12 @@ import threading
 from random_username.generate import generate_username
 
 # Define arguments for puppeteering client
+# To edit
+number_of_trials = 3                    # Number of trials to do per stimulus value
+first_interaction_mode = 'controllers'        # Choose 'hands' or 'controllers'
+
+# Do not edit
 player_username = generate_username()[0]
-number_of_trials = 1
 
 # Define commands
 CONDA_ENV = "subtle-game"
@@ -145,7 +149,10 @@ def run_game_with_subprocesses():
 
     print("\nStarting puppeteering client...")
     client_process = subprocess.Popen(
-        [PYTHON_EXECUTABLE, PYTHON_CLIENT, "--username", player_username, "--num_of_trials", str(number_of_trials)],
+        [PYTHON_EXECUTABLE, PYTHON_CLIENT,
+         "--username", player_username,
+         "--num_of_trials", str(number_of_trials),
+         "--first_interaction_mode", first_interaction_mode],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True
