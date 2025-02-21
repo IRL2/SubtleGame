@@ -31,7 +31,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             if (_subtleGameManager == null) return;
             
             var currentTask = _subtleGameManager.CurrentTaskType;
-            transform.localPosition = new Vector3(0f, 150f, 0f);
+            transform.localPosition = new Vector3(0f, 350f, 0f);
             
             // Do not add any chips if we are not in a main task
             // NOTE: We add the trials chips at the beginning of the trials training and do nothing when we start the
