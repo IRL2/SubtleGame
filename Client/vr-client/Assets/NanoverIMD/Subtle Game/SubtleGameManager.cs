@@ -580,7 +580,7 @@ namespace NanoverImd.Subtle_Game
         /// </summary>
         public void FinishTrialEarly()
         {
-            trialsTimer.finishTrialEarly = true;
+            trialsTimer.FinishTrialEarly = true;
         }
         
         /// <summary>
