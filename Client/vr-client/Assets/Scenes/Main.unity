@@ -7955,10 +7955,7 @@ PrefabInstance:
     - {fileID: 656991192480398139, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
     - {fileID: 3246337340863214673, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6406907961171276735, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
 --- !u!4 &533639766 stripped
 Transform:
@@ -28516,7 +28513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subtleGameManager: {fileID: 1364228086}
   userInteractionManager: {fileID: 50482152}
-  rigthAnswerNowButton: {fileID: 664773393}
+  rightAnswerNowButton: {fileID: 664773393}
   leftAnswerNowButton: {fileID: 533639768}
   timerImage: {fileID: 898926699}
   timerLabel: {fileID: 991938752}

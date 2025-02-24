@@ -4,7 +4,6 @@ using NanoverImd.Subtle_Game.Canvas;
 using NanoverImd.Subtle_Game.Interaction;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace NanoverIMD.Subtle_Game.UI.Canvas
@@ -23,9 +22,11 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         private float _durationTrials;
         private float _durationTrialsTraining;
         private float _duration;
-        
+
         public bool finishTrialEarly;
         
+        private ButtonController[] _answerNowButtons;
+
         private void Start()
         {
             if (timerImage == null)
@@ -33,14 +34,20 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 Debug.LogError("Timer Image is not assigned!");
                 return;
             }
-            
-            if (rightAnswerNowButton == null)
-            {
-                Debug.LogError("Answer Now Button is not assigned!");
-                return;
-            }
 
-            rightAnswerNowButton.Enable();
+            // Initialize the array of answer now buttons
+            _answerNowButtons = new[] { leftAnswerNowButton, rightAnswerNowButton };
+
+            foreach (var button in _answerNowButtons)
+            {
+                if (button == null)
+                {
+                    Debug.LogError("One of the Answer Now buttons is not assigned!");
+                    return;
+                }
+
+                button.Enable(); // Enable buttons at start
+            }
         }
 
         private void OnEnable()
@@ -48,18 +55,18 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             _durationTrials = PlayerPrefs.GetFloat(SubtleGameManager.TrialTimeLimit);
             _durationTrialsTraining = PlayerPrefs.GetFloat(SubtleGameManager.TrialTrainingTimeLimit);
         }
-        
+
         private void Update()
         {
             if (!_timerIsRunning)
             {
-                // Player cannot press the "answer now" button if the timer isn't running
-                if (rightAnswerNowButton.isActiveAndEnabled) rightAnswerNowButton.Disable(); 
+                // Disable buttons if the timer isn't running
+                SetButtonsActive(false);
                 return;
             }
-            
-            // Enable the "answer now" button
-            rightAnswerNowButton.Enable();
+
+            // Enable buttons
+            SetButtonsActive(true);
 
             if (finishTrialEarly || _elapsedTime >= _duration)
             {
@@ -71,35 +78,39 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             _elapsedTime += Time.deltaTime;
             UpdateTimerVisuals();
         }
-        
+
         /// <summary>
         /// Resets the timer icon for the beginning of a Trial.
         /// </summary>
         public void ResetTimerForBeginningOfTrial()
         {
-            // Determine task type and set duration
             _duration = subtleGameManager.CurrentTaskType switch
             {
                 SubtleGameManager.TaskTypeVal.Trials or SubtleGameManager.TaskTypeVal.TrialsObserver => _durationTrials,
                 SubtleGameManager.TaskTypeVal.TrialsTraining or SubtleGameManager.TaskTypeVal.TrialsObserverTraining => _durationTrialsTraining,
                 _ => throw new System.Exception("Unexpected task type when starting the timer.")
             };
-            
-            // Update the timer visuals & reset variables
+
             timerLabel.text = _duration.ToString();
             timerImage.fillAmount = 0.0f;
             finishTrialEarly = false;
+
+            // Disable buttons at the start of a new trial
+            SetButtonsActive(false);
         }
-        
+
         /// <summary>
-        /// Starts the timer running and enables the "answer now" button.
+        /// Starts the timer running.
         /// </summary>
         public void StartTimer()
         {
             _timerIsRunning = true;
             _elapsedTime = 0;
+
+            // Enable buttons when the timer starts
+            SetButtonsActive(true);
         }
-        
+
         /// <summary>
         /// Called when the timer has stopped and player is making their selection.
         /// </summary>
@@ -109,6 +120,9 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             _timerIsRunning = false;
             subtleGameManager.FinishCurrentTrial();
             StartCoroutine(AnimateTimerToZero());
+
+            // Disable buttons once the timer ends
+            SetButtonsActive(false);
         }
 
         /// <summary>
@@ -129,14 +143,31 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         /// </summary>
         private void UpdateTimerVisuals()
         {
-            timerImage.fillAmount = (_duration - _elapsedTime) / _duration ;
-            var label = Mathf.CeilToInt ( _duration - _elapsedTime );
+            timerImage.fillAmount = (_duration - _elapsedTime) / _duration;
+            var label = Mathf.CeilToInt(_duration - _elapsedTime);
             timerLabel.text = label.ToString();
 
-            if (_duration - _elapsedTime < 0.1) {
+            if (_duration - _elapsedTime < 0.1)
+            {
                 timerLabel.text = "0";
             }
         }
 
+        /// <summary>
+        /// Helper method to set both buttons' active state.
+        /// </summary>
+        private void SetButtonsActive(bool isActive)
+        {
+
+            if (_answerNowButtons == null) return;
+            
+            foreach (var button in _answerNowButtons)
+            {
+                if (isActive)
+                    button.Enable();
+                else
+                    button.Disable();
+            }
+        }
     }
 }
