@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using NanoverImd.Subtle_Game;
 using NanoverImd.Subtle_Game.Canvas;
 using NanoverImd.Subtle_Game.Interaction;
@@ -23,7 +24,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         private float _durationTrialsTraining;
         private float _duration;
 
-        public bool finishTrialEarly;
+        [NonSerialized] public bool FinishTrialEarly;
         
         private ButtonController[] _answerNowButtons;
 
@@ -60,15 +61,16 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         {
             if (!_timerIsRunning)
             {
-                // Disable buttons if the timer isn't running
+                // Set buttons' states to disabled if the timer isn't running
                 SetButtonsActive(false);
                 return;
             }
 
-            // Enable buttons
+            // Allow player to press the buttons
             SetButtonsActive(true);
-
-            if (finishTrialEarly || _elapsedTime >= _duration)
+            
+            // Check if the timer has finished or the player pressed a button
+            if (FinishTrialEarly || _elapsedTime >= _duration)
             {
                 FinishTimer(_elapsedTime.ToString());
                 return;
@@ -93,9 +95,9 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
 
             timerLabel.text = _duration.ToString();
             timerImage.fillAmount = 0.0f;
-            finishTrialEarly = false;
+            FinishTrialEarly = false;
 
-            // Disable buttons at the start of a new trial
+            // Set buttons' states to disabled at the start of a new trial
             SetButtonsActive(false);
         }
 
@@ -107,7 +109,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             _timerIsRunning = true;
             _elapsedTime = 0;
 
-            // Enable buttons when the timer starts
+            // Make buttons pressable when the timer starts
             SetButtonsActive(true);
         }
 
@@ -121,7 +123,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             subtleGameManager.FinishCurrentTrial();
             StartCoroutine(AnimateTimerToZero());
 
-            // Disable buttons once the timer ends
+            // Set buttons' states to disabled once the timer ends
             SetButtonsActive(false);
         }
 
@@ -154,11 +156,10 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         }
 
         /// <summary>
-        /// Helper method to set both buttons' active state.
+        /// Sets the state of the Answer Now buttons
         /// </summary>
         private void SetButtonsActive(bool isActive)
         {
-
             if (_answerNowButtons == null) return;
             
             foreach (var button in _answerNowButtons)
