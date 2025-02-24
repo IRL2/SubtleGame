@@ -113,7 +113,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         }
 
         /// <summary>
-        /// Updates the in-task instructions based on the current interaction modality set in the Pinch Grab script.
+        /// Updates the in-task instructions placed on the right-hand face of the simulation box.
         /// </summary>
         private void LateUpdate()
         {
@@ -123,7 +123,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             PlacePanelOnRightFaceOfSimBox();
             SetupInputInstructions();
 
-            // Check the following: the sim is showing, the panel is not already active, and the task has changed
+            // Check the following: the sim is showing and the panel is not already active
             if (_subtleGameManager.ShowSimulation && _panel.activeSelf==false)
             {
                 // Position panel
