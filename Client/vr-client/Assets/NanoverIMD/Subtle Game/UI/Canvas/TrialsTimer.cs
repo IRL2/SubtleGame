@@ -4,6 +4,7 @@ using NanoverImd.Subtle_Game.Canvas;
 using NanoverImd.Subtle_Game.Interaction;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace NanoverIMD.Subtle_Game.UI.Canvas
@@ -12,7 +13,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
     {
         [SerializeField] private SubtleGameManager subtleGameManager;
         [SerializeField] private UserInteractionManager userInteractionManager;
-        [SerializeField] private ButtonController answerNowButton;
+        [SerializeField] private ButtonController rightAnswerNowButton;
+        [SerializeField] private ButtonController leftAnswerNowButton;
         [SerializeField] private Image timerImage;
         [SerializeField] private TextMeshProUGUI timerLabel;
 
@@ -32,13 +34,13 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 return;
             }
             
-            if (answerNowButton == null)
+            if (rightAnswerNowButton == null)
             {
                 Debug.LogError("Answer Now Button is not assigned!");
                 return;
             }
 
-            answerNowButton.Enable();
+            rightAnswerNowButton.Enable();
         }
 
         private void OnEnable()
@@ -52,12 +54,12 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             if (!_timerIsRunning)
             {
                 // Player cannot press the "answer now" button if the timer isn't running
-                if (answerNowButton.isActiveAndEnabled) answerNowButton.Disable(); 
+                if (rightAnswerNowButton.isActiveAndEnabled) rightAnswerNowButton.Disable(); 
                 return;
             }
             
             // Enable the "answer now" button
-            answerNowButton.Enable();
+            rightAnswerNowButton.Enable();
 
             if (finishTrialEarly || _elapsedTime >= _duration)
             {

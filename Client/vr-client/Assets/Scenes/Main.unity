@@ -28516,7 +28516,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subtleGameManager: {fileID: 1364228086}
   userInteractionManager: {fileID: 50482152}
-  answerNowButton: {fileID: 664773393}
+  rigthAnswerNowButton: {fileID: 664773393}
+  leftAnswerNowButton: {fileID: 533639768}
   timerImage: {fileID: 898926699}
   timerLabel: {fileID: 991938752}
   finishTrialEarly: 0
