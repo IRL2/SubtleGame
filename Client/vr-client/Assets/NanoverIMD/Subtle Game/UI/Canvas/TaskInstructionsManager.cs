@@ -5,6 +5,7 @@ using NanoverImd.Subtle_Game.Data_Collection;
 using NanoverIMD.Subtle_Game.Data_Collection;
 using NanoverImd.Subtle_Game.Interaction;
 using NanoverImd.Subtle_Game.UI.Simulation;
+using NanoverIMD.Subtle_Game.UI.Simulation;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -63,9 +64,19 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         [SerializeField] private UserInteractionManager userInteractionManager;
         
         /// <summary>
-        /// The game object representing the center of the XY plane of the simulation box.
+        /// The game object representing the center of the right face the simulation box.
         /// </summary>
         [SerializeField] private CenterRightFace centerRightFace;
+        
+        /// <summary>
+        /// The game object representing the center of the left face of the simulation box.
+        /// </summary>
+        [SerializeField] private CenterLeftFace centerLeftFace;
+        
+        /// <summary>
+        /// The game object representing the canvas on the left face of the simulation box.
+        /// </summary>
+        [SerializeField] private GameObject leftTaskInstructionsCanvas;
         
         /// <summary>
         /// The Trial Icon Manager.
@@ -120,14 +131,14 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             if (_subtleGameManager is null) return;
 
             // To overcome race conditions, we position and setup the input instructions constantly
-            PlacePanelOnRightFaceOfSimBox();
+            PlacePanelCanvasesOnSimBox();
             SetupInputInstructions();
 
             // Check the following: the sim is showing and the panel is not already active
             if (_subtleGameManager.ShowSimulation && _panel.activeSelf==false)
             {
                 // Position panel
-                PlacePanelOnRightFaceOfSimBox();
+                PlacePanelCanvasesOnSimBox();
                 SetupLayout();
                 
                 // It takes a few frames for the box to be correctly positioned, so enable panel with slight delay
@@ -168,6 +179,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             foreach (Transform child in _panel.transform)
             {
                 child.gameObject.SetActive(false);
+                leftTaskInstructionsCanvas.SetActive(false);
             }
 
             // activate the instruction objects required for each task type
@@ -192,6 +204,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                     timer.SetActive(true);
                     trialProgressManager.gameObject.SetActive(true);
                     trialsProgressGroup.SetActive(true);
+                    leftTaskInstructionsCanvas.SetActive(true);
                     break;
             }
         }
@@ -213,12 +226,17 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         }
         
         /// <summary>
-        /// Place the in-task instructions at right face of the simulation box.
+        /// Place the respective in-task instructions at right & left faces of the simulation box.
         /// </summary>
-        private void PlacePanelOnRightFaceOfSimBox()
+        private void PlacePanelCanvasesOnSimBox()
         {
+            // Place right-hand instructions
             gameObject.transform.position = centerRightFace.transform.position;
             gameObject.transform.rotation = centerRightFace.transform.rotation;
+            
+            // Place left-hand instructions
+            leftTaskInstructionsCanvas.transform.position = centerLeftFace.transform.position;
+            leftTaskInstructionsCanvas.transform.rotation = centerLeftFace.transform.rotation;
         }
 
         private void HandlePlayerIsSelectingAnswer(bool playerIsSelectingAnswer)
