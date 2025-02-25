@@ -43,8 +43,3 @@ def check_that_key_val_pair_is_valid(key: str, val):
     if val not in SHARED_STATE_KEYS_AND_VALS[key]:
         raise NameError(f"Invalid shared state value '{val}' for key '{key}', it must be one of: "
                         f"{SHARED_STATE_KEYS_AND_VALS[key]}")
-
-
-def randomise_list_order(lst: list):
-    """ Randomises the order of any list by sampling without replacement."""
-    return random.sample(lst, len(lst))

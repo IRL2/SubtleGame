@@ -3,22 +3,23 @@ from task_nanotube import NanotubeTask
 from task_knot_tying import KnotTyingTask
 from task_trials import InteractorTrialsTask, ObserverTrialsTask, InteractorTrialsTraining, ObserverTrialsTraining
 from task_sandbox import SandboxTask
-from additional_functions import write_to_shared_state, randomise_list_order
+from additional_functions import write_to_shared_state
 from standardised_values import *
 import time
 from random_username.generate import generate_username
 from datetime import datetime, timedelta
 import pytz
 import argparse
+import random
 
 
 def set_order_of_tasks(observer_trials_first: bool):
     """ Return an ordered list of tasks for the game."""
 
     if observer_trials_first:
-        tasks_without_training = [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_OBSERVER, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_INTERACTOR]
+        tasks_without_training = [TASK_NANOTUBE, TASK_NANOTUBE, TASK_TRIALS_OBSERVER, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_INTERACTOR]
     else:
-        tasks_without_training = [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_INTERACTOR, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_OBSERVER]
+        tasks_without_training = [TASK_TRIALS_OBSERVER]
 
     order_of_tasks = []
 
@@ -67,15 +68,31 @@ class PuppeteeringClient:
         # Set order of tasks
         self.order_of_tasks = set_order_of_tasks(observer_trials_first)
 
-        # Set order of interaction modality
-        if first_interaction_mode.lower() == 'random':
-            self.order_of_interaction_modality = randomise_list_order([MODALITY_HANDS, MODALITY_CONTROLLERS])
-        elif first_interaction_mode.lower() == MODALITY_HANDS:
-            self.order_of_interaction_modality = [MODALITY_HANDS, MODALITY_CONTROLLERS]
-        elif first_interaction_mode.lower() == MODALITY_CONTROLLERS:
-            self.order_of_interaction_modality = [MODALITY_CONTROLLERS, MODALITY_HANDS]
+        # Set order of interaction modes
+
+        # Only use one interaction mode for Interactor/Observer condition
+        if TASK_TRIALS_OBSERVER in self.order_of_tasks:
+            # Ensure the interaction mode is valid
+            first_interaction_mode_lower = first_interaction_mode.lower()
+            if first_interaction_mode_lower not in [MODALITY_HANDS, MODALITY_CONTROLLERS]:
+                raise ValueError(
+                    f"Invalid interaction modality. Choose '{MODALITY_HANDS}' or '{MODALITY_CONTROLLERS}'.")
+
+            self.order_of_interaction_modality = [first_interaction_mode_lower]
+
+        # Interaction mode will change halfway through the game for Hands/Controllers condition
         else:
-            raise ValueError("Invalid interaction modality. Choose 'hands', 'controllers', or 'random'.")
+            first_interaction_mode_lower = first_interaction_mode.lower()
+            if first_interaction_mode_lower == 'random':
+                self.order_of_interaction_modality = random.sample([MODALITY_HANDS, MODALITY_CONTROLLERS], k=2)
+            elif first_interaction_mode_lower in [MODALITY_HANDS, MODALITY_CONTROLLERS]:
+                self.order_of_interaction_modality = [first_interaction_mode_lower,
+                                                      MODALITY_HANDS if first_interaction_mode_lower == MODALITY_CONTROLLERS else MODALITY_CONTROLLERS]
+            else:
+                raise ValueError(
+                    f"Invalid interaction modality. Choose '{MODALITY_HANDS}', '{MODALITY_CONTROLLERS}', or 'random'.")
+
+        # Set the current interact mode
         self.current_modality = self.order_of_interaction_modality[0]
 
         # Declare variables
@@ -224,6 +241,43 @@ class PuppeteeringClient:
         write_to_shared_state(client=self.nanover_client, key=KEY_GAME_STATUS, value=FINISHED)
         self.nanover_client.close()
         print('Game finished.')
+
+
+def get_interaction_modality_order(first_interaction_mode: str, order_of_tasks: list) -> list:
+    """
+    Determine the order of interaction modes based on the first interaction mode and task types in the order of tasks.
+
+    Args:
+        first_interaction_mode (str): The first interaction mode ('hands', 'controllers', or 'random').
+        order_of_tasks (list): The list of tasks to determine the condition.
+
+    Returns:
+        list: The order of interaction modes.
+
+    Raises:
+        ValueError: If the interaction mode is invalid.
+    """
+
+    first_interaction_mode_lower = first_interaction_mode.lower()
+
+    # Validate chosen interaction mode
+    valid_modalities = ['random', MODALITY_HANDS, MODALITY_CONTROLLERS]
+    if first_interaction_mode_lower not in valid_modalities:
+        raise ValueError(
+            f"Invalid interaction modality. Choose 'random', '{MODALITY_HANDS}', or '{MODALITY_CONTROLLERS}'.")
+
+    # Observer condition: Single interaction mode
+    if TASK_TRIALS_OBSERVER in order_of_tasks:
+        return [first_interaction_mode_lower] if first_interaction_mode_lower in [MODALITY_HANDS, MODALITY_CONTROLLERS] \
+            else ValueError(
+            f"Invalid interaction modality for observer condition. Choose '{MODALITY_HANDS}' or '{MODALITY_CONTROLLERS}'.")
+
+    # Hands/Controllers condition: Random or ordered sequence
+    return {
+        'random': lambda: random.sample([MODALITY_HANDS, MODALITY_CONTROLLERS], k=2),
+        MODALITY_HANDS: lambda: [MODALITY_HANDS, MODALITY_CONTROLLERS],
+        MODALITY_CONTROLLERS: lambda: [MODALITY_CONTROLLERS, MODALITY_HANDS]
+    }[first_interaction_mode_lower]()
 
 
 if __name__ == '__main__':
