@@ -69,31 +69,12 @@ class PuppeteeringClient:
         self.order_of_tasks = set_order_of_tasks(observer_trials_first)
 
         # Set order of interaction modes
-
-        # Only use one interaction mode for Interactor/Observer condition
-        if TASK_TRIALS_OBSERVER in self.order_of_tasks:
-            # Ensure the interaction mode is valid
-            first_interaction_mode_lower = first_interaction_mode.lower()
-            if first_interaction_mode_lower not in [MODALITY_HANDS, MODALITY_CONTROLLERS]:
-                raise ValueError(
-                    f"Invalid interaction modality. Choose '{MODALITY_HANDS}' or '{MODALITY_CONTROLLERS}'.")
-
-            self.order_of_interaction_modality = [first_interaction_mode_lower]
-
-        # Interaction mode will change halfway through the game for Hands/Controllers condition
-        else:
-            first_interaction_mode_lower = first_interaction_mode.lower()
-            if first_interaction_mode_lower == 'random':
-                self.order_of_interaction_modality = random.sample([MODALITY_HANDS, MODALITY_CONTROLLERS], k=2)
-            elif first_interaction_mode_lower in [MODALITY_HANDS, MODALITY_CONTROLLERS]:
-                self.order_of_interaction_modality = [first_interaction_mode_lower,
-                                                      MODALITY_HANDS if first_interaction_mode_lower == MODALITY_CONTROLLERS else MODALITY_CONTROLLERS]
-            else:
-                raise ValueError(
-                    f"Invalid interaction modality. Choose '{MODALITY_HANDS}', '{MODALITY_CONTROLLERS}', or 'random'.")
+        self.order_of_interaction_modes = get_interaction_modality_order(
+            first_interaction_mode=first_interaction_mode,
+            order_of_tasks=self.order_of_tasks)
 
         # Set the current interact mode
-        self.current_modality = self.order_of_interaction_modality[0]
+        self.current_modality = self.order_of_interaction_modes[0]
 
         # Declare variables
         self.simulations = self.nanover_client.run_command('playback/list')
