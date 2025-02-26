@@ -669,8 +669,32 @@ namespace NanoverImd.Subtle_Game
                         PlayerPrefs.SetInt(NumberOfTrialRounds, intValue);
                     }
                     break;
+
+                case "helper.refresh-simulation-box":
+                    switch (val.ToString())
+                    {
+                        // Client has requested a refresh
+                        case "True":
+                        {
+                            StartCoroutine(RefreshSimulationBox());
+                            break;
+                        } 
+                    }
+                    break;
             }
         }
+        
+        /// <summary>
+        /// Disable the simulation game object and enables it again on the next frame.
+        /// This refreshes the molecular simulation visuals if they are not there.
+        /// </summary>
+        private IEnumerator RefreshSimulationBox()
+        {
+            simulation.gameObject.SetActive(false);
+            yield return null;
+            simulation.gameObject.SetActive(true);
+        }
+            
 
         /// <summary>
         /// Writes key-value pair to the shared state with the 'Player.' identifier at the front of the key. 
