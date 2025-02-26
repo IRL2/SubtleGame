@@ -217,6 +217,7 @@ namespace NanoverImd.Subtle_Game
             public bool isIntroToSection;
             public Modality CurrentInteractionModality { get; private set; }
             public bool interactionModalityHasChanged;
+            [FormerlySerializedAs("playerInSecondSectionOfGame")] public bool playerAtStartOfSecondSection;
         #endregion
         
         #region Player Status
@@ -681,6 +682,17 @@ namespace NanoverImd.Subtle_Game
                         } 
                     }
                     break;
+                
+                case "puppeteer.second-half-of-game":
+                    switch (val.ToString())
+                    {
+                        case "True":
+                        {
+                            playerAtStartOfSecondSection = true;
+                            break;
+                        }
+                    }
+                    break;
             }
         }
         
@@ -694,7 +706,6 @@ namespace NanoverImd.Subtle_Game
             yield return null;
             simulation.gameObject.SetActive(true);
         }
-            
 
         /// <summary>
         /// Writes key-value pair to the shared state with the 'Player.' identifier at the front of the key. 

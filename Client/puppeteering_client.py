@@ -93,6 +93,8 @@ class PuppeteeringClient:
         self._wait_for_vr_client_to_connect_to_server()
         self._player_in_main_menu()
 
+        first_nanotube_task_done = False
+
         # Loop through the tasks
         for task in self.order_of_tasks:
 
@@ -101,6 +103,14 @@ class PuppeteeringClient:
             if task == TASK_NANOTUBE:
                 current_task = NanotubeTask(client=self.nanover_client, simulations=self.nanotube_sim,
                                             simulation_counter=simulation_counter)
+
+                if first_nanotube_task_done:
+                    # In the second section of the game
+                    write_to_shared_state(client=self.nanover_client, key=KEY_SECOND_HALF_OF_GAME, value=True)
+                else:
+                    # In the first section of the game
+                    write_to_shared_state(client=self.nanover_client, key=KEY_SECOND_HALF_OF_GAME, value=False)
+                    first_nanotube_task_done = True
 
             elif task == TASK_KNOT_TYING:
                 current_task = KnotTyingTask(client=self.nanover_client, simulations=self.alanine_sim,

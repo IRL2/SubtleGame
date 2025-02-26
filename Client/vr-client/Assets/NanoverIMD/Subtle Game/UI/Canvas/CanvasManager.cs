@@ -29,6 +29,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
     public class CanvasManager : MonoBehaviour
     {
         public List<GameObject> switchingInteractionModeMenus;
+        public List<GameObject> offeringBreakMenus;
 
         private SubtleGameManager _subtleGameManager;
         private List<CanvasController> _canvasControllerList;
@@ -209,6 +210,16 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
 
                     // Interaction modality is now set
                     _subtleGameManager.interactionModalityHasChanged = false;
+                }
+                
+                // Check if the player has started the second half of the game
+                if (_subtleGameManager.playerAtStartOfSecondSection)
+                {
+                    // Add break menu to current canvas
+                    LastActiveCanvas.AddMenus(offeringBreakMenus);
+
+                    // Interaction modality is now set
+                    _subtleGameManager.playerAtStartOfSecondSection = false;
                 }
             }
 
