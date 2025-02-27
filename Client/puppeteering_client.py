@@ -17,9 +17,9 @@ def set_order_of_tasks(observer_trials_first: bool):
     """ Return an ordered list of tasks for the game."""
 
     if observer_trials_first:
-        tasks_without_training = [TASK_NANOTUBE, TASK_NANOTUBE, TASK_TRIALS_OBSERVER, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_INTERACTOR]
+        tasks_without_training = [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_OBSERVER, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_INTERACTOR]
     else:
-        tasks_without_training = [TASK_TRIALS_OBSERVER]
+        tasks_without_training = [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_INTERACTOR, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_OBSERVER]
 
     order_of_tasks = []
 
