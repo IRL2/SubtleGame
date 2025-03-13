@@ -8,7 +8,7 @@ namespace NanoverIMD.Subtle_Game.UI.Visuals
         public static PassthroughManager Instance { get; private set; } // Singleton for easy access
 
         [SerializeField] private OVRPassthroughLayer passthroughLayer;
-        [SerializeField] private float fadeDuration = 1.0f; // Duration of the fade effect
+        private float fadeDuration = 2.0f; // Duration of the fade effect
 
         private Coroutine fadeCoroutine; // Tracks active coroutine
 
