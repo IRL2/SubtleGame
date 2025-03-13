@@ -521,7 +521,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca1ef20b856a6b346b3530c555a81dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passthroughLayer: {fileID: 7660847348239094321}
 --- !u!114 &1044237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1184,10 +1183,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 656991192480398139, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6406907961171276735, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ebd0272d0607e4d81047f95a1fd98c, type: 3}
 --- !u!4 &40551749 stripped
 Transform:
@@ -2877,7 +2873,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca1ef20b856a6b346b3530c555a81dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passthroughLayer: {fileID: 7660847348239094321}
 --- !u!1 &70442766
 GameObject:
   m_ObjectHideFlags: 0
@@ -7108,7 +7103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca1ef20b856a6b346b3530c555a81dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passthroughLayer: {fileID: 7660847348239094321}
 --- !u!114 &486730398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8938,7 +8932,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca1ef20b856a6b346b3530c555a81dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passthroughLayer: {fileID: 7660847348239094321}
 --- !u!114 &557454895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22747,6 +22740,7 @@ GameObject:
   - component: {fileID: 1364228086}
   - component: {fileID: 1364228087}
   - component: {fileID: 1364228090}
+  - component: {fileID: 1364228091}
   m_Layer: 0
   m_Name: GAME
   m_TagString: Untagged
@@ -22842,6 +22836,20 @@ MonoBehaviour:
   - textureType: 2
     texture: {fileID: 2100000, guid: a23312fd4dea7654c8af92cee0008327, type: 2}
   activeMaterial: 2
+--- !u!114 &1364228091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364228083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63cd8f7aa44dba64682777ca855bfdcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  passthroughLayer: {fileID: 7660847348239094321}
+  fadeDuration: 2
 --- !u!1001 &1380009020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24180,7 +24188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca1ef20b856a6b346b3530c555a81dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passthroughLayer: {fileID: 7660847348239094321}
 --- !u!114 &1422570007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29313,7 +29320,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca1ef20b856a6b346b3530c555a81dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passthroughLayer: {fileID: 7660847348239094321}
 --- !u!114 &1847266661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31289,7 +31295,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca1ef20b856a6b346b3530c555a81dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  passthroughLayer: {fileID: 7660847348239094321}
 --- !u!4 &14603505261681326
 Transform:
   m_ObjectHideFlags: 0
