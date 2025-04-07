@@ -44,7 +44,7 @@ namespace NanoverIMD.Subtle_Game.Multiplayer
         private Vector3 OffsetAbsolute => subtleGameManager.CurrentTaskType switch
         {
             SubtleGameManager.TaskTypeVal.Sandbox => new Vector3(0, -0.45f, 0),
-            SubtleGameManager.TaskTypeVal.Nanotube => new Vector3(0, -0.66f, -0.15f),
+            SubtleGameManager.TaskTypeVal.Nanotube => new Vector3(0, -0.64f, -0.64f),
             SubtleGameManager.TaskTypeVal.KnotTying => new Vector3(0, -1.68f, 0),
             SubtleGameManager.TaskTypeVal.TrialsTraining => positionAbsoluteTrials,
             SubtleGameManager.TaskTypeVal.Trials => positionAbsoluteTrials,
