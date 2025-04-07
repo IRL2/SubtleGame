@@ -218,19 +218,17 @@ namespace NanoverImd.Subtle_Game.Data_Collection
         /// </summary>
         private IEnumerator UndergoingSelection(ColorInput moleculeColor, CentreOfGeometry centreOfGeometry, Answer answer)
         {
-            // Reset the timer
-            float timer = 0f;
+            float deadline = Time.time + ColorChangeDuration;
 
             // Interpolate the color over time
-            while (timer <= ColorChangeDuration)
+            while (Time.time < deadline)
             {
+                float progress = 1 - (deadline - Time.time) / ColorChangeDuration;
+                
                 // Lerp the color of the molecule
                 moleculeColor.Node.Input.Value =
-                    Color.Lerp(_startSelectionColor, _targetColor, timer / ColorChangeDuration);
-
-                // Increment the timer
-                timer += Time.deltaTime;
-
+                    Color.Lerp(_startSelectionColor, _targetColor, progress);
+                
                 // Wait for the next frame
                 yield return null;
 
@@ -239,17 +237,14 @@ namespace NanoverImd.Subtle_Game.Data_Collection
                 {
                     break;
                 }
-                
-                // Continue if the time duration has not been reached
-                if (!(Math.Abs(timer - ColorChangeDuration) < 0.01f)) continue;
-
-                // Else, player has submitted their answer
-                _subtleGameManager.currentTrialNumber++;
-                _answer = answer;
-
-                // Ensure end colour is the desired colour
-                moleculeColor.Node.Input.Value = _endSelectionColor;
             }
+            
+            // Else, player has submitted their answer
+            _subtleGameManager.currentTrialNumber++;
+            _answer = answer;
+
+            // Ensure end colour is the desired colour
+            moleculeColor.Node.Input.Value = _endSelectionColor;
         }
 
         /// <summary>
