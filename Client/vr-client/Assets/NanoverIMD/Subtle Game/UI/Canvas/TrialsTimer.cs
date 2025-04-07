@@ -106,8 +106,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         /// </summary>
         public void StartTimer()
         {
-            _timerIsRunning = true;
             _elapsedTime = 0;
+            _timerIsRunning = true;
 
             // Make buttons pressable when the timer starts
             SetButtonsActive(true);
