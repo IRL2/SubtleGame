@@ -235,7 +235,7 @@ namespace NanoverImd.Subtle_Game.Data_Collection
                 // Break the colour-lerping loop if neither hand is inside the molecule anymore
                 if (!IsHandInsideMolecule(centreOfGeometry))
                 {
-                    break;
+                    yield break;
                 }
             }
             
