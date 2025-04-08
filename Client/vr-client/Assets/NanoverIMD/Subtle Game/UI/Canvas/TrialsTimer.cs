@@ -27,6 +27,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         [NonSerialized] public bool FinishTrialEarly;
         
         private ButtonController[] _answerNowButtons;
+        
+        private bool timerJustStarted = false;
 
         private void Start()
         {
@@ -64,6 +66,12 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 // Set buttons' states to disabled if the timer isn't running
                 SetButtonsActive(false);
                 return;
+            }
+            
+            if (timerJustStarted)
+            {
+                timerJustStarted = false;
+                return; // 🔁 Skip first frame check
             }
 
             // Allow player to press the buttons
@@ -106,8 +114,9 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         /// </summary>
         public void StartTimer()
         {
-            _timerIsRunning = true;
             _elapsedTime = 0;
+            timerJustStarted = true;
+            _timerIsRunning = true;
 
             // Make buttons pressable when the timer starts
             SetButtonsActive(true);
