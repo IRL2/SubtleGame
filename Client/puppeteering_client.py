@@ -230,6 +230,7 @@ class PuppeteeringClient:
         print("Closing the puppeteering client and ending the game.")
         write_to_shared_state(client=self.nanover_client, key=KEY_END_TIME, value=str(get_current_time_in_spain()))
         write_to_shared_state(client=self.nanover_client, key=KEY_GAME_STATUS, value=FINISHED)
+        time.sleep(1)
         self.nanover_client.close()
         print('Game finished.')
 

@@ -97,8 +97,16 @@ server_process = None
 client_process = None
 stop_event = threading.Event()  # Used to stop the output thread cleanly
 
+did_cleanup = False
+
 def cleanup(signum=None, frame=None):
     """ Gracefully stops all running processes on CTRL+C or client exit """
+    global did_cleanup
+    if did_cleanup:
+        print("Cleanup already called, skipping cleanup.")
+        return  # skip cleanup if it has already been done
+    did_cleanup = True
+
     print("\n-------------------------------------------------\nCleanup called! Stopping all running processes...")
 
     if client_process and client_process.poll() is None:
@@ -109,6 +117,8 @@ def cleanup(signum=None, frame=None):
         except subprocess.TimeoutExpired:
             print("Client did not exit in time, killing it forcefully.")
             client_process.kill()
+
+    time.sleep(3) # Wait some time before closing the server to ensure all updates have been received
 
     if server_process and server_process.poll() is None:
         print("Terminating server...")
@@ -121,11 +131,11 @@ def cleanup(signum=None, frame=None):
 
     stop_event.set()  # Signal the output thread to stop
 
-    print("All processes stopped. Exiting.")
+    print("All processes stopped. Exiting.\n-------------------------------------------------\n")
     sys.exit(0)
 
-# Register the cleanup function to catch SIGINT (CTRL+C)
-signal.signal(signal.SIGINT, cleanup)
+# Register the cleanup function to catch SIGINT (CTRL+C) -- this replaces python's KeyboardInterrupt exception
+prev_handler = signal.signal(signal.SIGINT, cleanup)
 
 def stream_subprocess_output(process):
     """ Reads subprocess output in real-time and prints it. """
@@ -134,6 +144,16 @@ def stream_subprocess_output(process):
         if output:
             print(output.strip())
             sys.stdout.flush()
+        elif process.poll() is not None:  # Exit when process is finished
+            break
+
+def stream_subprocess_error(process):
+    """ Reads subprocess output in real-time and prints it. """
+    while not stop_event.is_set():  # Stop gracefully on cleanup
+        output = process.stderr.readline()
+        if output:
+            print(output.strip())
+            sys.stderr.flush()
         elif process.poll() is not None:  # Exit when process is finished
             break
 
@@ -162,31 +182,28 @@ def run_game_with_subprocesses():
     print(f"Client started with PID: {client_process.pid}")
 
     # Stream output of puppeteering client in real time
-    print("\nPuppeteering client output:")
+    print("\n-------------------------------------------------\nPrinting output from puppeteering client, "
+          "and output & errors from the server:\n-------------------------------------------------\n")
 
-    # Start a separate thread to stream client output without blocking
+    # Start a thread to stream client output without blocking
     client_output_thread = threading.Thread(target=stream_subprocess_output, args=(client_process,))
     client_output_thread.start()
 
-    # Wait for the client process, but allow CTRL+C to break
-    while client_process.poll() is None:
-        try:
-            time.sleep(0.1)  # Check every 100ms
-        except KeyboardInterrupt:
-            print("CTRL+C event, stopping the script & cleaning up...")
-            cleanup(None, None)  # Trigger cleanup on CTRL+C
+    # Start a thread to stream server output & errors without blocking
+    server_output_thread = threading.Thread(target=stream_subprocess_output, args=(server_process,))
+    server_output_thread.start()
+    server_error_thread = threading.Thread(target=stream_subprocess_error, args=(server_process,))
+    server_error_thread.start()
 
-    client_output_thread.join()  # Ensure the output thread finishes
+    # Wait for client output to finish -- client process ended due to cleanup() or ctrl+c
+    client_output_thread.join()
 
-    # Print out any errors from the puppeteering client
-    puppeteer_errors = client_process.stderr.read().strip()
-    if puppeteer_errors:
-        print(f"Error in puppeteering client:\n{puppeteer_errors}")
+    # cleanup if it didn't already happen
+    cleanup(None, None)
 
-    # Check if we need to clean up
-    if client_process.poll() is not None:
-        print("Python client has stopped. Stopping server...")
-        cleanup(None, None)  # Cleanup once the client exits
+    # Ensure threads are closed
+    server_output_thread.join()
+    server_error_thread.join()
 
 
 if __name__ == "__main__":
