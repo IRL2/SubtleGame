@@ -181,17 +181,28 @@ def run_game_with_subprocesses():
     # Start a separate thread to stream client output without blocking
     client_output_thread = threading.Thread(target=stream_subprocess_output, args=(client_process,))
     client_output_thread.start()
+    server_output_thread = threading.Thread(target=stream_subprocess_output, args=(server_process,))
+    server_output_thread.start()
 
     # Wait for client output to finish -- client process ended due to cleanup() or ctrl+c
     client_output_thread.join()
 
-    # Print out any errors from the puppeteering client
-    puppeteer_errors = client_process.stderr.read().strip()
-    if puppeteer_errors:
-        print(f"Error in puppeteering client:\n{puppeteer_errors}")
+    # Print out any errors from the server and puppeteering client
+    print_process_errors([p for p in [server_process, client_process] if p is not None])
 
     # cleanup if it didn't already happen
     cleanup(None, None)
+
+def print_process_errors(processes):
+    """Print any stderr output from the given list of processes."""
+    for process in processes:
+        if process is not None and process.stderr:
+            errors = process.stderr.read().strip()
+            if errors:
+                print(f"\nError in process (PID {process.pid}):\n{errors}")
+
+# Usage:
+print_process_errors([server_process, client_process])
 
 
 if __name__ == "__main__":
