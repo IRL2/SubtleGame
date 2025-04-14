@@ -556,13 +556,25 @@ namespace NanoverImd.Subtle_Game
         /// </summary>
         private IEnumerator FinishTask()
         {
-            confetti.gameObject.SetActive(true);
-            confetti.StartCelebrations();
-
-            // Delay hiding simulation for a bit for the nanotube and knot-tying tasks
+            
+            // For nanotube and knot-tying tasks...
             if (CurrentTaskType is TaskTypeVal.Nanotube or TaskTypeVal.KnotTying)
             {
+                // Set off confetti first
+                confetti.gameObject.SetActive(true);
+                confetti.StartCelebrations();
+                // Wait for 1 second before showing the Outro menu
                 yield return new WaitForSeconds(1f);
+            }
+            
+            // For Trials tasks...
+            if (TaskLists.TrialsTasks.Contains(CurrentTaskType))
+            {
+                // Wait for 1 second
+                yield return new WaitForSeconds(1f);
+                // Set off the confetti with the Outro menu
+                confetti.gameObject.SetActive(true);
+                confetti.StartCelebrations();
             }
             
             // Update task status
