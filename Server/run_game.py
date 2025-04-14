@@ -96,22 +96,38 @@ server_process = None
 client_process = None
 stop_event = threading.Event()  # Used to stop the output thread cleanly
 
+did_cleanup = False
+
 def cleanup(signum=None, frame=None):
     """ Gracefully stops all running processes on CTRL+C or client exit """
+    global did_cleanup
+    if did_cleanup:
+        return  # skip cleanup if it has already been done
+    did_cleanup = True
+
     print("\n-------------------------------------------------\nCleanup called! Stopping all running processes...")
 
     if client_process and client_process.poll() is None:
         print("Terminating client...")
-        client_process.terminate()
+
+        try:
+            client_process.send_signal(signal.SIGINT)
+        except ValueError:
+            client_process.send_signal(signal.CTRL_C_EVENT)
         try:
             client_process.wait(timeout=3)  # Give it time to exit
         except subprocess.TimeoutExpired:
             print("Client did not exit in time, killing it forcefully.")
             client_process.kill()
 
+    time.sleep(3) # Wait some time before closing the server to ensure all updates have been received
+
     if server_process and server_process.poll() is None:
         print("Terminating server...")
-        server_process.terminate()
+        try:
+            server_process.send_signal(signal.SIGINT)
+        except ValueError:
+            server_process.send_signal(signal.CTRL_C_EVENT)
         try:
             server_process.wait(timeout=3)  # Give it time to exit
         except subprocess.TimeoutExpired:
@@ -123,8 +139,8 @@ def cleanup(signum=None, frame=None):
     print("All processes stopped. Exiting.")
     sys.exit(0)
 
-# Register the cleanup function to catch SIGINT (CTRL+C)
-signal.signal(signal.SIGINT, cleanup)
+# Register the cleanup function to catch SIGINT (CTRL+C) -- this replaces python's KeyboardInterrupt exception
+prev_handler = signal.signal(signal.SIGINT, cleanup)
 
 def stream_subprocess_output(process):
     """ Reads subprocess output in real-time and prints it. """
@@ -166,25 +182,16 @@ def run_game_with_subprocesses():
     client_output_thread = threading.Thread(target=stream_subprocess_output, args=(client_process,))
     client_output_thread.start()
 
-    # Wait for the client process, but allow CTRL+C to break
-    while client_process.poll() is None:
-        try:
-            time.sleep(0.1)  # Check every 100ms
-        except KeyboardInterrupt:
-            print("CTRL+C event, stopping the script & cleaning up...")
-            cleanup(None, None)  # Trigger cleanup on CTRL+C
-
-    client_output_thread.join()  # Ensure the output thread finishes
+    # Wait for client output to finish -- client process ended due to cleanup() or ctrl+c
+    client_output_thread.join()
 
     # Print out any errors from the puppeteering client
     puppeteer_errors = client_process.stderr.read().strip()
     if puppeteer_errors:
         print(f"Error in puppeteering client:\n{puppeteer_errors}")
 
-    # Check if we need to clean up
-    if client_process.poll() is not None:
-        print("Python client has stopped. Stopping server...")
-        cleanup(None, None)  # Cleanup once the client exits
+    # cleanup if it didn't already happen
+    cleanup(None, None)
 
 
 if __name__ == "__main__":
