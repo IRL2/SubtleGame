@@ -130,7 +130,7 @@ def cleanup(signum=None, frame=None):
 
     stop_event.set()  # Signal the output thread to stop
 
-    print("All processes stopped. Exiting.")
+    print("All processes stopped. Exiting.\n-------------------------------------------------\n")
     sys.exit(0)
 
 # Register the cleanup function to catch SIGINT (CTRL+C) -- this replaces python's KeyboardInterrupt exception
@@ -180,7 +180,8 @@ def run_game_with_subprocesses():
     print(f"Client started with PID: {client_process.pid}")
 
     # Stream output of puppeteering client in real time
-    print("\nPuppeteering client output:")
+    print("\n-------------------------------------------------\nPrinting output from puppeteering client, "
+          "and output & errors from the server:\n-------------------------------------------------\n")
 
     # Start a thread to stream client output without blocking
     client_output_thread = threading.Thread(target=stream_subprocess_output, args=(client_process,))
