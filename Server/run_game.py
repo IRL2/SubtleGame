@@ -7,8 +7,9 @@ from random_username.generate import generate_username
 
 # Define arguments for puppeteering client
 # To edit
-number_of_trials = 3                          # Number of trials to do per stimulus value
+number_of_trials = 5                          # Number of trials to do per stimulus value
 first_interaction_mode = 'controllers'        # Choose 'hands' or 'controllers'
+hard_condition = True                           # Choose True for HARD condition and False for SOFT
 
 # Do not edit
 player_username = generate_username()[0]
@@ -16,73 +17,50 @@ player_username = generate_username()[0]
 # Define commands
 CONDA_ENV = "subtle-game"
 PYTHON_CLIENT = "../Client/puppeteering_client.py"
-SERVER_COMMAND = [
+SERVER_COMMAND = None
+SERVER_COMMAND_SOFT = [
     "nanover-omni",
     "--name", "SubtleGame",
     "--omm",
     "..\\Inputs\\sandbox_2_C10_alkanes.xml",
     "..\\Inputs\\17-alanine.xml",
     "..\\Inputs\\nanotube-methane.xml",
-    "..\\Inputs\\ANGLE\\buckyball_angle_A_0.3.xml",
-    "..\\Inputs\\ANGLE\\buckyball_angle_A_0.625.xml",
-    "..\\Inputs\\ANGLE\\buckyball_angle_A_0.796.xml",
-    "..\\Inputs\\ANGLE\\buckyball_angle_A_0.89.xml",
-    "..\\Inputs\\ANGLE\\buckyball_angle_A_0.94.xml",
-    "..\\Inputs\\ANGLE\\buckyball_angle_A_1.06.xml",
-    "..\\Inputs\\ANGLE\\buckyball_angle_A_1.1105.xml",
-    "..\\Inputs\\ANGLE\\buckyball_angle_A_1.2036.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_A_0.588.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_B_0.588.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_A_0.727.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_B_0.727.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_A_0.78.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_B_0.78.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_A_0.838.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_B_0.838.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_A_0.899.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_B_0.899.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_A_0.965.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_B_0.965.xml",
+    "--record", player_username,
+    "--include-velocities",
+    "--include-forces"
+]
+
+SERVER_COMMAND_HARD = [
+    "nanover-omni",
+    "--name", "SubtleGame",
+    "--omm",
+    "..\\Inputs\\sandbox_2_C10_alkanes.xml",
+    "..\\Inputs\\17-alanine.xml",
+    "..\\Inputs\\nanotube-methane.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_A_1.036.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_B_1.036.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_A_1.112.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_B_1.112.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_A_1.193.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_B_1.193.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_A_1.281.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_B_1.281.xml",
     "..\\Inputs\\ANGLE\\buckyball_angle_A_1.375.xml",
-    "..\\Inputs\\ANGLE\\buckyball_angle_A_1.7.xml",
-    "..\\Inputs\\ANGLE\\buckyball_angle_B_0.3.xml",
-    "..\\Inputs\\ANGLE\\buckyball_angle_B_0.625.xml",
-    "..\\Inputs\\ANGLE\\buckyball_angle_B_0.796.xml",
-    "..\\Inputs\\ANGLE\\buckyball_angle_B_0.89.xml",
-    "..\\Inputs\\ANGLE\\buckyball_angle_B_0.94.xml",
-    "..\\Inputs\\ANGLE\\buckyball_angle_B_1.06.xml",
-    "..\\Inputs\\ANGLE\\buckyball_angle_B_1.1105.xml",
-    "..\\Inputs\\ANGLE\\buckyball_angle_B_1.2036.xml",
     "..\\Inputs\\ANGLE\\buckyball_angle_B_1.375.xml",
+    "..\\Inputs\\ANGLE\\buckyball_angle_A_1.7.xml",
     "..\\Inputs\\ANGLE\\buckyball_angle_B_1.7.xml",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.3_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.3_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.3_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.3_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.3_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.3_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.3_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.3_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.7_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.7_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.7_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.7_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.7_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.7_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.7_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.7_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.625_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.625_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.625_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.625_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.625_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.625_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.625_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.625_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.796_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.796_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.796_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.796_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.796_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.796_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.796_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.796_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.89_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.89_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.89_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.89_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.89_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.89_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.89_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.89_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.94_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.94_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.94_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_0.94_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.94_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.94_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.94_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_0.94_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.06_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.06_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.06_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.06_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.06_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.06_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.06_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.06_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.1105_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.1105_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.1105_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.1105_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.1105_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.1105_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.1105_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.1105_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.2036_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.2036_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.2036_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.2036_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.2036_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.2036_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.2036_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.2036_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.375_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.375_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.375_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_A_1.375_interactB.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.375_interactA.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.375_interactA.traj",
-    "--playback", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.375_interactB.state", "..\\Inputs\\RECORDINGS\\recording-buckyball_angle_B_1.375_interactB.traj",
     "--record", player_username,
     "--include-velocities",
     "--include-forces"
@@ -205,5 +183,10 @@ def run_game_with_subprocesses():
 
 
 if __name__ == "__main__":
+
+    if hard_condition:
+        SERVER_COMMAND = SERVER_COMMAND_HARD
+    else:
+        SERVER_COMMAND = SERVER_COMMAND_SOFT
 
     run_game_with_subprocesses()
