@@ -12,7 +12,6 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         [SerializeField] private GameObject completedIconPrefab;
         [SerializeField] private GameObject currentIconPrefab;
         [SerializeField] private GameObject nextIconPrefab;
-        [SerializeField] private GameObject switchingInteractionModePrefab;
         [SerializeField] private Transform iconsParent;
 
         private int _currentIndex = -1;
@@ -62,17 +61,6 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                         UpdateNextTaskIcon(nextTaskIconObject, task);
                         _progressChipObjects.Add(nextTaskIconObject);
                     }
-                }
-                
-                // Put icon for switching interaction mode in the center of the progress bar
-                if (_progressChipObjects.Count > 1)
-                {
-                    _centerIndex = _progressChipObjects.Count / 2;
-                    var switchingInteractionModeObj = Instantiate(switchingInteractionModePrefab, iconsParent);
-                    switchingInteractionModeObj.GetComponent<ProgressChipSwitchView>().SetInteractionMode(_subtleGameManager.CurrentInteractionModality);
-                    // Put in the middle position
-                    _progressChipObjects.Insert(_centerIndex, switchingInteractionModeObj);
-                    switchingInteractionModeObj.transform.SetSiblingIndex(_centerIndex);
                 }
             }
             else if (_currentIndex < _progressChipObjects.Count - 2) // Player is in the middle of the game
