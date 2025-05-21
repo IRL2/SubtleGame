@@ -216,7 +216,6 @@ namespace NanoverImd.Subtle_Game
         #region Interaction modality
             public bool isIntroToSection;
             public Modality CurrentInteractionModality { get; private set; }
-            public bool interactionModalityHasChanged;
         #endregion
         
         #region Player Status
@@ -614,8 +613,6 @@ namespace NanoverImd.Subtle_Game
             {
                 case "puppeteer.modality":
 
-                    var previousInteractionModality = CurrentInteractionModality;
-                    
                     CurrentInteractionModality = val.ToString() switch
                     {
                         "hands" => Modality.Hands,
@@ -623,11 +620,6 @@ namespace NanoverImd.Subtle_Game
                         _ => Modality.None
                     };
                     isIntroToSection = true;
-
-                    if (previousInteractionModality != CurrentInteractionModality)
-                    {
-                        interactionModalityHasChanged = true;
-                    }
                     
                     break;
 

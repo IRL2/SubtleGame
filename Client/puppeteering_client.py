@@ -85,7 +85,6 @@ class PuppeteeringClient:
         self.trials_sims = None
         self.num_of_trial_repeats = number_of_trial_repeats
         self.trials_sim_names = None
-        self.first_practice_sim = True
 
     def run_game(self):
 
@@ -103,16 +102,8 @@ class PuppeteeringClient:
             print('\n- Current task: ' + task)
             
             if task == TASK_NANOTUBE:
-
-                # Check if we are in the second section
-                if not self.first_practice_sim:
-                    # If yes, increment interaction modality
-                    self.current_modality = self.order_of_interaction_modality[1]
-                    write_to_shared_state(client=self.nanover_client, key=KEY_MODALITY, value=self.current_modality)
-
                 current_task = NanotubeTask(client=self.nanover_client, simulations=self.nanotube_sim,
                                             simulation_counter=simulation_counter)
-                self.first_practice_sim = False
 
             elif task == TASK_KNOT_TYING:
                 current_task = KnotTyingTask(client=self.nanover_client, simulations=self.alanine_sim,

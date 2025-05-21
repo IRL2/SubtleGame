@@ -28,8 +28,6 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
     /// </summary>
     public class CanvasManager : MonoBehaviour
     {
-        public List<GameObject> switchingInteractionModeMenus;
-
         private SubtleGameManager _subtleGameManager;
         private List<CanvasController> _canvasControllerList;
 
@@ -196,22 +194,6 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 return;
             }
             
-            // Check if player is starting a main task
-            if (_subtleGameManager.CurrentTaskType is SubtleGameManager.TaskTypeVal.Nanotube
-                or SubtleGameManager.TaskTypeVal.KnotTying || 
-                TaskLists.TrialsTasks.Contains(_subtleGameManager.CurrentTaskType))
-            {
-                // Check if the interaction mode has switched
-                if (_subtleGameManager.interactionModalityHasChanged)
-                {
-                    // Add interaction modality menus to current canvas
-                    LastActiveCanvas.AddMenus(switchingInteractionModeMenus);
-
-                    // Interaction modality is now set
-                    _subtleGameManager.interactionModalityHasChanged = false;
-                }
-            }
-
             // Start with the first menu
             foreach (var obj in LastActiveCanvas.orderedListOfMenus)
             {
