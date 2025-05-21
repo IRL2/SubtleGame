@@ -1887,7 +1887,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1993769644905264480, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1998808054203206434, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
       propertyPath: _borderColor.a
@@ -1992,6 +1992,10 @@ PrefabInstance:
     - target: {fileID: 2598862710855564112, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
       propertyPath: _borderOuterRadius
       value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953067046899579480, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3141667847591888350, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
       propertyPath: m_Sprite
@@ -2280,7 +2284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7846966433404695310, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 33
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 8794878572690766803, guid: 9737cc0326e146c4184ab5f2deec733d, type: 3}
       propertyPath: _hoverColorState.Color.a
@@ -3301,7 +3305,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 109.99994, y: 392.00024}
+  m_AnchoredPosition: {x: -382.7, y: 392.00024}
   m_SizeDelta: {x: 800, y: 300}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &94677945
@@ -3324,7 +3328,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press the index trigger and move the controller to pull the atom
+  m_text: Press the index trigger to pull an atom
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
   m_sharedMaterial: {fileID: 1493041879290801791, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
@@ -8575,7 +8579,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &613821246
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8969,7 +8973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &658952715
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9009,7 +9013,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Use your hands or the controller
+  m_text: Practice interacting with the molecules
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
   m_sharedMaterial: {fileID: 1493041879290801791, guid: 325cb2544a4434944babe468f7baad9a, type: 2}
@@ -9584,7 +9588,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 507, y: 823.00024}
+  m_AnchoredPosition: {x: 0, y: 823.00024}
   m_SizeDelta: {x: 500, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &672547533
@@ -10992,6 +10996,18 @@ PrefabInstance:
       propertyPath: m_text
       value: Tying a molecular knot
       objectReference: {fileID: 0}
+    - target: {fileID: 6652241100628516156, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_text
+      value: Mini game complete
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652241100628516156, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_fontSize
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652241100628516156, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 7214045676631728308, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: canvasType
       value: 4
@@ -11506,7 +11522,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &804737178
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13317,7 +13333,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1993769644905264480, guid: 1de8cde62e894ad49911c106eb9e3f77, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2243158465863842232, guid: 1de8cde62e894ad49911c106eb9e3f77, type: 3}
       propertyPath: _normalColorState.Color.a
@@ -13344,8 +13360,16 @@ PrefabInstance:
       value: Training complete
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 1de8cde62e894ad49911c106eb9e3f77, type: 3}
+      propertyPath: m_fontSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159508871465649981, guid: 1de8cde62e894ad49911c106eb9e3f77, type: 3}
       propertyPath: m_margin.w
       value: 128.1672
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159508871465649981, guid: 1de8cde62e894ad49911c106eb9e3f77, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4481881943320021765, guid: 1de8cde62e894ad49911c106eb9e3f77, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -13649,7 +13673,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1008769423
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13856,7 +13880,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1028414264
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13931,7 +13955,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1030798949
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21427,6 +21451,18 @@ PrefabInstance:
       propertyPath: m_text
       value: Methane through a nanotube
       objectReference: {fileID: 0}
+    - target: {fileID: 6652241100628516156, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_text
+      value: Mini game complete
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652241100628516156, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_fontSize
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652241100628516156, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 7214045676631728308, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: canvasType
       value: 2
@@ -22416,6 +22452,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Thanks for playing & contributing to this research!
       objectReference: {fileID: 0}
+    - target: {fileID: 6810533964266124207, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_text
+      value: Game finished
+      objectReference: {fileID: 0}
     - target: {fileID: 7214045676631728308, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: canvasType
       value: 3
@@ -22598,7 +22638,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9098190041061289825, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -24684,7 +24724,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -273, y: 139}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1595060232
@@ -26379,11 +26419,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6652241100628516156, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_text
-      value: Task completed!
+      value: Mini game complete
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652241100628516156, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_fontSize
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 6652241100628516156, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_margin.w
       value: 128.1672
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652241100628516156, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652241100628516156, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6896215808809296414, guid: 4be29d3cb086d8540a6175a41e05b7f4, type: 3}
       propertyPath: m_Name
@@ -28368,7 +28420,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2015794615
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28826,7 +28878,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2062249744
 RectTransform:
   m_ObjectHideFlags: 0
@@ -36549,11 +36601,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       propertyPath: m_text
-      value: 'You will do two trials before moving on from the training
+      value: 'Complete 2 trials to finish the training
 
 
-        To
-        your right, there will be a timer and an orange button (press to answer early)'
+        To your right, there
+        will be a timer and a button to answer early'
       objectReference: {fileID: 0}
     - target: {fileID: 4159508871465649981, guid: 0c070c30816cf8b469d5ccc070334d57, type: 3}
       propertyPath: m_fontSize
