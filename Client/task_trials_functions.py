@@ -153,19 +153,26 @@ def get_main_task_simulations(simulations, num_repeats, observer_condition):
     if not unique_multipliers:
         return []  # No valid multipliers found
 
-    # Store max and min values to exclude them from the main task
+    # Store practice simulation multipliers to exclude them from the main task
     max_multiplier = max(unique_multipliers)
     min_multiplier = min(unique_multipliers)
+    if min_multiplier > 1.0 and max_multiplier > 1.0:
+        # HARD condition, get the largest multiplier
+        multipliers_to_exclude = {max_multiplier}
+    else:
+        # SOFT condition, get the smallest multiplier
+        multipliers_to_exclude = {min_multiplier}
 
     main_task_sims = []
 
     for multiplier in unique_multipliers:
-        # Skip max/min multipliers since they are only for the training
-        if multiplier in {max_multiplier, min_multiplier}:
+        # Skip multipliers for practice simulations
+        if multiplier in multipliers_to_exclude:
             continue
 
         # Get simulations for this multiplier
         corresponding_sims = get_simulations_for_multiplier(simulations, multiplier, observer_condition)
+        print(f"Simulations found: {corresponding_sims}")
 
         # Select `num_repeats` random simulations if available
         if observer_condition:
