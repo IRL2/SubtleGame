@@ -9,7 +9,7 @@ from random_username.generate import generate_username
 # To edit
 number_of_trials = 5                          # Number of trials to do per stimulus value
 first_interaction_mode = 'controllers'        # Choose 'hands' or 'controllers'
-hard_condition = True                           # Choose True for HARD condition and False for SOFT
+hard_condition = False                           # Choose True for HARD condition and False for SOFT
 
 # Do not edit
 player_username = generate_username()[0]
