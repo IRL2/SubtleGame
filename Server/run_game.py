@@ -7,7 +7,7 @@ from random_username.generate import generate_username
 
 # Define arguments for puppeteering client
 # To edit
-number_of_trials = 3                          # Number of trials to do per stimulus value
+number_of_trials = 5                          # Number of trials to do per stimulus value
 first_interaction_mode = 'controllers'        # Choose 'hands' or 'controllers'
 observer_trials_first = False                  # Set to True or False
 
