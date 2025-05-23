@@ -55,7 +55,9 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         /// The Subtle Game Manager.
         /// </summary>
         private SubtleGameManager _subtleGameManager;
-
+        
+        private bool updateSetIndexAfterNextTrial;
+        
         private void Start()
         {
             _subtleGameManager = FindObjectOfType<SubtleGameManager>();
@@ -97,7 +99,10 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             }
 
             UpdateScoreCalculations(state);
-
+            
+            // Only update the set index after the first trial in the set
+            if (updateSetIndexAfterNextTrial) UpdateSetIndexForUI();
+            
             // Check if this was the final one in the set (i.e. the max icon index)
             if (_setTrialIndex == trialsTaskIcons.Count)
             {
@@ -120,12 +125,21 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             else
             {
                 _setIndex++;
-                var indexForUI = _setIndex + 1;
-                PlayerPrefs.SetFloat(CurrentRound, indexForUI);
             }
             
             // Reset variables
             _setTrialIndex = 0;
+            updateSetIndexAfterNextTrial = true;
+        }
+        
+        /// <summary>
+        /// Updates the set index written on the UI. This is called after the first trial in the new set.
+        /// </summary>
+        private void UpdateSetIndexForUI()
+        {
+            var indexForUI = _setIndex + 1;
+            PlayerPrefs.SetFloat(CurrentRound, indexForUI);
+            updateSetIndexAfterNextTrial = false;
         }
 
         /// <summary>
