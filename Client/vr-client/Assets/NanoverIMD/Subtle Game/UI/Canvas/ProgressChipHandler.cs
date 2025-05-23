@@ -81,9 +81,6 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
 
                 // Replace current task with completed
                 UpdateCurrentTaskToCompleted(_progressChipObjects[_currentIndex], _currentIndex);
-                
-                // Skip the icon for switching interaction modes
-                if (_currentIndex == _centerIndex - 1) _currentIndex++;
 
                 // Replace next task with current
                 var nextTaskIndex = _currentIndex + 1;

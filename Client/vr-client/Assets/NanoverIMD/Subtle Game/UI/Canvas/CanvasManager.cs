@@ -202,15 +202,6 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 or SubtleGameManager.TaskTypeVal.KnotTying || 
                 TaskLists.TrialsTasks.Contains(_subtleGameManager.CurrentTaskType))
             {
-                // Check if the interaction mode has switched
-                if (_subtleGameManager.interactionModalityHasChanged)
-                {
-                    // Add interaction modality menus to current canvas
-                    LastActiveCanvas.AddMenus(switchingInteractionModeMenus);
-
-                    // Interaction modality is now set
-                    _subtleGameManager.interactionModalityHasChanged = false;
-                }
                 
                 // Check if the player has started the second half of the game
                 if (_subtleGameManager.playerAtStartOfSecondSection)
