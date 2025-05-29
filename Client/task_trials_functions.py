@@ -146,6 +146,8 @@ def get_main_task_simulations(simulations, num_repeats, observer_condition):
     Returns:
     - list: A shuffled list of the main task simulations.
     """
+    print("WARNING: Hardcoded the number of repeats for each multiplier to be 5.")
+    num_repeats = 5
 
     # Get unique multipliers
     get_multipliers_func = get_unique_multipliers_recordings if observer_condition else get_unique_multipliers
@@ -167,6 +169,7 @@ def get_main_task_simulations(simulations, num_repeats, observer_condition):
 
     main_task_sims = []
 
+    print("Searching for Main task simulations:")
     for multiplier in unique_multipliers:
 
         # Skip multipliers for practice simulations
@@ -175,31 +178,22 @@ def get_main_task_simulations(simulations, num_repeats, observer_condition):
 
         # Get simulations for this multiplier
         corresponding_sims = get_simulations_for_multiplier(simulations, multiplier, observer_condition)
-        print(f"Main task simulations found: {corresponding_sims}")
+        print(f"For {multiplier}, found: {corresponding_sims}")
 
         # Get simulations for this multiplier
         corresponding_sims = get_simulations_for_multiplier(simulations, multiplier, observer_condition)
 
         # Select `num_repeats` random simulations if available
         if observer_condition:
-            # Sample without replacement
-            main_task_sims.extend(random.sample(corresponding_sims, k=min(num_repeats,
-                                                                          len(corresponding_sims))) if corresponding_sims else [])
+            main_task_sims.extend(corresponding_sims) # add all recordings once
+            main_task_sims.extend(random.choices(corresponding_sims, k=1)) # add another randomly chosen recording to bring total up to 5
         else:
             # Sample with replacement
             main_task_sims.extend(random.choices(corresponding_sims, k=num_repeats) if corresponding_sims else [])
 
     # If no simulations were found, use the training simulations instead
     if not main_task_sims:
-        print("No valid main task simulations found. Using training simulations instead for a shorter game.")
-
-        max_sims = get_simulations_for_multiplier(simulations, max_multiplier, observer_condition)
-        min_sims = get_simulations_for_multiplier(simulations, min_multiplier, observer_condition)
-
-        # Randomly select from max/min multipliers
-        fallback_sims = random.choices(max_sims, k=1) + random.choices(min_sims, k=num_repeats)
-
-        main_task_sims.extend(fallback_sims)
+        raise Exception('No main task simulations found')
 
     # Shuffle order of main simulations
     random.shuffle(main_task_sims)
