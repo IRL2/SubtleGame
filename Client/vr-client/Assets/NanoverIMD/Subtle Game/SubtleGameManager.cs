@@ -216,6 +216,8 @@ namespace NanoverImd.Subtle_Game
         #region Interaction modality
             public bool isIntroToSection;
             public Modality CurrentInteractionModality { get; private set; }
+
+            [NonSerialized] public bool playerAtStartOfSecondSection;
         #endregion
         
         #region Player Status
@@ -672,6 +674,14 @@ namespace NanoverImd.Subtle_Game
                     {
                         PlayerPrefs.SetInt(NumberOfTrialRounds, intValue);
                     }
+                    break;
+                
+                case "puppeteer.second-half-of-game":
+                    playerAtStartOfSecondSection = val.ToString() switch
+                    {
+                        "True" => true,
+                        _ => playerAtStartOfSecondSection
+                    };
                     break;
             }
         }

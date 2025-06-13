@@ -28,6 +28,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
     /// </summary>
     public class CanvasManager : MonoBehaviour
     {
+        [SerializeField] private List<GameObject> menuOfferingBreak;
+        
         private SubtleGameManager _subtleGameManager;
         private List<CanvasController> _canvasControllerList;
 
@@ -192,6 +194,22 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             {
                 Debug.LogWarning("Desired menu canvas wasn't found.");
                 return;
+            }
+            
+            // Check if player is starting a main task
+            if (_subtleGameManager.CurrentTaskType is SubtleGameManager.TaskTypeVal.Nanotube
+                    or SubtleGameManager.TaskTypeVal.KnotTying || 
+                TaskLists.TrialsTasks.Contains(_subtleGameManager.CurrentTaskType))
+            {
+                // Check if the player has started the second half of the game
+                if (_subtleGameManager.playerAtStartOfSecondSection)
+                {
+                    // Add break menu to current canvas
+                    LastActiveCanvas.AddMenus(menuOfferingBreak);
+
+                    // Interaction modality is now set
+                    _subtleGameManager.playerAtStartOfSecondSection = false;
+                }
             }
             
             // Start with the first menu
