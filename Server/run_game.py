@@ -4,6 +4,7 @@ import signal
 import sys
 import threading
 from random_username.generate import generate_username
+from Client.standardised_values import SERVER_NAME
 
 # Define arguments for puppeteering client
 # To edit
@@ -18,7 +19,7 @@ CONDA_ENV = "subtle-game"
 PYTHON_CLIENT = "../Client/puppeteering_client.py"
 SERVER_COMMAND = [
     "nanover-omni",
-    "--name", "SubtleGame",
+    "--name", SERVER_NAME,
     "--omm",
     "..\\Inputs\\sandbox_2_C10_alkanes.xml",
     "..\\Inputs\\17-alanine.xml",
