@@ -181,5 +181,9 @@ namespace NanoverImd.Interaction
 
             return bestParticleIndex;
         }
+
+        public void HoverParticleGrab(Transformation grabber)
+        {
+        }
     }
 }
