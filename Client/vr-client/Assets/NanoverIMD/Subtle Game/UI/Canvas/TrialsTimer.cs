@@ -18,11 +18,11 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         [SerializeField] private Image timerImage;
         [SerializeField] private TextMeshProUGUI timerLabel;
 
-        private bool _timerIsRunning;
-        private float _elapsedTime;
-        private float _durationTrials;
-        private float _durationTrialsTraining;
-        private float _duration;
+        private bool _timerIsRunning = false;
+        private float _elapsedTime = 0;
+        private float _durationTrials = 30;
+        private float _durationTrialsTraining = 30;
+        private float _duration = 30;
 
         [NonSerialized] public bool FinishTrialEarly;
         
@@ -114,6 +114,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
         /// </summary>
         public void StartTimer()
         {
+            if (fastForwardTimerCoroutine != null) StopCoroutine(fastForwardTimerCoroutine);
+            
             _elapsedTime = 0;
             timerJustStarted = true;
             _timerIsRunning = true;
@@ -122,6 +124,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             SetButtonsActive(true);
         }
 
+        private Coroutine fastForwardTimerCoroutine; 
+        
         /// <summary>
         /// Called when the timer has stopped and player is making their selection.
         /// </summary>
@@ -130,7 +134,7 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
             subtleGameManager.DurationOfTrial = timeElapsed;
             _timerIsRunning = false;
             subtleGameManager.FinishCurrentTrial();
-            StartCoroutine(AnimateTimerToZero());
+            fastForwardTimerCoroutine = StartCoroutine(AnimateTimerToZero());
 
             // Set buttons' states to disabled once the timer ends
             SetButtonsActive(false);
@@ -147,6 +151,8 @@ namespace NanoverIMD.Subtle_Game.UI.Canvas
                 UpdateTimerVisuals();
                 yield return new WaitForSeconds(0.01f);
             }
+
+            fastForwardTimerCoroutine = null;
         }
 
         /// <summary>
