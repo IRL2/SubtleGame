@@ -13,10 +13,10 @@ import argparse
 import random
 
 
-def set_order_of_tasks(observer_trials_first: bool):
+def set_order_of_tasks(observer_first: bool):
     """ Return an ordered list of tasks for the game."""
 
-    if observer_trials_first:
+    if observer_first:
         tasks_without_training = [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_OBSERVER, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_INTERACTOR]
     else:
         tasks_without_training = [TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_INTERACTOR, TASK_NANOTUBE, TASK_KNOT_TYING, TASK_TRIALS_OBSERVER]
@@ -52,7 +52,7 @@ class PuppeteeringClient:
     logic for the Subtle Game."""
 
     def __init__(self,
-                 observer_trials_first: bool,
+                 obs_first: bool,
                  username: str = "Guest",
                  number_trials_per_stimulus_value: int = 1,
                  first_interaction_mode: str = 'random'):
@@ -66,7 +66,7 @@ class PuppeteeringClient:
         self.nanover_client.update_available_commands()
 
         # Set order of tasks
-        self.order_of_tasks = set_order_of_tasks(observer_trials_first)
+        self.order_of_tasks = set_order_of_tasks(obs_first)
 
         # Set order of interaction modes
         self.order_of_interaction_modes = get_interaction_modality_order(
@@ -306,7 +306,7 @@ if __name__ == '__main__':
 
     # Create puppeteering client
     puppeteering_client = PuppeteeringClient(
-        observer_trials_first=observer_trials_first,
+        obs_first=observer_trials_first,
         username=player_username,
         number_trials_per_stimulus_value=number_of_repeats,
         first_interaction_mode=first_modality
