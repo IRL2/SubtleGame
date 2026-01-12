@@ -17,16 +17,13 @@ namespace NanoverImd.Interaction
     /// </summary>
     public class InteractableScene : MonoBehaviour, IInteractableParticles
     {
-        [Header("The provider of the frames which can be grabbed.")]
-        [SerializeField]
+        [Header("The provider of the frames which can be grabbed.")] [SerializeField]
         private SynchronisedFrameSource frameSource;
 
-        [Header("The object which provides the selection information.")]
-        [SerializeField]
+        [Header("The object which provides the selection information.")] [SerializeField]
         private VisualisationScene visualisationScene;
 
-        [SerializeField]
-        private NanoverImdSimulation simulation;
+        [SerializeField] private NanoverImdSimulation simulation;
 
         public enum InteractionTarget
         {
@@ -36,8 +33,7 @@ namespace NanoverImd.Interaction
 
         private Element _hydrogenElement = Element.Hydrogen;
 
-        [SerializeField]
-        private InteractionTarget interactionTarget = InteractionTarget.Single;
+        [SerializeField] private InteractionTarget interactionTarget = InteractionTarget.Single;
 
         public SynchronisedFrameSource GetFrameSource()
         {
@@ -54,7 +50,7 @@ namespace NanoverImd.Interaction
         {
             SetInteractionTarget(InteractionTarget.Single);
         }
-        
+
         public void SetInteractionTargetResidue()
         {
             SetInteractionTarget(InteractionTarget.Residue);
@@ -87,7 +83,7 @@ namespace NanoverImd.Interaction
 
             if (!particleIndex.HasValue)
                 return null;
-            
+
             var selection = visualisationScene.GetSelectionForParticle(particleIndex.Value);
 
             if (selection.Selection.InteractionMethod == ParticleSelection.InteractionMethodNone)
@@ -101,7 +97,12 @@ namespace NanoverImd.Interaction
             return grab;
         }
 
-        private IEnumerable<int> GetInteractionIndices(int particleIndex)
+        public void HoverParticleGrab(Transformation grabber)
+        {
+            
+        }
+
+    private IEnumerable<int> GetInteractionIndices(int particleIndex)
         {
             switch (interactionTarget)
             {

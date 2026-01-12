@@ -13,9 +13,9 @@
       "source": "registry",
       "dependencies": {
         "com.meta.xr.sdk.core": "65.0.0",
+        "com.unity.textmeshpro": "3.0.6",
         "com.unity.ai.navigation": "1.1.4",
-        "com.unity.nuget.newtonsoft-json": "3.0.2",
-        "com.unity.textmeshpro": "3.0.6"
+        "com.unity.nuget.newtonsoft-json": "3.0.2"
       },
       "url": "https://packages.unity.com"
     },
@@ -24,15 +24,15 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.meta.xr.mrutilitykit": "65.0.0",
-        "com.meta.xr.sdk.audio": "65.0.0",
         "com.meta.xr.sdk.core": "65.0.0",
-        "com.meta.xr.sdk.haptics": "65.0.0",
-        "com.meta.xr.sdk.interaction": "65.0.0",
-        "com.meta.xr.sdk.interaction.ovr": "65.0.0",
-        "com.meta.xr.sdk.platform": "65.0.0",
+        "com.meta.xr.sdk.audio": "65.0.0",
         "com.meta.xr.sdk.voice": "65.0.0",
-        "com.meta.xr.simulator": "65.0.0"
+        "com.meta.xr.simulator": "65.0.0",
+        "com.meta.xr.sdk.haptics": "65.0.0",
+        "com.meta.xr.mrutilitykit": "65.0.0",
+        "com.meta.xr.sdk.platform": "65.0.0",
+        "com.meta.xr.sdk.interaction": "65.0.0",
+        "com.meta.xr.sdk.interaction.ovr": "65.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -64,8 +64,8 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.textmeshpro": "3.0.6",
-        "com.unity.ugui": "1.0.0"
+        "com.unity.ugui": "1.0.0",
+        "com.unity.textmeshpro": "3.0.6"
       },
       "url": "https://packages.unity.com"
     },
@@ -84,8 +84,8 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.meta.xr.sdk.core": "65.0.0",
-        "com.unity.ugui": "1.0.0"
+        "com.unity.ugui": "1.0.0",
+        "com.meta.xr.sdk.core": "65.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -251,9 +251,9 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
+        "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.director": "1.0.0",
         "com.unity.modules.animation": "1.0.0",
-        "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.particlesystem": "1.0.0"
       },
       "url": "https://packages.unity.com"
@@ -291,14 +291,14 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
+        "com.unity.ugui": "1.0.0",
         "com.unity.inputsystem": "1.7.0",
         "com.unity.mathematics": "1.2.6",
-        "com.unity.ugui": "1.0.0",
-        "com.unity.xr.core-utils": "2.2.3",
-        "com.unity.xr.legacyinputhelpers": "2.1.10",
         "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.imgui": "1.0.0",
-        "com.unity.modules.physics": "1.0.0"
+        "com.unity.xr.core-utils": "2.2.3",
+        "com.unity.modules.physics": "1.0.0",
+        "com.unity.xr.legacyinputhelpers": "2.1.10"
       },
       "url": "https://packages.unity.com"
     },
@@ -317,9 +317,9 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.modules.subsystems": "1.0.0",
         "com.unity.modules.vr": "1.0.0",
         "com.unity.modules.xr": "1.0.0",
+        "com.unity.modules.subsystems": "1.0.0",
         "com.unity.xr.legacyinputhelpers": "2.1.7"
       },
       "url": "https://packages.unity.com"
@@ -338,7 +338,7 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {},
-      "url": "https://unitynuget-registry.azurewebsites.net"
+      "url": "https://unitynuget-registry.openupm.com"
     },
     "org.nuget.system.io.pipelines": {
       "version": "7.0.0",
@@ -349,7 +349,7 @@
         "org.nuget.system.memory": "4.5.5",
         "org.nuget.system.threading.tasks.extensions": "4.5.4"
       },
-      "url": "https://unitynuget-registry.azurewebsites.net"
+      "url": "https://unitynuget-registry.openupm.com"
     },
     "org.nuget.system.memory": {
       "version": "4.5.5",
@@ -360,21 +360,21 @@
         "org.nuget.system.numerics.vectors": "4.4.0",
         "org.nuget.system.runtime.compilerservices.unsafe": "4.5.3"
       },
-      "url": "https://unitynuget-registry.azurewebsites.net"
+      "url": "https://unitynuget-registry.openupm.com"
     },
     "org.nuget.system.numerics.vectors": {
       "version": "4.4.0",
       "depth": 2,
       "source": "registry",
       "dependencies": {},
-      "url": "https://unitynuget-registry.azurewebsites.net"
+      "url": "https://unitynuget-registry.openupm.com"
     },
     "org.nuget.system.runtime.compilerservices.unsafe": {
       "version": "4.5.3",
       "depth": 2,
       "source": "registry",
       "dependencies": {},
-      "url": "https://unitynuget-registry.azurewebsites.net"
+      "url": "https://unitynuget-registry.openupm.com"
     },
     "org.nuget.system.threading.tasks.extensions": {
       "version": "4.5.4",
@@ -383,7 +383,7 @@
       "dependencies": {
         "org.nuget.system.runtime.compilerservices.unsafe": "4.5.3"
       },
-      "url": "https://unitynuget-registry.azurewebsites.net"
+      "url": "https://unitynuget-registry.openupm.com"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
