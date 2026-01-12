@@ -52,6 +52,12 @@ git submodule sync
 git submodule update --init --recursive --remote
 ```
 
+Please note that you may run into dependency issues if you open the VR client in Unity *before* syncing and updating the 
+submodule.
+If this happens, you can either fix the dependencies manually or re-clone the repo and update run the two commands
+above to configure the submodule before opening the project in Unity. 
+
+
 ### Setting up the game manager
 
 The game is handled by a python script that is referred to as the 'puppeteering client' and can be found here: [Client/puppeteering_client.py](Client/puppeteering_client.py). To run this script you will first need to follow these instructions:
