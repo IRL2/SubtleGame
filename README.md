@@ -20,21 +20,28 @@
 ## Running a game
 
 1. **Run the server & puppeteering client using a pre-prepared script**:
+
    1. You can do this via a powershell terminal or your favourite IDE:
       1. Activate your `subtle-game` conda environment.
       2. Navigate to the [Server directory](Server). 
-      3. Start the game with the dedicated [script](Server/run_game.py), e.g.: `python run_game_with_processes.py`
+      3. Start the game with the dedicated [script](Server/run_game.py), e.g.: `python run_game.py`
 
-2. **Run the VR client**:
-   1. If using the Unity Editor, open **Oculus Link** or **Air Link** from inside your Oculus headset, then open **Unity** and **click play** to start the game.
-   2. If using the apk, install the apk on your Quest headset and open the Subtle Game app (note that this will be under "Unknown Sources" in the app directory).
+2. **Run the VR app**:
+
+   1. If using the Unity Editor, open **Oculus Link** or **Air Link** from inside your Oculus headset, then open 
+      **Unity** and **click play** to start the game.
+   2. If using the apk, install the apk on your Quest headset and open the Subtle Game app (note that this may be 
+      under "Unknown Sources" in the app directory).
    
 -----
 
-IMPORTANT NOTE: both the VR client and python client are hardcoded to connect to a locally-running server called "SubtleGame". 
+**IMPORTANT NOTE:** both the VR app and python client are hardcoded to connect to a locally-running server called 
+`SubtleGame`. 
 This will cause issues if you are on the same network as another person who is also running the game. 
-If you want to change the server name, you need to change this in the [VR client](Client/vr-client/Assets/NanoverIMD/Subtle%20Game/SubtleGameManager.cs) and the [puppeteering client](Client/puppeteering_client.py), 
-and then type modify the `--name` field in the server command.
+If you want to change the server name, you 
+need to change this in the [VR client](Client/vr-client/Assets/NanoverIMD/Subtle%20Game/SubtleGameManager.cs) 
+and the [puppeteering client](Client/puppeteering_client.py), 
+and then modify the `--name` field in the server command in [this script](Server/run_game.py).
 
 -----
 
@@ -46,27 +53,41 @@ and then type modify the `--name` field in the server command.
 2. Ensure that you have [git](https://github.com/git-guides/install-git) installed.
 3. Navigate to the local directory where you want the SubtleGame git repo.
 4. Clone the repo with `git clone paste-repo-URL-here`.
-5. Navigate into the repo with `cd .\SubtleGame\` and run the following commands to update the [NanoverUnityPlugin](https://github.com/IRL2/NanoverUnityPlugin) submodule:
-```
-git submodule sync
-git submodule update --init --recursive --remote
-```
+5. Navigate into the repo with `cd .\SubtleGame\` and run the following commands to update the 
+   [NanoverUnityPlugin](https://github.com/IRL2/NanoverUnityPlugin) submodule:
+
+    ```
+    git submodule sync
+    git submodule update --init --recursive --remote
+    ```
 
 ### Setting up the game manager
 
-The game is handled by a python script that is referred to as the 'puppeteering client' and can be found here: [Client/puppeteering_client.py](Client/puppeteering_client.py). To run this script you will first need to follow these instructions:
+The game is handled by a python script that is referred to as the 'puppeteering client' and can be found here: 
+[Client/puppeteering_client.py](Client/puppeteering_client.py). 
+To run this script you will first need to follow these instructions:
+
 1. Install Conda through whichever program you prefer, e.g., [Miniforge](https://github.com/conda-forge/miniforge).
-2. Open a Windows Powershell terminal (or whichever terminal you have conda installed in) and run the following commands to create a Conda environment called `subtle-game` & install the `nanover-server` [package](https://github.com/IRL2/nanover-server-py), then activate that environment:
+2. Open a Windows Powershell terminal (or whichever terminal you have conda installed in) and run the following 
+   commands to create a Conda environment called `subtle-game` & install the `nanover-server` 
+   [package](https://github.com/IRL2/nanover-server-py), then activate that environment:
+
     ```
     conda create -n subtle-game -c irl -c conda-forge nanover-server=0.1.2811
     conda activate subtle-game
     ```
+
 3. Navigate to the Subtle Game repo directory and install the required packages using pip:
+
     ```
     pip install -r .\requirements.txt
     ```
-    This will install the following packages in your conda environment: [Numpy](https://anaconda.org/anaconda/numpy), [Random-Username](https://pypi.org/project/random-username/), [Knot-Pull](https://github.com/dzarmola/knot_pull), and [pytz](https://pypi.org/project/pytz/).
-4. Open the `SubtleGame` directory in your favourite Python IDE, select the `subtle-game` conda environment as your python interpreter and set the `SubtleGame` directory to be the root.
+
+    This will install the following packages in your conda environment: [Numpy](https://anaconda.org/anaconda/numpy), 
+    [Random-Username](https://pypi.org/project/random-username/), [Knot-Pull](https://github.com/dzarmola/knot_pull),
+    and [pytz](https://pypi.org/project/pytz/).
+4. Open the `SubtleGame` directory in your favourite Python IDE, select the `subtle-game` conda environment as your 
+   python interpreter and set the `SubtleGame` directory to be the root.
 
 ### Setting up the VR client
 
