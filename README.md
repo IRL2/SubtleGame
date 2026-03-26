@@ -58,7 +58,7 @@ The game is handled by a python script that is referred to as the 'puppeteering 
 1. Install Conda through whichever program you prefer, e.g., [Miniforge](https://github.com/conda-forge/miniforge).
 2. Open a Windows Powershell terminal (or whichever terminal you have conda installed in) and run the following commands to create a Conda environment called `subtle-game` & install the `nanover-server` [package](https://github.com/IRL2/nanover-server-py), then activate that environment:
     ```
-    conda create -n subtle-game -c irl -c conda-forge nanover-server
+    conda create -n subtle-game -c irl -c conda-forge nanover-server=0.1.2811
     conda activate subtle-game
     ```
 3. Navigate to the Subtle Game repo directory and install the required packages using pip:
